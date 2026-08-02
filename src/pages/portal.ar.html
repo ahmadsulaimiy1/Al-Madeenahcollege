@@ -1,0 +1,106 @@
+<div class="portal">
+  <nav class="portal__nav" id="nav" aria-label="بوابة الحرم">
+    <a class="lockup" href="/ar/">
+      <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+        <circle cx="40" cy="40" r="28" fill="none" stroke="currentColor" stroke-width="1.25" opacity=".55"/>
+        <path d="M36.6 12h6.8l-.9 56h-5z" fill="currentColor"/>
+        <path d="M28 68h24" stroke="currentColor" stroke-width="1.25" opacity=".55"/>
+        <path d="M58 63l5 5-5 5-5-5z" fill="currentColor"/>
+      </svg>
+      <span><span class="lockup__ar" lang="ar" dir="rtl">كلية المدينة</span>
+      <span class="lockup__en">بوابة الحرم</span></span>
+    </a>
+    <ul>
+      <li><a href="/ar/portal/" aria-current="page">اليوم</a></li>
+      <li><a href="/ar/portal/#study">الدراسة</a></li>
+      <li><a href="/ar/portal/#progress">التقدّم</a></li>
+      <li><a href="/ar/portal/#people">الأشخاص</a></li>
+      <li><a href="/ar/portal/#library">المكتبة</a></li>
+      <li><a href="/ar/portal/#money">المال</a></li>
+      <li><a href="/ar/portal/#help">المساعدة</a></li>
+    </ul>
+    <p class="grp">تسجيل الدخول باسم</p>
+    <ul><li><a href="/ar/signin/">طالب توضيحي · خروج</a></li></ul>
+    <p class="grp">اللغة</p>
+    <ul><li><a href="/ar/portal/" lang="en" dir="ltr">English</a></li></ul>
+  </nav>
+
+  <main class="portal__main" id="main">
+    <div class="callout" style="margin-top:0">
+      <span class="callout__k">معاينة تصميمية — ليست حسابًا حقيقيًّا</span>
+      <p>Every figure below is <strong>illustrative</strong>. No student, teacher, enrolment,
+        payment or certificate on this page is real, and none is stored. Authentication is not
+        connected.</p>
+    </div>
+
+    <span class="module-marker">اليوم</span>
+    <h1 class="h1">سبعُ واجهات، وتنقّلٌ واحد.</h1>
+    <p class="lead">A parent is not a different portal. A teacher is not a different portal. An
+      alumnus is not a different portal. Each is a person holding a relationship to the College,
+      and this one system composes them.</p>
+
+    <div class="panel">
+      <div class="panel__h"><h3>حصّتك القادمة</h3><span class="pill pill--info">توضيحي</span></div>
+      <table class="ledger" style="margin-top:0">
+        <caption class="sr-only">Upcoming sessions</caption>
+        <thead><tr><th scope="col">Session</th><th scope="col">Teacher</th><th scope="col">Local time</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ledger__title">Recitation · Sūrat al-Baqarah</span></td><td>—</td><td class="num">—</td></tr>
+          <tr><td><span class="ledger__title">Arabic · Level 2 · Naḥw</span></td><td>—</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+      <p class="tiny">Sessions are scheduled in your own timezone and never across your local
+        Maghrib window.</p>
+    </div>
+
+    <div class="panel" id="study">
+      <div class="panel__h"><h3>الدراسة</h3><span class="pill pill--wip">المرحلة ٣</span></div>
+      <p class="small">Four object types, and no more: a lesson, a recitation, a revision item,
+        an assessment. New pedagogy expresses itself as one of those four or it does not ship —
+        the constraint that keeps this surface from becoming a dashboard.</p>
+      <ul class="tags"><li>Lesson</li><li>Recitation</li><li>Revision</li><li>Assessment</li></ul>
+    </div>
+
+    <div class="panel" id="progress">
+      <div class="panel__h"><h3>التقدّم</h3><span class="pill pill--info">توضيحي</span></div>
+      <p class="small">Memorisation is recorded as <strong>retained</strong>, not reached — a
+        portion counts only once it survives unannounced re-testing.</p>
+      <table class="ledger" style="margin-top:0">
+        <caption class="sr-only">Memorisation record</caption>
+        <thead><tr><th scope="col">Portion</th><th scope="col">Itqān grade</th><th scope="col">Last verified</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ledger__title" lang="ar" dir="rtl">جزء عمّ</span></td><td><span class="pill pill--ok">Held</span></td><td class="num">—</td></tr>
+          <tr><td><span class="ledger__title" lang="ar" dir="rtl">جزء تبارك</span></td><td><span class="pill pill--wip">In revision</span></td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+      <div class="meter"><i style="width:0%"></i></div>
+      <p class="tiny">Notional learning hours are recorded alongside every mastery gate, so an
+        award can be evaluated by a foreign registrar.</p>
+    </div>
+
+    <div class="grid grid--2" style="gap:16px;margin-top:16px">
+      <div class="panel" id="people">
+        <div class="panel__h"><h3>الأشخاص</h3><span class="pill pill--wip">المرحلة ٤</span></div>
+        <p class="small">Your teacher, your students, your children — composed from your
+          relationships, never switched between.</p>
+      </div>
+      <div class="panel" id="library">
+        <div class="panel__h"><h3>المكتبة</h3><span class="pill pill--wip">المرحلة ٥</span></div>
+        <p class="small">Texts, recitations and references. The catalogue is public; the
+          licensed content is not.</p>
+      </div>
+      <div class="panel" id="money">
+        <div class="panel__h"><h3>المال</h3><span class="pill pill--wip">المرحلة ٦</span></div>
+        <p class="small">Your band, your instalments, your receipts. Your price is locked for
+          the duration of what you enrolled in.</p>
+      </div>
+      <div class="panel" id="help">
+        <div class="panel__h"><h3>المساعدة</h3><span class="pill pill--wip">المرحلة ٦</span></div>
+        <p class="small">The same corpus as the public help pages, surfaced in context. One
+          body of content, two front doors.</p>
+      </div>
+    </div>
+
+    <p class="tiny" style="margin-top:32px"><a href="/ar/">← العودة إلى الموقع العامّ</a></p>
+  </main>
+</div>

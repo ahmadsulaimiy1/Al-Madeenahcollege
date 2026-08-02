@@ -1,0 +1,190 @@
+{
+  "pages": [
+    {
+      "slug": "home",
+      "output": "index.html",
+      "title": "Al-Madinah International College of Arabic and Qur'anic Studies",
+      "description": "Arabic language, Qur'anic memorisation and the Islamic sciences — taught to a published standard, with progress decided by demonstrated mastery rather than the calendar.",
+      "contentFile": "home.html",
+      "lang": "en",
+      "altHref": "/ar/"
+    },
+    {
+      "slug": "home-ar",
+      "output": "ar/index.html",
+      "title": "كلية المدينة الدولية للغة العربية وعلوم القرآن",
+      "description": "كلية للغة العربية وحفظ القرآن والعلوم الشرعية، يتقدّم فيها الطالب بإتقان مُثبَت لا بمرور الأشهر.",
+      "contentFile": "home.ar.html",
+      "lang": "ar",
+      "altHref": "/"
+    },
+    {
+      "slug": "about",
+      "output": "about/index.html",
+      "title": "About — Al-Madinah International College",
+      "description": "Vision, values, operating model, governance and a plain statement of what is not yet true about this institution.",
+      "contentFile": "about.html",
+      "lang": "en",
+      "altHref": "/ar/about/"
+    },
+    {
+      "slug": "about-ar",
+      "output": "ar/about/index.html",
+      "title": "عن الكلية — كلية المدينة الدولية",
+      "description": "الرؤية والقيم ونموذج العمل والحوكمة، وبيانٌ صريح لما ليس صحيحًا بعدُ عن هذه المؤسسة.",
+      "contentFile": "about.ar.html",
+      "lang": "ar",
+      "altHref": "/about/"
+    },
+    {
+      "slug": "programmes",
+      "output": "programmes/index.html",
+      "title": "Programmes — Al-Madinah International College",
+      "description": "Four schools, one mastery standard, four routes through it. Arabic language, Qur'an, Islamic sciences and teacher certification.",
+      "contentFile": "programmes.html",
+      "lang": "en",
+      "altHref": "/ar/programmes/"
+    },
+    {
+      "slug": "programmes-ar",
+      "output": "ar/programmes/index.html",
+      "title": "البرامج — كلية المدينة الدولية",
+      "description": "أربع كليّات، ومعيار إتقان واحد، وأربعة مسارات إليه.",
+      "contentFile": "programmes.ar.html",
+      "lang": "ar",
+      "altHref": "/programmes/"
+    },
+    {
+      "slug": "admissions",
+      "output": "admissions/index.html",
+      "title": "Admissions — Al-Madinah International College",
+      "description": "Price, duration and requirements visible before any form. A free untimed placement assessment and one application including financial aid.",
+      "contentFile": "admissions.html",
+      "lang": "en",
+      "altHref": "/ar/admissions/"
+    },
+    {
+      "slug": "admissions-ar",
+      "output": "ar/admissions/index.html",
+      "title": "القبول — كلية المدينة الدولية",
+      "description": "الرسوم والمدّة والشروط ظاهرة قبل أيّ استمارة، وتقييمُ مستوى مجّاني بلا وقت محدَّد.",
+      "contentFile": "admissions.ar.html",
+      "lang": "ar",
+      "altHref": "/admissions/"
+    },
+    {
+      "slug": "fees",
+      "output": "fees/index.html",
+      "title": "Tuition & Scholarships — Al-Madinah International College",
+      "description": "Regional Access Pricing: five published bands set by billing country, never silently by IP. Scholarships identical to Standard in every respect.",
+      "contentFile": "fees.html",
+      "lang": "en",
+      "altHref": "/ar/fees/"
+    },
+    {
+      "slug": "fees-ar",
+      "output": "ar/fees/index.html",
+      "title": "الرسوم والمنح — كلية المدينة الدولية",
+      "description": "التسعير الإقليمي: خمسة نطاقات منشورة يحدّدها بلد الفوترة، لا عنوان الإنترنت في الخفاء.",
+      "contentFile": "fees.ar.html",
+      "lang": "ar",
+      "altHref": "/fees/"
+    },
+    {
+      "slug": "contact",
+      "output": "contact/index.html",
+      "title": "Contact — Al-Madinah International College",
+      "description": "A named person and a stated response time for admissions, teaching, fees and complaints.",
+      "contentFile": "contact.html",
+      "lang": "en",
+      "altHref": "/ar/contact/"
+    },
+    {
+      "slug": "contact-ar",
+      "output": "ar/contact/index.html",
+      "title": "اتصل بنا — كلية المدينة الدولية",
+      "description": "شخص مسمّى ومدّة ردّ معلومة للقبول والتدريس والرسوم والشكاوى.",
+      "contentFile": "contact.ar.html",
+      "lang": "ar",
+      "altHref": "/contact/"
+    },
+    {
+      "slug": "signin",
+      "output": "signin/index.html",
+      "title": "Sign in — Campus Portal",
+      "description": "One portal for students, teachers, guardians and alumni. What you see is set by your relationship to the College.",
+      "contentFile": "signin.html",
+      "lang": "en",
+      "altHref": "/ar/signin/"
+    },
+    {
+      "slug": "signin-ar",
+      "output": "ar/signin/index.html",
+      "title": "تسجيل الدخول — بوابة الحرم",
+      "description": "بوّابة واحدة للطلاب والمعلّمين وأولياء الأمور والخرّيجين.",
+      "contentFile": "signin.ar.html",
+      "lang": "ar",
+      "altHref": "/signin/"
+    },
+    {
+      "slug": "verify",
+      "output": "verify/index.html",
+      "title": "Verify a certificate — Al-Madinah International College",
+      "description": "The register is the credential. Verification is free, instant and requires no account.",
+      "contentFile": "verify.html",
+      "lang": "en",
+      "altHref": "/ar/verify/"
+    },
+    {
+      "slug": "verify-ar",
+      "output": "ar/verify/index.html",
+      "title": "توثيق شهادة — كلية المدينة الدولية",
+      "description": "السجلّ هو الشهادة. والتحقّق مجّاني وفوري وبلا حساب.",
+      "contentFile": "verify.ar.html",
+      "lang": "ar",
+      "altHref": "/verify/"
+    },
+    {
+      "slug": "portal",
+      "output": "portal/index.html",
+      "title": "Campus Portal — design preview",
+      "description": "Design preview of the Campus Portal. Illustrative data only.",
+      "contentFile": "portal.html",
+      "lang": "en",
+      "altHref": "/ar/portal/",
+      "layout": "portal",
+      "noindex": true
+    },
+    {
+      "slug": "portal-ar",
+      "output": "ar/portal/index.html",
+      "title": "بوابة الحرم — معاينة تصميمية",
+      "description": "معاينة تصميمية لبوابة الحرم. بيانات توضيحية فقط.",
+      "contentFile": "portal.ar.html",
+      "lang": "ar",
+      "altHref": "/portal/",
+      "layout": "portal",
+      "noindex": true
+    },
+    {
+      "slug": "404",
+      "output": "404.html",
+      "title": "Page not found",
+      "description": "",
+      "contentFile": "404.html",
+      "lang": "en",
+      "altHref": "/ar/",
+      "noindex": true
+    },
+    {
+      "slug": "404-ar",
+      "output": "ar/404.html",
+      "title": "الصفحة غير موجودة",
+      "description": "",
+      "contentFile": "404.ar.html",
+      "lang": "ar",
+      "altHref": "/",
+      "noindex": true
+    }
+  ]
+}

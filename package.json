@@ -1,0 +1,13 @@
+{
+  "name": "almadinah-college",
+  "private": true,
+  "type": "module",
+  "description": "Al-Madinah International College of Arabic and Qur'anic Studies — public site. Static, no framework in the critical path (EB §24).",
+  "scripts": {
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "build": "node scripts/fetch-fonts.mjs && node scripts/build.mjs",
+    "test": "npm run build && node tests/run.mjs",
+    "dev": "npm run build && python3 -m http.server 8000 --directory dist"
+  },
+  "engines": { "node": ">=20" }
+}
