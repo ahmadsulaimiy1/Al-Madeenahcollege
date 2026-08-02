@@ -145,9 +145,55 @@ ok('reduced-motion honoured', /prefers-reduced-motion\s*:\s*reduce/.test(brand))
 ok('logical properties used, not physical', !/(margin|padding)-(left|right)\s*:/.test(brand));
 
 /* ---- identity guards (IS §17.2, IS §31) ---- */
-ok('no gradient on the mark', !/linear-gradient[^;]*var\(--nuhas\)/.test(brand));
-ok('palette token present', brand.includes('--nakhil:#16332A'));
+ok('no gradient on the accent', !/linear-gradient[^;]*var\(--dhahab\)/.test(brand));
 ok('no box-shadow used as card structure', (brand.match(/box-shadow/g) || []).length <= 3);
+
+/* ---- WCAG contrast, computed from the palette itself (EB §14.3, IS §33) ----
+   The Bible states target ratios; a document cannot enforce them. These parse the
+   real token values out of the shipped CSS and compute the ratios, so changing a
+   colour to something illegible fails the build rather than the next audit. */
+const token = (name) => {
+  const m = brand.match(new RegExp(`--${name}:\\s*(#[0-9A-Fa-f]{6})`));
+  return m && m[1];
+};
+const srgb = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+const lum = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => srgb(parseInt(hex.slice(i, i + 2), 16) / 255));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contrast = (a, b) => {
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+
+const PAIRS = [
+  ['hibr', 'jiss', 7.0, 'body text on light — AAA'],
+  ['hibr-soft', 'jiss', 4.5, 'secondary text on light — AA'],
+  ['waraq', 'lazaward', 7.0, 'reversed body on the primary ground — AAA'],
+  ['waraq', 'lazaward-deep', 7.0, 'reversed body on the deepest ground — AAA'],
+  ['dhahab-light', 'lazaward', 4.5, 'headings and eyebrows on dark — AA'],
+  ['aqiq', 'jiss', 4.5, 'emphasis / eyebrow on light — AA'],
+  ['firuzi', 'jiss', 4.5, 'turquoise as text on light — AA'],
+  ['firuzi-light', 'lazaward', 4.5, 'turquoise on dark — AA'],
+  ['ok', 'jiss', 4.5, 'success state — AA'],
+  ['wip', 'jiss', 4.5, 'in-progress state — AA'],
+  ['attn', 'jiss', 4.5, 'attention state — AA'],
+  ['dhahab', 'jiss', 3.0, 'gold on light — large text and non-text ONLY'],
+  ['dhahab', 'lazaward', 3.0, 'gold rules on the primary ground — non-text'],
+];
+for (const [fg, bg, min, why] of PAIRS) {
+  const a = token(fg);
+  const b = token(bg);
+  ok(`contrast: --${fg} on --${bg} >= ${min} (${why})`,
+     a && b && contrast(a, b) >= min,
+     a && b ? `${contrast(a, b).toFixed(2)}` : 'token missing');
+}
+
+/* Gold must never be used for body-sized text: it cannot reach 4.5 on our
+   grounds and never will. Asserted so nobody "fixes" a contrast failure by
+   lightening the ground instead of changing the usage. */
+ok('gold is correctly below AA for body text (line/accent only, IS §32)',
+   contrast(token('dhahab'), token('jiss')) < 4.5);
 
 /* ---- noindex on previews (IA §4) ---- */
 for (const p of ['/portal/index.html', '/ar/portal/index.html', '/404.html']) {

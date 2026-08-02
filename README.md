@@ -12,10 +12,10 @@ Institutional design and build repository.
 | **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
 | **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
 
-20 pages · 749 build checks, run in CI on every deploy · self-hosted fonts, no CDN
-dependency · dark and light themes · full RTL.
+20 pages · 802 build checks including computed WCAG contrast, run in CI on every deploy ·
+self-hosted fonts, no CDN dependency · lapis and gold · dark and light themes · full RTL.
 
-**Editorial Bible RATIFIED and IN FORCE (v0.4). Building continuously — deploy, review,
+**Editorial Bible RATIFIED and IN FORCE (v0.5). Building continuously — deploy, review,
 improve, repeat.**
 
 **Architecture: 28 named systems → 3 experiences + 1 public utility.** Public Website ·
@@ -45,6 +45,7 @@ four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architect
 | [`docs/05-information-architecture.md`](docs/05-information-architecture.md) | **The information architecture.** The 100-Year Test operationalised; the absorption map showing where all 28 named systems land; the public site; the relationship model that replaces role-based portals; stakeholders, journeys, friction, longevity. Cited as `IA §n`. |
 | [`docs/06-future-considerations-register.md`](docs/06-future-considerations-register.md) | **Permanent.** 22 valuable-but-premature ideas, each with the trigger that would revive it — plus items rejected on principle, which have no trigger. Cited as `F-nn`. |
 | [`docs/07-phase-5-peer-review.md`](docs/07-phase-5-peer-review.md) | **Adversarial review** of the architecture. 24 findings — including a direct contradiction between two ratified documents. Twelve fixed; twelve owned. |
+| [`docs/08-wec-lc-engineering-study.md`](docs/08-wec-lc-engineering-study.md) | **Systems study of the WEC-LC precedent** — colour architecture, build structure, LMS data model, portal pattern, and the backend patterns to reach for at Phase 9 rather than re-derive. Cited as `WEC §n`. |
 
 The Editorial Bible is in force. Every downstream decision is bound by it (`EB §Preamble`).
 
@@ -54,10 +55,10 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| 1 | **Editorial Bible** | ✅ **Ratified** — v0.4, in force |
+| 1 | **Editorial Bible** | ✅ **Ratified** — v0.5, in force |
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
-| 4 | Brand Identity System | ✅ **Complete** — v1.1, peer-reviewed. Two production gates before assets are made |
+| 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
 | 6 | UI/UX Design System | ◐ **Implemented in code** — `src/brand.css`. Documentation follows the build |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
@@ -73,7 +74,7 @@ Each phase is reviewed against `EB §45`'s five quality gates before the next be
 
 ```
 npm run build     # fetch fonts if absent, generate dist/
-npm test          # build + 749 checks
+npm test          # build + 802 checks
 npm run dev       # build + serve dist/ at :8000
 ```
 
@@ -99,7 +100,7 @@ rather than a broken control:
 | Source | Outcome |
 |---|---|
 | `ahmadsulaimiy1/Al-Madeenahcollege` | Empty repository — greenfield |
-| `ahmadsulaimiy1/worldwencollege` (WEC-LC) | **Read in full** — 215 files; the primary precedent. Its honesty discipline, config-driven commercial policy, provider-agnostic payments, and anti-template design motifs are inherited. Its palette, typefaces, English-first architecture, and fixed-duration model are deliberately rejected — see `EB §Preamble`. |
+| `ahmadsulaimiy1/worldwencollege` (WEC-LC) | **Read in full** — 215 files; the primary precedent. Its honesty discipline, config-driven commercial policy, provider-agnostic payments, and anti-template design motifs are inherited. Its typefaces, English-first architecture and fixed-duration model are rejected; its palette proximity is now engineered rather than avoided (`EB §14.1a`). Full systems read at `docs/08-wec-lc-engineering-study.md`. |
 | `ahmadsulaimiy1/shroyalschools` | 17 photographs, no site code |
 | `ahmadsulaimiy1/sultan-arabic` | Empty repository |
 | `shroyalschools.com` | **Not readable** — network gateway returned 403 |

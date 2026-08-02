@@ -1,7 +1,7 @@
 # كلية المدينة الدولية
 # Al-Madinah International College — Editorial Bible
 
-**Version 0.4 — RATIFIED 2 August 2026**
+**Version 0.5 — RATIFIED 2 August 2026**
 **Status: IN FORCE.** Ratified by the Founder, 2 August 2026. Amendments follow §47.
 
 *v0.3 incorporates three Founder rulings (D-01, D-04, D-10), two decisions taken under
@@ -774,60 +774,91 @@ Before any screen ships, it must pass all six:
 
 ### 14.1 The palette and its derivation
 
-The palette is derived from Madinah itself — the black basalt of the *ḥarrah* plains, the
-date palm groves, the limestone and light of the old city, and the warm brass of
-traditional metalwork. It is deliberately **not** the emerald-and-gold default (§7.4).
+**Blue and gold**, on the Founder's direction — with the blue anchored in something real
+rather than chosen as a corporate default.
+
+**Lapis lazuli (لازورد, *lāzaward*)** is the pigment ground from Afghan lapis and used for
+a thousand years in Qur'anic illumination and in the tilework of Isfahan and Samarkand. It
+is not a decorative association: it is the colour in which the Qur'an was physically made
+beautiful as an object. **Gold (ذهب)** is its historical partner in that same craft —
+*tadhhīb*, illumination. **Turquoise (فيروزي)** is the third colour of that tradition, and
+it is the "touch of other colour" this palette permits.
 
 **Primary — the ground**
 
 | Token | Hex | Name | Role |
 |---|---|---|---|
-| `--harrah` | `#101C18` | Ḥarrah (basalt) | Deepest ground. Footer, certificate ground, section transitions. |
-| `--nakhil` | `#16332A` | Nakhīl (palm) | **Primary institutional colour.** Header, hero, dark sections, primary buttons. |
-| `--nakhil-mid` | `#22503F` | Palm mid | Hover states, mid accents, links on dark. |
-| `--nakhil-soft` | `#3D7460` | Palm soft | Tertiary accent, chart series, disabled-on-dark. |
+| `--lazaward-deep` | `#0D1A45` | Deep lapis | Deepest ground. Footer, certificate ground, transitions. |
+| `--lazaward` | `#1A3280` | Lapis | **Primary institutional colour.** Header, hero, dark sections, primary buttons. |
+| `--lazaward-mid` | `#2E58B0` | Mid lapis | Hover states, links on dark. |
+| `--lazaward-soft` | `#6C93D6` | Soft lapis | Tertiary accent, chart series, disabled-on-dark. |
 
 **Light — the paper**
 
 | Token | Hex | Name | Role |
 |---|---|---|---|
-| `--jiss` | `#F4F1E9` | Jiṣṣ (limestone) | Primary light ground. |
-| `--waraq` | `#FBF9F4` | Waraq (paper) | Card and panel surfaces on limestone. |
-| `--waraq-warm` | `#F7F2E6` | Warm paper | Alternate light band, quote grounds. |
+| `--jiss` | `#F3F1EA` | Jiṣṣ (limestone) | Primary light ground. Kept warm, deliberately, to sit under the blue rather than beside it. |
+| `--waraq` | `#FBF9F5` | Waraq (paper) | Card and panel surfaces. |
+| `--waraq-warm` | `#F7F3E9` | Warm paper | Alternate light band, quote grounds. |
 
-**Accent — used sparingly**
+**Gold — used sparingly**
 
 | Token | Hex | Name | Role |
 |---|---|---|---|
-| `--nuhas` | `#A8813F` | Nuḥās (antique brass) | Primary accent. Rules, borders, seals, small marks. **Never a large fill.** |
-| `--nuhas-light` | `#C9A868` | Brass light | Headings and emphasis on dark grounds only. |
-| `--aqiq` | `#8A3324` | ʿAqīq (carnelian) | Emphasis and signal. Eyebrows on light, critical states. **Never a background fill.** |
+| `--dhahab` | `#A8822A` | Dhahab (illumination gold) | Primary accent. Rules, borders, seals, small marks. **Never a large fill. Never a gradient.** |
+| `--dhahab-light` | `#E0C784` | Light gold | Headings and eyebrows on dark grounds only. |
+
+**The touch of other colour**
+
+| Token | Hex | Name | Role |
+|---|---|---|---|
+| `--firuzi` | `#176B78` | Fīrūzī (turquoise) | Secondary accent. Links on light, informational states, second chart series. |
+| `--firuzi-light` | `#6CC5D2` | Light turquoise | The same, on dark grounds. |
+| `--aqiq` | `#9A3324` | ʿAqīq (carnelian) | Emphasis and signal. Eyebrows on light, critical states. **Never a background fill.** |
 
 **Ink and structure**
 
-| Token | Hex | Name | Role |
-|---|---|---|---|
-| `--hibr` | `#131D19` | Ḥibr (ink) | Body text on light grounds. |
-| `--hibr-soft` | `#4A574F` | Soft ink | Secondary text, captions, metadata. |
-| `--hibr-faint` | `#7C877F` | Faint ink | Tertiary text, placeholders. |
-| `--khatt` | `rgba(168,129,63,.30)` | Rule (on light) | Hairline dividers. |
-| `--khatt-dark` | `rgba(201,168,104,.20)` | Rule (on dark) | Hairline dividers on dark grounds. |
+| Token | Hex | Role |
+|---|---|---|
+| `--hibr` | `#131A26` | Body text. A **blue-black**, not a neutral black — it belongs to the same family as the ground. |
+| `--hibr-soft` | `#4A5464` | Secondary text, captions, metadata. |
+| `--hibr-faint` | `#79828F` | Tertiary text, placeholders. |
+| `--khatt` | `rgba(168,130,42,.32)` | Hairline rules on light. |
+| `--khatt-dark` | `rgba(224,199,132,.22)` | Hairline rules on dark. |
 
-**Semantic states** — deliberately desaturated to sit inside the palette rather than
-shouting out of it.
+**Semantic states** — desaturated to sit inside the palette rather than shout out of it.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--state-success` | `#2F6B4F` | Mastery achieved, payment succeeded |
-| `--state-progress` | `#7A6A2E` | In progress, awaiting review |
-| `--state-attention` | `#8A3324` | Action required, failed, overdue |
-| `--state-info` | `#2C5468` | Neutral information |
+| `--ok` | `#256D4E` | Mastery achieved, payment succeeded |
+| `--wip` | `#856618` | In progress, awaiting review |
+| `--attn` | `#9A3324` | Action required, failed, overdue |
+| `--info` | `#176B78` | Neutral information |
+
+### 14.1a The WEC-LC proximity, stated plainly
+
+`EB §Preamble` rejects reusing the WEC-LC palette. **Blue and gold moves us closer to it**,
+and pretending otherwise would be dishonest. WEC-LC is navy `#14264A` + brass `#C7A24A`.
+
+Distinctness is therefore engineered rather than incidental:
+
+| | WEC-LC | Al-Madinah |
+|---|---|---|
+| **Blue hue** | 220 — a grey-leaning navy | **226 — ultramarine**, and markedly more chromatic (S 66 vs 57, L 30 vs 18) |
+| **Gold** | Brass, used as a **gradient** on meters and nav accents | Illumination gold, **hairline and mark only, gradient forbidden** (§14.2.5) |
+| **Third colour** | Oxblood red | **Turquoise**, with carnelian reserved for signal alone |
+| **Ink** | Neutral-dark `#16202E` | **Blue-black** `#131A26`, in the ground's own family |
+| **Structure** | Cards, shadows, 6–10px radii | Hairlines, ledgers, ≤4px radii (`EB §7.4`, `IS §17`) |
+
+The gold hue cannot meaningfully move — institutional gold occupies a narrow band and
+every serious institution using it lands near 42°. **Distinctness therefore comes from the
+blue's hue and chroma, from the third colour, and above all from usage discipline.**
 
 ### 14.2 Usage discipline — binding rules
 
-1. **Alternation.** Dark (`--nakhil`/`--harrah`) and light (`--jiss`/`--waraq`) sections
+1. **Alternation.** Dark (`--lazaward`/`--lazaward-deep`) and light (`--jiss`/`--waraq`) sections
    alternate down every page. Never two dark or two light sections consecutively.
-2. **Brass is a line, not a plane.** `--nuhas` appears as rules, borders, small marks,
+2. **Gold is a line, not a plane.** `--dhahab` appears as rules, borders, small marks,
    seals, and type. It never fills an area larger than a button. There is **no gold
    gradient** anywhere in this system.
 3. **Carnelian is punctuation.** `--aqiq` marks emphasis on light grounds and critical
@@ -839,23 +870,32 @@ shouting out of it.
    within one dark section, ≤4% luminance, to prevent banding on large fills. Nothing
    else.
 6. **Dark mode** is a genuine second theme with its own token values, not an inverted
-   filter. `--harrah` becomes the ground; `--jiss` never appears as a large fill in dark
+   filter. `--lazaward-deep` becomes the ground; `--jiss` never appears as a large fill in dark
    mode. Full token table in Phase 6.
 
-### 14.3 Contrast requirements (binding — see §26)
+### 14.3 Contrast requirements — machine-verified, not asserted
 
 | Pair | Ratio | Status |
 |---|---|---|
-| `--hibr` on `--jiss` | ≈ 14.8:1 | Body text ✓ AAA |
-| `--hibr-soft` on `--jiss` | ≈ 6.9:1 | Secondary text ✓ AA |
-| `--waraq` on `--nakhil` | ≈ 11.9:1 | Reversed body ✓ AAA |
-| `--nuhas-light` on `--nakhil` | ≈ 6.1:1 | Headings on dark ✓ AA |
-| `--nuhas` on `--jiss` | ≈ 3.5:1 | **Large text (≥24px) and non-text only.** Never body copy. |
-| `--aqiq` on `--jiss` | ≈ 7.4:1 | Emphasis text ✓ AA |
+| `--hibr` on `--jiss` | **15.44** | Body text ✓ AAA |
+| `--hibr-soft` on `--jiss` | **6.77** | Secondary text ✓ AA |
+| `--waraq` on `--lazaward` | **11.02** | Reversed body ✓ AAA |
+| `--waraq` on `--lazaward-deep` | **15.97** | Reversed body ✓ AAA |
+| `--dhahab-light` on `--lazaward` | **6.99** | Headings on dark ✓ AA |
+| `--aqiq` on `--jiss` | **6.47** | Emphasis ✓ AA |
+| `--firuzi` on `--jiss` | **5.45** | Turquoise as text ✓ AA |
+| `--firuzi-light` on `--lazaward` | **6.00** | Turquoise on dark ✓ AA |
+| `--dhahab` on `--jiss` | **3.15** | **Large text (≥24px) and non-text ONLY.** Never body copy |
 
-These are computed targets to be **re-verified against the final hex values with an
-automated checker in Phase 6** and recorded there. Any pair failing its target is
-corrected by adjusting the token, not by granting an exception.
+**These are computed, not claimed.** `tests/run.mjs` parses the token values out of the
+shipped CSS and computes WCAG contrast on every build; a colour changed to something
+illegible fails the build. The suite additionally asserts that **gold stays *below* AA for
+body text**, so that a future contrast failure cannot be "fixed" by lightening the ground
+instead of correcting the usage.
+
+This article's previous version stated target ratios that no mechanism enforced. The first
+run of the computed check found a state colour at **4.47** against a 4.5 requirement — a
+miss no document review would ever have caught.
 
 ## §15. Arabic Typography Standards
 
@@ -981,7 +1021,7 @@ Fluid clamping between mobile and desktop is specified in Phase 6. Mobile minimu
   **No large radii.** Rounded corners above 8px read as consumer software, not as an
   institution.
 - **Elevation:** three tiers only — resting, hover, floating — all sharing one warm,
-  low-chroma shadow colour derived from `--harrah`. No coloured glows.
+  low-chroma shadow colour derived from `--lazaward-deep`. No coloured glows.
 - **Borders:** the institution's structural language is the **hairline rule** (1px,
   `--khatt`), not the drop shadow. Cards are defined by rules and ground changes before
   they are defined by elevation.
@@ -998,7 +1038,7 @@ it will be governed. Design begins in Phase 4, after D-02 (§8.1) is ruled on.
 - **Legible at 24px.** Whatever the ceremonial version contains, the working mark must
   survive a favicon, an app icon, and an embroidered polo.
 - **Single-colour capable.** Must work in one ink, on paper, at 100% and at 40% size,
-  and reversed out of `--nakhil`.
+  and reversed out of `--lazaward`.
 - **Not a crescent-and-star.** (§7.4.)
 - **Not a mosque silhouette.** Not a dome. Not an open book. Not a graduation cap.
 - **Not AI-generated.** Commissioned from a named calligrapher or type designer, with
@@ -1198,7 +1238,7 @@ is a floor, not an aspiration.
 
 1. **Contrast** — §14.3, verified by automated check in CI, blocking on failure.
 2. **Keyboard** — every interactive element reachable and operable by keyboard, in a
-   logical order, with a visible focus indicator (2px `--nuhas` outline with 2px offset,
+   logical order, with a visible focus indicator (2px `--dhahab` outline with 2px offset,
    never `outline: none`).
 3. **Semantics** — real HTML landmarks, one `<h1>` per page, correct heading order, real
    `<button>` and `<a>` elements, real form labels, `<table>` for tabular data.
@@ -2001,6 +2041,7 @@ institution that corrects visibly is trusted more than one that appears never to
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
+| 0.5 | 2 August 2026 | **Palette changed to blue and gold on the Founder's direction.** §14 rewritten: lapis lazuli (لازورد) as the primary ground, illumination gold as the accent, turquoise (فيروزي) as the permitted third colour, carnelian retained for signal only. The blue is anchored in the pigment of Qur'anic illumination rather than chosen as a corporate default. **New §14.1a states the WEC-LC proximity plainly** rather than pretending it away — blue and gold moves us toward a palette the Preamble rejected, so distinctness is now engineered: hue 226 ultramarine against their 220 grey-navy, markedly higher chroma, turquoise instead of oxblood as the third colour, blue-black ink, and gold restricted to hairline and mark with gradients forbidden where they use one. The gold hue cannot meaningfully move; that is stated rather than disguised. **§14.3 replaced with computed ratios** — the previous version asserted targets that nothing enforced. Contrast is now calculated from the shipped CSS on every build, and the first run found a state colour at 4.47 against a 4.5 requirement, which no document review would have caught. | Founder (direction); Claude (execution) |
 | 0.4 | 2 August 2026 | **Ratified and in force.** Amended by Phase 4's adversarial peer review, which found a historical error in this Bible's own type system: **Aref Ruqaa was specified as the ceremonial Arabic face, but ruqʿah is historically an administrative and rapid-handwriting script, not a ceremonial one.** It was specified because it was one of the few high-quality free display Arabic faces — availability masquerading as suitability. Removed entirely from §15.2 and Appendix A; ceremonial typesetting is now Amiri and ceremonial lettering is commissioned thuluth. Separately, *Kitab*'s licence could not be verified, so Amiri with full tashkīl becomes the specified teaching face and no unverified face ships. A rule is added that **any element containing tashkīl uses the teaching face wherever it sits**, closing a gap where vocalised Arabic inside LMS chrome had no specified face at all. | Founder (ratification); Claude (amendments, executive autonomy) |
 | 0.3 | 2 August 2026 | **D-02 decided under executive autonomy** — institutional name set to *Al-Madinah International College of Arabic and Qur'anic Studies* after a 36-candidate weighted matrix, four-scenario sensitivity analysis, and a propriety veto gate (`NS`). The name as briefed ranked 30th of 36; the adopted construction ranks 4th. Three candidates outscored it; all three were vetoed on propriety or trademark grounds. §8.1 rewritten. **D-12 decided** — *Sulaimiy Education Group* (confidence Medium), light-touch endorsement; §8.3 updated. **New §8.4** codifies the propriety veto gate as a permanent rule binding every future name — it caught two failures the matrix scored as winners. **New §8.5** reconciles the Madinah name with §31's ban on borrowed authority and mandates a public non-affiliation statement. **Phase 1 peer review remediations:** §5.7 — the AI may retrieve but never generate Qur'anic or hadith text, enforced in code (finding S-3); §33.2a — notional learning hours recorded alongside mastery gates, without which the institution is un-accreditable (finding A-1); §29 — the teacher-pay commitment's cross-subsidy made explicit, quantified in Phase 8, and published (finding F-1, an otherwise unfunded promise); §32.3 — dangling reference corrected into a forward commitment (finding Z-2). | Claude (executive autonomy); Bible as a whole still pending |
 | 0.2 | 2 August 2026 | **D-01 ruled (umbrella group).** §8.3 rewritten from a standalone branded house to a group architecture with Al-Madinah as tertiary arm; §46.3 extended to hold group facts to the same evidential standard, since the ruling settles structure but supplies no facts. **D-04 ruled (no ijāzah).** §34.7 rewritten from an open question to settled policy; §36 restructured into principles, a four-award ladder, and the conditions under which ijāzah could ever be issued. **D-10 ruled (disclosed regional pricing).** §38 rewritten from a recommendation-against-the-brief into settled policy: band set by declared residence and verified at payment, IP demoted to a display hint, currency separated from band as an independent axis, price locked for the duration of an enrolled programme. Reasoning retained — it is now the public methodology argument. **New:** D-12 (group identity and naming) raised as a consequence of D-01; French localisation flagged for earlier phasing as a consequence of Bands D–E naming Francophone markets. **Unresolved:** "Arabic Language Diploma" recorded as Founder intent but gated on D-03, as "diploma" is a regulated term. | Founder (D-01, D-04, D-10); Bible as a whole still pending |
@@ -2011,34 +2052,38 @@ institution that corrects visibly is trusted more than one that appears never to
 
 ```css
 :root {
-  /* ---- Ground ---- */
-  --harrah:        #101C18;
-  --nakhil:        #16332A;
-  --nakhil-mid:    #22503F;
-  --nakhil-soft:   #3D7460;
+  /* ---- Ground: lapis lazuli (lazaward) ---- */
+  --lazaward-deep: #0D1A45;
+  --lazaward:      #1A3280;
+  --lazaward-mid:  #2E58B0;
+  --lazaward-soft: #6C93D6;
 
   /* ---- Paper ---- */
-  --jiss:          #F4F1E9;
-  --waraq:         #FBF9F4;
-  --waraq-warm:    #F7F2E6;
+  --jiss:          #F3F1EA;
+  --waraq:         #FBF9F5;
+  --waraq-warm:    #F7F3E9;
 
-  /* ---- Accent ---- */
-  --nuhas:         #A8813F;
-  --nuhas-light:   #C9A868;
-  --aqiq:          #8A3324;
+  /* ---- Gold (dhahab) — a line, never a plane ---- */
+  --dhahab:        #A8822A;
+  --dhahab-light:  #E0C784;
 
-  /* ---- Ink ---- */
-  --hibr:          #131D19;
-  --hibr-soft:     #4A574F;
-  --hibr-faint:    #7C877F;
-  --khatt:         rgba(168,129,63,.30);
-  --khatt-dark:    rgba(201,168,104,.20);
+  /* ---- The touch of other colour ---- */
+  --firuzi:        #176B78;
+  --firuzi-light:  #6CC5D2;
+  --aqiq:          #9A3324;
+
+  /* ---- Ink: blue-black ---- */
+  --hibr:          #131A26;
+  --hibr-soft:     #4A5464;
+  --hibr-faint:    #79828F;
+  --khatt:         rgba(168,130,42,.32);
+  --khatt-dark:    rgba(224,199,132,.22);
 
   /* ---- State ---- */
-  --state-success:   #2F6B4F;
-  --state-progress:  #7A6A2E;
-  --state-attention: #8A3324;
-  --state-info:      #2C5468;
+  --ok:            #256D4E;
+  --wip:           #856618;
+  --attn:          #9A3324;
+  --info:          #176B78;
 
   /* ---- Type ---- */
   --font-display:    'Source Serif 4', Georgia, serif;

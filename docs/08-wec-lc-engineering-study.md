@@ -57,7 +57,7 @@ be needed and `--state-*-soft` companions should be added by the same derivation
 
 | WEC | Our position |
 |---|---|
-| Royal Blue `#14264A` / Gold `#C7A24A` / Oxblood `#A32638` | A different institution's identity. Reusing it would make Al-Madinah read as a sibling brand of an English-language college (`EB §Preamble`) |
+| Royal Blue `#14264A` / Gold `#C7A24A` / Oxblood `#A32638` | **Position revised.** The Founder has directed a blue-and-gold palette, which moves us toward this rather than away. `EB §14.1a` now states the proximity plainly and engineers distinctness instead: hue 226 ultramarine vs their 220 grey-navy at markedly higher chroma, turquoise rather than oxblood as the third colour, blue-black ink, and gold restricted to hairline and mark. **The structural rejections below stand unchanged and now carry more of the differentiation.** |
 | `--gold-gradient` on progress meters and the active-nav accent bar | `IS §17.1` — the mark and the system are monochrome-first. **The only permitted gradient is a ≤4% luminance shift to prevent banding on large dark fills** |
 | `border-radius: 6–10px` on panels, tiles, nav items | `IS §17` caps radii at 4px. Above ~8px reads as consumer software, not as an institution |
 | `box-shadow` on every panel, tile and card, with hover lift | `EB §7.4` — our structural language is the hairline rule. Cards are defined by rules and ground changes before elevation |

@@ -1,6 +1,6 @@
 # Institutional Identity System
 
-**Phase 4 · Version 1.1 · 2 August 2026** — incorporates 11 fixes from `docs/04-phase-4-peer-review.md`
+**Phase 4 · Version 1.2 · 2 August 2026** — palette changed to lapis and gold (`EB §14`); incorporates 11 fixes from `docs/04-phase-4-peer-review.md`
 Al-Madinah International College of Arabic and Qur'anic Studies
 كلية المدينة الدولية للغة العربية وعلوم القرآن
 
@@ -110,7 +110,7 @@ This is made operational, not aspirational.
 | # | Carrier | Why it identifies us |
 |---|---|---|
 | K1 | **The type pairing** — Source Serif 4 + IBM Plex Sans / IBM Plex Sans Arabic | A single superfamily spanning both scripts is rare in this category and instantly distinguishing |
-| K2 | **The palette** — basalt, palm, limestone, antique brass | Deliberately not the emerald-and-gold default (`EB §7.4`) |
+| K2 | **The palette** — lapis, illumination gold, turquoise, limestone | Rooted in the pigments of Qur'anic illumination, not the emerald-and-gold default (`EB §7.4`) |
 | K3 | **Hairline structure** — rules and ledgers, never cards and shadows | Documentary, not commercial |
 | K4 | **The nuqṭah grid and pattern** (§35) | Derived from our own geometry; regenerable at any scale |
 | K5 | **Bilingual parity layout** — Arabic set with equal weight, never subordinated | Almost no competitor does this; visible at a glance |
@@ -395,8 +395,8 @@ Required variants, all drawn and stored, none generated at use time:
 |---|---|
 | Single ink — `--hibr` on light | Default print, documents |
 | Single ink — `--waraq` on dark | Reversed, dark grounds |
-| Single ink — `--nakhil` on light | Primary brand application |
-| Single ink — `--nuhas` on dark | Ceremonial, certificates |
+| Single ink — `--lazaward` on light | Primary brand application |
+| Single ink — `--dhahab` on dark | Ceremonial, certificates |
 | **Line-only, no fill** | Embossing, engraving, foil die, etching (§22) |
 | **Solid silhouette** | Embroidery, single-colour vinyl, stamps |
 
@@ -471,7 +471,7 @@ identity that is *specifically* a claim about time.
 | **Applications** | Graduation documents, foundation charter, honorary awards, formal correspondence from the Rector, ijāzah **if and when** `EB §36.3`'s four conditions are met |
 | **Minimum** | 60 mm. Never reproduced below it, never on screen except as a photograph of a physical document |
 | **Binding limit** | Where the ceremonial seal ever appears on an ijāzah (`EB §36.3`), **the seal itself confers nothing and implies no chain.** The chain is the named muqriʾ's, recorded in the register — never the institution's, and never implied by the presence of a seal |
-| **Colour** | One ink only — `--nuhas` on `--waraq`, or blind deboss |
+| **Colour** | One ink only — `--dhahab` on `--waraq`, or blind deboss |
 
 ## §21. Academic seal
 
@@ -482,7 +482,7 @@ The working seal. Simplified for repeated use at small size and for high-volume 
 | **Differs from the master by** | Single ring; short-form name only (كلية المدينة / AL-MADINAH COLLEGE); no foundation year |
 | **Applications** | Transcripts, academic letters, verification statements, internal academic records, reference letters |
 | **Minimum** | 30 mm |
-| **Colour** | `--hibr` or `--nakhil`, single ink |
+| **Colour** | `--hibr` or `--lazaward`, single ink |
 
 ## §22. Embossing seal — physical specification
 
@@ -712,16 +712,17 @@ The `EB §16.3` scale is the system scale. Identity-layer applications:
 
 Palette confirmed from `EB §14`. Print equivalents added.
 
-| Token | Hex | RGB | CMYK (coated) | Pantone (proposed) |
-|---|---|---|---|---|
-| `--harrah` | `#101C18` | 16 · 28 · 24 | 82 · 62 · 70 · 78 | 5535 C |
-| `--nakhil` | `#16332A` | 22 · 51 · 42 | 84 · 51 · 68 · 55 | 3435 C |
-| `--nakhil-mid` | `#22503F` | 34 · 80 · 63 | 84 · 43 · 68 · 32 | 3305 C |
-| `--nuhas` | `#A8813F` | 168 · 129 · 63 | 30 · 46 · 87 · 9 | 465 C |
-| `--nuhas-light` | `#C9A868` | 201 · 168 · 104 | 22 · 32 · 66 · 2 | 4645 C |
-| `--aqiq` | `#8A3324` | 138 · 51 · 36 | 27 · 84 · 88 · 21 | 1685 C |
-| `--jiss` | `#F4F1E9` | 244 · 241 · 233 | 4 · 4 · 9 · 0 | *Stock, not ink* |
-| `--hibr` | `#131D19` | 19 · 29 · 25 | 80 · 60 · 70 · 76 | Black 3 C |
+| Token | Hex | RGB | Pantone (proposed) |
+|---|---|---|---|
+| `--lazaward-deep` | `#0D1A45` | 13 · 26 · 69 | 282 C |
+| `--lazaward` | `#1A3280` | 26 · 50 · 128 | 280 C |
+| `--lazaward-mid` | `#2E58B0` | 46 · 88 · 176 | 2126 C |
+| `--dhahab` | `#A8822A` | 168 · 130 · 42 | 1245 C |
+| `--dhahab-light` | `#E0C784` | 224 · 199 · 132 | 4525 C |
+| `--firuzi` | `#176B78` | 23 · 107 · 120 | 3155 C |
+| `--aqiq` | `#9A3324` | 154 · 51 · 36 | 1685 C |
+| `--jiss` | `#F3F1EA` | 243 · 241 · 234 | *Stock, not ink* |
+| `--hibr` | `#131A26` | 19 · 26 · 38 | 296 C |
 
 > ⚠ **Pantone values are proposed conversions from published data. They are NOT verified.**
 > Colour matching cannot be done on a screen. Every value **must** be checked against a
@@ -729,7 +730,7 @@ Palette confirmed from `EB §14`. Print equivalents added.
 > any print run. Confidence: **Low** on the Pantone column specifically, **High** on the
 > hex/RGB. Recorded as a blocking production task (§55).
 
-**Foil:** `--nuhas` in foil is **matte antique brass**, never bright gold. Bright gold foil
+**Foil:** `--dhahab` in foil is **matte antique gold**, never bright gold. Bright gold foil
 is the single strongest "certificate mill" signal in the category. Matte reads as an
 institution; gloss reads as a product.
 
@@ -737,13 +738,14 @@ institution; gloss reads as a product.
 
 | Ground | Mark | Type | Rules |
 |---|---|---|---|
-| `--jiss` / `--waraq` (light) | `--hibr` or `--nakhil` | `--hibr` | `--khatt` hairlines |
-| `--nakhil` / `--harrah` (dark) | `--waraq` or `--nuhas-light` | `--waraq` | `--khatt-dark` hairlines |
+| `--jiss` / `--waraq` (light) | `--hibr` or `--lazaward` | `--hibr` | `--khatt` hairlines |
+| `--lazaward` / `--lazaward-deep` (dark) | `--waraq` or `--dhahab-light` | `--waraq` | `--khatt-dark` hairlines |
 | Single-ink black | `--hibr` | `--hibr` | Default for all documents |
 | Blind deboss (no ink) | Relief only | — | Certificates, ceremonial |
 
-**`--nuhas` is a line, never a plane** (`EB §14.2.2`). **`--aqiq` is punctuation, never a
-ground** (`EB §14.2.3`). Neither rule has an exception.
+**`--dhahab` is a line, never a plane** (`EB §14.2.2`). **`--aqiq` is punctuation, never a
+ground** (`EB §14.2.3`). **`--firuzi` is the permitted third colour** and is used for
+information and secondary accent, never for emphasis — that is carnelian's job alone. Neither rule has an exception.
 
 ## §33. Accessibility compliance
 
@@ -754,7 +756,7 @@ requirements:
    so this is satisfied structurally rather than by testing.
 2. **No information is ever carried by colour alone** — status pills carry a label and a
    shape, not just a hue; certificate `Valid`/`Revoked` states carry text.
-3. **`--nuhas` on `--jiss` is ≈3.5:1** — permitted for large text (≥24px) and non-text
+3. **`--dhahab` on `--jiss` is 3.15:1** — permitted for large text (≥24px) and non-text
    only. **Never body copy.** This is the palette's one binding contrast constraint.
 4. **Verified in CI**, blocking on failure, against the final hex values (`EB §14.3`).
 5. **Signage** meets tactile and contrast requirements at §46.
@@ -871,14 +873,14 @@ be decoration, and `EB §21.2.1` removes decoration.
 
 | Item | Specification |
 |---|---|
-| **Letterhead** | A4 · 120 gsm laid, ≥25% cotton, `--jiss` · R4 lockup top-left (LTR) / top-right (RTL), 20 mm from trim · sparse pattern at 3% in the lower 40 mm · single-ink `--hibr` · hairline `--nuhas` rule above the footer · footer: full legal name both scripts, address, registration number, *A member of Sulaimiy Education Group* |
+| **Letterhead** | A4 · 120 gsm laid, ≥25% cotton, `--jiss` · R4 lockup top-left (LTR) / top-right (RTL), 20 mm from trim · sparse pattern at 3% in the lower 40 mm · single-ink `--hibr` · hairline `--dhahab` rule above the footer · footer: full legal name both scripts, address, registration number, *A member of Sulaimiy Education Group* |
 | **Second sheet** | Same stock · R1 nuqṭah only, 6 mm, top-left · no footer |
 | **Rector's letterhead** | 160 gsm · blind-debossed seal (§22) top-centre in place of the printed lockup · otherwise identical |
 | **Envelope** | DL and C4 · R3 lockup · return address in `--hibr-soft` |
-| **Business card** | 55 × 85 mm · 400 gsm duplex, `--nakhil` core visible as an edge line · face: name both scripts, role, contact · reverse: R2 mark, blind-debossed, centred, nothing else |
+| **Business card** | 55 × 85 mm · 400 gsm duplex, `--lazaward` core visible as an edge line · face: name both scripts, role, contact · reverse: R2 mark, blind-debossed, centred, nothing else |
 | **Compliment slip** | 210 × 99 mm · R3 lockup · no printed message |
 
-**The `--nakhil` duplex edge on the business card is the one permitted indulgence in the
+**The `--lazaward` duplex edge on the business card is the one permitted indulgence in the
 entire stationery system**, and it earns its place: it is the identity visible from the
 side of a stack, with no logo present — a literal instance of §6.
 
@@ -888,7 +890,7 @@ side of a stack, with no logo present — a literal instance of §6.
 |---|---|
 | **Size** | A4 portrait (210 × 297 mm). **Not** a landscape "diploma" format — A4 fits every filing cabinet, scanner, and folder on earth, and the landscape format is a certificate-mill convention |
 | **Stock** | 250 gsm, ≥25% cotton rag, unbrightened, `--jiss` |
-| **Print** | Single ink `--hibr` · guilloche border in `--nuhas` at 15% · blind-debossed seal |
+| **Print** | Single ink `--hibr` · guilloche border in `--dhahab` at 15% · blind-debossed seal |
 | **Seal position** | Lower centre-left, 40 mm, blind deboss. Never top-centre — that is where the eye looks for the holder's name |
 | **Arabic** | Primary, above the English, at equal or greater optical weight |
 | **Contents** | Institution name (both scripts) · award title (both) · holder's full name (both) · level · notional learning hours · date (Hijri / Gregorian) · certificate number · named assessor · QR · **the limitation statement** |
@@ -916,8 +918,8 @@ The document a registrar reads. Designed for **scrutiny**, not for display.
 |---|---|---|
 | **Format** | ISO/IEC 7810 ID-1 (85.6 × 54 mm), 760 μm PVC | Same |
 | **Face** | R2 mark top-left · photograph · name both scripts · student number · programme · valid-to date | R2 mark · photograph · name both scripts · **role and post-nominals** · faculty number · valid-to |
-| **Reverse** | `--nakhil` ground · sparse pattern 6% · QR to the verification endpoint · emergency contact line · terms | Same, plus safeguarding-clearance reference where the holder teaches minors (`EB §28`) |
-| **Distinction** | 3 mm `--nuhas` edge band on faculty cards only | |
+| **Reverse** | `--lazaward` ground · sparse pattern 6% · QR to the verification endpoint · emergency contact line · terms | Same, plus safeguarding-clearance reference where the holder teaches minors (`EB §28`) |
+| **Distinction** | 3 mm `--dhahab` edge band on faculty cards only | |
 | **Privacy** | The QR encodes an **opaque token**, never the name, number, or any personal data (§24.3). A lost card must not be a data breach | Same |
 | **Accessibility** | Card orientation notch at the top edge so the card can be oriented by touch | Same |
 
@@ -927,7 +929,7 @@ The document a registrar reads. Designed for **scrutiny**, not for display.
 |---|---|
 | **Certificate** | §41, with the **ceremonial seal** (§20) at 60 mm in place of the institutional seal |
 | **Transcript** | §42 |
-| **Presentation folder** | 300 gsm, `--nakhil`, blind-debossed R2 mark, medium pattern on the interior |
+| **Presentation folder** | 300 gsm, `--lazaward`, blind-debossed R2 mark, medium pattern on the interior |
 | **Programme (ceremony)** | A5, `--jiss`, R4 lockup, ledger listing of graduands, Arabic primary |
 | **Verification card** | Credit-card sized, carrying the certificate number and QR — for a graduate to hand to an employer without surrendering the certificate |
 
@@ -982,7 +984,7 @@ from Arabic's smaller effective x-height at equal nominal size, not a courtesy.
 | | |
 |---|---|
 | **Header** | R4 lockup (desktop) / R3 (mobile) · left in LTR, right in RTL · hairline `--khatt` rule beneath, no shadow, no container |
-| **Favicon** | R1 nuqṭah, 16/32/180 px, `--nakhil` on transparent |
+| **Favicon** | R1 nuqṭah, 16/32/180 px, `--lazaward` on transparent |
 | **Section rhythm** | Dark/light alternation, never two consecutive (`EB §14.2.1`) |
 | **Structure** | Ledger tables, dot-leader indexes, hairline stat rows. **No card grids** (`EB §7.4`) |
 | **Pattern** | Sparse, ≤6%, at section transitions only |
@@ -993,8 +995,8 @@ from Arabic's smaller effective x-height at equal nominal size, not a courtesy.
 
 | | |
 |---|---|
-| **App icon** | R1 nuqṭah, `--waraq` on `--nakhil`, centred, no container decoration, no gradient. Squircle masking handled by the OS — never baked in |
-| **Splash** | Static R2 mark on `--nakhil`. **No animation** — a splash animation is seen thousands of times and becomes an irritation, which is the opposite of the §39 rule's intent |
+| **App icon** | R1 nuqṭah, `--waraq` on `--lazaward`, centred, no container decoration, no gradient. Squircle masking handled by the OS — never baked in |
+| **Splash** | Static R2 mark on `--lazaward`. **No animation** — a splash animation is seen thousands of times and becomes an irritation, which is the opposite of the §39 rule's intent |
 | **Navigation** | RTL-mirrored fully, including gestures and transition direction |
 | **Offline state** | A designed state, not an error (`EB §24`) |
 | **Notification sound** | **None by default** (`EB §5.5`). Where a sound is required for accessibility, a single unpitched wooden tick — not a musical tone |
@@ -1003,8 +1005,8 @@ from Arabic's smaller effective x-height at equal nominal size, not a courtesy.
 
 | | |
 |---|---|
-| **Profile image** | R2 mark, `--waraq` on `--nakhil`. Identical across every platform, never seasonal, never varied |
-| **Banner** | Sparse pattern on `--nakhil` with the Arabic wordmark. No photography, no copy, no calls to action |
+| **Profile image** | R2 mark, `--waraq` on `--lazaward`. Identical across every platform, never seasonal, never varied |
+| **Banner** | Sparse pattern on `--lazaward` with the Arabic wordmark. No photography, no copy, no calls to action |
 | **Post system** | Three formats only: **the statement** (one line of Source Serif on `--jiss`), **the ledger** (a table or index), **the teaching card** (a genuine short lesson, Arabic primary). No template beyond these three |
 | **Never** | The seal · Qur'anic text as a graphic asset (`EB §5.1.9`) · engagement bait · countdowns · stock imagery · trend formats · memes · the mark as a watermark on Qur'anic text |
 
@@ -1023,8 +1025,8 @@ one exception at a time.
 |---|---|
 | Colour standard | **Fogra 51** (coated) / **Fogra 52** (uncoated); GRACoL 2013 in North America |
 | Proofing | Contract proof on the actual specified stock. **Screen approval is never acceptable for any item carrying the seal** |
-| Spot colours | `--nakhil` and `--nuhas` as spot where the run justifies it; process elsewhere |
-| Overprint | Black type overprints; `--nuhas` knocks out |
+| Spot colours | `--lazaward` and `--dhahab` as spot where the run justifies it; process elsewhere |
+| Overprint | Black type overprints; `--dhahab` knocks out |
 | Bleed | 3 mm all sides; 5 mm on certificates |
 | Trim tolerance | ±0.5 mm; ±0.3 mm on certificates and cards |
 | Registration | ±0.1 mm where the deboss meets printed elements |
