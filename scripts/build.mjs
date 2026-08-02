@@ -23,14 +23,13 @@ const manifest = JSON.parse(read('pages/manifest.json'));
 const fill = (tpl, vars) =>
   tpl.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in vars ? vars[k] : m));
 
-const partials = {
-  head: read('partials/head.html'),
-  topbar: read('partials/topbar.html'),
-  topbarAr: read('partials/topbar.ar.html'),
-  header: read('partials/header.html'),
-  headerAr: read('partials/header.ar.html'),
-  footer: read('partials/footer.html'),
-  footerAr: read('partials/footer.ar.html'),
+/* Resolves `<name>.<lang>.html` when it exists, else `<name>.html`.
+   Adopted from the WEC-LC precedent (WEC §2.2): adding a partial needs no
+   build change, and a language without its own copy degrades to the base
+   partial instead of throwing. */
+const partialFor = (name, lang) => {
+  const localised = join(SRC, 'partials', `${name}.${lang}.html`);
+  return read(existsSync(localised) ? `partials/${name}.${lang}.html` : `partials/${name}.html`);
 };
 
 const BUILT = new Date().toISOString().slice(0, 10);
@@ -43,7 +42,7 @@ function render(page) {
   /* hreflang must label each URL by ITS OWN language, not by the page being
      rendered. Deriving `en` from the canonical is only correct on English
      pages — on Arabic pages it inverts the pair. Caught in production. */
-  const head = fill(partials.head, {
+  const head = fill(partialFor('head', page.lang || 'en'), {
     TITLE: page.title,
     DESCRIPTION: page.description,
     LANG: page.lang || 'en',
@@ -51,15 +50,21 @@ function render(page) {
     HREF_EN: ar ? page.altHref : canonical,
     HREF_AR: ar ? canonical : page.altHref,
     NOINDEX: page.noindex ? '<meta name="robots" content="noindex">' : '',
+    OG_LOCALE: ar ? 'ar_AR' : 'en_GB',
+    OG_TITLE: page.title,
+    OG_SITE: ar
+      ? 'كلية المدينة الدولية للغة العربية وعلوم القرآن'
+      : "Al-Madinah International College of Arabic and Qur'anic Studies",
   });
 
   let body;
   if (page.layout === 'portal') {
     body = content; // portal pages carry their own shell
   } else {
-    const topbar = fill(ar ? partials.topbarAr : partials.topbar, { ALT_HREF: page.altHref });
-    const header = fill(ar ? partials.headerAr : partials.header, { ALT_HREF: page.altHref });
-    const footer = fill(ar ? partials.footerAr : partials.footer, { BUILT });
+    const lang = page.lang || 'en';
+    const topbar = fill(partialFor('topbar', lang), { ALT_HREF: page.altHref });
+    const header = fill(partialFor('header', lang), { ALT_HREF: page.altHref });
+    const footer = fill(partialFor('footer', lang), { BUILT });
     body = `${topbar}\n${header}\n<main id="main">\n${content}\n</main>\n${footer}`;
   }
 

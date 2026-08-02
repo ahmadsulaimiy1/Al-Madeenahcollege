@@ -44,6 +44,9 @@ for (const f of html) {
   ok(`${name}: skip link`, s.includes('class="skip"'));
   ok(`${name}: main landmark`, s.includes('id="main"'));
   ok(`${name}: viewport`, s.includes('name="viewport"'));
+  ok(`${name}: og:locale matches page language`,
+     s.includes(isAr ? 'og:locale" content="ar_AR' : 'og:locale" content="en_GB'));
+  ok(`${name}: og:url matches canonical`, s.includes(`og:url" content="https://almadinah.college${name.replace(/index\.html$/, '') || '/'}"`));
 
   /* EB §46 — the honesty protocol. No unresolved template tokens may ship. */
   ok(`${name}: no unfilled tokens`, !/\{\{\w+\}\}/.test(s), (s.match(/\{\{\w+\}\}/) || [])[0]);
