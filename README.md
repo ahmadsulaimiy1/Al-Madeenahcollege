@@ -34,7 +34,7 @@ Nothing may be implemented against the Editorial Bible until it is ratified (`EB
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| 1 | **Editorial Bible** | ✅ Draft v0.2 — awaiting approval |
+| 1 | **Editorial Bible** | ✅ Complete — v0.3, peer-reviewed, awaiting ratification |
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Unblocked** — name and group architecture decided |
