@@ -74,7 +74,7 @@ D-01 exists.
 
 ---
 
-## The three rules that govern everything downstream
+## The five rules that govern everything downstream
 
 1. **No invented institutional facts.** Where something is not yet true, we publish that
    it is not yet true, in the same voice as everything else. (`EB §46`)
@@ -90,7 +90,7 @@ D-01 exists.
 
 ## What the Founder needs to do next
 
-Five things only you can supply. **None of them blocks Phase 5** — work continues under the
+Five things only you can supply. **None of them blocks Phase 6** — work continues under the
 executive autonomy protocol, on recorded assumptions.
 
 | # | Needed | Unblocks |
