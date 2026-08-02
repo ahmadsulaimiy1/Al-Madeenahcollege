@@ -3,8 +3,12 @@
 
 Institutional design and build repository.
 
-**Current state: Phase 1 complete, awaiting ratification. No implementation has begun,
+**Current state: Phase 1 at v0.2, awaiting ratification. No implementation has begun,
 by design.**
+
+**Ruled so far:** D-01 (umbrella group) · D-04 (no ijāzah; four-award ladder) ·
+D-10 (disclosed regional pricing). **D-02 — the name collision — is the critical open
+blocker.**
 
 ---
 
@@ -23,14 +27,14 @@ Nothing may be implemented against the Editorial Bible until it is ratified (`EB
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| 1 | **Editorial Bible** | ✅ Draft v0.1 — awaiting approval |
-| 2 | Institutional Strategy | Blocked on D-01, D-05 |
-| 3 | Academic Framework | Blocked on D-03, D-04, D-06 |
-| 4 | Brand Identity System | Blocked on **D-02** |
+| 1 | **Editorial Bible** | ✅ Draft v0.2 — awaiting approval |
+| 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
+| 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06 |
+| 4 | Brand Identity System | Blocked on **D-02** + D-12 (run together) |
 | 5 | Website Information Architecture | — |
 | 6 | UI/UX Design System | Blocked on D-08 |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
-| 8 | Pricing & Financial Model | Blocked on **D-10**, D-11 |
+| 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | — |
 | 10 | Implementation Roadmap | — |
 
@@ -66,9 +70,15 @@ D-01 exists.
 
 ## What the Founder needs to do next
 
-1. Read `docs/00-editorial-bible.md`.
-2. Rule on the three critical decisions — **D-02** (name collision), **D-04** (ijāzah),
-   **D-10** (disclosed vs undisclosed regional pricing).
-3. Approve, amend, or reject the Bible.
+1. **Rule on D-02** — the name collision with Al-Madinah International University
+   (Malaysia). The single remaining blocker on Phase 4, and now entangled with D-12,
+   since the group needs a name too. Run both as one exercise.
+2. **Supply the group facts** — legal structure, registered name, each member's
+   registration standing, real student and staff numbers with an `as of` date, and which
+   faculty and premises transfer. The D-01 ruling settled the structure; these facts are
+   what retire most of `EB §46.3`.
+3. **Commission the D-03 legal opinion** — now urgent, because the approved award ladder
+   contains "Arabic Language Diploma" and "diploma" is a regulated term.
+4. **Approve, amend, or reject the Bible.**
 
 Phase 2 begins on ratification.

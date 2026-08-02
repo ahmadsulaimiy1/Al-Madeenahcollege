@@ -1,8 +1,12 @@
 # كلية المدينة الدولية
 # Al-Madinah International College — Editorial Bible
 
-**Version 0.1 — DRAFT FOR FOUNDER APPROVAL**
+**Version 0.2 — DRAFT FOR FOUNDER APPROVAL**
 **Status: NOT YET IN FORCE. Nothing may be implemented against this document until it is ratified.**
+
+*v0.2 incorporates three Founder rulings — D-01 (umbrella group structure), D-04
+(certification without ijāzah), and D-10 (disclosed regional pricing). See §47's amendment
+log. D-02 (name collision) remains open and still blocks Phase 4.*
 
 ---
 
@@ -436,20 +440,47 @@ look amateur.
 Adopt a simplified **IJMES** transliteration standard throughout (Appendix B). One
 system, applied everywhere, including student-facing copy.
 
-### 8.3 Sub-brand architecture
+### 8.3 Group and sub-brand architecture
 
-**Model: a branded house.** All programmes carry the institutional identity. No
-independently-branded sub-schools in the first three years — a young institution cannot
-afford to spread its trust across multiple marks.
+**Ruled (D-01, Option D): an umbrella group.** SH Royal Schools and Abī Sulaimiy College
+form an educational group; Al-Madinah International College is its **tertiary and
+international arm**.
 
 ```
-Al-Madinah International College
-├── School of Arabic Language          (كلية اللغة العربية)
-├── School of Qur'an                   (كلية القرآن)
-├── School of Islamic Sciences         (كلية العلوم الشرعية)
-├── Institute of Teacher Certification  (معهد إعداد المعلمين)
-└── Al-Madinah Executive & Corporate    (a defined, restrained commercial arm)
+[Group — name pending, D-12]
+├── SH Royal Schools                    — primary / secondary
+├── Abī Sulaimiy College                — [role to be confirmed]
+└── Al-Madinah International College    — tertiary, international, online-first
+    ├── School of Arabic Language          (كلية اللغة العربية)
+    ├── School of Qur'an                   (كلية القرآن)
+    ├── School of Islamic Sciences         (كلية العلوم الشرعية)
+    ├── Institute of Teacher Certification  (معهد إعداد المعلمين)
+    └── Al-Madinah Executive & Corporate    (a defined, restrained commercial arm)
 ```
+
+**What the umbrella earns us.** A verifiable operating history, existing faculty, an
+existing student body, and an existing regulatory footprint. This is the fastest available
+route to retiring most of §46.3's status register — an institution with real history beats
+a beautiful empty one.
+
+**What the umbrella obliges.** Under §46, **none of that may be claimed until it is
+evidenced.** Before any public surface says "part of a group established in [year],
+educating [n] students," we must hold: the group's legal structure and registration, each
+member's registration status, real student and staff numbers with an `as of` date, and
+written authority to speak on the group's behalf. Until then, the group relationship is
+stated as a bare fact ("Al-Madinah International College is the tertiary arm of [group]")
+with no figures attached.
+
+**Brand model within Al-Madinah: a branded house.** All programmes carry the institutional
+identity. No independently-branded sub-schools in the first three years — a young
+institution cannot afford to spread its trust across multiple marks.
+
+**Group-level identity is a separate question (D-12).** An umbrella needs a name, a mark,
+a governance boundary, and a rule for how much of the parent appears on the child's
+surfaces. My recommendation is a **light-touch endorsement model**: Al-Madinah carries its
+own identity, with a small, consistent group endorsement line in the footer and on formal
+documents — not a co-equal dual lockup. A young international brand should not spend half
+its recognition carrying a domestic parent.
 
 Naming rules: Schools are named for their discipline, never for a sponsor or donor
 without a Board resolution. Programmes are named plainly and descriptively — no invented
@@ -1369,11 +1400,14 @@ applied to it.
 5. **No ḥifẓ timeline is ever promised.** (§6.2.) We publish observed ranges with sample
    sizes and the conditions that produced them.
 6. **The riwāyah is declared** (§15.4) and never mixed unlabelled.
-7. **Ijāzah, if issued, is real.** An ijāzah is issued only by a teacher who holds one in
-   that riwāyah, with a published chain, after full recitation, and it is recorded in a
-   verifiable register. **If we cannot do this properly, we do not issue ijāzah at all
-   and we say so.** This is the highest-integrity risk in the institution. Recorded as
-   **D-04**.
+7. **Ijāzah is not issued. (Ruled — D-04.)** Al-Madinah does not grant ijāzah, and says
+   so plainly on every surface where certification is discussed. We issue the awards in
+   §36.2 instead — each of which attests to something we can actually evidence.
+   Ijāzah programmes are introduced **only** when mashāyikh holding an authentic,
+   verifiable chain in the relevant riwāyah join the institution, and only under §36.3's
+   conditions. Until then, students seeking ijāzah are referred onward, honestly. This
+   remains the institution's highest integrity risk, and the ruling is the conservative
+   one precisely because of it.
 
 ## §35. Arabic Standards
 
@@ -1394,21 +1428,62 @@ applied to it.
 
 ## §36. Assessment & Certification Integrity
 
+### 36.1 Principles
+
 1. **Every certificate is independently verifiable** at a public URL, by number, showing
    holder, programme, level, date, assessor, and status (valid / revoked).
 2. **Certificates state exactly what was assessed** and what they do and do not signify.
    A certificate that overstates is a lie with a seal on it.
-3. **We never call something a degree, diploma, or accredited award unless a competent
-   regulator says we may.** Nomenclature is a regulatory matter in Nigeria, the UK, and
-   the EU. Recorded as **D-03**.
-4. **Academic integrity is enforced** — identity verification at assessment, plagiarism
+3. **Academic integrity is enforced** — identity verification at assessment, plagiarism
    detection for written work, live components that cannot be outsourced.
-5. **Assessors are named, trained, moderated, and sampled.** A proportion of every
+4. **Assessors are named, trained, moderated, and sampled.** A proportion of every
    assessor's decisions is second-marked. Divergence is investigated.
-6. **Grade inflation is an institutional risk**, monitored explicitly. If pass rates rise
+5. **Grade inflation is an institutional risk**, monitored explicitly. If pass rates rise
    without a corresponding change in intake or teaching, that is a defect, not a success.
-7. **Revocation is possible and public.** A certificate obtained fraudulently is revoked
+6. **Revocation is possible and public.** A certificate obtained fraudulently is revoked
    and its verification page says so.
+7. **Every award carries the same standard regardless of price tier.** (§37.6.)
+
+### 36.2 The award ladder (ruled — D-04)
+
+Four awards. Each attests to something we can evidence, and nothing more.
+
+| Award | Attests to | Assessed by |
+|---|---|---|
+| **Qur'an Memorisation Certificate** | A stated portion memorised **and retained** to a stated *itqān* grade, verified by unannounced re-testing (§34.2) | Live recitation to a qualified human assessor |
+| **Tajwīd Proficiency Certificate** | Command of the rules of tajwīd in the declared riwāyah, demonstrated in recitation — not written theory alone | Live recitation plus applied rule identification |
+| **Arabic Language Diploma** ⚠ | Completion and mastery of a named Arabic level, across all five modalities including comprehension of classical text (§35.2) | Level mastery gate, including a live spoken component |
+| **Certificate of Completion** | Attendance and completion of a defined programme of study, with no mastery claim | Attendance and submission record |
+
+**Every award states on its face what it is not.** The Qur'an Memorisation Certificate
+carries, in both languages: *"This is an institutional award attesting to memorisation
+assessed against Al-Madinah's published standard. It is not an ijāzah and confers no
+chain of transmission."* That sentence protects the student, the institution, and the
+tradition simultaneously.
+
+⚠ **"Diploma" is a regulated term and is not yet cleared.** In several target markets —
+Nigeria, the UK, and parts of the EU and US — award nomenclature is regulated, and
+"diploma" carries specific expectations. This is exactly the scope of **D-03**, which is
+still open. The name is recorded here as the Founder's intent; it does **not** ship until
+counsel confirms it is lawful in each market where we market it. If it is not clearable,
+the fallback is **"Certificate of Mastery in Arabic — Level n"**, which says the same
+thing and is unregulated. No award name is printed, coded, or marketed before D-03 closes.
+
+### 36.3 Ijāzah — the conditions for ever issuing one
+
+Al-Madinah does not currently grant ijāzah (§34.7). It may only begin to when **all** of
+the following are true, and each is published:
+
+1. A named muqriʾ holds an ijāzah in the riwāyah being taught, with a chain we have
+   verified and can publish in full.
+2. The ijāzah follows a complete recitation to that muqriʾ, not a portion.
+3. Each grant is recorded in a public, verifiable register (§36.1.1).
+4. The Academic Board has approved the muqriʾ, the chain, and the process on record.
+
+Until all four hold, the public position is stated plainly and without apology:
+*"Al-Madinah does not grant ijāzah. Students seeking one are referred to [named
+institutions or mashāyikh]."* Referring a student to a better-qualified institution is a
+trust signal, not a lost sale.
 
 ---
 
@@ -1432,14 +1507,31 @@ applied to it.
 
 ## §38. Regional Access Pricing
 
-### 38.1 Professional disagreement with the brief — stated plainly
+### 38.1 The ruling (D-10 — closed)
 
-The brief asks for pricing "differentiated based on geographical IP address automatically
-without even announcing to students," giving the example of $150 for a US/Gulf student
-and $15 for a Nigerian student for the same programme.
+The original brief asked for pricing differentiated by IP address, applied automatically
+"without even announcing to students." **The Founder has ruled for the disclosed model.**
 
-**I recommend against the *undisclosed* mechanism, and strongly for the *differential
-pricing itself*.** The idea is right. The concealment is the problem. Four reasons:
+**Settled policy:**
+
+- Regional pricing is determined by the student's **billing country or declared country
+  of residence**, with verification proportionate to the size of the differential.
+- **IP is a hint for the initial display only.** It never determines what a student is
+  charged, and it is never the sole basis of a band assignment.
+- The band structure and its methodology are **published**.
+- Multiple currencies are supported, with the student able to pay in their own where a
+  gateway allows.
+- Scholarships and financial aid sit alongside the bands (§40), not inside them.
+- Every jurisdiction's consumer-protection and pricing-transparency requirements are met.
+
+The economic objective the brief set out is preserved in full. Only the concealment is
+removed. The reasoning is retained below as the institutional record — and, more usefully,
+because it is the argument the public methodology page will need to make.
+
+**Why the reasoning is kept:** the four points below are not a settled internal argument
+any more. They are the reason a student in Manchester will accept, without resentment,
+that a student in Kano pays less. That argument has to be made publicly, in our own voice,
+and this is where it is written down.
 
 **1. It is a legal exposure in our most valuable markets.**
 Undisclosed, personalised or location-based pricing engages consumer-protection law in
@@ -1466,29 +1558,39 @@ VPNs, travellers, and anyone on a mobile carrier that routes through another cou
 It hands the cheap price to whoever installs a free VPN, and the expensive price to a
 Nigerian student on a proxied connection.
 
-### 38.2 The recommended alternative — Regional Access Pricing
+### 38.2 Regional Access Pricing — the mechanism
 
-**Same economics. Opposite posture.** Publish it, and make it a reason to trust us.
-
-**How it works:**
+**Same economics as the brief asked for. Opposite posture.** Published, and made a reason
+to trust us.
 
 1. **Five published bands**, assigned by country using a **published, citable
    methodology** (World Bank income classification and PPP conversion factors, reviewed
    annually, with the review date shown). No arbitrary, unexplainable differences.
 2. **A public pricing page shows every band and every country's assignment.** Anyone can
    look up any country. Nothing is hidden.
-3. **The student's band is detected as a *suggestion*** — from IP as a hint, and
-   confirmed by billing country and payment instrument. It is **always displayed**
-   ("You're seeing Nigeria pricing — change country") and **always changeable**.
-4. **Eligibility is verified at payment, not at page load** — by billing address and card
-   or mobile-money issuing country. This is both more accurate and more defensible than
-   IP.
+3. **The student's band is *suggested*, never imposed.** IP provides the initial guess
+   only. It is **always displayed** ("You're seeing Nigeria pricing — change country")
+   and **always changeable in one click**, before any account exists.
+4. **The band is set by declared country of residence at enrolment**, and **verified at
+   payment** against billing address and the issuing country of the card or mobile-money
+   account. Verification is proportionate: a Band A→B step needs little; a Band A→E step
+   needs a billing-country match. This is both more accurate and more defensible than IP,
+   and it is what closes the VPN-arbitrage gap that the IP-only model leaves wide open.
 5. **The methodology page explains why**, in our own voice: *"A programme that costs one
    week's median income in London should not cost six months' median income in Kano. We
    publish what every country pays and how we decided. We would rather you knew."*
 6. **Integrity controls, published:** one region per account; region set at enrolment and
    changed only with evidence; deliberate misrepresentation may be corrected to the
-   accurate band with notice — never retroactive punishment, never silent charging.
+   accurate band with notice — never retroactive punishment, never silent charging, never
+   a suspended account without a human review and a right of reply.
+7. **Currency is a separate axis from band.** A student's band sets *what* they pay; their
+   currency sets *how*. A Band A student in Riyadh sees SAR; a Band A student in London
+   sees GBP; a Band D student in Lagos sees NGN. Currency selection is always overridable,
+   and USD is always available as a fallback.
+8. **No price changes after enrolment for the duration of an enrolled programme.** A
+   student who enrolls at a band and price holds that price to completion of what they
+   paid for, regardless of subsequent band revisions or FX movement. This is what makes
+   the annual methodology review safe to publish.
 
 This is the model Spotify, Netflix, JetBrains, and the major Ed-Tech platforms use, and
 it survives scrutiny precisely because it is disclosed. Adobe and others have been
@@ -1505,24 +1607,37 @@ built on real cost and real market research. The *ratios* are the proposal.
 | **B** | Eastern Europe, Malaysia, Turkey, South Africa, Gulf lower band, Chile | 0.55 |
 | **C** | Morocco, Egypt, Indonesia, Philippines, Jordan, India | 0.28 |
 | **D** | Nigeria, Ghana, Kenya, Senegal, Pakistan, Bangladesh | 0.15 |
-| **E** | Lowest-income and crisis markets, published individually | 0.08 |
+| **E** | **Niger, Chad, Mali, Burkina Faso**, and other lowest-income and crisis markets, published individually | 0.08 |
 
-The brief's own example ($150 → $15) sits at a 0.10 index — inside the range this
-structure contemplates. **The economics the Founder asked for are preserved in full.**
-Only the concealment is removed.
+Worked illustration at the brief's own reference point — a programme listed at **$150** in
+Band A:
 
-### 38.4 The counter-position, stated fairly
+| Band | Market | Indicative | In local currency |
+|---|---|---|---|
+| A | United States | $150 | $150 USD |
+| A | Saudi Arabia | $150 | SAR equivalent |
+| A | United Kingdom | $150 | £ equivalent |
+| C | Egypt | $42 | EGP equivalent |
+| D | Nigeria | $22 | ₦ equivalent |
+| E | Niger, Chad | $12 | XOF / XAF equivalent |
 
-If the Founder rules to keep the mechanism undisclosed, the honest arguments for it are:
-(a) disclosed differentials invite arbitrage via VPN, which billing-country verification
-only partly mitigates; (b) some Band-A students may perceive disclosed differentials as
-unfair to them; (c) competitors in this category routinely do it silently.
+The brief's original example ($150 → $15) sits between Bands D and E. **The economics the
+Founder asked for are preserved in full.** Only the concealment is removed.
 
-My assessment is that (a) is handled by billing-country verification, (b) is
-outweighed by the trust gained from every other student, and (c) is not a standard this
-institution should adopt. **But the decision is the Founder's.** Recorded as **D-10**. I
-will implement whatever is ruled — but §47 obliges me to record that I advised against
-the undisclosed variant, and to have set out why.
+**A strategic consequence worth registering now:** Band E as ruled explicitly names Niger
+and Chad, and Band D names Senegal — all Francophone. If we are pricing for those markets,
+we are marketing to them, and marketing to them in English does not work. **French
+localisation therefore moves up from expansion Phase 5 (§43) to a Phase 2 or 3
+consideration.** This is a real cost implication of the pricing ruling and should be
+carried into the Phase 8 financial model rather than discovered later.
+
+### 38.4 Record of the decision
+
+The Founder ruled for the disclosed model (D-10, closed). The arguments that were put for
+the undisclosed variant, and my assessment of each, are preserved in
+`docs/decision-register.md` § D-10 so that a future reader can reconstruct the reasoning
+rather than merely inherit the conclusion. Per §47, the reasoning matters more than the
+change.
 
 ## §39. Tier Architecture
 
@@ -1740,6 +1855,9 @@ As of this draft, **every one of the following is unknown or unconfirmed** and m
 appear as an Institutional Status callout on any surface that touches it, until resolved:
 
 - Legal entity, registration jurisdiction, and registration number
+- **The group's** legal structure, name, registration, and each member institution's
+  standing — the D-01 ruling settles the *structure*, not the *facts* (§8.3)
+- **Any group figure** — founding year, student numbers, staff numbers, years of operation
 - Physical address and premises
 - Founding date and first cohort start date
 - Named academic leadership and faculty roster
@@ -1777,6 +1895,7 @@ institution that corrects visibly is trusted more than one that appears never to
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
+| 0.2 | 2 August 2026 | **D-01 ruled (umbrella group).** §8.3 rewritten from a standalone branded house to a group architecture with Al-Madinah as tertiary arm; §46.3 extended to hold group facts to the same evidential standard, since the ruling settles structure but supplies no facts. **D-04 ruled (no ijāzah).** §34.7 rewritten from an open question to settled policy; §36 restructured into principles, a four-award ladder, and the conditions under which ijāzah could ever be issued. **D-10 ruled (disclosed regional pricing).** §38 rewritten from a recommendation-against-the-brief into settled policy: band set by declared residence and verified at payment, IP demoted to a display hint, currency separated from band as an independent axis, price locked for the duration of an enrolled programme. Reasoning retained — it is now the public methodology argument. **New:** D-12 (group identity and naming) raised as a consequence of D-01; French localisation flagged for earlier phasing as a consequence of Bands D–E naming Francophone markets. **Unresolved:** "Arabic Language Diploma" recorded as Founder intent but gated on D-03, as "diploma" is a regulated term. | Founder (D-01, D-04, D-10); Bible as a whole still pending |
 
 ---
 
@@ -1889,19 +2008,20 @@ inconsistently within one document.
 
 Full detail, options, and recommendations in **`docs/decision-register.md`**. Summary:
 
-| ID | Decision | Blocks |
-|---|---|---|
-| D-01 | Relationship to Abī Sulaimiy College and SH Royal Schools | Phase 2 |
-| D-02 | Name collision with Al-Madinah International University (MEDIU) | Phase 4 — **critical** |
-| D-03 | Legal use of "College" and award nomenclature per jurisdiction | Phases 3, 7 |
-| D-04 | Do we issue ijāzah? Under whose authority? | Phase 3 — **highest integrity risk** |
-| D-05 | Published statement of academic method / madhhab positioning | Phase 2 |
-| D-06 | Riwāyah taught and displayed (Ḥafṣ assumed) | Phase 3 |
-| D-07 | Mixed-gender imagery and class policy | Phase 4 |
-| D-08 | Typeface licensing, esp. KFGQPC | Phase 6 |
-| D-09 | Free trial lesson — offered, and at what cost | Phase 7 |
-| D-10 | **Regional pricing: disclosed or undisclosed** (§38) | Phase 8 — **critical** |
-| D-11 | Do we accept zakāt? | Phase 8 |
+| ID | Decision | Status | Blocks |
+|---|---|---|---|
+| D-01 | Relationship to Abī Sulaimiy College and SH Royal Schools | ✅ **Closed — Option D, umbrella group** | — (group *facts* still needed, §8.3) |
+| D-02 | Name collision with Al-Madinah International University (MEDIU) | 🔴 **Open** | Phase 4 — **critical** |
+| D-03 | Legal use of "College" and award nomenclature per jurisdiction | 🔴 Open | Phases 3, 7 — now also gates "Diploma" (§36.2) |
+| D-04 | Do we issue ijāzah? | ✅ **Closed — no ijāzah; four-award ladder** | — |
+| D-05 | Published statement of academic method / madhhab positioning | 🟡 Open | Phase 2 |
+| D-06 | Riwāyah taught and displayed (Ḥafṣ assumed) | 🟡 Open | Phase 3 |
+| D-07 | Mixed-gender imagery and class policy | 🟡 Open | Phase 4 |
+| D-08 | Typeface licensing, esp. KFGQPC | 🟢 Open | Phase 6 |
+| D-09 | Free trial lesson — offered, and at what cost | 🟡 Open | Phase 7 |
+| D-10 | Regional pricing: disclosed or undisclosed (§38) | ✅ **Closed — disclosed** | — |
+| D-11 | Do we accept zakāt? | 🟢 Open | Phase 8 |
+| D-12 | Group identity, naming, and endorsement model | 🟡 **New** (from D-01) | Phase 4 |
 
 ---
 

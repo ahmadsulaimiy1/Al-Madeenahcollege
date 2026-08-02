@@ -1,7 +1,11 @@
 # Al-Madinah International College — Executive Decision Register
 
-**Version 0.1 — 2 August 2026**
+**Version 0.2 — 2 August 2026**
 Companion to `docs/00-editorial-bible.md`. Cited as `D-nn`.
+
+**Ruled on 2 August 2026:** D-01 (umbrella group) · D-04 (no ijāzah; four-award ladder) ·
+D-10 (disclosed regional pricing). One new decision raised as a consequence: **D-12**.
+**D-02 remains the critical open blocker.**
 
 Each entry states the question, why it cannot be answered by me, the options, my
 recommendation with reasoning, and what it blocks. A decision is "closed" only when the
@@ -11,10 +15,28 @@ Founder rules on it in writing and the ruling is recorded here with a date.
 
 ---
 
-## D-01 🟡 — Relationship to Abī Sulaimiy College and SH Royal Schools
+## D-01 ✅ CLOSED — Relationship to Abī Sulaimiy College and SH Royal Schools
 
-**Question.** Is Al-Madinah International College a successor to, a sibling of, a rebrand
-of, or entirely independent from `abisulaimiycollege.com.ng` and SH Royal Schools?
+> **RULED 2 August 2026 — Option D: umbrella group.** SH Royal Schools and Abī Sulaimiy
+> College form an educational group; Al-Madinah International College is its tertiary and
+> international arm. Incorporated at `EB §8.3`.
+>
+> **What this settles:** the structure. **What it does not settle:** the facts. Per
+> `EB §46`, no group figure — founding year, student numbers, staff numbers, years of
+> operation, registration standing — may appear on any public surface until it is
+> evidenced and dated. The group relationship may be stated as a bare fact; nothing may be
+> quantified around it yet.
+>
+> **Consequences raised:** **D-12** (group identity, naming, and endorsement model).
+>
+> **Still needed from the Founder, to convert this ruling into publishable substance:**
+> the group's legal structure and registered name; each member institution's registration
+> status and standing; real student and staff numbers with an `as of` date; which faculty
+> and premises transfer to Al-Madinah; and written authority to speak on the group's
+> behalf. These are the facts that retire most of `EB §46.3`.
+
+**Original question.** Is Al-Madinah International College a successor to, a sibling of, a
+rebrand of, or entirely independent from `abisulaimiycollege.com.ng` and SH Royal Schools?
 
 **Why I cannot answer it.** Both `shroyalschools.com` and `abisulaimiycollege.com.ng` were
 blocked at this environment's network gateway (403 on CONNECT). The `shroyalschools`
@@ -87,6 +109,12 @@ ruled on.
 **Question.** May we lawfully call ourselves a "College" and issue "Diplomas" and
 "Certificates" in each market we operate in?
 
+**⚠ Escalated by the D-04 ruling.** The approved award ladder includes an **"Arabic
+Language Diploma."** This decision is no longer theoretical — it now gates a named,
+approved award. Until counsel clears the term in each market we market in, that award
+cannot be printed, coded into the certificate system, or advertised. Fallback ready:
+"Certificate of Mastery in Arabic — Level n."
+
 **Why it matters.** Education nomenclature is regulated. In Nigeria, tertiary
 nomenclature and award-granting sit under NUC/NBTE/TRCN frameworks depending on what is
 being claimed. In the UK, "university" is protected and "college" carries expectations,
@@ -108,10 +136,40 @@ finalised without it.
 
 ---
 
-## D-04 🔴 — Do we issue ijāzah? Under whose authority?
+## D-04 ✅ CLOSED — Do we issue ijāzah? Under whose authority?
 
-**Question.** Will Al-Madinah issue ijāzah in Qur'anic recitation, and if so, through
-which teachers, in which riwāyah, with which chains?
+> **RULED 2 August 2026 — Option B now, A later.** No ijāzah is issued until qualified
+> teachers with authentic, verifiable chains join the institution. Incorporated at
+> `EB §34.7` and `EB §36.2–36.3`.
+>
+> **The award ladder, as specified by the Founder:**
+>
+> | Award | Attests to |
+> |---|---|
+> | Qur'an Memorisation Certificate | Portion memorised **and retained** to a stated *itqān* grade |
+> | Tajwīd Proficiency Certificate | Command of tajwīd in the declared riwāyah, demonstrated in recitation |
+> | Arabic Language Diploma ⚠ | Mastery of a named Arabic level across all five modalities |
+> | Certificate of Completion | Attendance and completion, with no mastery claim |
+>
+> Every award states on its face what it is **not** — specifically, that it is not an
+> ijāzah and confers no chain of transmission. That sentence protects the student, the
+> institution, and the tradition at once.
+>
+> ⚠ **One flag on the Founder's own wording.** "Diploma" is a **regulated term** in
+> Nigeria, the UK, and parts of the EU and US — which is exactly D-03's scope, still open.
+> The name is recorded as the Founder's intent and does **not** ship until counsel
+> confirms it is lawful in each market where we market it. Clearable fallback:
+> **"Certificate of Mastery in Arabic — Level n"**, which says the same thing and is
+> unregulated. I have not renamed it unilaterally, and I have not let it through
+> unflagged.
+>
+> **Conditions for ever issuing ijāzah** are now written down at `EB §36.3` — four of
+> them, all published, all required. Writing the conditions now, while there is no
+> commercial pressure, is the point: it is much harder to lower a published bar later than
+> to set it honestly today.
+
+**Original question.** Will Al-Madinah issue ijāzah in Qur'anic recitation, and if so,
+through which teachers, in which riwāyah, with which chains?
 
 **Why this is the highest integrity risk in the institution.** An ijāzah is a claim about
 an unbroken chain of transmission. A fabricated, careless, or unverifiable ijāzah is not a
@@ -236,9 +294,38 @@ workload stays protected (Editorial Bible §29).
 
 ---
 
-## D-10 🔴 — Regional pricing: disclosed or undisclosed
+## D-10 ✅ CLOSED — Regional pricing: disclosed or undisclosed
 
-**Question.** Do we publish our regional pricing bands, or apply them silently by IP?
+> **RULED 2 August 2026 — disclosed.** Incorporated at `EB §38`.
+>
+> **Settled policy:** band determined by **billing country or declared country of
+> residence**, with verification proportionate to the size of the differential; IP demoted
+> to an initial display hint that never determines a charge; methodology published;
+> multiple currencies supported; scholarships and financial aid alongside the bands, not
+> inside them; compliance with each jurisdiction's pricing-transparency law.
+>
+> **Two refinements I have added under this ruling**, both flowing from it rather than
+> from anything separately decided — flag either if you disagree:
+>
+> 1. **Currency is a separate axis from band** (`EB §38.2.7`). Band sets *what* a student
+>    pays; currency sets *how*. A Band A student in Riyadh sees SAR, one in London sees
+>    GBP, a Band D student in Lagos sees NGN — exactly the structure your ruling
+>    describes. Keeping the two axes independent stops FX movement from silently
+>    re-banding anyone.
+> 2. **Price is locked for the duration of an enrolled programme** (`EB §38.2.8`). A
+>    student holds the price they enrolled at through to completion, regardless of later
+>    band revisions or FX. This is what makes an *annual, published* methodology review
+>    safe to commit to — without it, every review would re-price existing students and the
+>    transparency would become a liability rather than an asset.
+>
+> **A cost consequence to carry into Phase 8:** the ruling names **Niger and Chad** in
+> Band E and Senegal in Band D — all Francophone. Pricing for those markets means
+> marketing to them, and marketing to them in English does not work. **French
+> localisation therefore moves up from expansion Phase 5 to a Phase 2–3 consideration**
+> (`EB §38.3`, `EB §43`). Better to budget it now than to discover it after launch.
+
+**Original question.** Do we publish our regional pricing bands, or apply them silently by
+IP?
 
 **This is the most consequential commercial decision in the register.** Full argument at
 Editorial Bible §38.
@@ -295,6 +382,38 @@ binding: if we cannot administer it to that standard, we do not accept it.
 
 ---
 
+## D-12 🟡 — Group identity, naming, and endorsement model *(raised by the D-01 ruling)*
+
+**Question.** Now that Al-Madinah is the tertiary arm of an umbrella group, what is the
+group called, does it have its own mark, and how much of the parent appears on
+Al-Madinah's surfaces?
+
+**Why this arises.** D-01 settled that there *is* a group. It did not settle what the
+group is called or how visible it is. Every letterhead, footer, certificate, and legal
+notice needs an answer, and getting it wrong in either direction is costly: too little
+parent presence wastes the credibility the umbrella was chosen for; too much makes an
+international brand carry a domestic parent's recognition burden.
+
+**Options.**
+| | Model | Consequence |
+|---|---|---|
+| A | **Light-touch endorsement** — Al-Madinah leads; a small, consistent group line in the footer and on formal documents | International brand stands on its own; parent supplies credibility on demand. Standard for university groups. |
+| B | **Co-equal dual lockup** — both marks, everywhere | Maximum inherited credibility in Nigeria; dilutes Al-Madinah abroad, where the parent means nothing. |
+| C | **Silent parent** — group exists legally, is not surfaced in branding | Cleanest international brand; forfeits the entire benefit of the umbrella ruling. |
+
+**Recommendation: Option A.** It captures the credibility the umbrella was chosen for
+without spending Al-Madinah's recognition on it. Concretely: an endorsement line
+("A member of [group]") in the footer, on letterhead, on formal correspondence, and on
+certificates — never in the header, never in the logo lockup, never in advertising.
+
+**I also need to know:** does the group have a registered name today, or does one need
+creating? If one needs creating, it should be decided **alongside D-02**, not after —
+they are the same design and trademark exercise and should be run once, not twice.
+
+**Blocks:** Phase 4, jointly with D-02.
+
+---
+
 ## Decisions I have taken without asking
 
 Under the Founder's directive to act autonomously, I have made the following calls. Each
@@ -314,7 +433,26 @@ is reversible — flag any you disagree with and I will change it.
 | 10 | **No photography of people at all until real, consented photography exists** | Stock imagery on a trust-first institution is self-defeating. A site with no photographs reads as restrained; one with stock photographs reads as fake — and is. |
 | 11 | **Ḥifẓ measured as *retained*, not *reached*** | The honest metric, and a genuine differentiator, because almost no competitor publishes it. |
 | 12 | **No fatwā anywhere on the platform, including the AI tutor** | A hard architectural constraint on the AI system, not a footer disclaimer. |
+| 13 | **Currency treated as an axis independent of pricing band** (v0.2) | Follows from the D-10 ruling. Stops FX movement from silently re-banding a student. |
+| 14 | **Enrolled price locked for the duration of the programme** (v0.2) | Follows from D-10. Without it, an annual published methodology review would re-price existing students, and the transparency would become a liability. |
+| 15 | **Every award states on its face what it is *not*** (v0.2) | Follows from D-04. "This is not an ijāzah and confers no chain of transmission" protects student, institution, and tradition simultaneously. |
+| 16 | **Group presence limited to a footer endorsement line** (v0.2, pending D-12) | Provisional, so Phase 4 is not blocked on layout. Reversible on your D-12 ruling. |
 
 ---
 
-*Register v0.1 — 2 August 2026. Updated as decisions close.*
+## Register status
+
+| | Count | IDs |
+|---|---|---|
+| ✅ Closed | 3 | D-01, D-04, D-10 |
+| 🔴 Critical, open | 2 | **D-02** (name collision), **D-03** (award nomenclature — escalated) |
+| 🟡 Needed soon | 5 | D-05, D-06, D-07, D-09, D-12 |
+| 🟢 Can wait | 2 | D-08, D-11 |
+
+**The one that matters most: D-02.** It is the sole remaining blocker on Phase 4, it is
+now entangled with D-12 (the group needs a name too), and every day it stays open is
+another day any spend on identity, domains, or trademark filing is at risk.
+
+---
+
+*Register v0.2 — 2 August 2026. Updated as decisions close.*
