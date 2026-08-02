@@ -79,15 +79,17 @@ D-01 exists.
 
 ## What the Founder needs to do next
 
-1. **Rule on D-02** — the name collision with Al-Madinah International University
-   (Malaysia). The single remaining blocker on Phase 4, and now entangled with D-12,
-   since the group needs a name too. Run both as one exercise.
-2. **Supply the group facts** — legal structure, registered name, each member's
-   registration standing, real student and staff numbers with an `as of` date, and which
-   faculty and premises transfer. The D-01 ruling settled the structure; these facts are
-   what retire most of `EB §46.3`.
-3. **Commission the D-03 legal opinion** — now urgent, because the approved award ladder
-   contains "Arabic Language Diploma" and "diploma" is a regulated term.
-4. **Approve, amend, or reject the Bible.**
+Five things only you can supply. **None of them blocks Phase 5** — work continues under the
+executive autonomy protocol, on recorded assumptions.
 
-Phase 2 begins on ratification.
+| # | Needed | Unblocks |
+|---|---|---|
+| 1 | **The group facts** — legal structure, registered name, each member's registration standing, real student and staff numbers with an `as of` date, which faculty and premises transfer | Retires most of `EB §46.3`. **The seal cannot be finalised without the registration date** (`IS §19`) |
+| 2 | **D-03 legal opinion** — award nomenclature in Nigeria, the UK, the EU **and now US state level**, since "college" under-signals in Britain and over-signals in America | Phase 3 award names; the approved "Arabic Language Diploma" |
+| 3 | **D-05 Statement of Academic Method** — must come from you and named scholars, not from me | Phase 2 |
+| 4 | **A qualified scholar** for two Phase 4 findings: whether the dotting system may serve as an institutional device, and D-06's riwāyah | The calligraphy commission |
+| 5 | **D-07** mixed-gender policy · **D-11** zakāt | Phase 4 photography; Phase 8 |
+
+Two production gates are open and are operational, not decisions: **domain availability**
+(unverifiable here — no DNS or whois) and **physical Pantone verification** (`IS §31`,
+blocking before any print run).
