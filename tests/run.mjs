@@ -88,10 +88,24 @@ for (const p of enPaths) {
 }
 ok('equal EN/AR page count', enPaths.length === html.length - enPaths.length);
 
-/* ---- hreflang pairs both ways ---- */
+/* ---- hreflang correctness (not merely presence) ----
+   A pair that exists but is inverted is worse than none: it tells search engines
+   the Arabic page is the English one. Shipped once; guarded now. */
 for (const f of html) {
   const s = doc(f);
-  ok(`${rel(f)}: hreflang pair`, s.includes('hreflang="en"') && s.includes('hreflang="ar"'));
+  const name = rel(f);
+  const path = (tag) =>
+    (s.match(new RegExp(`hreflang="${tag}" href="https://almadinah\\.college(/[^"]*)"`)) || [])[1];
+  const en = path('en');
+  const arh = path('ar');
+  const xd = path('x-default');
+  ok(`${name}: hreflang en/ar/x-default present`, !!en && !!arh && !!xd);
+  ok(`${name}: hreflang="en" points at a non-/ar/ path`, en && !en.startsWith('/ar/'), en);
+  ok(`${name}: hreflang="ar" points at an /ar/ path`, arh && arh.startsWith('/ar/'), arh);
+  ok(`${name}: x-default matches the en URL`, xd === en, `${xd} vs ${en}`);
+  const canon = (s.match(/rel="canonical" href="https:\/\/almadinah\.college(\/[^"]*)"/) || [])[1];
+  const expected = name.replace(/index\.html$/, '') || '/';
+  ok(`${name}: canonical is self-referential`, canon === expected, `${canon} vs ${expected}`);
 }
 
 /* ---- internal links resolve (IA §9 — no dead ends) ---- */

@@ -39,12 +39,17 @@ function render(page) {
   const ar = page.lang === 'ar';
   const dir = ar ? 'rtl' : 'ltr';
   const content = read(`pages/${page.contentFile}`);
+  const canonical = page.output === 'index.html' ? '/' : '/' + page.output.replace(/index\.html$/, '');
+  /* hreflang must label each URL by ITS OWN language, not by the page being
+     rendered. Deriving `en` from the canonical is only correct on English
+     pages — on Arabic pages it inverts the pair. Caught in production. */
   const head = fill(partials.head, {
     TITLE: page.title,
     DESCRIPTION: page.description,
     LANG: page.lang || 'en',
-    ALT_HREF: page.altHref,
-    CANONICAL: page.output === 'index.html' ? '/' : '/' + page.output.replace(/index\.html$/, ''),
+    CANONICAL: canonical,
+    HREF_EN: ar ? page.altHref : canonical,
+    HREF_AR: ar ? canonical : page.altHref,
     NOINDEX: page.noindex ? '<meta name="robots" content="noindex">' : '',
   });
 
