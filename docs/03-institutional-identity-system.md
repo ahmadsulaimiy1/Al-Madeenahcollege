@@ -558,6 +558,15 @@ purged, and included in the institution's succession and teach-out planning as a
 Board-level obligation rather than an IT one. An institution that lets its verification
 register lapse has retroactively voided every credential it ever issued.
 
+**Permanence applies to the record, not to its publication.** Data-protection law in two of
+our named markets grants a right to erasure, and an unqualified "never purged" cannot stand
+against it. The resolution — reached in Phase 5 and binding here — is that the **record** is
+permanent under a legitimate-interest basis, while **public lookup may be suppressed** at
+the holder's request, leaving verification available through the Registry. A **revoked**
+credential is never suppressible: suppression is a privacy right, not an escape route. Full
+reasoning at `IA §4.1`; requires counsel's confirmation before the first credential is
+issued.
+
 ### 24.2 Certificate numbering
 
 ```

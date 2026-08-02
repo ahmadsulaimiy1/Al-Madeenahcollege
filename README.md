@@ -5,7 +5,11 @@
 
 Institutional design and build repository.
 
-**Editorial Bible RATIFIED and IN FORCE (v0.4). Phases 1 and 4 complete. Phase 5 may begin.**
+**Editorial Bible RATIFIED and IN FORCE (v0.4). Phases 1, 4 and 5 complete. Phase 6 next.**
+
+**Architecture: 28 named systems → 3 experiences + 1 public utility.** Public Website ·
+Campus Portal (one adaptive system, not many portals) · Executive Console · Verification
+Register.
 
 **Closed:** D-01 (umbrella group) · D-02 (institutional name) · D-04 (no ijāzah;
 four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architecture).
@@ -27,6 +31,9 @@ four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architect
 | [`docs/02-phase-1-peer-review.md`](docs/02-phase-1-peer-review.md) | **Adversarial self-review** of Phase 1 by nine simulated panels. 26 findings — 2 critical, 11 high. Six fixed in place; twenty registered with an owning phase. |
 | [`docs/03-institutional-identity-system.md`](docs/03-institutional-identity-system.md) | **The identity system.** 60 articles: benchmark study of why identities endure, symbol philosophy, the nuqṭah/alif system, five logo registers, five seals, six-layer certificate authentication, typography, colour, pattern, motion, every application, production specs, governance, and a register of everything rejected with reasons. Cited as `IS §n`. |
 | [`docs/04-phase-4-peer-review.md`](docs/04-phase-4-peer-review.md) | **Adversarial review** of the identity system by ten panels. 28 findings — including three internal contradictions in the system itself. Eleven fixed; seventeen owned. |
+| [`docs/05-information-architecture.md`](docs/05-information-architecture.md) | **The information architecture.** The 100-Year Test operationalised; the absorption map showing where all 28 named systems land; the public site; the relationship model that replaces role-based portals; stakeholders, journeys, friction, longevity. Cited as `IA §n`. |
+| [`docs/06-future-considerations-register.md`](docs/06-future-considerations-register.md) | **Permanent.** 22 valuable-but-premature ideas, each with the trigger that would revive it — plus items rejected on principle, which have no trigger. Cited as `F-nn`. |
+| [`docs/07-phase-5-peer-review.md`](docs/07-phase-5-peer-review.md) | **Adversarial review** of the architecture. 24 findings — including a direct contradiction between two ratified documents. Twelve fixed; twelve owned. |
 
 The Editorial Bible is in force. Every downstream decision is bound by it (`EB §Preamble`).
 
@@ -40,8 +47,8 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.1, peer-reviewed. Two production gates before assets are made |
-| 5 | Website Information Architecture | ▶ **Next** |
-| 6 | UI/UX Design System | Blocked on D-08 |
+| 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
+| 6 | UI/UX Design System | ▶ **Next** — D-08 resolved at `IS §27` |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
@@ -74,6 +81,10 @@ D-01 exists.
 2. **Arabic is not a translation.** Arabic and English are authored in parallel; neither
    is derived from the other. (`EB §26`)
 3. **Mastery, not the calendar, decides progress.** (`EB §33`)
+4. **Institution before website.** Every decision answers: *would this still be correct if
+   this institution existed for one hundred years?* (`IA §2`)
+5. **Less, but better.** Three experiences. Every page and feature justifies its existence
+   or does not exist. (`IA §1`)
 
 ---
 
