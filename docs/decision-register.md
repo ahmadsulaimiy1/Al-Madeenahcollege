@@ -70,9 +70,53 @@ people come with us.
 
 ---
 
-## D-02 🔴 — Name collision with Al-Madinah International University (MEDIU)
+## D-02 ✅ CLOSED — Name collision with Al-Madinah International University (MEDIU)
 
-**Question.** Do we keep the name "Al-Madinah International College" unchanged?
+> **DECIDED 2 August 2026 under executive autonomy. Confidence: High.**
+> Full study: `docs/01-naming-and-brand-architecture-study.md`.
+>
+> **Name: Al-Madinah International College of Arabic and Qur'anic Studies**
+> **كلية المدينة الدولية للغة العربية وعلوم القرآن** · short form *Al-Madinah College* ·
+> `almadinah.college` · **no initialism**.
+>
+> **Method.** 36 candidates across six families; 11 weighted criteria; scores computed, not
+> eyeballed; four-scenario sensitivity analysis (base, consumer-led, legal/institutional,
+> Africa-first); and a propriety veto gate applied before ranking.
+>
+> **Result.** The name as briefed ranked **30th of 36 (3.38)**. The adopted construction
+> ranks **4th (3.90)** — **+0.52**, the largest gain available without discarding the name.
+>
+> **I set out to replace it.** Three candidates outscored it, and all three were then
+> vetoed:
+> - **Dār al-Qurrāʾ** (4.00, most robust across all four scenarios) — vetoed **V1**: "House
+>   of the Reciters" claims an identity we cannot back, since D-04 means we have no
+>   muqriʾīn and issue no ijāzah. *The matrix winner, killed by our own honesty rule.*
+> - **Al-Rāsikhūn** (4.00) — vetoed **V2**: a Qur'anic honorific for the highest class of
+>   scholars, applied by a brand-new institution to itself.
+> - **Sankoré** (3.85, the strongest African-positioning candidate) — vetoed **V4**:
+>   **SANKORE'®**, a claimed registered mark in Islamic-African studies.
+>
+> **The honest characterisation of this result:** the Founder's name survives not because
+> it is strong, but because every distinctive alternative fails on trademark, saturation,
+> propriety, or pronounceability. It is a weak-form win, and the trademark strategy
+> (`NS §9`), the SEO strategy (`NS §10`), and the group-name decision (D-12) all exist
+> because of it.
+>
+> **The research finding that reframed everything:** the evocative-Arabic-word namespace in
+> online Qur'an and Arabic education is *comprehensively* saturated — Itqān (5 incumbents),
+> Suffa (6, including a chartered university), Riwāq (5), Bayān, Qalam, Manārah. A
+> "beautiful Arabic word" strategy feels distinctive and is the single most crowded strategy
+> available.
+>
+> **Standing review trigger:** re-open **Dār al-Qurrāʾ** if and when we appoint muqriʾīn and
+> begin issuing ijāzah under `EB §36.3`. The V1 veto would fall away and it would then be
+> the strongest name in the study.
+>
+> **Escalated, not decided (needs you or counsel):** domain availability — **DNS and whois
+> are unavailable in this environment, so every domain statement is inferred, confidence
+> Low**; and trademark clearance searches, which require counsel.
+
+**Original question.** Do we keep the name "Al-Madinah International College" unchanged?
 
 **The problem.** An established institution operates in Malaysia as **Al-Madinah
 International University (MEDIU) / جامعة المدينة العالمية**. "Al-Madinah International
@@ -382,7 +426,34 @@ binding: if we cannot administer it to that standard, we do not accept it.
 
 ---
 
-## D-12 🟡 — Group identity, naming, and endorsement model *(raised by the D-01 ruling)*
+## D-12 ✅ CLOSED — Group identity, naming, and endorsement model
+
+> **DECIDED 2 August 2026 under executive autonomy. Confidence: Medium.**
+>
+> **Group: Sulaimiy Education Group · مجموعة السليمي التعليمية**
+> **Endorsement: light-touch (Option A)** — *"A member of Sulaimiy Education Group"* in the
+> footer, on letterhead, below the seal on certificates, and in full on regulatory filings
+> and MOUs. **Never** in the header, the logo lockup, advertising, or the LMS chrome.
+> Rule of thumb: the group appears where **credibility** is established, never where
+> **attention** is sought.
+>
+> **The strategic reason this matters more than it looks.** `NS §8.1` established that
+> "Al-Madinah" is weakly protectable — it is a geographic term. **The group name therefore
+> has to carry the portfolio's trademark strength.** An eponym is the most protectable
+> class of mark available, is registrable essentially everywhere, has near-zero collision
+> risk, and consolidates equity that *Abī Sulaimiy College* already holds. A strongly
+> protectable parent compensating for a weakly protectable child is standard portfolio
+> practice.
+>
+> **Why confidence is Medium, not High:** a group entity may already be registered under
+> another name (a fact only you hold), and a founder eponym touches a personal preference.
+> **One line reverses this.** If a registered name exists, it prevails without argument.
+>
+> Brand hierarchy rules, including the reputational firewall between group members, are at
+> `NS §13.2`. A brand reserve of vetoed-but-valuable names (Dār al-Qurrāʾ, Al-Rusūkh,
+> Al-Maḥẓarah, Sankoré) is held at `NS §13.4` for future programmes and campuses.
+
+**Original question.** *(raised by the D-01 ruling)*
 
 **Question.** Now that Al-Madinah is the tertiary arm of an umbrella group, what is the
 group called, does it have its own mark, and how much of the parent appears on
@@ -440,19 +511,69 @@ is reversible — flag any you disagree with and I will change it.
 
 ---
 
+---
+
+## Executive autonomy protocol
+
+**In force from 2 August 2026, at the Founder's direction.**
+
+**Decide, don't ask** — where a decision can be reached through research, reasoning,
+accepted best practice, educational governance, branding, engineering, finance, UX, or
+Islamic institutional standards. Document the rationale, assign a confidence level,
+register it, and continue. Do not pause the programme over an unresolved non-critical
+decision: proceed on the best-supported assumption and record it.
+
+**Escalate only** what genuinely requires information unavailable to me:
+
+| Escalate | Do not escalate |
+|---|---|
+| Legal registration details | Which of two defensible designs is better |
+| Ownership and corporate facts | Anything resolvable by research |
+| Historical institutional records | Anything resolvable by best practice |
+| Contractual obligations | Anything with an obvious professional default |
+| Budget ceilings | Anything I can decide, record, and reverse cheaply |
+| Personal preferences not reasonably inferable | Preferences reasonably inferable from prior decisions |
+
+**Every autonomous decision carries a confidence level**, the evidence it rests on, and
+what would change it. **Every decision is reversible on one line from the Founder.**
+
+**Confidence scale:**
+
+| | Meaning |
+|---|---|
+| **High** | Evidence-backed; I would defend it to a board. Reversal should be argued, not assumed. |
+| **Medium** | Best-supported reading; a specific unknown could change it. Flagged in place. |
+| **Low** | Working assumption to avoid blocking. Treat as provisional and verify early. |
+
+---
+
 ## Register status
 
 | | Count | IDs |
 |---|---|---|
-| ✅ Closed | 3 | D-01, D-04, D-10 |
-| 🔴 Critical, open | 2 | **D-02** (name collision), **D-03** (award nomenclature — escalated) |
-| 🟡 Needed soon | 5 | D-05, D-06, D-07, D-09, D-12 |
+| ✅ Closed | 5 | D-01, D-02, D-04, D-10, D-12 |
+| 🔴 Critical, open | 3 | **D-03** (award nomenclature), **A-1** (credit framework), **C-1** (data residency) |
+| 🟡 Needed soon | 4 | D-05, D-06, D-07, D-09 |
 | 🟢 Can wait | 2 | D-08, D-11 |
 
-**The one that matters most: D-02.** It is the sole remaining blocker on Phase 4, it is
-now entangled with D-12 (the group needs a name too), and every day it stays open is
-another day any spend on identity, domains, or trademark filing is at risk.
+**Phase 4 is unblocked.** The three critical items are now the peer review's, not the
+naming study's:
+
+- **A-1 — no credit framework.** `EB §33` progressed students by mastery with no notional
+  learning hours. As drafted the institution was **un-accreditable** and its awards
+  untransferable. Partially fixed at `EB §33.2a`; full remedy is Phase 3, and curriculum
+  cannot be authored before it.
+- **C-1 — no data residency position.** Serving Nigerian (NDPA 2023), UK/EU (GDPR), Gulf
+  and US students from one deployment with no stated lawful transfer basis is **unlawful
+  processing in at least two named markets.** Must be resolved before any real student
+  data exists.
+- **D-03 — award nomenclature.** Now gates a named, approved award ("Arabic Language
+  Diploma"). Needs counsel.
+
+**Still needed from you, and only from you:** the group facts (D-01), the Statement of
+Academic Method (D-05), the riwāyah confirmation (D-06), the mixed-gender policy (D-07),
+and whether a group entity is already registered (D-12).
 
 ---
 
-*Register v0.2 — 2 August 2026. Updated as decisions close.*
+*Register v0.3 — 2 August 2026. Updated as decisions close.*

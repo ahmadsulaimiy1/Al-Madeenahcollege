@@ -1,14 +1,19 @@
-# كلية المدينة الدولية
-# Al-Madinah International College
+# كلية المدينة الدولية للغة العربية وعلوم القرآن
+# Al-Madinah International College of Arabic and Qur'anic Studies
+
+*A member of Sulaimiy Education Group*
 
 Institutional design and build repository.
 
-**Current state: Phase 1 at v0.2, awaiting ratification. No implementation has begun,
-by design.**
+**Current state: Phase 1 at v0.3. Phase 4 unblocked. Operating under executive autonomy.**
 
-**Ruled so far:** D-01 (umbrella group) · D-04 (no ijāzah; four-award ladder) ·
-D-10 (disclosed regional pricing). **D-02 — the name collision — is the critical open
-blocker.**
+**Closed:** D-01 (umbrella group) · D-02 (institutional name) · D-04 (no ijāzah;
+four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architecture).
+
+**Critical and open — all three from the Phase 1 peer review or its knock-ons:**
+**A-1** (no credit framework — the institution is un-accreditable as drafted) ·
+**C-1** (no data-residency position — unlawful processing in two named markets) ·
+**D-03** (award nomenclature — now gates an approved award).
 
 ---
 
@@ -17,7 +22,9 @@ blocker.**
 | Document | What it is |
 |---|---|
 | [`docs/00-editorial-bible.md`](docs/00-editorial-bible.md) | **The constitution.** 47 articles governing identity, Islamic standards, voice, design system, experience, academic doctrine, pricing, strategy, and governance. Cited as `EB §n`. |
-| [`docs/decision-register.md`](docs/decision-register.md) | 11 open executive decisions requiring a Founder ruling, each with options and a recommendation — plus 12 decisions taken autonomously, all reversible. Cited as `D-nn`. |
+| [`docs/decision-register.md`](docs/decision-register.md) | The decision log — 5 closed, 9 open, each with options, reasoning, and a confidence level. Carries the executive autonomy protocol. Cited as `D-nn`. |
+| [`docs/01-naming-and-brand-architecture-study.md`](docs/01-naming-and-brand-architecture-study.md) | **The naming study.** 36 candidates, 11 weighted criteria, four-scenario sensitivity analysis, a propriety veto gate, trademark/SEO/domain strategy, and the parent group architecture. Closes D-02 and D-12. Cited as `NS §n`. |
+| [`docs/02-phase-1-peer-review.md`](docs/02-phase-1-peer-review.md) | **Adversarial self-review** of Phase 1 by nine simulated panels. 26 findings — 2 critical, 11 high, 11 medium, 2 low. Six fixed in place; twenty registered with an owning phase. |
 
 Nothing may be implemented against the Editorial Bible until it is ratified (`EB §Preamble`).
 
@@ -29,13 +36,13 @@ Nothing may be implemented against the Editorial Bible until it is ratified (`EB
 |---|---|---|
 | 1 | **Editorial Bible** | ✅ Draft v0.2 — awaiting approval |
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
-| 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06 |
-| 4 | Brand Identity System | Blocked on **D-02** + D-12 (run together) |
+| 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
+| 4 | Brand Identity System | ✅ **Unblocked** — name and group architecture decided |
 | 5 | Website Information Architecture | — |
 | 6 | UI/UX Design System | Blocked on D-08 |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
-| 9 | Technology Architecture | — |
+| 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
 | 10 | Implementation Roadmap | — |
 
 Each phase is reviewed against `EB §45`'s five quality gates before the next begins.

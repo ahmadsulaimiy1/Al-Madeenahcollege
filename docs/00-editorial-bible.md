@@ -1,12 +1,18 @@
 # كلية المدينة الدولية
 # Al-Madinah International College — Editorial Bible
 
-**Version 0.2 — DRAFT FOR FOUNDER APPROVAL**
+**Version 0.3 — DRAFT FOR FOUNDER APPROVAL**
 **Status: NOT YET IN FORCE. Nothing may be implemented against this document until it is ratified.**
 
-*v0.2 incorporates three Founder rulings — D-01 (umbrella group structure), D-04
-(certification without ijāzah), and D-10 (disclosed regional pricing). See §47's amendment
-log. D-02 (name collision) remains open and still blocks Phase 4.*
+*v0.3 incorporates three Founder rulings (D-01, D-04, D-10), two decisions taken under
+executive autonomy (D-02 the institutional name, D-12 the group architecture — see
+`docs/01-naming-and-brand-architecture-study.md`), and six remediations from the Phase 1
+peer review (`docs/02-phase-1-peer-review.md`). See §47's amendment log.*
+
+*Two findings from that review are **critical and unremediated**: **A-1** (notional learning
+hours — partially fixed here at §33.2a, full remedy is Phase 3) and **C-1** (no data
+residency position — Phase 9, and unlawful to process real student data before it is
+resolved).*
 
 ---
 
@@ -291,6 +297,13 @@ nothing. Not using it costs us nothing at all.
   memorisation technique, study planning, and administrative help. Its forbidden scope
   is: fatwā, ʿaqīdah adjudication, tafsīr beyond citation of published works, and any
   ruling on a student's personal circumstance.
+- **The AI may retrieve Qur'anic text. It may never generate it.** Any response containing
+  Qur'anic text is rendered from the verified corpus (§15.4) through a template, or it is
+  suppressed entirely — never produced token-by-token by a language model. Language models
+  hallucinate; a tutor that misquotes the Qur'an to a student would be the single most
+  serious failure this platform could produce. This is a hard architectural constraint on
+  the retrieval layer, enforced in code, not a prompt instruction. The same rule binds
+  hadith text.
 - **Methodological positioning is an unresolved executive decision (D-05).** In the West
   African context specifically, an Islamic institution's perceived alignment materially
   determines who enrols. The recommendation is a published, dignified statement of
@@ -386,13 +399,28 @@ The following are the visual clichés of Islamic education online. Each is banne
 
 ## §8. Brand Architecture & Naming
 
-### 8.1 The name — and a serious risk the Founder must rule on
+### 8.1 The name — decided (D-02, closed)
 
-**Institutional name:** كلية المدينة الدولية / Al-Madinah International College
-**Short form:** Al-Madinah College
-**Initialism:** AMIC (use sparingly; never as the primary identifier in year one)
+| | |
+|---|---|
+| **Legal & credential name** | **Al-Madinah International College of Arabic and Qur'anic Studies** |
+| **Arabic** | **كلية المدينة الدولية للغة العربية وعلوم القرآن** |
+| **Short form** | Al-Madinah College · كلية المدينة |
+| **Digital identity** | `almadinah.college` |
+| **Initialism** | **None.** Not AMIC, not AMICAQS — no initialism in the first five years. |
 
-**Risk — must be resolved before any spend on identity, domains, or print:**
+Decided under executive autonomy against a 36-candidate weighted matrix, a four-scenario
+sensitivity analysis, and a propriety veto gate — see
+`docs/01-naming-and-brand-architecture-study.md`. The name as originally briefed ranked
+**30th of 36**; the adopted construction ranks **4th**. Three candidates outscored it and
+all three were eliminated by the veto gate (§8.4).
+
+**The qualifier is load-bearing, not decorative.** "…of Arabic and Qur'anic Studies"
+creates a registrable composite where the bare geographic term is not, produces a long-tail
+search string we can realistically own, distinguishes us from MEDIU in the context that
+matters legally, and states our discipline on every credential we issue.
+
+**The risk that drove this decision (now managed, not eliminated):**
 
 There is an established institution in Malaysia operating as **Al-Madinah International
 University (MEDIU) / جامعة المدينة العالمية**. The similarity between "Al-Madinah
@@ -408,18 +436,14 @@ create three distinct exposures:
 3. **Accreditation and recognition confusion** — a prospective student or employer
    verifying our certificate may reach theirs.
 
-**Recommendation, in preference order:**
+**How each is now managed:**
 
-- **(A) Add a distinguishing element.** e.g. *Al-Madinah International College of Arabic
-  and Qur'anic Studies*, or a founder/place qualifier. Keeps the name, removes most of
-  the collision. **This is my recommendation.**
-- **(B) Keep the name unchanged**, having taken trademark advice in Nigeria, the UK,
-  the EU, and the GCC, and accept the SEO cost as a known, budgeted marketing expense.
-- **(C) Reposition to a distinctive Arabic name** with "Madinah" retained as a
-  descriptor rather than the headline.
+| Exposure | Management |
+|---|---|
+| Search contamination | Concede the head term entirely. Win the long tail and own the published-curriculum corpus, which no competitor publishes. Permanent, indexed MEDIU disambiguation page. (`NS §10`) |
+| Trademark | File the **composite**, never the bare geographic term. Nigeria → UK → EU → GCC → US → Malaysia. Target coexistence, not confrontation. Counsel required before filing. (`NS §9`) |
+| Verification confusion | Public certificate-verification register (§36.1) plus the disambiguation page. |
 
-Registered in the decision register as **D-02**. I will not proceed to identity design
-(Phase 4) without a ruling.
 
 ### 8.2 Transliteration — one spelling, forever
 
@@ -446,8 +470,15 @@ system, applied everywhere, including student-facing copy.
 form an educational group; Al-Madinah International College is its **tertiary and
 international arm**.
 
+**Group name (D-12, closed — confidence Medium):** **Sulaimiy Education Group** /
+مجموعة السليمي التعليمية. Eponymous names are the most protectable class of mark, which
+matters here specifically: §8.1 established that "Al-Madinah" is weakly protectable, so the
+**group name must carry the portfolio's trademark strength**. Provisional pending one fact
+only — whether a group entity is already registered under another name, in which case that
+name prevails. Full reasoning and the endorsement model at `NS §12–§13`.
+
 ```
-[Group — name pending, D-12]
+SULAIMIY EDUCATION GROUP             مجموعة السليمي التعليمية
 ├── SH Royal Schools                    — primary / secondary
 ├── Abī Sulaimiy College                — [role to be confirmed]
 └── Al-Madinah International College    — tertiary, international, online-first
@@ -486,6 +517,48 @@ Naming rules: Schools are named for their discipline, never for a sponsor or don
 without a Board resolution. Programmes are named plainly and descriptively — no invented
 programme brand names, no acronym soup. A student must be able to say what a programme is
 from its name alone.
+
+### 8.4 The naming veto gate — binding on every future name
+
+A weighted matrix lets a name trade a propriety failure against a strong commercial score.
+Some failures are not tradeable. Every future name — programme, school, campus, sub-brand,
+product — passes this gate **before** any scoring. A veto is absolute.
+
+| | A name is vetoed if it… |
+|---|---|
+| **V1** | Claims something the institution cannot currently back (§46) |
+| **V2** | Constitutes self-praise (*tazkiyah*), or applies a Qur'anic honorific to ourselves (§10.2 Rule 2) |
+| **V3** | Signals a sectarian or methodological position we have committed to teach rather than adjudicate (§5.7) |
+| **V4** | Collides with a live registered or claimed mark in education services |
+| **V5** | Carries an adverse media or geopolitical adjacency |
+
+This gate is not hypothetical. It eliminated the two highest-scoring candidates in the
+naming study: *Dār al-Qurrāʾ* ("House of the Reciters" — V1, since we issue no ijāzah) and
+*Al-Rāsikhūn* (V2, a Qur'anic honorific for the highest class of scholars, applied by a
+brand-new institution to itself).
+
+### 8.5 The Madinah name — what it does and does not claim
+
+§31 forbids borrowed authority as a trust signal. That rule and this name must be reconciled
+explicitly, not left for a critic to raise.
+
+**Permitted.** The name is an *orientation* — it names the standard we hold ourselves to
+(§7.1), in the same way institutions worldwide take the names of places they aspire to.
+This is universally read as aspiration, and it is how MEDIU (Malaysia) and hundreds of
+others use it.
+
+**Forbidden, absolutely.** Any implication of institutional connection to Madinah, Saudi
+Arabia — no claimed affiliation with the Islamic University of Madinah or any Saudi body;
+no Ḥaramayn imagery suggesting sponsorship (§31); no copy implying our teachers, licences,
+or certification originate there.
+
+**Required.** A permanent, plainly-worded statement on the About page: *"Al-Madinah
+International College of Arabic and Qur'anic Studies takes its name from the city that
+received the completion of the Qur'an and housed the first school in Islam. We have no
+institutional affiliation with any body in Madinah, Saudi Arabia, and we are unrelated to
+Al-Madinah International University (Malaysia)."*
+
+Saying this first, unprompted, is worth more than being asked and answering well.
 
 ## §9. Positioning
 
@@ -1237,8 +1310,16 @@ matters.
 **Faculty pay and regional pricing.** Regional pricing (§39) reduces revenue per student
 in low-band markets. **Teacher pay is never reduced to compensate.** Where pay varies by
 market it does so on a published band structure, benchmarked to a living wage in that
-market, never as a residual of what a discounted student paid. Recorded as a standing
-constraint on the Phase 8 financial model.
+market, never as a residual of what a discounted student paid.
+
+**This commitment requires an explicit cross-subsidy, and saying so is mandatory.** Band E
+sits at index 0.08 (§38.3); at 8% of Band A revenue a Band E cohort cannot fund a
+living-wage teacher on its own. The Phase 8 financial model must therefore quantify the
+cross-subsidy and state the Band A/B enrolment ratio required to sustain Bands D and E —
+and that ratio is **published as part of the pricing methodology** (§38.2.5). An
+unquantified version of this commitment is one that gets broken quietly under pressure,
+which is worse than never making it. Published, it becomes a trust asset: it shows exactly
+who is paying for whom, and that we are not pretending the money comes from nowhere.
 
 ## §30. The Administrative Journey
 
@@ -1309,10 +1390,15 @@ even if it works. Especially if it works.
 ### 32.3 What we never do
 
 Countdown timers; false scarcity; "X people are viewing this"; exit-intent popups;
-pre-ticked upsells; drip-fed fees revealed at checkout; confirm-shaming; retargeting a
-visitor who read a bereavement or hardship page; guilt or fear appeals (§6.3); "limited
-scholarships" when they are not limited; auto-renewal without a clear, reachable
-cancellation.
+pre-ticked upsells; drip-fed fees revealed at checkout; confirm-shaming; guilt or fear
+appeals (§6.3); "limited scholarships" when they are not limited; auto-renewal without a
+clear, reachable cancellation.
+
+**Standing commitment for when the pages exist:** hardship, bereavement, financial-aid, and
+withdrawal pages are **never** added to any retargeting, remarketing, or advertising
+audience, and never trigger a follow-up sales contact. A student reading them is at their
+most vulnerable and least should be sold to. This binds Phase 5 when the information
+architecture is drawn, and Phase 9 when analytics are configured.
 
 ### 32.4 The metrics we optimise
 
@@ -1354,6 +1440,26 @@ One curriculum. One mastery standard. Four routes through it.
 | **Standard** (النظامي) | 8–12 hrs | Most students | Median and range |
 | **Measured** (المتدرّج) | 4–6 hrs | Working professionals, parents | Median and range |
 | **Open** (المفتوح) | Self-paced | Self-directed, irregular availability | No duration claimed; mastery gates only |
+
+### 33.2a Notional learning hours — the second record
+
+**Mastery decides progression. Notional learning hours describe what the award
+represents.** Every unit and level carries **both**, and they are orthogonal.
+
+A fast-track student may complete a 120-hour level in six weeks; a measured-route student
+may take six months. Both are recorded as **120 notional learning hours**. Mastery alone
+governs *whether* a student advances (§33.3 is unchanged); notional hours govern how the
+award is *recognised* elsewhere.
+
+**Why this is non-negotiable.** Every recognised quality framework — Nigeria's NUC/NBTE,
+Ofqual's RQF, the EQF, ECTS — expresses awards in volume of learning. Without it we cannot
+apply for accreditation, map to any national framework, support credit transfer, grant
+recognition of prior learning, or let a graduate's award be evaluated by a foreign
+university or employer. §27 promises the student certification that "means something
+outside here"; without notional hours that promise is structurally unkeepable.
+
+This is not a retreat from mastery-based progression. It is the recognition that refusing
+to state a quantity every regulator requires costs our graduates, not our principles.
 
 **Binding rule on duration claims:** we publish a **median and a range**, drawn from real
 student data, with the sample size and date. Until we have real data, we publish a
@@ -1895,6 +2001,7 @@ institution that corrects visibly is trusted more than one that appears never to
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
+| 0.3 | 2 August 2026 | **D-02 decided under executive autonomy** — institutional name set to *Al-Madinah International College of Arabic and Qur'anic Studies* after a 36-candidate weighted matrix, four-scenario sensitivity analysis, and a propriety veto gate (`NS`). The name as briefed ranked 30th of 36; the adopted construction ranks 4th. Three candidates outscored it; all three were vetoed on propriety or trademark grounds. §8.1 rewritten. **D-12 decided** — *Sulaimiy Education Group* (confidence Medium), light-touch endorsement; §8.3 updated. **New §8.4** codifies the propriety veto gate as a permanent rule binding every future name — it caught two failures the matrix scored as winners. **New §8.5** reconciles the Madinah name with §31's ban on borrowed authority and mandates a public non-affiliation statement. **Phase 1 peer review remediations:** §5.7 — the AI may retrieve but never generate Qur'anic or hadith text, enforced in code (finding S-3); §33.2a — notional learning hours recorded alongside mastery gates, without which the institution is un-accreditable (finding A-1); §29 — the teacher-pay commitment's cross-subsidy made explicit, quantified in Phase 8, and published (finding F-1, an otherwise unfunded promise); §32.3 — dangling reference corrected into a forward commitment (finding Z-2). | Claude (executive autonomy); Bible as a whole still pending |
 | 0.2 | 2 August 2026 | **D-01 ruled (umbrella group).** §8.3 rewritten from a standalone branded house to a group architecture with Al-Madinah as tertiary arm; §46.3 extended to hold group facts to the same evidential standard, since the ruling settles structure but supplies no facts. **D-04 ruled (no ijāzah).** §34.7 rewritten from an open question to settled policy; §36 restructured into principles, a four-award ladder, and the conditions under which ijāzah could ever be issued. **D-10 ruled (disclosed regional pricing).** §38 rewritten from a recommendation-against-the-brief into settled policy: band set by declared residence and verified at payment, IP demoted to a display hint, currency separated from band as an independent axis, price locked for the duration of an enrolled programme. Reasoning retained — it is now the public methodology argument. **New:** D-12 (group identity and naming) raised as a consequence of D-01; French localisation flagged for earlier phasing as a consequence of Bands D–E naming Francophone markets. **Unresolved:** "Arabic Language Diploma" recorded as Founder intent but gated on D-03, as "diploma" is a regulated term. | Founder (D-01, D-04, D-10); Bible as a whole still pending |
 
 ---
@@ -2011,7 +2118,7 @@ Full detail, options, and recommendations in **`docs/decision-register.md`**. Su
 | ID | Decision | Status | Blocks |
 |---|---|---|---|
 | D-01 | Relationship to Abī Sulaimiy College and SH Royal Schools | ✅ **Closed — Option D, umbrella group** | — (group *facts* still needed, §8.3) |
-| D-02 | Name collision with Al-Madinah International University (MEDIU) | 🔴 **Open** | Phase 4 — **critical** |
+| D-02 | Name collision with Al-Madinah International University (MEDIU) | ✅ **Closed — name decided (§8.1)** | — Phase 4 unblocked |
 | D-03 | Legal use of "College" and award nomenclature per jurisdiction | 🔴 Open | Phases 3, 7 — now also gates "Diploma" (§36.2) |
 | D-04 | Do we issue ijāzah? | ✅ **Closed — no ijāzah; four-award ladder** | — |
 | D-05 | Published statement of academic method / madhhab positioning | 🟡 Open | Phase 2 |
@@ -2021,7 +2128,9 @@ Full detail, options, and recommendations in **`docs/decision-register.md`**. Su
 | D-09 | Free trial lesson — offered, and at what cost | 🟡 Open | Phase 7 |
 | D-10 | Regional pricing: disclosed or undisclosed (§38) | ✅ **Closed — disclosed** | — |
 | D-11 | Do we accept zakāt? | 🟢 Open | Phase 8 |
-| D-12 | Group identity, naming, and endorsement model | 🟡 **New** (from D-01) | Phase 4 |
+| D-12 | Group identity, naming, and endorsement model | ✅ **Closed — Sulaimiy Education Group (§8.3)** | — |
+| **A-1** | **Notional learning hours / credit framework** (peer review) | 🔴 **Critical** — partially fixed §33.2a | Phase 3 |
+| **C-1** | **Data residency and lawful cross-border transfer** (peer review) | 🔴 **Critical** | Phase 9 — before any real student data |
 
 ---
 
