@@ -5,7 +5,7 @@
 
 Institutional design and build repository.
 
-**Current state: Phase 1 at v0.3. Phase 4 unblocked. Operating under executive autonomy.**
+**Editorial Bible RATIFIED and IN FORCE (v0.4). Phases 1 and 4 complete. Phase 5 may begin.**
 
 **Closed:** D-01 (umbrella group) · D-02 (institutional name) · D-04 (no ijāzah;
 four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architecture).
@@ -24,9 +24,11 @@ four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architect
 | [`docs/00-editorial-bible.md`](docs/00-editorial-bible.md) | **The constitution.** 47 articles governing identity, Islamic standards, voice, design system, experience, academic doctrine, pricing, strategy, and governance. Cited as `EB §n`. |
 | [`docs/decision-register.md`](docs/decision-register.md) | The decision log — 5 closed, 9 open, each with options, reasoning, and a confidence level. Carries the executive autonomy protocol. Cited as `D-nn`. |
 | [`docs/01-naming-and-brand-architecture-study.md`](docs/01-naming-and-brand-architecture-study.md) | **The naming study.** 36 candidates, 11 weighted criteria, four-scenario sensitivity analysis, a propriety veto gate, trademark/SEO/domain strategy, and the parent group architecture. Closes D-02 and D-12. Cited as `NS §n`. |
-| [`docs/02-phase-1-peer-review.md`](docs/02-phase-1-peer-review.md) | **Adversarial self-review** of Phase 1 by nine simulated panels. 26 findings — 2 critical, 11 high, 11 medium, 2 low. Six fixed in place; twenty registered with an owning phase. |
+| [`docs/02-phase-1-peer-review.md`](docs/02-phase-1-peer-review.md) | **Adversarial self-review** of Phase 1 by nine simulated panels. 26 findings — 2 critical, 11 high. Six fixed in place; twenty registered with an owning phase. |
+| [`docs/03-institutional-identity-system.md`](docs/03-institutional-identity-system.md) | **The identity system.** 60 articles: benchmark study of why identities endure, symbol philosophy, the nuqṭah/alif system, five logo registers, five seals, six-layer certificate authentication, typography, colour, pattern, motion, every application, production specs, governance, and a register of everything rejected with reasons. Cited as `IS §n`. |
+| [`docs/04-phase-4-peer-review.md`](docs/04-phase-4-peer-review.md) | **Adversarial review** of the identity system by ten panels. 28 findings — including three internal contradictions in the system itself. Eleven fixed; seventeen owned. |
 
-Nothing may be implemented against the Editorial Bible until it is ratified (`EB §Preamble`).
+The Editorial Bible is in force. Every downstream decision is bound by it (`EB §Preamble`).
 
 ---
 
@@ -34,11 +36,11 @@ Nothing may be implemented against the Editorial Bible until it is ratified (`EB
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| 1 | **Editorial Bible** | ✅ Complete — v0.3, peer-reviewed, awaiting ratification |
+| 1 | **Editorial Bible** | ✅ **Ratified** — v0.4, in force |
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
-| 4 | Brand Identity System | ✅ **Unblocked** — name and group architecture decided |
-| 5 | Website Information Architecture | — |
+| 4 | Brand Identity System | ✅ **Complete** — v1.1, peer-reviewed. Two production gates before assets are made |
+| 5 | Website Information Architecture | ▶ **Next** |
 | 6 | UI/UX Design System | Blocked on D-08 |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |

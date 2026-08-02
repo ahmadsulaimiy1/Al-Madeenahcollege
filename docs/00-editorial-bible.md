@@ -1,8 +1,8 @@
 # كلية المدينة الدولية
 # Al-Madinah International College — Editorial Bible
 
-**Version 0.3 — DRAFT FOR FOUNDER APPROVAL**
-**Status: NOT YET IN FORCE. Nothing may be implemented against this document until it is ratified.**
+**Version 0.4 — RATIFIED 2 August 2026**
+**Status: IN FORCE.** Ratified by the Founder, 2 August 2026. Amendments follow §47.
 
 *v0.3 incorporates three Founder rulings (D-01, D-04, D-10), two decisions taken under
 executive autonomy (D-02 the institutional name, D-12 the group architecture — see
@@ -874,8 +874,8 @@ Arabic typography is not localisation. It is the primary craft of the institutio
 | **Muṣḥaf (Qur'anic text)** | KFGQPC Uthmanic Script HAFS, or Amiri Quran | The only acceptable rendering of Qur'anic text. Non-negotiable. | Qur'an display, ḥifẓ interface, certificates carrying āyāt |
 | **Editorial Naskh** | Amiri | The finest open Naskh revival available; correct for scholarly and ceremonial text | Headings, pull-quotes, vision/mission, printed matter |
 | **Interface / body Arabic** | IBM Plex Sans Arabic | Genuine multi-script family with a Latin sibling designed alongside it — solves bilingual harmony at the source rather than by approximation | All UI, LMS, forms, body copy, dashboards |
-| **Ceremonial display** | Aref Ruqaa | Ruqʿah-derived, ceremonial weight | Certificates, ijāzah documents, seals. **Never below 24px.** |
-| **Teaching Naskh (vocalised)** | Kitab, or Amiri with full tashkīl | Designed to carry heavy vocalisation without collision | Levels 1–4 teaching material, all *mushakkal* text |
+| **Ceremonial display** | **Amiri** (typesetting) + commissioned **thuluth** (seal lettering) | Thuluth is the tradition's genuine ceremonial script. **Ruqʿah is not used institutionally in any face** — it is historically an administrative and rapid-handwriting script, and Aref Ruqaa was removed from this system in v0.4 for that reason (`IS §28.6`) | Certificates, seals, ceremonial documents |
+| **Teaching Naskh (vocalised)** | **Amiri** with full tashkīl (verified OFL). *Kitab* only if its licence is confirmed — ⚠ currently unverified | Carries heavy vocalisation without collision. **Any element containing tashkīl uses this face wherever it sits — chrome or content** (`IS §28.7`) | Levels 1–4 teaching material, all *mushakkal* text |
 
 **Licensing note:** every face above must have its licence verified for web embedding and
 commercial use before Phase 6. KFGQPC fonts in particular carry specific terms. Recorded
@@ -2001,6 +2001,7 @@ institution that corrects visibly is trusted more than one that appears never to
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
+| 0.4 | 2 August 2026 | **Ratified and in force.** Amended by Phase 4's adversarial peer review, which found a historical error in this Bible's own type system: **Aref Ruqaa was specified as the ceremonial Arabic face, but ruqʿah is historically an administrative and rapid-handwriting script, not a ceremonial one.** It was specified because it was one of the few high-quality free display Arabic faces — availability masquerading as suitability. Removed entirely from §15.2 and Appendix A; ceremonial typesetting is now Amiri and ceremonial lettering is commissioned thuluth. Separately, *Kitab*'s licence could not be verified, so Amiri with full tashkīl becomes the specified teaching face and no unverified face ships. A rule is added that **any element containing tashkīl uses the teaching face wherever it sits**, closing a gap where vocalised Arabic inside LMS chrome had no specified face at all. | Founder (ratification); Claude (amendments, executive autonomy) |
 | 0.3 | 2 August 2026 | **D-02 decided under executive autonomy** — institutional name set to *Al-Madinah International College of Arabic and Qur'anic Studies* after a 36-candidate weighted matrix, four-scenario sensitivity analysis, and a propriety veto gate (`NS`). The name as briefed ranked 30th of 36; the adopted construction ranks 4th. Three candidates outscored it; all three were vetoed on propriety or trademark grounds. §8.1 rewritten. **D-12 decided** — *Sulaimiy Education Group* (confidence Medium), light-touch endorsement; §8.3 updated. **New §8.4** codifies the propriety veto gate as a permanent rule binding every future name — it caught two failures the matrix scored as winners. **New §8.5** reconciles the Madinah name with §31's ban on borrowed authority and mandates a public non-affiliation statement. **Phase 1 peer review remediations:** §5.7 — the AI may retrieve but never generate Qur'anic or hadith text, enforced in code (finding S-3); §33.2a — notional learning hours recorded alongside mastery gates, without which the institution is un-accreditable (finding A-1); §29 — the teacher-pay commitment's cross-subsidy made explicit, quantified in Phase 8, and published (finding F-1, an otherwise unfunded promise); §32.3 — dangling reference corrected into a forward commitment (finding Z-2). | Claude (executive autonomy); Bible as a whole still pending |
 | 0.2 | 2 August 2026 | **D-01 ruled (umbrella group).** §8.3 rewritten from a standalone branded house to a group architecture with Al-Madinah as tertiary arm; §46.3 extended to hold group facts to the same evidential standard, since the ruling settles structure but supplies no facts. **D-04 ruled (no ijāzah).** §34.7 rewritten from an open question to settled policy; §36 restructured into principles, a four-award ladder, and the conditions under which ijāzah could ever be issued. **D-10 ruled (disclosed regional pricing).** §38 rewritten from a recommendation-against-the-brief into settled policy: band set by declared residence and verified at payment, IP demoted to a display hint, currency separated from band as an independent axis, price locked for the duration of an enrolled programme. Reasoning retained — it is now the public methodology argument. **New:** D-12 (group identity and naming) raised as a consequence of D-01; French localisation flagged for earlier phasing as a consequence of Bands D–E naming Francophone markets. **Unresolved:** "Arabic Language Diploma" recorded as Founder intent but gated on D-03, as "diploma" is a regulated term. | Founder (D-01, D-04, D-10); Bible as a whole still pending |
 
@@ -2045,9 +2046,9 @@ institution that corrects visibly is trusted more than one that appears never to
   --font-mono:       'IBM Plex Mono', ui-monospace, monospace;
   --font-ar-body:    'IBM Plex Sans Arabic', 'Noto Naskh Arabic', sans-serif;
   --font-ar-display: 'Amiri', 'Noto Naskh Arabic', serif;
-  --font-ar-teach:   'Kitab', 'Amiri', serif;      /* vocalised teaching text */
+  --font-ar-teach:   'Amiri', serif;               /* vocalised teaching text */
   --font-mushaf:     'KFGQPC Uthmanic Script HAFS', 'Amiri Quran', serif;
-  --font-ceremonial: 'Aref Ruqaa', 'Amiri', serif; /* ≥24px only */
+  --font-ceremonial: 'Amiri', serif;               /* ≥24px only; no ruqʿah */
 
   /* ---- Space (8px base) ---- */
   --sp-1: 4px;  --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
