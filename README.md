@@ -5,7 +5,18 @@
 
 Institutional design and build repository.
 
-**Editorial Bible RATIFIED and IN FORCE (v0.4). Phases 1, 4 and 5 complete. Phase 6 next.**
+### ▶ Live preview — https://almadinah-college.vercel.app
+
+| | |
+|---|---|
+| **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
+| **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
+
+20 pages · 749 build checks, run in CI on every deploy · self-hosted fonts, no CDN
+dependency · dark and light themes · full RTL.
+
+**Editorial Bible RATIFIED and IN FORCE (v0.4). Building continuously — deploy, review,
+improve, repeat.**
 
 **Architecture: 28 named systems → 3 experiences + 1 public utility.** Public Website ·
 Campus Portal (one adaptive system, not many portals) · Executive Console · Verification
@@ -48,13 +59,38 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.1, peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
-| 6 | UI/UX Design System | ▶ **Next** — D-08 resolved at `IS §27` |
+| 6 | UI/UX Design System | ◐ **Implemented in code** — `src/brand.css`. Documentation follows the build |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
 | 10 | Implementation Roadmap | — |
 
 Each phase is reviewed against `EB §45`'s five quality gates before the next begins.
+
+---
+
+## Development workflow
+
+```
+npm run build     # fetch fonts if absent, generate dist/
+npm test          # build + 749 checks
+npm run dev       # build + serve dist/ at :8000
+```
+
+**Deployment.** Vercel builds from this branch and **runs the full test suite as part of
+the build** — a failing check fails the deploy rather than shipping quietly.
+
+**Build milestones.** Each ships stable, with unfinished areas carrying an honest status
+rather than a broken control:
+
+| # | Milestone | State |
+|---|---|---|
+| 1 | Public site · portal structure · bilingual · design system | ✅ Deployed |
+| 2 | Placement assessment · application form | Next |
+| 3 | Study surface — lesson, recitation, revision, assessment | — |
+| 4 | People · relationship model | — |
+| 5 | Library | — |
+| 6 | Money · Help | — |
 
 ---
 
