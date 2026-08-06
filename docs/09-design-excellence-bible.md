@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.1 · 6 August 2026 · Cited as `DX §n`**
+**Version 1.2 · 6 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -424,5 +424,106 @@ because an absolutely positioned rule was given a bottom inset and no height.
 
 ---
 
-*Design Excellence Bible v1.1 — 6 August 2026. Governing on all questions of design
-excellence. v1.0 specified the canon; v1.1 records it as built.*
+# PART IX — WHAT v1.0 AND v1.1 GOT WRONG
+
+Added at v1.2. Two of this document's own claims were false when measured. Both are
+corrected here rather than quietly edited above, because a design bible that cannot record
+its own errors is decoration.
+
+## §18. The Mobile Covenant — where design excellence is actually decided
+
+`EB §48` is the constitutional article. This is its design half.
+
+**v1.0 and v1.1 contained no rule about mobile whatsoever.** Fifteen sections on space,
+typography, surface, elevation, motion and content — and not one on the screen most of our
+students will use. The result was measurable: **every page scrolled 330px sideways at
+375px wide**, the Arabic pages had 261 elements outside the viewport, and fifteen
+interactive targets per page sat under 40px.
+
+**What the reference project does that this one did not.** `ahmadsulaimiy1/sultan-` was
+re-read specifically for this, and the gap is not subtle:
+
+| | SHRS | This build, before |
+|---|---|---|
+| Media queries in the main stylesheet | **114** | 12 |
+| Breakpoints in use | 600 · 720 · 760 · 800 · 820 · 860 · 900 · 960 · 1440 · 1600 | 900 · 1000 |
+| `overflow-x` on html/body | `clip`, with the rationale in a comment | absent |
+| Mobile navigation | full-screen drawer, `display:none/flex`, `body.nav-lock` | `transform:translateX(100%)` — **still laid out** |
+| Touch targets | stated: 44px close, 52px rows | 19–34px |
+
+**The rule this yields:** *breakpoints belong to components, not to the site.* A stylesheet
+with two global breakpoints has not tuned anything; it has merely stacked everything twice.
+A hundred media queries is not bloat, it is the evidence that a hundred decisions were
+actually made.
+
+**Four mechanisms, each of which caused a real failure here:**
+
+1. **A translated-off panel is still laid out.** `transform` moves paint, not layout. The
+   drawer contributed its full 330px to the document at every width. Hide by `display`.
+2. **`overflow-x:clip`, never `hidden`.** Both suppress the scrollbar; `hidden` also
+   establishes a scroll container, and `position:sticky` resolves against the nearest one —
+   so `hidden` silently kills the sticky header. This is written in a comment in the
+   reference project, and I had to break it myself to learn it.
+3. **`-9999px` is horizontal overflow.** The skip-link idiom is inline-axis displacement.
+   In RTL it shifts the scroll origin and clips the start of every Arabic line. Park
+   off the *block* axis instead.
+4. **`filter`, `transform` and `backdrop-filter` make an element the containing block for
+   its `position:fixed` descendants.** The header's backdrop blur meant the drawer's
+   `inset:0` resolved to the header, and the menu rendered as a 200px sliver — while
+   passing a test that only asked whether it was displayed.
+
+## §19. Colour proportion — the correction to §10
+
+`§10` set 75 / 18 / 7 — light / blue / gold — and the build enforced it by counting dark
+*sections*. Measured against **rendered pixels**, the site was already compliant: blue
+never exceeded 18% on any page.
+
+**And the Founder was still right that everything was blue.** Both facts are true, and the
+reconciliation is the lesson:
+
+| Measured | v1.1 | Why it read as blue |
+|---|---|---|
+| White / near-white | **78%** | the "warm light register" grounds sat at 96–97% lightness — a cream that reads as white is not a cream |
+| Blue | 8–18% | within budget |
+| **Gold** | **0.0–0.1%** | it existed only as 1px hairlines |
+
+**A ratio rule counts area. The eye counts colours.** With the light grounds rendering as
+white and gold rendering as nothing, blue was the only chromatic thing on the page —
+so the page read as blue at 12% just as surely as it would have at 60%.
+
+**Three corrections, all computed rather than eyeballed:**
+
+1. **The grounds are deepened** — milk `#FBF8F1`, ivory `#F6F0E1`, cream `#EFE5CE`,
+   parchment `#E9DDC2`. Every one still clears AAA for body ink; the warmth was free.
+   White dropped from 78% of pixels to 15–27%.
+2. **Gold gets a ground.** `--gilt #F2E4BE` is a genuinely gold band, one per page. Gold
+   as a hairline cannot register at page scale; gold as a surface can.
+3. **Gold splits in two.** `--dhahab` for rules and marks (≥3.0 on all six grounds, never
+   text) and `--dhahab-ink #755A1A` for labels (≥4.8 on all six). Gold that is legible as
+   small text must be dark; gold that looks gold must be an area. One token could not be
+   both, and pretending otherwise is what produced illegible labels *and* invisible gold.
+4. **The four schools each take their own colour** — teal, green, carnelian, bronze — the
+   pattern the reference project uses to give every office its own accent. Four schools in
+   one blue is four blue boxes.
+
+## §20. The rule that governs all of Part IX
+
+> **A stylesheet cannot be checked by reading it.**
+
+1,029 checks passed while the site was unusable on a phone. Every one of them was a check
+on *text* — does this string appear, does this token exist, does this regex match. Layout
+is an emergent property of a whole document in a real engine at a real width. The only
+valid test is to render it and measure.
+
+`tests/responsive.mjs` opens a real browser at 320, 360, 375, 390, 414 and 768 px, on nine
+pages in two languages, and asserts what `EB §48.2` requires. **320 checks. It found the
+drawer sliver that a display-only assertion had passed.**
+
+The same principle produced `§19`: the colour claim was settled by counting rendered
+pixels, not by re-reading the palette.
+
+---
+
+*Design Excellence Bible v1.2 — 6 August 2026. Governing on all questions of design
+excellence. v1.0 specified the canon; v1.1 recorded it as built; v1.2 records what v1.0
+and v1.1 got wrong.*

@@ -18,28 +18,46 @@
   /* ---- Blue: lapis lazuli (لازورد). Punctuation, not the ground. ---- */
   --lazaward-deep:#0D1A45; --lazaward:#1A3280; --lazaward-mid:#2E58B0; --lazaward-soft:#6C93D6;
 
-  /* ---- The light register: four surfaces that alternate for rhythm ---- */
+  /* ---- The light register: six surfaces that alternate for rhythm ----
+     Deepened at v3. The previous values (ivory #F8F5EE, cream #F4EFE4) sat at
+     96–97% lightness: measured against the rendered page, 78% of all pixels
+     classified as white and the "warm light register" was not visible at all.
+     A cream that reads as white is not a cream. Every value below still clears
+     AAA for body ink by a wide margin — the warmth was free. */
   --white:#FFFFFF;
-  --milk:#FCFBF8;
-  --ivory:#F8F5EE;
-  --cream:#F4EFE4;
-  --parchment:#F2EBDE;
+  --milk:#FBF8F1;
+  --ivory:#F6F0E1;
+  --cream:#EFE5CE;
+  --parchment:#E9DDC2;
+  --gilt:#F2E4BE;      /* a genuinely GOLD ground, not a hint of one */
 
-  /* ---- Gold (ذهب) — hairline and detail ---- */
-  --dhahab:#A8822A; --dhahab-light:#E0C784; --dhahab-pale:#F0E2C0;
+  /* ---- Gold (ذهب) ----
+     Gold measured 0.0–0.1% of rendered pixels, because it existed only as 1px
+     hairlines. Blue was therefore the only colour on the page — which is
+     exactly what "everything is blue" means, even though blue never exceeded
+     18% of the area. Gold now has a ground (--gilt) and a text-legal weight.
+       --dhahab      rules, marks, borders. NEVER text. ≥3.0 on every ground.
+       --dhahab-ink  the gold family at text weight. ≥4.8 on every ground.
+       --dhahab-light gold on the deep grounds. ≥6.9 on both blues. */
+  --dhahab:#9C7826; --dhahab-ink:#755A1A; --dhahab-light:#E0C784; --dhahab-pale:#F0E2C0;
 
-  /* ---- Supporting tones: rhythm and data series only ---- */
-  --firuzi:#176B78; --firuzi-light:#6CC5D2; --aqiq:#9A3324;
+  /* ---- Supporting tones ----
+     Each school carries its OWN colour, so the four do not read as four blue
+     boxes. All clear AA as text on every one of the six light grounds. */
+  --firuzi:#176B78; --firuzi-light:#6CC5D2; --aqiq:#9A3324; --sabz:#256D4E;
 
   /* ---- Ink: blue-black ---- */
-  --hibr:#131A26; --hibr-soft:#4A5464; --hibr-faint:#5F6775;
-  --khatt:rgba(168,130,42,.30); --khatt-dark:rgba(224,199,132,.22);
-  --ok:#256D4E; --wip:#856618; --attn:#9A3324; --info:#176B78;
+  --hibr:#131A26; --hibr-soft:#4A5464; --hibr-faint:#575F6D;
+  --khatt:rgba(156,120,38,.34); --khatt-dark:rgba(224,199,132,.22);
+  --ok:#256D4E; --wip:#755A1A; --attn:#9A3324; --info:#176B78;
 
-  /* ---- Semantic ---- */
+  /* ---- Semantic ----
+     --accent is the TEXT-legal gold. Labels, eyebrows and folio markers use it
+     and clear AA on all six grounds. True decorative gold (--dhahab) is used
+     for rules and fills, where contrast rules do not apply to it as text. */
   --bg:var(--ivory); --bg-panel:var(--milk); --bg-inv:var(--lazaward);
   --fg:var(--hibr); --fg-soft:var(--hibr-soft); --fg-faint:var(--hibr-faint);
-  --fg-inv:var(--milk); --rule:var(--khatt); --accent:var(--dhahab); --mark:var(--aqiq);
+  --fg-inv:var(--milk); --rule:var(--khatt); --accent:var(--dhahab-ink); --mark:var(--aqiq);
 
   /* ---- Type: display serif · inscriptional caps · humanist sans ----
      The caps face is what most institutional sites lack, and it carries a
@@ -91,10 +109,21 @@
 *,*::before,*::after{box-sizing:border-box}
 *{font-synthesis:none}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* overflow-x:CLIP, not hidden. Decorative elements — the watermark, the girih,
+   the hero ground — are meant to bleed past the viewport edge, and without
+   this their harmless extra width becomes real horizontal scroll: this site
+   scrolled 330px sideways on every page at 375px wide. `hidden` would also
+   suppress it, but hidden/scroll/auto on html or body establishes a scroll
+   container, and position:sticky is computed against the nearest one — so
+   `hidden` here would silently kill the sticky header. `clip` suppresses the
+   overflow without creating that container.
+   In RTL the same extra width shifts the scroll origin and clips the start of
+   every right-aligned Arabic line, which is why the Arabic pages were worse. */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);
-  font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body.nav-lock{overflow:hidden}
 img,svg{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4{font-family:var(--f-display);font-weight:500;line-height:1.12;margin:0 0 .5em;
@@ -116,9 +145,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Focus ---------- */
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-xs)}
-.skip{position:absolute;inset-inline-start:-9999px;top:0;z-index:200;
-  background:var(--lazaward);color:var(--white);padding:var(--s3) var(--s5)}
-.skip:focus{inset-inline-start:0}
+/* Parked UPWARD, not sideways. inset-inline-start:-9999px puts a real element
+   9999px outside the inline axis, which is horizontal overflow — harmless in
+   LTR where the origin is the left edge, and actively destructive in RTL where
+   it shifts the scroll origin. Moving it off the block axis costs nothing. */
+.skip{position:absolute;inset-inline-start:0;top:-100px;z-index:200;
+  background:var(--lazaward);color:var(--white);padding:var(--s3) var(--s5);
+  display:inline-flex;align-items:center;min-height:48px}
+.skip:focus{top:0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
@@ -128,7 +162,9 @@ button,input,select,textarea{font:inherit;color:inherit}
    its band — that is the commonest tell of an amateur build. */
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--s7)}
 .wrap--narrow{max-width:860px}
-.section{padding-block:var(--s10);position:relative}
+/* Sections clip their own decoration. The watermark and girih bleed past the
+   band edge by design; without this they bleed past the PAGE edge too. */
+.section{padding-block:var(--s10);position:relative;overflow:clip}
 .section--tight{padding-block:var(--s9)}
 .section--flagship{padding-block:var(--s11)}
 .section>.wrap>:last-child{margin-bottom:0}
@@ -146,6 +182,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 .section--ivory{background:var(--ivory)}
 .section--cream{background:var(--cream)}
 .section--parchment{background:var(--parchment)}
+/* The gilt band. Gold as a GROUND — the only way gold becomes visible at page
+   scale, since as a hairline it renders at a tenth of one per cent of pixels. */
+.section--gilt{background:linear-gradient(168deg,var(--gilt),var(--parchment))}
+[data-theme=dark] .section--gilt{background:linear-gradient(168deg,#1A2247,#141C3C)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .section--gilt{
+  background:linear-gradient(168deg,#1A2247,#141C3C)}}
 .section--panel{background:var(--milk)}
 .section--deep{background:var(--lazaward-deep);color:var(--milk)}
 .section--blue,.section--dark{background:var(--lazaward);color:var(--milk)}
@@ -224,7 +266,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Buttons ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;
-  padding:1em 2.1em;border-radius:var(--r-sm);font-family:var(--f-label);
+  padding:1em 2.1em;min-height:48px;border-radius:var(--r-sm);font-family:var(--f-label);
   font-weight:500;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
   border:1px solid transparent;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;
   transition:box-shadow var(--t-std) var(--ease),transform var(--t-std) var(--ease),
@@ -256,8 +298,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Ledger ---------- */
 .ledger{margin:var(--s7) 0;font-size:.95rem}
+/* overflow-wrap:anywhere, because the longest strings on this site are email
+   addresses and certificate numbers, and an unbreakable 28-character token in
+   a table cell pushes the whole table past a 320px viewport. */
 .ledger th,.ledger td{text-align:start;padding:var(--s5) var(--s4);
-  border-bottom:1px solid var(--rule);vertical-align:top}
+  border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
+.ledger td a{display:inline-flex;align-items:center;min-height:44px}
 .ledger thead th{font-family:var(--f-label);font-weight:500;font-size:.66rem;letter-spacing:.2em;
   text-transform:uppercase;color:var(--fg-faint);padding-bottom:var(--s3);
   border-bottom:1px solid var(--accent)}
@@ -272,6 +318,23 @@ button,input,select,textarea{font:inherit;color:inherit}
 .section--deep .ledger thead th,.section--blue .ledger thead th,
 .section--dark .ledger thead th{color:#93A3C4}
 .ledger--dark th,.ledger--dark td{border-color:var(--khatt-dark)}
+/* Tables at phone width. `white-space:nowrap` on the numeric column is right
+   on a desktop register and wrong on a phone — a three-column ledger with one
+   unbreakable cell measured 420px inside a 375px viewport. The nowrap is
+   released, the padding tightens, and the type steps down; the table still
+   reads as a register rather than becoming a stack of cards. */
+@media (max-width:760px){
+  .ledger{font-size:.875rem}
+  .ledger th,.ledger td{padding:var(--s4) var(--s3)}
+  .ledger .num{white-space:normal}
+  .ledger__title{font-size:1.02rem}
+  .ledger thead th{font-size:.58rem;letter-spacing:.14em}
+  .creds td{padding:var(--s4) var(--s3)}
+}
+@media (max-width:420px){
+  .ledger th,.ledger td{padding:var(--s3) var(--s2)}
+  .ledger{font-size:.82rem}
+}
 
 /* ---------- Dot list ---------- */
 .dotlist{list-style:none;padding:0;margin:var(--s6) 0}
@@ -330,17 +393,34 @@ button,input,select,textarea{font:inherit;color:inherit}
 .callout__date{font-size:.8125rem;color:var(--fg-faint);margin-top:var(--s4)}
 
 /* ---------- Header ---------- */
-.topbar{background:var(--lazaward-deep);color:#9FADCE;font-size:.78rem;padding:var(--s3) 0}
+.topbar{background:var(--lazaward-deep);color:#A6B4D4;font-size:.78rem}
 .topbar .wrap{display:flex;gap:var(--s5);align-items:center;justify-content:space-between;flex-wrap:wrap}
+.topbar a{display:inline-flex;align-items:center;min-height:44px}
 .topbar a:hover{color:var(--dhahab-light)}
 .topbar__l{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
+.btn--mini{padding:0 var(--s4);min-height:44px;font-size:.62rem;
+  border-color:rgba(224,199,132,.34);color:#C9D3EC;background:transparent}
+.btn--mini:hover{border-color:var(--dhahab-light);color:var(--dhahab-light)}
+[dir=rtl] .btn--mini{font-size:.82rem}
+/* At true mobile widths the topbar becomes one nowrap line rather than
+   wrapping to three rows: the email truncates, the two controls do not. */
+@media (max-width:600px){
+  .topbar{font-size:.7rem}
+  .topbar .wrap{flex-wrap:nowrap;gap:var(--s3)}
+  .topbar__l:first-child{min-width:0;flex:1}
+  .topbar__l:first-child a{display:block;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap;line-height:44px}
+  .topbar__l:last-child{flex-shrink:0}
+}
 .site-header{background:color-mix(in srgb,var(--bg) 90%,transparent);
   backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:100}
 .site-header::after{content:'';position:absolute;inset-inline:0;bottom:-1px;height:1px;
   background:linear-gradient(90deg,transparent,var(--dhahab),transparent);opacity:.55}
 .site-header .wrap{display:flex;align-items:center;gap:var(--s6);min-height:92px}
-.lockup{display:flex;align-items:center;gap:var(--s4);flex-shrink:0}
+.lockup{display:flex;align-items:center;gap:var(--s4);min-width:0;min-height:48px}
+.lockup>span{min-width:0}
+.lockup__ar,.lockup__en{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lockup svg{width:40px;height:40px;color:var(--lazaward);flex-shrink:0;
   transition:color var(--t-std) var(--ease)}
 .lockup:hover svg{color:var(--accent)}
@@ -359,24 +439,58 @@ button,input,select,textarea{font:inherit;color:inherit}
 .nav a:not(.btn):hover{color:var(--fg)}
 .nav a:not(.btn):hover::after,.nav a:not(.btn)[aria-current=page]::after{transform:scaleX(1)}
 .nav a[aria-current=page]{color:var(--fg)}
+/* 48px minimum on the toggle — a control smaller than a fingertip is not a
+   control. Every interactive element on this site clears 44px (DX §18). */
 .navtoggle{display:none;margin-inline-start:auto;background:none;border:1px solid var(--rule);
-  border-radius:var(--r-sm);padding:.6em 1em;cursor:pointer;font-family:var(--f-label);
-  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+  border-radius:var(--r-sm);padding:0 var(--s5);min-height:48px;min-width:48px;cursor:pointer;
+  font-family:var(--f-label);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  align-items:center;justify-content:center;color:var(--fg)}
+[dir=rtl] .navtoggle{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.92rem}
+
+/* The drawer is a full-screen takeover, shown and hidden by DISPLAY.
+   It is NOT translated off-canvas: a translated panel is still laid out and
+   still contributes its width to the document, which is precisely how this
+   site came to scroll sideways on every phone. */
 @media (max-width:1000px){
-  .site-header .wrap{min-height:76px}
-  .nav{position:fixed;inset:0 0 0 auto;width:min(340px,88vw);background:var(--bg-panel);
-    border-inline-start:1px solid var(--rule);flex-direction:column;align-items:stretch;
-    justify-content:flex-start;gap:0;padding:var(--s9) var(--s6);margin:0;
-    transform:translateX(100%);transition:transform var(--t-std) var(--ease);
-    overflow-y:auto;box-shadow:var(--sh-lift)}
-  [dir=rtl] .nav{inset:0 auto 0 0;transform:translateX(-100%);
-    border-inline-start:0;border-inline-end:1px solid var(--rule)}
-  .nav[data-open=true]{transform:translateX(0)}
-  .nav a:not(.btn){padding:var(--s5) 0;border-bottom:1px solid var(--rule);font-size:1rem}
-  .nav .btn{margin-top:var(--s6)}
-  .navtoggle{display:block}
+  /* backdrop-filter must be dropped here, not merely for performance:
+     a filtered element becomes the containing block for its position:fixed
+     descendants, so the drawer's inset:0 resolved to the HEADER rather than
+     the viewport and the menu rendered as a 200px sliver. Nothing in the
+     markup was wrong; one property three rules away was. */
+  .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;
+    background:var(--bg)}
+  .site-header .wrap{min-height:72px;gap:var(--s4)}
+  .navtoggle{display:flex}
+  .nav{position:fixed;inset:0;z-index:250;display:none;
+    flex-direction:column;align-items:stretch;justify-content:flex-start;
+    gap:0;margin:0;padding:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    background:linear-gradient(168deg,var(--lazaward-deep),#060C1F)}
+  .nav[data-open=true]{display:flex}
+  .nav::before{content:'Navigation';display:block;flex-shrink:0;
+    padding:var(--s6) var(--s6) var(--s5);border-bottom:1px solid var(--khatt-dark);
+    font-family:var(--f-label);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--dhahab-light)}
+  [dir=rtl] .nav::before{content:'التنقّل';font-family:var(--f-ar);letter-spacing:normal;
+    text-transform:none;font-size:.92rem}
+  .nav a:not(.btn){display:flex;align-items:center;min-height:60px;padding:0 var(--s6);
+    border-bottom:1px solid rgba(224,199,132,.14);font-size:1.06rem;color:#DCE3F4}
+  .nav a:not(.btn)::after{display:none}
+  /* The desktop hover colour is dark ink, which on this dark drawer renders
+     as invisible text. On a touch device the hover state persists after the
+     tap, so a row the reader just touched would disappear. */
+  .nav a:not(.btn):hover,.nav a:not(.btn):focus{color:var(--dhahab-light);
+    background:rgba(224,199,132,.06)}
+  .nav a:not(.btn)[aria-current=page]{color:var(--dhahab-light);
+    background:rgba(224,199,132,.08);
+    border-inline-start:3px solid var(--dhahab-light);padding-inline-start:calc(var(--s6) - 3px)}
+  .nav .btn{margin:var(--s6);min-height:56px}
 }
-@media (prefers-reduced-motion:reduce){.nav{transition:none}}
+@media (max-width:600px){
+  .site-header .wrap{min-height:64px}
+  .lockup svg{width:34px;height:34px}
+  .lockup__ar{font-size:1.02rem}
+  .lockup__en{font-size:.5rem;letter-spacing:.16em}
+}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;overflow:hidden;padding-block:var(--s11) var(--s10);background:var(--ivory)}
@@ -508,8 +622,24 @@ button,input,select,textarea{font:inherit;color:inherit}
 .monorail>div{padding:var(--s8) var(--s5);text-align:center;
   border-inline-end:1px solid var(--rule)}
 .monorail>div:last-child{border-inline-end:0}
+/* Each school carries its own colour, the way each office does in the
+   reference project. Four blue glyphs would be four blue boxes; four
+   different hues make the rail read as a faculty rather than a pattern. */
 .monorail .glyph{display:block;font-family:var(--f-ar-display);
   font-size:clamp(3rem,5.2vw,4.6rem);line-height:1;color:var(--lazaward);font-weight:400}
+.monorail>div:nth-child(1) .glyph{color:var(--firuzi)}
+.monorail>div:nth-child(2) .glyph{color:var(--sabz)}
+.monorail>div:nth-child(3) .glyph{color:var(--aqiq)}
+.monorail>div:nth-child(4) .glyph{color:var(--dhahab-ink)}
+.quad>div{border-block-start:3px solid transparent}
+.quad>div:nth-child(1){border-block-start-color:var(--firuzi)}
+.quad>div:nth-child(2){border-block-start-color:var(--sabz)}
+.quad>div:nth-child(3){border-block-start-color:var(--aqiq)}
+.quad>div:nth-child(4){border-block-start-color:var(--dhahab)}
+.quad>div:nth-child(1) .ar{color:var(--firuzi)}
+.quad>div:nth-child(2) .ar{color:var(--sabz)}
+.quad>div:nth-child(3) .ar{color:var(--aqiq)}
+.quad>div:nth-child(4) .ar{color:var(--dhahab-ink)}
 [data-theme=dark] .monorail .glyph{color:var(--dhahab-light)}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .monorail .glyph{
   color:var(--dhahab-light)}}
@@ -693,6 +823,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .meter>i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill)}
 
 /* ---------- Portal shell ---------- */
+/* minmax(0,1fr), never a bare 1fr: a bare 1fr floors at min-content, so the
+   horizontally scrolling nav list stretched the whole column to 592px inside
+   a 375px viewport. */
 .portal{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100vh}
 .portal__nav{background:var(--lazaward-deep);color:#C2CDE6;padding:var(--s6) var(--s5);
   border-inline-end:1px solid var(--khatt-dark)}
@@ -710,13 +843,21 @@ button,input,select,textarea{font:inherit;color:inherit}
 [dir=rtl] .portal__nav .grp{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.82rem}
 .portal__main{padding:var(--s8) var(--s8) var(--s10);max-width:1020px}
 @media (max-width:900px){
-  .portal{grid-template-columns:1fr}
-  .portal__nav{border-inline-end:0;border-bottom:1px solid var(--khatt-dark);padding:var(--s5)}
-  .portal__nav .lockup{margin-bottom:var(--s5)}
-  .portal__nav ul{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none}
+  .portal{grid-template-columns:minmax(0,1fr)}
+  .portal__nav{min-width:0;border-inline-end:0;border-bottom:1px solid var(--khatt-dark);
+    padding:var(--s5) 0}
+  .portal__nav .lockup{margin-bottom:var(--s5);padding-inline:var(--s5)}
+  /* A scroll ribbon, not a wrapped list: min-width:0 so the flex row is
+     allowed to be narrower than its content, and the scrollbar is hidden
+     because a visible one under a nav row reads as a defect. */
+  .portal__nav ul{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+    min-width:0;padding-inline:var(--s5);scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch}
+  .portal__nav ul::-webkit-scrollbar{display:none}
+  .portal__nav li{flex-shrink:0;scroll-snap-align:start}
   .portal__nav .grp{display:none}
-  .portal__nav a{white-space:nowrap}
-  .portal__main{padding:var(--s7) var(--s5) var(--s9)}
+  .portal__nav a{white-space:nowrap;min-height:48px}
+  .portal__main{padding:var(--s7) var(--s5) var(--s9);min-width:0}
 }
 
 /* ---------- Footer ---------- */
@@ -731,7 +872,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .site-footer .lockup__ar{font-size:1.2rem;line-height:1.6;color:#E9ECF4}
 .site-footer .lockup__en{color:#8C99B8}
 .site-footer ul{list-style:none;padding:0;margin:0}
-.site-footer li{padding:var(--s2) 0}
+.site-footer li{padding:0}
+.site-footer li a{display:flex;align-items:center;min-height:44px}
 .footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:var(--s8)}
 @media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:var(--s7)}}
 @media (max-width:540px){.footer-grid{grid-template-columns:1fr}}

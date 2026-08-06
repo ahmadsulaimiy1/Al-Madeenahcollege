@@ -18,21 +18,37 @@
     try { next ? localStorage.setItem('theme', next) : localStorage.removeItem('theme'); } catch (err) {}
   });
 
-  // Mobile navigation.
+  // Mobile navigation — a full-screen drawer toggled by DISPLAY, never by a
+  // transform that parks it outside the viewport. A translated-off panel is
+  // still laid out, so it extends the document's scroll width: that is what
+  // made every page on this site scroll 330px sideways on a phone while every
+  // desktop check passed. Display:none removes it from layout entirely.
   var toggle = document.querySelector('.navtoggle');
   var nav = document.getElementById('nav');
+  function setNav(open) {
+    nav.setAttribute('data-open', String(open));
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-lock', open);
+  }
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
-      var open = nav.getAttribute('data-open') === 'true';
-      nav.setAttribute('data-open', String(!open));
-      toggle.setAttribute('aria-expanded', String(!open));
+      setNav(nav.getAttribute('data-open') !== 'true');
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') {
-        nav.setAttribute('data-open', 'false');
-        toggle.setAttribute('aria-expanded', 'false');
+        setNav(false);
         toggle.focus();
       }
+    });
+    // Following a link must close the drawer, or the body stays scroll-locked
+    // on browsers that restore the page from the back-forward cache.
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setNav(false);
+    });
+    // Rotating to landscape can cross the breakpoint with the drawer open,
+    // leaving the body locked and the page apparently frozen.
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1000 && nav.getAttribute('data-open') === 'true') setNav(false);
     });
   }
 

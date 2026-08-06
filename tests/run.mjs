@@ -210,15 +210,23 @@ const contrast = (a, b) => {
   return (x + 0.05) / (y + 0.05);
 };
 
+const GROUNDS = ['white', 'milk', 'ivory', 'cream', 'parchment', 'gilt'];
 const PAIRS = [
-  /* Body text must clear AAA on every light ground the rhythm uses, not just one. */
-  ['hibr', 'white', 7.0, 'body on white'],
-  ['hibr', 'milk', 7.0, 'body on milk'],
-  ['hibr', 'ivory', 7.0, 'body on ivory — the default ground'],
-  ['hibr', 'cream', 7.0, 'body on cream'],
-  ['hibr', 'parchment', 7.0, 'body on parchment'],
-  ['hibr-soft', 'ivory', 4.5, 'secondary text — AA'],
-  ['hibr-faint', 'ivory', 4.5, 'tertiary text — AA'],
+  /* Body, secondary and tertiary text must clear their bar on EVERY light
+     ground, not on the default one. The grounds were deepened at v3 because
+     the old ones rendered as white; deepening a ground lowers every ratio on
+     it, so all three ink weights are re-asserted against all six. */
+  ...GROUNDS.map((g) => ['hibr', g, 7.0, `body on ${g} — AAA`]),
+  ...GROUNDS.map((g) => ['hibr-soft', g, 4.5, `secondary text on ${g} — AA`]),
+  ...GROUNDS.map((g) => ['hibr-faint', g, 4.5, `tertiary text on ${g} — AA`]),
+  /* --accent is gold AS TEXT: every label, eyebrow and folio marker. It must
+     clear AA on all six, which is why it is a darker weight than --dhahab.
+     This pairing is the whole reason the two tokens are separate. */
+  ...GROUNDS.map((g) => ['dhahab-ink', g, 4.5, `gold label text on ${g} — AA`]),
+  /* The four school accents. Each is used as a heading and a rule. */
+  ...GROUNDS.map((g) => ['firuzi', g, 4.5, `School of Arabic accent on ${g}`]),
+  ...GROUNDS.map((g) => ['sabz', g, 4.5, `School of Qur'an accent on ${g}`]),
+  ...GROUNDS.map((g) => ['aqiq', g, 4.5, `School of Sciences accent on ${g}`]),
   ['milk', 'lazaward', 7.0, 'reversed body on blue — AAA'],
   ['milk', 'lazaward-deep', 7.0, 'reversed body on deep blue — AAA'],
   ['dhahab-light', 'lazaward', 4.5, 'headings and labels on blue — AA'],
@@ -228,9 +236,9 @@ const PAIRS = [
   ['ok', 'ivory', 4.5, 'success state — AA'],
   ['wip', 'ivory', 4.5, 'in-progress state — AA'],
   ['attn', 'ivory', 4.5, 'attention state — AA'],
-  ['dhahab', 'ivory', 3.0, 'gold on light — large text and non-text ONLY'],
-  ['dhahab', 'cream', 3.0, 'gold on cream — non-text'],
-  ['dhahab', 'parchment', 3.0, 'gold on parchment — non-text'],
+  /* --dhahab is decorative gold: rules, marks, fills. Never text. 3.0 is the
+     non-text bar, asserted on every ground including the new gilt one. */
+  ...GROUNDS.map((g) => ['dhahab', g, 3.0, `decorative gold on ${g} — non-text bar`]),
 ];
 for (const [fg, bg, min, why] of PAIRS) {
   const a = token(fg);
@@ -244,8 +252,19 @@ for (const [fg, bg, min, why] of PAIRS) {
 /* Gold must never be used for body-sized text: it cannot reach 4.5 on our
    grounds and never will. Asserted so nobody "fixes" a contrast failure by
    lightening the ground instead of changing the usage. */
-ok('gold is correctly below AA for body text (line/accent only, IS §32)',
+ok('decorative gold is correctly below AA for text (line/mark only, IS §32)',
    contrast(token('dhahab'), token('ivory')) < 4.5);
+/* The light register must actually be warm. Every non-white ground has to be
+   measurably darker than white, or it renders as white and the whole "ivory,
+   cream and gold" claim is false — which is exactly what happened: 78% of
+   rendered pixels classified as white and gold as 0.1%. */
+for (const g of ['ivory', 'cream', 'parchment', 'gilt']) {
+  const r = contrast('#FFFFFF', token(g));
+  ok(`the light register is genuinely warm: --${g} is not white`, r !== null && r >= 1.06,
+     r === null ? 'token missing' : `only ${r.toFixed(3)}× off white`);
+}
+ok('--gilt is warmer than --parchment (it is the gold ground)',
+   contrast('#FFFFFF', token('gilt')) >= 1.10);
 
 /* The light register (design system v2): the page must be predominantly light.
    Deep blue is punctuation. If a rebuild ever inverts that ratio, this fails. */

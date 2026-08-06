@@ -2064,6 +2064,67 @@ When we get something wrong: correct it within 24 hours of discovery; state the
 correction publicly where the error was public; date it; do not quietly delete. An
 institution that corrects visibly is trusted more than one that appears never to err.
 
+## §48. The Mobile Covenant
+
+**Added at v0.8, after the Founder found that every page of the shipped site scrolled
+sideways on a phone while 1,029 automated checks reported success.**
+
+This article exists because its absence was not an oversight of execution but of
+constitution. This Bible ran to forty-seven articles, governed colour to four decimal
+places of contrast ratio, and **contained not one sentence about the screen most of our
+students will ever use.** What is not written here does not get built, and what is not
+measured here does not get caught.
+
+### §48.1 The primary device is a phone in West Africa
+
+Not a laptop. **`EB §14` already commits this College to "a three-year-old Android phone,
+on 3G, on a metered plan" — that student's viewport is 360 CSS pixels wide.** Every design
+decision is made for that screen first and adapted upward, and any decision that reads
+well at 1440px and fails at 360px is simply wrong, not a trade-off.
+
+**The narrowest supported viewport is 320px.** Below that we do not claim support; at or
+above it, everything works.
+
+### §48.2 Five binding rules
+
+1. **A page never scrolls horizontally.** `document.scrollWidth` never exceeds
+   `clientWidth` at any supported width, in either language. This is absolute. A page that
+   scrolls sideways is broken regardless of how it looks.
+2. **Nothing is positioned off the inline axis to hide it.** Not skip links, not drawers,
+   not off-canvas panels. An element parked at `-9999px` is still laid out, still
+   contributes width, and in RTL still shifts the scroll origin so that Arabic lines are
+   clipped at their start. Hide by `display`, or move it off the *block* axis.
+3. **Every interactive target is at least 44×44px.** Links, buttons, inputs, the theme
+   toggle, the language switch, footer links, table links. Inline links inside running
+   prose are the only exception, because they inherit the line box.
+4. **No unbreakable string may exceed its container.** Email addresses, certificate
+   numbers and URLs carry `overflow-wrap:anywhere`. A 28-character token in a table cell
+   is enough to break a page at 320px.
+5. **Breakpoints belong to components, not to the site.** A single global "mobile"
+   breakpoint means nothing is actually tuned. Each component breaks where *it* breaks.
+
+### §48.3 The rule that would have caught this
+
+> **A stylesheet cannot be checked by reading it.**
+
+Every check that passed while the site was broken was a check on *text*: does this string
+appear, does this token exist, does this regex match. Not one opened a viewport. Layout is
+an emergent property of the whole document in a real engine at a real width, and the only
+valid test of it is to render it and measure.
+
+**Binding:** every release runs `tests/responsive.mjs` — a real browser, at 320, 360, 375,
+390, 414 and 768 px, on every page in both languages, asserting §48.2 rules 1, 2 and 3 and
+the behaviour of the navigation drawer. A visual claim that is not measured in a renderer
+is not a claim this institution makes.
+
+### §48.4 What this article costs
+
+It is slower. The gate takes minutes rather than milliseconds and needs a browser binary.
+That is the correct price. The alternative — the one we paid — is a site that reports 1,029
+passing checks to its own Founder while being unusable on the device its students hold.
+
+---
+
 ## §47. Amendment & Versioning
 
 - **Version scheme:** `MAJOR.MINOR`. MAJOR for changes to Parts I, VI, or VII. MINOR for
@@ -2079,6 +2140,7 @@ institution that corrects visibly is trusted more than one that appears never to
 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
+| 0.8 | 6 August 2026 | **The Mobile Covenant (new §48), and the light register corrected.** Adopted after the Founder reported that the design was failing on mobile and that the estate still read as entirely blue. **Both complaints were verified by measurement before anything was changed, and both were true.** (a) *Mobile.* Every page scrolled 330px sideways at phone width in English and worse in Arabic — 261 overflowing elements on the Arabic home page — and fifteen interactive targets per page sat below 40px. The cause was a navigation drawer parked off-canvas with `transform:translateX(100%)`, which is still laid out, compounded by the absence of `overflow-x:clip` and by a skip link parked at `-9999px` on the inline axis. **None of this was caught because all 1,029 checks were checks on text; not one opened a viewport.** New §48 makes the phone the primary device, sets five binding rules, and requires a real-browser responsive gate on every release. (b) *Colour.* Rendered-pixel measurement showed blue never exceeded 18% of any page — but gold was **0.0–0.1%** and 78% of pixels classified as white, because the "light register" grounds sat at 96–97% lightness and gold existed only as 1px hairlines. Blue was therefore the only colour present, which is precisely what "everything is blue" means. §14 amended: the six grounds are deepened to be genuinely warm, a **gilt ground** is added so gold appears as an area rather than a line, gold is split into a decorative weight and a **text-legal weight** so labels reach AA, and the four schools each receive their own accent colour so they do not read as four blue boxes. Every value was chosen by computing contrast against all six grounds, and all of it is enforced in the build. (c) The reference project (`ahmadsulaimiy1/sultan-`) was re-read for its responsive discipline specifically — 114 media queries in one stylesheet against my twelve, `overflow-x:clip` with its rationale recorded in a comment, and a supporting palette documented as existing so that sections "alternate instead of repeating brown on brown". | Founder (critique and direction); Claude (verification and execution) |
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
 | 0.7 | 6 August 2026 | **Design system v2 — the light register.** Adopted after the Founder judged the first build's visual design weak, and after studying the SH Royal Schools prestige layer, whose reasoning is quoted in `WEC §1`. **Three corrections, two of which reverse rules I wrote.** (a) §14.2.1: the estate is now predominantly light — four light surfaces alternate for rhythm, deep blue is punctuation at roughly 75/18/7, and the previous strict dark/light alternation is withdrawn as the single largest defect in the first build. (b) §17 radii: the flat 4px cap is withdrawn in favour of **radius by role** — crisp for editorial furniture where a sharp line reads as engraving, softened for anything a hand would pick up, because unrelieved 90° corners read as utilitarian rather than expensive. (c) §17 elevation: flat single shadows replaced by **three stacked blurs plus an inset lit edge**, since one flat shadow reads as a sticker. **Typography extended to a three-role system** — Cormorant Garamond display, Cinzel inscriptional caps for labels and buttons, IBM Plex Sans body; the caps face carries a disproportionate share of the register and was the clearest gap. Spacing scale extended to 200px. **All three are enforced in the build**, not merely written down: light-dominance, token-only elevation, and contrast across every one of the five light grounds. **Separately, on the Founder's instruction, the Abī Sulaimiy figures introduced in v0.6 are removed** — this College publishes its own record only, and the homepage now carries structural facts about its own design rather than a predecessor's history. | Founder (critique and direction); Claude (execution) |
 | 0.6 | 6 August 2026 | **Illumination register adopted on the Founder's direction** — a more ceremonial, luxurious experience. §14.2.5 now permits atmospheric *ground* treatment (soft radial illumination and vignette beneath content) while keeping the prohibition on gradients over identity, type and controls absolute and unchanged. §22 rewritten from "state change only" into a three-purpose system — **draw, reveal, respond** — with an explicit fourth category, *decorate*, that does not exist. The two rules that protect users are unchanged: nothing moves that the user did not cause or scroll to, and everything is removed under `prefers-reduced-motion`, which is now verified in the build rather than promised. Counters are permitted only over real, sourced numbers. **Institutional facts unlocked:** the Founder supplied the Abī Sulaimiy College content extraction, which resolves much of D-01 — the group has taught 1,550 students across 22 countries since 22 February 2020 from Lagos. Those figures are now published *attributed to the group*, never to this College, which has admitted no students. Three claims from the predecessor site are **deliberately not carried over**: an unevidenced university affiliation, "certificates recognised by relevant institutions" while D-03 is open, and a policy of omitting online delivery from certificates — the last of which an accreditation reviewer would read as concealment. | Founder (direction); Claude (execution) |
