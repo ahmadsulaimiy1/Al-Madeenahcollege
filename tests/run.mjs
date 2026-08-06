@@ -256,6 +256,115 @@ ok('home is light-dominant: dark bands are a minority of sections',
    darkSections * 2 <= sectionClasses.length,
    `${darkSections} dark of ${sectionClasses.length}`);
 
+/* =========================================================================
+   THE EXCELLENCE GATES — DX §14
+
+   The Design Excellence Bible states what excellent means; a document cannot
+   enforce itself. These encode the two gates that are mechanically checkable —
+   vocabulary (G1) and space (G2) — plus the register of rejected conventions.
+   G4 (removal), G5 (persona) and G6 (truth) are human gates and are walked in
+   the phase review, not here.
+   ========================================================================= */
+
+/* DX §6 — the component canon. Excellence is a vocabulary problem: a system
+   with fifteen components can only compose in a few ways, so every section
+   starts to resemble every other one. Each of these must exist in the system
+   before a page can be built from it. */
+const CANON = ['folio', 'monorail', 'pledge', 'path', 'quad', 'creds', 'doc',
+               'letter', 'watermark', 'ledger', 'dotlist', 'figrow', 'info', 'illum'];
+for (const c of CANON) {
+  ok(`DX §6: the canon defines .${c}`, new RegExp(`\\.${c}[\\s,.:{[]`).test(brand));
+}
+
+/* The folio marker replaced the generic eyebrow (DX §6.5). The convention it
+   replaced must be gone from both the system and the markup, or we have grown
+   the vocabulary without retiring anything — which is how systems rot. */
+ok('DX §6.5: the generic module marker is retired from the system',
+   !brand.includes('module-marker'));
+ok('DX §6.5: no page still carries a module marker',
+   !html.some((f) => doc(f).includes('module-marker')));
+
+/* G1 · VOCABULARY — every content page composes from the canon. A page built
+   from generic divs would pass every other check in this file and still look
+   like a template, which is precisely the failure this gate exists to catch.
+   Sign-in and verify are single-purpose utilities and are exempt by design. */
+const CONTENT = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/', '/portal/'];
+const canonUsed = (body) => CANON.filter((c) => new RegExp(`class="[^"]*\\b${c}\\b`).test(body));
+for (const p of CONTENT) {
+  for (const [label, path] of [['en', p], ['ar', '/ar' + p]]) {
+    const body = doc(join(DIST, path.replace(/^\//, ''), 'index.html'));
+    const used = canonUsed(body);
+    ok(`DX G1: ${label} ${p} is built from the canon`, used.length >= 2,
+       `${used.length} components: ${used.join(', ') || 'none'}`);
+  }
+  /* EB §26 — Arabic is authored in parallel, not translated. Parallel authoring
+     means the same composition, not merely the same words. */
+  const en = canonUsed(doc(join(DIST, p.replace(/^\//, ''), 'index.html'))).join(',');
+  const ar = canonUsed(doc(join(DIST, ('/ar' + p).replace(/^\//, ''), 'index.html'))).join(',');
+  ok(`EB §26: ${p} composes identically in both languages`, en === ar, `en=[${en}] ar=[${ar}]`);
+}
+
+/* DX §6.5 — folio markers run in sequence down the page, so the page reads as
+   a bound document. An out-of-order or duplicated numeral is the tell that a
+   section was inserted without renumbering; it happened once already. */
+const NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+const ARABIC = ['١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩', '١٠'];
+for (const f of html) {
+  const nums = [...doc(f).matchAll(/<p class="folio"><i>([^<]+)<\/i>/g)].map((m) => m[1]);
+  if (!nums.length) continue;
+  const idx = nums.map((n) => {
+    const i = NUMERALS.indexOf(n);
+    return i >= 0 ? i : ARABIC.indexOf(n);
+  });
+  ok(`DX §6.5: folio numerals on ${rel(f)} are all recognised`, idx.every((i) => i >= 0), nums.join(' '));
+  ok(`DX §6.5: folio numerals on ${rel(f)} run in sequence`,
+     idx.every((v, i) => i === 0 ? v === 0 : v === idx[i - 1] + 1), nums.join(' '));
+}
+
+/* G2 · SPACE — DX §2's binding minimum: no section is padded below 112px
+   vertically, ever. Asserted on the token itself so it cannot be quietly
+   reduced, and on the section rules so a new modifier cannot undercut it. */
+const spaceToken = (n) => {
+  const m = brand.match(new RegExp(`--s${n}:\\s*(\\d+)px`));
+  return m ? Number(m[1]) : null;
+};
+ok('DX §2: --s9, the section-padding floor, is at least 112px', spaceToken(9) >= 112, `${spaceToken(9)}px`);
+ok('DX §2: --s10, desktop section padding, is at least 160px', spaceToken(10) >= 160, `${spaceToken(10)}px`);
+ok('DX §2: --s11, the flagship band, exceeds --s10', spaceToken(11) > spaceToken(10),
+   `${spaceToken(11)} vs ${spaceToken(10)}`);
+const sectionPads = [...brand.matchAll(/\.section[^{]*\{[^}]*padding-block:\s*var\(--s(\d+)\)/g)]
+  .map((m) => Number(m[1]));
+ok('DX §2: every section padding rule sits at --s9 or above', sectionPads.length > 0 && sectionPads.every((n) => n >= 9),
+   sectionPads.join(', '));
+/* DX §2.4 — reading measure is capped. A line longer than this is unreadable
+   however much space surrounds it. */
+ok('DX §2.4: body measure capped at 66ch or less', /--measure:\s*6[0-6]ch/.test(brand));
+ok('DX §2.4: leads capped tighter than body', /\.lead\{[^}]*max-width:\s*6[0-2]ch/.test(brand));
+ok('DX §2.4: captions capped tighter than leads', /figcaption\{[^}]*max-width:\s*5[0-6]ch/.test(brand));
+
+/* DX §15 — the register of rejected conventions. Each argument is won once;
+   these have no trigger and will not be revisited. Enforced so a later build
+   cannot reintroduce one by habit. */
+const REJECTED = [
+  [/carousel|\bslider\b|swiper/i, 'carousels and sliders of any kind'],
+  [/marquee/i, 'marquees'],
+  [/testimonial/i, 'testimonial carousels'],
+  [/>\s*Learn more\s*</i, '"learn more" as a button label'],
+  [/countdown/i, 'countdown timers'],
+  [/[\u{1F300}-\u{1FAFF}]/u, 'emoji in institutional copy'],
+];
+for (const f of html) {
+  for (const [re, why] of REJECTED) {
+    ok(`DX §15: ${rel(f)} carries no ${why}`, !re.test(doc(f)));
+  }
+}
+/* Colour lives in the token system, not in the markup. An inline hex in a page
+   is a colour nobody can audit for contrast — and two had already crept in. */
+for (const f of html) {
+  const inlineHex = (doc(f).match(/style="[^"]*#[0-9A-Fa-f]{3,6}/g) || []);
+  ok(`EB §14: ${rel(f)} declares no inline colour`, inlineHex.length === 0, inlineHex[0] || '');
+}
+
 /* ---- noindex on previews (IA §4) ---- */
 for (const p of ['/portal/index.html', '/ar/portal/index.html', '/404.html']) {
   ok(`${p} is noindex`, doc(join(DIST, p)).includes('name="robots" content="noindex"'));

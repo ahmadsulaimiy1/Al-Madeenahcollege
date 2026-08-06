@@ -12,8 +12,12 @@ Institutional design and build repository.
 | **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
 | **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
 
-20 pages · 817 build checks including computed WCAG contrast on five light grounds, light-dominance and reduced-motion coverage, run in CI on every deploy ·
-self-hosted fonts, no CDN dependency · the light register — ivory, cream and white with lapis and gold · dark and light themes · full RTL.
+20 pages · **1,025 build checks** including computed WCAG contrast on five light grounds,
+the two mechanically checkable excellence gates, light-dominance, folio sequence and
+reduced-motion coverage, run in CI on every deploy · self-hosted fonts, no CDN dependency ·
+the light register — ivory, cream and white with lapis and gold · dark and light themes ·
+full RTL · **a fourteen-component design canon**, every page composed from it, identically
+in both languages.
 
 **Editorial Bible RATIFIED and IN FORCE (v0.7). Building continuously — deploy, review,
 improve, repeat.**
@@ -46,6 +50,7 @@ four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architect
 | [`docs/06-future-considerations-register.md`](docs/06-future-considerations-register.md) | **Permanent.** 22 valuable-but-premature ideas, each with the trigger that would revive it — plus items rejected on principle, which have no trigger. Cited as `F-nn`. |
 | [`docs/07-phase-5-peer-review.md`](docs/07-phase-5-peer-review.md) | **Adversarial review** of the architecture. 24 findings — including a direct contradiction between two ratified documents. Twelve fixed; twelve owned. |
 | [`docs/08-wec-lc-engineering-study.md`](docs/08-wec-lc-engineering-study.md) | **Systems study of the WEC-LC precedent** — colour architecture, build structure, LMS data model, portal pattern, and the backend patterns to reach for at Phase 9 rather than re-derive. Cited as `WEC §n`. |
+| [`docs/09-design-excellence-bible.md`](docs/09-design-excellence-bible.md) | **The design flagship.** Written after a close study of the Sultan Hanafi Royal Schools project. The doctrine of space, the fourteen-component canon and what each replaces, typographic and surface excellence, motion as ceremony, the register of prestige, the nine-persona walkthrough, six excellence gates, and the register of conventions this institution will not use. Cited as `DX §n`. |
 
 The Editorial Bible is in force. Every downstream decision is bound by it (`EB §Preamble`).
 
@@ -60,7 +65,7 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
-| 6 | UI/UX Design System | ◐ **Implemented in code** — `src/brand.css`. Documentation follows the build |
+| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.1, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
@@ -74,9 +79,15 @@ Each phase is reviewed against `EB §45`'s five quality gates before the next be
 
 ```
 npm run build     # fetch fonts if absent, generate dist/
-npm test          # build + 817 checks
+npm test          # build + 1,025 checks
 npm run dev       # build + serve dist/ at :8000
 ```
+
+**The design canon.** Fourteen named components (`DX §6`), each existing to replace a
+generic convention — the folio marker replaces the eyebrow, the quad replaces the four-card
+row, the credential ledger replaces the avatar grid, the pledge block replaces the "why
+choose us" tick list. `DX §16` records which are built and where they are used. One,
+`.letter`, is built and deliberately unused: it requires a real named person to sign.
 
 **Deployment.** Vercel builds from this branch and **runs the full test suite as part of
 the build** — a failing check fails the deploy rather than shipping quietly.
