@@ -174,8 +174,20 @@ ok('no infinite animation', !/animation[^;]*infinite/.test(brand));
 ok('logical properties used, not physical', !/(margin|padding)-(left|right)\s*:/.test(brand));
 
 /* ---- identity guards (IS §17.2, IS §31) ---- */
-ok('no gradient on the accent', !/linear-gradient[^;]*var\(--dhahab\)/.test(brand));
-ok('no box-shadow used as card structure', (brand.match(/box-shadow/g) || []).length <= 3);
+/* IS §17.1 — gold is never a gradient FILL. A 1px rule that fades to transparent
+   at both ends is a hairline, not a fill, and is permitted: so every gold gradient
+   must sit in a block that also declares height:1px. Scoped to the real intent
+   rather than to the substring, which would ban the hairline too. */
+const goldGradients = (brand.match(/[^}]*linear-gradient[^;}]*--dhahab[^;}]*;[^}]*/g) || []);
+const goldFills = goldGradients.filter((b) => !/height:\s*1px/.test(b));
+ok('gold gradients are hairlines only, never fills', goldFills.length === 0, goldFills[0] || '');
+/* Elevation is now layered by design (v2): a single flat shadow reads as a
+   sticker, three stacked blurs read as physical depth. What matters is that
+   every elevation comes from the token scale rather than an ad-hoc value. */
+const shadowDecls = brand.match(/box-shadow:[^;}]+/g) || [];
+const adHoc = shadowDecls.filter((d) => !/var\(--sh|var\(--bevel|none|0 0 0 3px/.test(d));
+ok('every elevation uses the token scale, none ad-hoc', adHoc.length === 0, adHoc[0] || '');
+ok('three-layer elevation tokens exist', /--sh-soft:[^;]+,[^;]+,[^;]+;/.test(brand));
 
 /* ---- WCAG contrast, computed from the palette itself (EB §14.3, IS §33) ----
    The Bible states target ratios; a document cannot enforce them. These parse the
@@ -187,42 +199,62 @@ const token = (name) => {
 };
 const srgb = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
 const lum = (hex) => {
+  if (!hex) return null;
   const [r, g, b] = [1, 3, 5].map((i) => srgb(parseInt(hex.slice(i, i + 2), 16) / 255));
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 };
 const contrast = (a, b) => {
-  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  const la = lum(a); const lb = lum(b);
+  if (la === null || lb === null) return null;   // missing token -> reported, never thrown
+  const [x, y] = [la, lb].sort((p, q) => q - p);
   return (x + 0.05) / (y + 0.05);
 };
 
 const PAIRS = [
-  ['hibr', 'jiss', 7.0, 'body text on light — AAA'],
-  ['hibr-soft', 'jiss', 4.5, 'secondary text on light — AA'],
-  ['waraq', 'lazaward', 7.0, 'reversed body on the primary ground — AAA'],
-  ['waraq', 'lazaward-deep', 7.0, 'reversed body on the deepest ground — AAA'],
-  ['dhahab-light', 'lazaward', 4.5, 'headings and eyebrows on dark — AA'],
-  ['aqiq', 'jiss', 4.5, 'emphasis / eyebrow on light — AA'],
-  ['firuzi', 'jiss', 4.5, 'turquoise as text on light — AA'],
-  ['firuzi-light', 'lazaward', 4.5, 'turquoise on dark — AA'],
-  ['ok', 'jiss', 4.5, 'success state — AA'],
-  ['wip', 'jiss', 4.5, 'in-progress state — AA'],
-  ['attn', 'jiss', 4.5, 'attention state — AA'],
-  ['dhahab', 'jiss', 3.0, 'gold on light — large text and non-text ONLY'],
-  ['dhahab', 'lazaward', 3.0, 'gold rules on the primary ground — non-text'],
+  /* Body text must clear AAA on every light ground the rhythm uses, not just one. */
+  ['hibr', 'white', 7.0, 'body on white'],
+  ['hibr', 'milk', 7.0, 'body on milk'],
+  ['hibr', 'ivory', 7.0, 'body on ivory — the default ground'],
+  ['hibr', 'cream', 7.0, 'body on cream'],
+  ['hibr', 'parchment', 7.0, 'body on parchment'],
+  ['hibr-soft', 'ivory', 4.5, 'secondary text — AA'],
+  ['hibr-faint', 'ivory', 4.5, 'tertiary text — AA'],
+  ['milk', 'lazaward', 7.0, 'reversed body on blue — AAA'],
+  ['milk', 'lazaward-deep', 7.0, 'reversed body on deep blue — AAA'],
+  ['dhahab-light', 'lazaward', 4.5, 'headings and labels on blue — AA'],
+  ['dhahab-light', 'lazaward-deep', 4.5, 'headings and labels on deep blue — AA'],
+  ['aqiq', 'ivory', 4.5, 'emphasis — AA'],
+  ['firuzi', 'ivory', 4.5, 'turquoise as text — AA'],
+  ['ok', 'ivory', 4.5, 'success state — AA'],
+  ['wip', 'ivory', 4.5, 'in-progress state — AA'],
+  ['attn', 'ivory', 4.5, 'attention state — AA'],
+  ['dhahab', 'ivory', 3.0, 'gold on light — large text and non-text ONLY'],
+  ['dhahab', 'cream', 3.0, 'gold on cream — non-text'],
+  ['dhahab', 'parchment', 3.0, 'gold on parchment — non-text'],
 ];
 for (const [fg, bg, min, why] of PAIRS) {
   const a = token(fg);
   const b = token(bg);
+  const r = contrast(a, b);
   ok(`contrast: --${fg} on --${bg} >= ${min} (${why})`,
-     a && b && contrast(a, b) >= min,
-     a && b ? `${contrast(a, b).toFixed(2)}` : 'token missing');
+     r !== null && r >= min,
+     r === null ? `token missing (${fg}=${a}, ${bg}=${b})` : r.toFixed(2));
 }
 
 /* Gold must never be used for body-sized text: it cannot reach 4.5 on our
    grounds and never will. Asserted so nobody "fixes" a contrast failure by
    lightening the ground instead of changing the usage. */
 ok('gold is correctly below AA for body text (line/accent only, IS §32)',
-   contrast(token('dhahab'), token('jiss')) < 4.5);
+   contrast(token('dhahab'), token('ivory')) < 4.5);
+
+/* The light register (design system v2): the page must be predominantly light.
+   Deep blue is punctuation. If a rebuild ever inverts that ratio, this fails. */
+const homeBody = readFileSync(join(DIST, 'index.html'), 'utf8');
+const sectionClasses = homeBody.match(/class="section[^"]*"/g) || [];
+const darkSections = sectionClasses.filter((c) => /--deep|--blue|--dark/.test(c)).length;
+ok('home is light-dominant: dark bands are a minority of sections',
+   darkSections * 2 <= sectionClasses.length,
+   `${darkSections} dark of ${sectionClasses.length}`);
 
 /* ---- noindex on previews (IA §4) ---- */
 for (const p of ['/portal/index.html', '/ar/portal/index.html', '/404.html']) {

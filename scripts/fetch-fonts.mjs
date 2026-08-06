@@ -14,6 +14,8 @@ const DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets', 'fonts
 mkdirSync(DIR, { recursive: true });
 
 const FONTS = [
+  ['cinzel-400.woff2', 'https://fonts.gstatic.com/s/cinzel/v26/8vIJ7ww63mVu7gt79mT7.woff2'],
+  ['cormorant-300.woff2', 'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2'],
   ['amiri-400.woff2', 'https://fonts.gstatic.com/s/amiri/v30/J7aRnpd8CGxBHpUrtLMA7w.woff2'],
   ['amiri-700.woff2', 'https://fonts.gstatic.com/s/amiri/v30/J7acnpd8CGxBHp2VkaY6zp5yGw.woff2'],
   ['plex-arabic-400.woff2', 'https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3CZRtWPQCuHme67tEYUIx3Kh0PHR9N6Ys43PWrfQ.woff2'],
