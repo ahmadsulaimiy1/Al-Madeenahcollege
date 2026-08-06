@@ -23,5 +23,9 @@ console.log(`fetching ${REPO}@${SHA}`);
 run(`curl -fsSL https://codeload.github.com/${REPO}/tar.gz/${SHA} | tar xz --strip-components=1`);
 
 /* The test suite IS the build. A failing check fails the deploy rather than
-   shipping quietly. */
-run('node scripts/fetch-fonts.mjs && node scripts/build.mjs && node tests/run.mjs');
+   shipping quietly.
+   The responsive gate needs a browser binary the deploy host does not have, so
+   it prints its reason and exits 0 there. It is a local release gate, not a
+   deploy gate — stated plainly rather than left to look like it ran. */
+run('node scripts/fetch-fonts.mjs && node scripts/build.mjs'
+  + ' && node tests/run.mjs && node tests/responsive.mjs');
