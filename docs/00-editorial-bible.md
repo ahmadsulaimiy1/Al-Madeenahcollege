@@ -1,7 +1,7 @@
 # كلية المدينة الدولية
 # Al-Madinah International College — Editorial Bible
 
-**Version 0.5 — RATIFIED 2 August 2026**
+**Version 0.6 — RATIFIED 2 August 2026**
 **Status: IN FORCE.** Ratified by the Founder, 2 August 2026. Amendments follow §47.
 
 *v0.3 incorporates three Founder rulings (D-01, D-04, D-10), two decisions taken under
@@ -866,9 +866,14 @@ blue's hue and chroma, from the third colour, and above all from usage disciplin
    viewport.
 4. **60/30/10.** Roughly 60% ground (dark or light), 30% ink and structure, 10% accent.
    A screen where accent exceeds 10% is over-designed.
-5. **No gradients** except a single permitted use: an imperceptible vertical tonal shift
-   within one dark section, ≤4% luminance, to prevent banding on large fills. Nothing
-   else.
+5. **No gradients on identity, type, or controls — ever.** The mark, the wordmark, the
+   seal, headings, body text, buttons, rules and the gold accent are flat colour, always.
+   **Permitted, and only here: atmospheric *ground* treatment.** A dark section may carry a
+   soft radial illumination and vignette in the ground layer beneath its content — the
+   manuscript equivalent of light falling across a page. It must remain below the content,
+   never tint the type, and never touch the mark. Implemented as `.ground` in `brand.css`.
+   *Amended v0.6 on the Founder's direction toward a more illuminated register; the
+   identity-element prohibition is unchanged and absolute.*
 6. **Dark mode** is a genuine second theme with its own token values, not an inverted
    filter. `--lazaward-deep` becomes the ground; `--jiss` never appears as a large fill in dark
    mode. Full token table in Phase 6.
@@ -1159,19 +1164,49 @@ Four permitted families. All non-figurative (§5.3).
    trees, verb-form tables, tajwīd rule diagrams — is a separate, functional system:
    clear, labelled, high-contrast, RTL-aware, and accessible. It follows §26, not §21.
 
-## §22. Motion
+## §22. Motion — the editorial register
 
-- **Purpose only.** Motion communicates state change, spatial relationship, or
-  continuity. Motion for delight is out of scope.
-- **One easing curve:** `cubic-bezier(.16,.84,.44,1)`. One duration scale: 180ms (micro),
-  340ms (standard), 600ms (entrance/page).
-- **Permitted:** staggered scroll-reveal on first view (≤340ms, ≤16px translate); page and
-  route transitions; progress and loading states; focus and hover feedback; expand/collapse.
-- **Forbidden:** scroll-jacking, parallax, auto-advancing carousels, counting-number
-  animations, typewriter effects, confetti, bouncing, looping background video, animated
-  logos, and any motion on Qur'anic text (§5.1.2).
-- **`prefers-reduced-motion: reduce` is fully honoured** — all non-essential motion is
-  removed, not merely shortened. Content must never depend on motion to become visible.
+*Amended v0.6.* The previous article permitted only state-change motion. The Founder has
+directed a richer, more ceremonial experience, and this article now describes a fuller
+system — **without loosening the two rules that actually protect users**: nothing moves that
+the user did not cause or scroll to, and everything is removed under
+`prefers-reduced-motion`.
+
+### 22.1 What motion is for here
+
+Motion in this institution does one of three things and nothing else:
+
+| | Purpose | Example |
+|---|---|---|
+| **Draw** | Show that something is *made* — a stroke that is written | The alif drawn on first paint; the girih assembling behind the hero |
+| **Reveal** | Bring content into presence as the reader arrives at it | Staggered section entrance, 22px rise, once per element |
+| **Respond** | Confirm the user's own action | Gold fill sliding across a button; nav underline; row hover |
+
+**A fourth category — decorate — does not exist.** If an animation is not drawing, revealing,
+or responding, it is removed.
+
+### 22.2 The system
+
+| Parameter | Value |
+|---|---|
+| Easing | `cubic-bezier(.16,.84,.44,1)` — one curve, everywhere |
+| Durations | 180 ms micro · 340 ms standard · 600 ms entrance · ≤2.6 s for a single stroke-draw |
+| Properties animated | `transform` and `opacity` only, plus `stroke-dashoffset` for draws |
+| Frequency | **Once per element per page view.** Nothing loops, nothing repeats on scroll-back |
+| Counters | Permitted **only over a real, sourced number**, and the final value is the truth. A counter must never animate toward a figure the institution cannot evidence (§46) |
+
+### 22.3 Still forbidden
+
+Scroll-jacking · parallax · auto-advancing carousels · typewriter effects · confetti ·
+bouncing · looping background video · **any motion on Qur'anic text** (§5.1.2) · animated
+logos used as loading spinners · motion that conveys information available no other way ·
+any animation that repeats while the reader is trying to read.
+
+### 22.4 `prefers-reduced-motion` — total, not partial
+
+Every animation above is **removed**, not shortened, and content renders in its final state.
+This is verified in the build: `tests/run.mjs` asserts that each animation-bearing class has
+a corresponding reduced-motion override, so a new effect cannot ship without its opt-out.
 
 ---
 
@@ -2041,6 +2076,7 @@ institution that corrects visibly is trusted more than one that appears never to
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1 | 2 August 2026 | Initial draft prepared for Founder review | — (pending) |
+| 0.6 | 6 August 2026 | **Illumination register adopted on the Founder's direction** — a more ceremonial, luxurious experience. §14.2.5 now permits atmospheric *ground* treatment (soft radial illumination and vignette beneath content) while keeping the prohibition on gradients over identity, type and controls absolute and unchanged. §22 rewritten from "state change only" into a three-purpose system — **draw, reveal, respond** — with an explicit fourth category, *decorate*, that does not exist. The two rules that protect users are unchanged: nothing moves that the user did not cause or scroll to, and everything is removed under `prefers-reduced-motion`, which is now verified in the build rather than promised. Counters are permitted only over real, sourced numbers. **Institutional facts unlocked:** the Founder supplied the Abī Sulaimiy College content extraction, which resolves much of D-01 — the group has taught 1,550 students across 22 countries since 22 February 2020 from Lagos. Those figures are now published *attributed to the group*, never to this College, which has admitted no students. Three claims from the predecessor site are **deliberately not carried over**: an unevidenced university affiliation, "certificates recognised by relevant institutions" while D-03 is open, and a policy of omitting online delivery from certificates — the last of which an accreditation reviewer would read as concealment. | Founder (direction); Claude (execution) |
 | 0.5 | 2 August 2026 | **Palette changed to blue and gold on the Founder's direction.** §14 rewritten: lapis lazuli (لازورد) as the primary ground, illumination gold as the accent, turquoise (فيروزي) as the permitted third colour, carnelian retained for signal only. The blue is anchored in the pigment of Qur'anic illumination rather than chosen as a corporate default. **New §14.1a states the WEC-LC proximity plainly** rather than pretending it away — blue and gold moves us toward a palette the Preamble rejected, so distinctness is now engineered: hue 226 ultramarine against their 220 grey-navy, markedly higher chroma, turquoise instead of oxblood as the third colour, blue-black ink, and gold restricted to hairline and mark with gradients forbidden where they use one. The gold hue cannot meaningfully move; that is stated rather than disguised. **§14.3 replaced with computed ratios** — the previous version asserted targets that nothing enforced. Contrast is now calculated from the shipped CSS on every build, and the first run found a state colour at 4.47 against a 4.5 requirement, which no document review would have caught. | Founder (direction); Claude (execution) |
 | 0.4 | 2 August 2026 | **Ratified and in force.** Amended by Phase 4's adversarial peer review, which found a historical error in this Bible's own type system: **Aref Ruqaa was specified as the ceremonial Arabic face, but ruqʿah is historically an administrative and rapid-handwriting script, not a ceremonial one.** It was specified because it was one of the few high-quality free display Arabic faces — availability masquerading as suitability. Removed entirely from §15.2 and Appendix A; ceremonial typesetting is now Amiri and ceremonial lettering is commissioned thuluth. Separately, *Kitab*'s licence could not be verified, so Amiri with full tashkīl becomes the specified teaching face and no unverified face ships. A rule is added that **any element containing tashkīl uses the teaching face wherever it sits**, closing a gap where vocalised Arabic inside LMS chrome had no specified face at all. | Founder (ratification); Claude (amendments, executive autonomy) |
 | 0.3 | 2 August 2026 | **D-02 decided under executive autonomy** — institutional name set to *Al-Madinah International College of Arabic and Qur'anic Studies* after a 36-candidate weighted matrix, four-scenario sensitivity analysis, and a propriety veto gate (`NS`). The name as briefed ranked 30th of 36; the adopted construction ranks 4th. Three candidates outscored it; all three were vetoed on propriety or trademark grounds. §8.1 rewritten. **D-12 decided** — *Sulaimiy Education Group* (confidence Medium), light-touch endorsement; §8.3 updated. **New §8.4** codifies the propriety veto gate as a permanent rule binding every future name — it caught two failures the matrix scored as winners. **New §8.5** reconciles the Madinah name with §31's ban on borrowed authority and mandates a public non-affiliation statement. **Phase 1 peer review remediations:** §5.7 — the AI may retrieve but never generate Qur'anic or hadith text, enforced in code (finding S-3); §33.2a — notional learning hours recorded alongside mastery gates, without which the institution is un-accreditable (finding A-1); §29 — the teacher-pay commitment's cross-subsidy made explicit, quantified in Phase 8, and published (finding F-1, an otherwise unfunded promise); §32.3 — dangling reference corrected into a forward commitment (finding Z-2). | Claude (executive autonomy); Bible as a whole still pending |

@@ -12,10 +12,10 @@ Institutional design and build repository.
 | **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
 | **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
 
-20 pages · 802 build checks including computed WCAG contrast, run in CI on every deploy ·
+20 pages · 809 build checks including computed WCAG contrast and reduced-motion coverage, run in CI on every deploy ·
 self-hosted fonts, no CDN dependency · lapis and gold · dark and light themes · full RTL.
 
-**Editorial Bible RATIFIED and IN FORCE (v0.5). Building continuously — deploy, review,
+**Editorial Bible RATIFIED and IN FORCE (v0.6). Building continuously — deploy, review,
 improve, repeat.**
 
 **Architecture: 28 named systems → 3 experiences + 1 public utility.** Public Website ·
@@ -55,7 +55,7 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| 1 | **Editorial Bible** | ✅ **Ratified** — v0.5, in force |
+| 1 | **Editorial Bible** | ✅ **Ratified** — v0.6, in force |
 | 2 | Institutional Strategy | ~~D-01~~ closed; needs D-05 and the group *facts* (`EB §8.3`) |
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
@@ -74,7 +74,7 @@ Each phase is reviewed against `EB §45`'s five quality gates before the next be
 
 ```
 npm run build     # fetch fonts if absent, generate dist/
-npm test          # build + 802 checks
+npm test          # build + 809 checks
 npm run dev       # build + serve dist/ at :8000
 ```
 

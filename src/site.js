@@ -44,20 +44,72 @@
     if (href.replace(/\/$/, '') === here) a.setAttribute('aria-current', 'page');
   });
 
-  // Scroll reveal. EB §22: restrained, and fully removed under reduced-motion.
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = document.querySelectorAll('.reveal');
+
+  // Scroll reveal. EB §22 as amended: entrance only, transform + opacity only,
+  // once per element, and entirely removed under reduced-motion.
+  var items = document.querySelectorAll('.reveal, .rv, .info');
   if (reduce || !('IntersectionObserver' in window)) {
     Array.prototype.forEach.call(items, function (el) { el.classList.add('is-in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
+      entries.forEach(function (en) {
         if (!en.isIntersecting) return;
-        var el = en.target;
-        setTimeout(function () { el.classList.add('is-in'); }, Math.min(i * 70, 280));
-        io.unobserve(el);
+        en.target.classList.add('is-in');
+        io.unobserve(en.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
     Array.prototype.forEach.call(items, function (el) { io.observe(el); });
+  }
+
+  // Counters. Every figure here is a REAL number carried in data-to; the
+  // animation reveals a fact, it does not invent one (EB §46).
+  var figures = document.querySelectorAll('[data-to]');
+  function runCounter(el) {
+    var to = parseFloat(el.getAttribute('data-to'));
+    var dp = parseInt(el.getAttribute('data-dp') || '0', 10);
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    var locale = document.documentElement.lang === 'ar' ? 'ar-EG' : 'en-GB';
+    var fmt = function (n) {
+      return prefix + n.toLocaleString(locale, {
+        minimumFractionDigits: dp, maximumFractionDigits: dp
+      }) + suffix;
+    };
+    if (reduce) { el.textContent = fmt(to); return; }
+    var start = null;
+    var DUR = 1400;
+    (function step(t) {
+      if (start === null) start = t;
+      var p = Math.min((t - start) / DUR, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * eased);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(to);
+    })(performance.now());
+  }
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(figures, runCounter);
+  } else {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        runCounter(en.target);
+        cio.unobserve(en.target);
+      });
+    }, { threshold: 0.5 });
+    Array.prototype.forEach.call(figures, function (el) {
+      el.textContent = el.getAttribute('data-prefix') || '0';
+      cio.observe(el);
+    });
+  }
+
+  // Girih stroke-draw needs each path's own length so the dash animation is
+  // proportional rather than uniform — otherwise short segments finish first
+  // and the pattern assembles in the wrong order.
+  if (!reduce) {
+    Array.prototype.forEach.call(document.querySelectorAll('.girih--draw path'), function (p) {
+      try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) {}
+    });
   }
 })();

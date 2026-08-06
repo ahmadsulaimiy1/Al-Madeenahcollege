@@ -142,6 +142,35 @@ const brand = css.toString();
 ok('font-synthesis disabled globally', /font-synthesis\s*:\s*none/.test(brand));
 ok('RTL letter-spacing neutralised', /\[dir=rtl\][^{]*\{[^}]*letter-spacing\s*:\s*normal/.test(brand));
 ok('reduced-motion honoured', /prefers-reduced-motion\s*:\s*reduce/.test(brand));
+
+/* EB §22.4 — every animation-bearing class must carry a reduced-motion opt-out,
+   so a new effect cannot ship without one. Extracts the reduced-motion blocks and
+   requires each animated selector to appear inside them. */
+/* Brace-counted rather than regex-matched: a reduced-motion block written on one
+   line has no newline before its closing brace, and a lazy `[\s\S]*?\n\}` silently
+   skips it — which is exactly how this check first reported a false failure. */
+const rmBlocks = (() => {
+  const out = [];
+  const re = /@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{/g;
+  let m;
+  while ((m = re.exec(brand))) {
+    let depth = 1;
+    let i = m.index + m[0].length;
+    while (i < brand.length && depth > 0) {
+      if (brand[i] === '{') depth++;
+      else if (brand[i] === '}') depth--;
+      i++;
+    }
+    out.push(brand.slice(m.index, i));
+  }
+  return out.join('\n');
+})();
+ok('reduced-motion blocks were located', rmBlocks.length > 200, `${rmBlocks.length} chars`);
+for (const sel of ['girih--draw', 'mark-draw', '.rv', 'grow', 'gilt']) {
+  ok(`EB §22.4: "${sel}" has a reduced-motion override`, rmBlocks.includes(sel));
+}
+/* Nothing may loop: infinite animations repeat while the reader is reading. */
+ok('no infinite animation', !/animation[^;]*infinite/.test(brand));
 ok('logical properties used, not physical', !/(margin|padding)-(left|right)\s*:/.test(brand));
 
 /* ---- identity guards (IS §17.2, IS §31) ---- */
