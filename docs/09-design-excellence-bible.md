@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.2 · 6 August 2026 · Cited as `DX §n`**
+**Version 1.3 · 6 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -505,6 +505,43 @@ so the page read as blue at 12% just as surely as it would have at 60%.
 4. **The four schools each take their own colour** — teal, green, carnelian, bronze — the
    pattern the reference project uses to give every office its own accent. Four schools in
    one blue is four blue boxes.
+
+## §19a. The theme is not a rendering detail — it is the whole page
+
+`§19` corrected the palette and was still measuring only one of the ways a reader can
+arrive. Every screenshot in this document, and every screenshot shown to the Founder, was
+taken at `prefers-color-scheme: light`. The Founder's phone was in dark mode.
+
+**Measured in dark mode, the same URL rendered 99.2% blue** — because the auto-dark block
+mapped all six warm grounds onto navy. Two people described the same page in opposite terms
+across three rounds of review, and both descriptions were accurate.
+
+**Three rules follow, and the third is the general one.**
+
+1. **The light register is the presentation.** `prefers-color-scheme` no longer switches
+   anything. Dark is an accommodation a reader *chooses*; it is never substituted for them.
+   This is what the reference project does — an explicit `data-pc-theme`, never the media
+   query — and its bible notes that the dramatic bands intentionally do not re-theme.
+2. **A dark theme is a translation, not an inversion.** Six warm papers become six warm
+   dark papers: every one keeps more red than blue, adjacent surfaces stay distinguishable
+   so the band rhythm survives, and the four school accents lighten rather than collapsing
+   into a single gold. Mapping a warm palette onto a cool one does not darken a design; it
+   replaces it.
+3. **Chrome is not exempt from the colour budget.** The topbar and the footer were the two
+   largest blue areas on the estate. Neither is "content", so neither was counted — and
+   together they framed every page in blue no matter what lay between them. The footer is
+   now the colophon of the document, printed on the document's own paper, and blue appears
+   **exactly once per page**, which is the only thing that makes it read as punctuation.
+
+| Measured, home page | before | after |
+|---|---|---|
+| Blue, system dark | **99.2%** | 12.9% |
+| Blue, system light | 25.3% | 12.9% |
+| Blue, programmes page | 10.5% | **0.1%** |
+| Warm register | 43% | 70.8% |
+
+**The gate:** `tests/responsive.mjs` now measures rendered pixels in all four arrival modes
+and fails if blue exceeds 35% or the warm register falls below 45%.
 
 ## §20. The rule that governs all of Part IX
 

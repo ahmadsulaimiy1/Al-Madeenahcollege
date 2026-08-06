@@ -181,6 +181,71 @@ for (const lang of ['', '/ar']) {
   await page.close();
 }
 
+/* =========================================================================
+   THE COLOUR GATE — EB §14, DX §19
+
+   Why this exists. The Founder reported that the site was overwhelmingly blue
+   with no cream, ivory or parchment anywhere, while every screenshot I took
+   showed a warm light page. Both were accurate. Playwright defaults to LIGHT,
+   the Founder's phone was in DARK, and the stylesheet's auto-dark block mapped
+   all six warm grounds onto navy — --white:#152549, --ivory:#0B1533,
+   --parchment:#101D3E. Measured, the dark rendering was 99.2% blue.
+
+   Two people describing the same URL and disagreeing completely is a signal
+   that a rendering variable is untested. So the palette is now measured from
+   actual pixels, in every scheme a reader can arrive in.
+   ========================================================================= */
+const classify = (r, g, b) => {
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  if (b > r + 14 && b > g + 8) return 'blue';
+  if (mx - mn < 18 && mx > 225) return 'white';
+  if (r >= g && g >= b && mx - mn >= 6) return 'warm';   // cream/ivory/parchment/gilt, light OR dark
+  if (mx < 90) return 'ink';
+  return 'other';
+};
+
+/* Every way a reader can arrive: system-light, system-dark, and an explicit
+   opt-in to each. The second row is the one that was never tested. */
+const MODES = [
+  ['system light', 'light', null],
+  ['system dark  (must still render the light register)', 'dark', null],
+  ['chose light', 'dark', 'light'],
+  ['chose dark', 'light', 'dark'],
+];
+for (const [label, scheme, explicit] of MODES) {
+  for (const path of ['/', '/programmes/', '/fees/', '/ar/']) {
+    const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, colorScheme: scheme });
+    await page.goto(BASE + path, { waitUntil: 'networkidle' });
+    if (explicit) await page.evaluate((t) => document.documentElement.setAttribute('data-theme', t), explicit);
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(900);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const buf = await page.screenshot({ fullPage: true });
+    const px = await page.evaluate(async (u) => {
+      const i = new Image(); i.src = u; await i.decode();
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(i.width / 5)); c.height = Math.max(1, Math.round(i.height / 5));
+      const x = c.getContext('2d'); x.drawImage(i, 0, 0, c.width, c.height);
+      return Array.from(x.getImageData(0, 0, c.width, c.height).data);
+    }, 'data:image/png;base64,' + buf.toString('base64'));
+    const t = {}; let n = 0;
+    for (let i = 0; i < px.length; i += 4) { const k = classify(px[i], px[i + 1], px[i + 2]); t[k] = (t[k] || 0) + 1; n++; }
+    const pc = (k) => (100 * (t[k] || 0)) / n;
+    const id = `${path} · ${label}`;
+    /* Blue is a primary colour of this institution. It is not the page.
+       DX §10 budgets it at ~18%; 35% is the hard ceiling, generous enough
+       for a page whose flagship band is blue and strict enough that a
+       theme which paints everything blue cannot pass. */
+    ok(`blue stays a minority · ${id}`, pc('blue') <= 35,
+       `blue ${pc('blue').toFixed(1)}%  warm ${pc('warm').toFixed(1)}%  white ${pc('white').toFixed(1)}%`);
+    /* And the warm register must actually be present — the complaint was not
+       only "too much blue" but "no cream, no parchment, no ivory". */
+    ok(`the warm register is present · ${id}`, pc('warm') + pc('white') >= 45,
+       `warm ${pc('warm').toFixed(1)}% + white ${pc('white').toFixed(1)}%`);
+    await page.close();
+  }
+}
+
 await browser.close();
 server.close();
 
