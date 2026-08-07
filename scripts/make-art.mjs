@@ -133,6 +133,51 @@ const girih = () => {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" fill="none" stroke="currentColor" stroke-width=".9" aria-hidden="true" focusable="false"><g vector-effect="non-scaling-stroke">${L.join('')}</g></svg>`;
 };
 
+
+/* ---- MIHRAB — the two-centred pointed arch ----
+   Not a decorative curve: a real two-centred arch, the construction used from
+   the Ibn Tulun mosque onward. Springing points at the jambs, two centres set
+   inboard at S/4, radius 3S/4, and the apex where the two arcs meet. Every
+   number below is derived from the span; nothing is eyeballed, which is why it
+   reads as architecture rather than as a shape. */
+const arch = () => {
+  const S = 300;                       // span
+  const jamb = 150;                    // height of the vertical jamb
+  const d = S / 4;                     // centre inset
+  const R = S - d;                     // radius
+  const ys = jamb;                     // springing line
+  const apexY = r2(ys - Math.sqrt(R * R - (S / 2 - d) * (S / 2 - d)));
+  const H = jamb + 40;
+  const top = 0;
+  const y = (v) => r2(v - apexY + 12);  // shift so the apex sits at y=12
+
+  const outline =
+    `M0 ${y(ys + jamb)} L0 ${y(ys)} ` +
+    `A${R} ${R} 0 0 1 ${S / 2} ${y(apexY)} ` +
+    `A${R} ${R} 0 0 1 ${S} ${y(ys)} ` +
+    `L${S} ${y(ys + jamb)}`;
+  /* An inner order, offset by one nuqṭah, the way a real arch carries an
+     archivolt inside its extrados. */
+  const o = 16, Ri = R - o;
+  const apexI = r2(ys - Math.sqrt(Ri * Ri - (S / 2 - d) * (S / 2 - d)));
+  const inner =
+    `M${o} ${y(ys + jamb)} L${o} ${y(ys)} ` +
+    `A${Ri} ${Ri} 0 0 1 ${S / 2} ${y(apexI)} ` +
+    `A${Ri} ${Ri} 0 0 1 ${S - o} ${y(ys)} ` +
+    `L${S - o} ${y(ys + jamb)}`;
+
+  const L = [
+    `<path d="${outline}" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".85"/>`,
+    `<path d="${inner}" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>`,
+    /* impost blocks at the springing — where the arch meets the jamb */
+    `<path d="M0 ${y(ys)} H${o + 10}" stroke="currentColor" stroke-width="1.4" opacity=".7"/>`,
+    `<path d="M${S - o - 10} ${y(ys)} H${S}" stroke="currentColor" stroke-width="1.4" opacity=".7"/>`,
+    /* keystone mark at the apex */
+    `<rect x="${S / 2 - 5}" y="${y(apexY) + 6}" width="10" height="10" transform="rotate(45 ${S / 2} ${y(apexY) + 11})" fill="currentColor" opacity=".8"/>`,
+  ];
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${S} ${r2(y(ys + jamb))}" fill="none" aria-hidden="true" focusable="false">${L.join('')}</svg>`;
+};
+
 /* ---- UNWAN — the illuminated chapter headpiece ---- */
 const unwan = () => {
   const W = 520, H = 96, c = W / 2;
@@ -158,4 +203,5 @@ const unwan = () => {
 writeFileSync(join(OUT, 'shamsa.svg'), shamsa());
 writeFileSync(join(OUT, 'girih.svg'), girih());
 writeFileSync(join(OUT, 'unwan.svg'), unwan());
-console.log('illumination written → shamsa, girih, unwan');
+writeFileSync(join(OUT, 'arch.svg'), arch());
+console.log('illumination written → shamsa, girih, unwan, arch');

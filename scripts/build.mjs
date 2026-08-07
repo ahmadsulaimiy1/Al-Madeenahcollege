@@ -29,7 +29,7 @@ const fill = (tpl, vars) =>
    partial becomes the SVG. Generated art is inlined, never hand-edited: the
    construction is the source, the SVG is output. */
 const ART = {};
-for (const n of ['shamsa', 'girih', 'unwan']) {
+for (const n of ['shamsa', 'girih', 'unwan', 'arch']) {
   const f = join(SRC, 'assets', `${n}.svg`);
   if (existsSync(f)) ART[n] = readFileSync(f, 'utf8').replace(/\n\s*/g, '');
 }

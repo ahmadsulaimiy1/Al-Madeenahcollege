@@ -69,7 +69,7 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
-| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.7, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
+| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.8, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |

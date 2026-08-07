@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.7 · 7 August 2026 · Cited as `DX §n`**
+**Version 1.8 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -841,6 +841,58 @@ not by eye:
 **A lit gold edge marks the join.** A dark slab that simply begins reads as a colour change;
 a slab with a gold edge reads as something *pressed onto* the page.
 
+## §26. The elevation — why symmetry is the template's signature
+
+The seal ground fixed the *register* of the footer. It did not fix the **structure**, and
+the structure was still a template: four equal link columns, fourteen equal tiles, four
+equal warrant cards.
+
+> **Symmetry in equal parts is what a template produces, because equal parts is what
+> requires no decision.**
+
+Architecture is not equal parts. It is **bays of unequal weight**, **courses that sit one
+above another**, and a hierarchy that tells the eye where to begin. The footer is now built
+as an elevation and reads in the order a building is read:
+
+| Course | Class | The architectural move |
+|---|---|---|
+| **Cornice** | `.cornice` | A dentil course — the small repeated blocks under a cornice — beneath the lit gold edge |
+| **Mihrab** | `.fmihrab` | A **real two-centred arch** framing the emblem and the petition |
+| **Arcade** | `.fgrid` | Five bays of unequal weight, divided by **column lines with capitals** |
+| **Frieze** | `.warrants` | The warrants as an **inscribed entablature** — double rule above and below, statements divided by column lines |
+| **Plinth** | `.plinth` | A stepped base course, so the elevation has somewhere to stand |
+
+### The arch is constructed, not drawn
+
+`scripts/make-art.mjs` builds a **two-centred pointed arch** — the construction used from
+Ibn Ṭūlūn onward. Springing points at the jambs, two centres set inboard at `S/4`, radius
+`3S/4`, and the apex where the arcs meet. It carries an archivolt one nuqṭah inside the
+extrados, impost blocks at the springing, and a keystone at the crown. **Every number is
+derived from the span.** That is why it reads as architecture and not as a shape: a curve
+chosen by eye looks like a curve; a curve that is the consequence of a construction looks
+like a building.
+
+**The emblem sits INSIDE the niche, on the springing line.** The first attempt put it on
+the crown, which is an ornament placed on top of another ornament. A mihrab exists to hold
+something.
+
+### Bay references
+
+Each bay carries a reference mark — *Bay A*, *Bay B* — the way a drawing carries its grid,
+and each warrant carries a Roman numeral. It costs one span per bay and it is the single
+clearest signal available that a layout is **a plan** rather than an arrangement.
+
+### Two rules the build enforced against me
+
+- **`IS §17.1` stopped the cornice.** I built the dentil course as a repeating gold
+  gradient; gold may be a line, never a gradient fill. The guard was right for a reason I
+  had not seen: **a dentil course is a row of discrete blocks, so it should be built from a
+  repeated block** — not from a colour ramp imitating one. It is now an SVG mark, tiled.
+  The plinth became two real rules with air between them for the same reason.
+- **The bays were 141px wide** and every second link wrapped, breaking the row rhythm the
+  column lines exist to establish. The lead bay dropped from 1.75fr to 1.4fr and the
+  gutters tightened. Structure that breaks its own rhythm is decoration.
+
 ---
 
-*Design Excellence Bible v1.7 — 7 August 2026.*
+*Design Excellence Bible v1.8 — 7 August 2026.*

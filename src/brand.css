@@ -1135,6 +1135,7 @@ a:hover>.arrow{transform:translateX(4px)}
 @media (max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:var(--s7)}}
 @media (max-width:520px){.fgrid{grid-template-columns:1fr}}
 .site-footer h4{display:flex;align-items:center;gap:var(--s3);position:relative;
+  min-height:2.4em;align-content:center;
   font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.18em;
   font-size:.82rem;color:var(--dhahab-light);font-weight:500;
   margin-bottom:var(--s6);padding-bottom:var(--s4)}
@@ -1147,7 +1148,7 @@ a:hover>.arrow{transform:translateX(4px)}
 .site-footer ul{list-style:none;padding:0;margin:0}
 .site-footer li{padding:0}
 .site-footer li a{display:inline-flex;align-items:center;min-height:44px;position:relative;
-  color:var(--seal-fg)}
+  color:var(--seal-fg);font-size:.9rem;line-height:1.4}
 .site-footer li a::after{content:'';position:absolute;inset-inline-start:0;bottom:10px;
   width:0;height:1px;background:var(--dhahab-light);transition:width var(--t-std) var(--ease)}
 .site-footer li a:hover::after{width:100%}
@@ -1594,3 +1595,162 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
   .btn--mini{padding-inline:var(--s3);min-width:44px;justify-content:center}
   .btn--mini svg{margin:0}
 }
+
+/* ==========================================================================
+   THE FOOTER AS AN ELEVATION — DX §26
+
+   The seal ground fixed the register; it did not fix the STRUCTURE. Four equal
+   link columns, fourteen equal tiles and four equal warrant cards is symmetry,
+   and symmetry in equal parts is what a template produces because it is what
+   requires no decision.
+
+   Architecture is not equal parts. It is BAYS of unequal weight, COURSES that
+   sit one above another, and a hierarchy that tells you where to look. So the
+   footer is now built as an elevation, in the order a building is read:
+
+       CORNICE   a dentil course under the lit gold edge
+       MIHRAB    a real two-centred arch framing the emblem
+       ARCADE    an asymmetric bay system, divided by column lines
+       FRIEZE    the warrants as an inscribed entablature
+       PLINTH    a stepped base under the attestation
+
+   Bays carry reference marks — Bay A, Bay B — the way a drawing carries its
+   grid. That is the difference between a layout and a plan.
+   ========================================================================== */
+
+/* ---- CORNICE ----
+   Dentils: the small repeated blocks under a cornice. One gradient, and the
+   join between page and seal stops being a colour change. */
+/* Drawn as a repeated MARK, not a gradient. IS §17.1 forbids gold as a
+   gradient fill and permits it as a line — and the guard was right to stop
+   this: a dentil course is a row of discrete blocks, so it should be built
+   from a repeated block, not from a colour ramp pretending to be one. */
+.cornice{position:absolute;inset-inline:0;top:1px;height:9px;z-index:3;pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='9'><rect width='2' height='9' fill='%239C7826'/></svg>");
+  background-repeat:repeat-x;opacity:.34;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent)}
+
+/* ---- MIHRAB ----
+   The arch is drawn to a two-centred construction (scripts/make-art.mjs) and
+   the emblem is set INSIDE it, on the springing line. An emblem floating in a
+   band is a logo; an emblem under an arch is an institution's mark in its
+   own niche. */
+/* The arch is raised and widened so the emblem sits INSIDE the opening, not
+   on the crown. An emblem resting on an arch is an ornament placed on top of
+   another ornament; an emblem within the niche is what a mihrab is for. */
+.fcrest{position:relative;padding-top:var(--s8)}
+.fmihrab{position:absolute;inset-block-start:calc(var(--s6) * -1);inset-inline-start:50%;
+  transform:translateX(-50%);width:min(520px,90vw);color:var(--dhahab);opacity:.55;
+  pointer-events:none;z-index:0}
+.fmihrab svg{width:100%;height:auto;display:block}
+.fcrest>*:not(.fmihrab){position:relative;z-index:1}
+.fcrest__mark{width:min(184px,40vw)}
+@media (max-width:820px){.fmihrab{width:min(320px,92vw)}}
+
+/* ---- ARCADE ----
+   Unequal bays. The lead bay carries the institution and takes 1.75fr; the
+   four link bays take 1fr each and are separated by COLUMN LINES, not gaps.
+   A vertical rule is the cheapest structural mark there is and no template
+   uses one, because a template has nothing to divide. */
+/* 1.4fr, not 1.75fr, and tighter gutters. At the previous ratio each link bay
+   had 141px of usable width and every second item wrapped to two lines, which
+   broke the row rhythm the column lines exist to establish. */
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:0;
+  border-block:1px solid var(--seal-rule)}
+.fcol{padding:var(--s8) var(--s5);border-inline-start:1px solid var(--seal-rule);position:relative}
+.fcol:first-child{border-inline-start:0;padding-inline-start:0}
+.fcol:last-child{padding-inline-end:0}
+/* The capital: a short heavy mark at the head of each column line, where a
+   real capital sits. */
+.fcol:not(:first-child)::before{content:'';position:absolute;inset-block-start:-1px;
+  inset-inline-start:-1px;width:1px;height:26px;background:var(--dhahab);opacity:.85}
+.bay{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
+  letter-spacing:.24em;font-size:.62rem;color:var(--dhahab);opacity:.62;margin-bottom:var(--s5)}
+[dir=rtl] .bay{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.74rem}
+.fcol--lead .fcol__p{font-size:.9rem;line-height:1.68;color:var(--seal-fg);max-width:40ch;
+  margin:0 0 var(--s6)}
+.fcol__meta{display:flex;flex-direction:column;gap:var(--s2);margin:0;max-width:none}
+.fcol__meta span{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.1em;
+  font-size:.72rem;color:var(--seal-faint);display:flex;align-items:baseline;gap:var(--s3)}
+.fcol__meta span::before{content:'';width:5px;height:5px;background:var(--dhahab);
+  transform:rotate(45deg);flex-shrink:0;opacity:.8}
+[dir=rtl] .fcol__meta span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+@media (max-width:1100px){
+  .fgrid{grid-template-columns:1fr 1fr}
+  .fcol{padding:var(--s7) var(--s6);border-block-start:1px solid var(--seal-rule)}
+  .fcol:nth-child(-n+2){border-block-start:0}
+  .fcol:nth-child(2n+1){border-inline-start:0;padding-inline-start:0}
+  .fcol--lead{grid-column:1 / -1;border-inline-start:0;padding-inline-start:0}
+}
+@media (max-width:560px){
+  .fgrid{grid-template-columns:1fr}
+  .fcol{border-inline-start:0;padding-inline:0}
+  .fcol:not(:first-child){border-block-start:1px solid var(--seal-rule)}
+  .fcol:not(:first-child)::before{inset-inline-start:0;width:26px;height:1px}
+}
+
+/* ---- THE ATLAS AS A COLONNADE ----
+   The boxes are gone. Fourteen bordered tiles was a grid of objects; column
+   lines make it one continuous arcade, which is what the row actually is. */
+.atlas{display:grid;grid-template-columns:repeat(7,1fr);gap:0;
+  border-block:1px solid var(--seal-rule)}
+.atlas__i{border:0;border-inline-start:1px solid var(--seal-rule);background:transparent;
+  padding:var(--s6) var(--s3)}
+.atlas__i:nth-child(7n+1){border-inline-start:0}
+.atlas__i:nth-child(n+8){border-block-start:1px solid var(--seal-rule)}
+.atlas__i:hover{background:rgba(224,199,132,.05);transform:none}
+.atlas__i:hover svg{transform:translateY(-3px)}
+@media (max-width:1000px){
+  .atlas{grid-template-columns:repeat(5,1fr)}
+  .atlas__i:nth-child(7n+1){border-inline-start:1px solid var(--seal-rule)}
+  .atlas__i:nth-child(5n+1){border-inline-start:0}
+  .atlas__i:nth-child(n+6){border-block-start:1px solid var(--seal-rule)}
+}
+@media (max-width:700px){
+  .atlas{grid-template-columns:repeat(3,1fr)}
+  .atlas__i:nth-child(5n+1),.atlas__i:nth-child(7n+1){border-inline-start:1px solid var(--seal-rule)}
+  .atlas__i:nth-child(3n+1){border-inline-start:0}
+  .atlas__i:nth-child(n+4){border-block-start:1px solid var(--seal-rule)}
+}
+
+/* ---- FRIEZE ----
+   The warrants become an inscribed entablature: a double rule above, a double
+   rule below, and the four statements divided by column lines inside it. A
+   frieze is a band of inscription carried across a whole facade — which is
+   exactly what these four sentences are. */
+.warrants{grid-template-columns:repeat(4,1fr);gap:0;margin-top:var(--s6);
+  border-block:2px solid var(--dhahab);position:relative}
+.warrants::before,.warrants::after{content:'';position:absolute;inset-inline:0;height:1px;
+  background:var(--dhahab);opacity:.4}
+.warrants::before{top:5px} .warrants::after{bottom:5px}
+.warrant{border-top:0;border-inline-start:1px solid var(--seal-rule);
+  padding:var(--s8) var(--s6);position:relative}
+.warrant:first-child{border-inline-start:0;padding-inline-start:0}
+.warrant:last-child{padding-inline-end:0}
+.bay--w{position:absolute;inset-block-start:var(--s5);inset-inline-end:var(--s5);
+  margin:0;font-size:.72rem;opacity:.5}
+.warrant:last-child .bay--w{inset-inline-end:0}
+@media (max-width:1000px){
+  .warrants{grid-template-columns:1fr 1fr}
+  .warrant:nth-child(2n+1){border-inline-start:0;padding-inline-start:0}
+  .warrant:nth-child(n+3){border-block-start:1px solid var(--seal-rule)}
+}
+@media (max-width:620px){
+  .warrants{grid-template-columns:1fr}
+  .warrant{border-inline-start:0;padding-inline:0}
+  .warrant:not(:first-child){border-block-start:1px solid var(--seal-rule)}
+}
+
+/* ---- PLINTH ----
+   A stepped base. A footer that simply stops has no bottom; a stepped course
+   gives the elevation somewhere to stand. */
+/* Two real rules with air between them, rather than a gradient imitating
+   two rules. A stepped base course. */
+.plinth{position:relative;height:15px}
+.plinth::before,.plinth::after{content:'';position:absolute;inset-inline:0;height:1px;
+  background:var(--dhahab)}
+.plinth::before{top:4px;opacity:.75}
+.plinth::after{top:9px;opacity:.3}
+
+@media (prefers-reduced-motion:reduce){.atlas__i:hover svg{transform:none}}
