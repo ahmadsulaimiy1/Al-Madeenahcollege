@@ -1191,7 +1191,7 @@ a:hover>.arrow{transform:translateX(4px)}
 .panel+.panel{margin-top:var(--s5)}
 .panel__h{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
   margin-bottom:var(--s5);flex-wrap:wrap}
-.panel__h h3{margin:0;font-size:var(--ts-lead)}
+.panel__h :is(h2,h3,h4){margin:0;font-size:var(--ts-lead)}
 .meter{height:6px;border-radius:var(--r-pill);
   background:color-mix(in srgb,var(--fg) 9%,transparent);overflow:hidden;margin:var(--s4) 0}
 .meter>i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill)}
@@ -1680,8 +1680,9 @@ p,li,td,th,figcaption,dd,blockquote{font-optical-sizing:auto}
    but came 1,300 lines later it silently re-declared line-height:1.95 over
    every Arabic-specific leading set in between — including the cover, which
    asks for 1.42 and rendered at 1.95. Re-stating a base rule mid-sheet is not
-   a redundancy, it is a reset. */
-[lang=ar],[dir=rtl]{font-family:var(--f-ar);letter-spacing:normal!important}
+   a redundancy, it is a reset. The copy is gone entirely rather than merely
+   stripped of its line-height: a duplicate that happens to be harmless today
+   is the same trap re-armed for whoever edits it next. */
 [lang=ar] h1,[lang=ar] h2,[lang=ar] h3,[lang=ar] h4,[dir=rtl] h1,[dir=rtl] h2,
 [dir=rtl] h3,[dir=rtl] h4,[dir=rtl] .display,[dir=rtl] .h1,[dir=rtl] .h2,
 [dir=rtl] .cover h1,[dir=rtl] .cover__ar,[lang=ar] .cover__ar{
@@ -1966,3 +1967,27 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 .plinth::after{top:9px;opacity:.3}
 
 @media (prefers-reduced-motion:reduce){.atlas__i:hover svg{transform:none}}
+
+/* ---------- Utilities (DX §32) ----------
+   Twenty-seven inline `style=` attributes were sitting in the page templates.
+   Each was defensible on its own and together they were a second, invisible
+   stylesheet with no tokens, no tiers and no audit: `padding-block:96px` is
+   not on the spacing scale and escaped every check only because the page it
+   sat on was not in the audited set.
+
+   A utility is a token with a name. An inline style is a token with none. */
+.u-flush{margin-top:0}
+.u-stack-3{margin-top:var(--s3)}
+.u-stack-4{margin-top:var(--s4)}
+.u-stack-5{margin-top:var(--s5)}
+.u-stack-6{margin-top:var(--s6)}
+.u-center{text-align:center}
+.u-auto{margin-inline:auto}
+.u-full{width:100%;justify-content:center}
+.u-narrow{max-width:64ch}
+.u-col-sm{max-width:520px}
+.u-col-md{max-width:620px}
+.u-tight{gap:var(--s4);margin-top:var(--s4)}
+/* The standalone pages — 404, and anything else that is a single centred
+   statement — take the section rhythm rather than a number typed by hand. */
+.u-plinth{text-align:center;padding-block:var(--s8)}

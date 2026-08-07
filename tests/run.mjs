@@ -256,6 +256,20 @@ ok('gold gradients are hairlines only, never fills', goldFills.length === 0, gol
 const shadowDecls = brand.match(/box-shadow:[^;}]+/g) || [];
 const adHoc = shadowDecls.filter((d) => !/var\(--sh|var\(--bevel|var\(--halo|none|0 0 0 3px/.test(d));
 ok('every elevation uses the token scale, none ad-hoc', adHoc.length === 0, adHoc[0] || '');
+/* Inline styles are a second stylesheet with no tokens, no responsive tiers
+   and no audit. The ONE admissible case is a value the markup is carrying as
+   data — a meter's fill is a measurement, not a style — so the rule names it
+   rather than waving at "reasonable exceptions". */
+const inlineStyles = [];
+for (const f of html) {
+  for (const m of doc(f).matchAll(/style="([^"]*)"/g)) {
+    if (/^width:\d+(\.\d+)?%$/.test(m[1])) continue;
+    inlineStyles.push(`${rel(f)}: ${m[0]}`);
+  }
+}
+ok('no inline style outside a data-bearing meter width',
+  inlineStyles.length === 0, inlineStyles[0] || '');
+
 ok('three-layer elevation tokens exist', /--sh-soft:[^;]+,[^;]+,[^;]+;/.test(brand));
 
 /* ---- WCAG contrast, computed from the palette itself (EB §14.3, IS §33) ----

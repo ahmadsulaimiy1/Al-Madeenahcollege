@@ -63,14 +63,17 @@ const BASE = `http://127.0.0.1:${server.address().port}`;
    the duplicate. It reads the live values, per tier, per width. */
 const ICONS = [15, 16, 17, 19, 22, 24, 32, 34, 38, 40, 46];
 
+/* 404 is in this list. It was not, and that is exactly how it came to carry a
+   hand-typed `padding-block:96px` — a value on no scale, on the one page every
+   check skipped because it is the page nobody plans to visit. */
 const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
-               '/verify/', '/signin/', '/portal/'];
+               '/verify/', '/signin/', '/portal/', '/404.html'];
 /* 1920 is in this list because the ultra-wide tier redefines the scale tokens
    above 1800px, and a tier that is never measured is a tier that drifts. */
 const WIDTHS = [390, 768, 1440, 1920];
 const LANGS = ['', '/ar'];
 
-const findings = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], press: [], cls: [] };
+const findings = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], press: [], a11y: [], cls: [] };
 const bump = (k, v) => findings[k].push(v);
 
 const browser = await chromium.launch({ executablePath: EXEC });
@@ -98,7 +101,7 @@ for (const width of WIDTHS) {
             ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
         const near = (v, set, tol = 0.6) => set.some((s) => Math.abs(v - s) <= tol);
         const px = (s) => parseFloat(s) || 0;
-        const out = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], sizes: [] };
+        const out = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], a11y: [], sizes: [] };
         /* Read the display faces out of the stylesheet's own tokens, so the
            auditor cannot drift from the system it is auditing. */
         const rootCs = getComputedStyle(document.documentElement);
@@ -190,6 +193,77 @@ for (const width of WIDTHS) {
             const d = Math.round((uniq[i] - uniq[i - 1]) * 10) / 10;
             if (d > 0 && d < 16) out.align.push({ s: sel(box) + ' ▸ track', off: d });
           }
+        });
+
+        /* ---- ACCESSIBILITY ----
+           Directive §16 asks for WCAG AA as the floor and AAA where practical.
+           Contrast is already computed in tests/run.mjs from the parsed tokens.
+           What a stylesheet CANNOT be asked is whether the rendered document is
+           navigable — that is a property of the DOM, so it is read here.
+
+           Each of these is a failure a sighted mouse user would never notice
+           and a screen-reader or keyboard user hits immediately. */
+        const name = (el) => (el.getAttribute('aria-label')
+          || (el.getAttribute('aria-labelledby')
+              && (document.getElementById(el.getAttribute('aria-labelledby')) || {}).textContent)
+          || el.textContent || el.getAttribute('title') || '').trim();
+
+        /* An id repeated in a document breaks every aria-* reference that
+           points at it — label, describedby, controls — silently. */
+        const ids = new Map();
+        document.querySelectorAll('[id]').forEach((el) => {
+          ids.set(el.id, (ids.get(el.id) || 0) + 1);
+        });
+        for (const [k, n] of ids) if (n > 1) out.a11y.push({ s: `#${k}`, why: `id used ${n}×` });
+
+        /* aria-describedby / labelledby pointing at nothing announces nothing.
+           This is the most common way an error message never gets read out. */
+        for (const attr of ['aria-describedby', 'aria-labelledby', 'aria-controls']) {
+          document.querySelectorAll(`[${attr}]`).forEach((el) => {
+            for (const ref of el.getAttribute(attr).split(/\s+/).filter(Boolean)) {
+              if (!document.getElementById(ref)) {
+                out.a11y.push({ s: sel(el), why: `${attr} → #${ref} does not exist` });
+              }
+            }
+          });
+        }
+
+        /* A control with no accessible name is announced as "button" or
+           "link" — the user is told a control exists and nothing about it. */
+        document.querySelectorAll('a[href],button,input,select,textarea').forEach((el) => {
+          const b = el.getBoundingClientRect();
+          if (!b.width || !b.height) return;
+          if (el.getAttribute('aria-hidden') === 'true') return;
+          let n = name(el);
+          if (!n && /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) {
+            const lab = el.closest('label') || (el.id && document.querySelector(`label[for="${el.id}"]`));
+            n = lab ? lab.textContent.trim() : (el.getAttribute('placeholder') || '').trim();
+          }
+          if (!n && el.querySelector('svg title')) n = el.querySelector('svg title').textContent.trim();
+          if (!n) out.a11y.push({ s: sel(el), why: 'no accessible name' });
+        });
+
+        /* Every image needs alt. An empty alt is a decision (decorative); a
+           MISSING alt makes the screen reader read the filename. */
+        document.querySelectorAll('img').forEach((el) => {
+          if (!el.hasAttribute('alt')) out.a11y.push({ s: sel(el), why: 'img without alt' });
+        });
+
+        /* Heading levels are the document's table of contents. A skip from h2
+           to h4 tells a screen-reader user a section is missing. */
+        let prev = 0;
+        document.querySelectorAll('main h1,main h2,main h3,main h4,main h5,main h6').forEach((el) => {
+          const lvl = +el.tagName[1];
+          if (prev && lvl > prev + 1) out.a11y.push({ s: sel(el), why: `h${prev} → h${lvl} skips a level` });
+          prev = lvl;
+        });
+        const h1s = document.querySelectorAll('main h1').length;
+        if (h1s !== 1) out.a11y.push({ s: 'main', why: `${h1s} h1 elements, expected exactly 1` });
+
+        /* A positive tabindex overrides the document's own order and is
+           essentially never right. */
+        document.querySelectorAll('[tabindex]').forEach((el) => {
+          if (+el.getAttribute('tabindex') > 0) out.a11y.push({ s: sel(el), why: 'positive tabindex' });
         });
 
         /* ---- SPACING, RADII, ELEVATION, TYPE ---- */
@@ -396,6 +470,7 @@ for (const width of WIDTHS) {
       for (const a of r.radius) bump('radius', { id, ...a });
       for (const a of r.shadow) bump('shadow', { id, ...a });
       for (const a of r.icon) bump('icon', { id, ...a });
+      for (const a of r.a11y) bump('a11y', { id, ...a });
       for (const s of r.sizes) typeSizes.set(s, (typeSizes.get(s) || 0) + 1);
 
       await page.close();
@@ -430,6 +505,7 @@ for (const [k, label] of [['align', 'MISALIGNED against the wrap edge'],
                           ['icon', 'ICON off the size scale'],
                           ['focus', 'FOCUS ring missing'],
                           ['press', 'PRESS state absent (pressed in-browser)'],
+                          ['a11y', 'ACCESSIBILITY defect in the rendered DOM'],
                           ['cls', 'LAYOUT SHIFT above 0.1']]) {
   const list = findings[k];
   const rolled = k === 'cls' ? list.map((f) => ({ k: f.id, n: 1, ex: f }))

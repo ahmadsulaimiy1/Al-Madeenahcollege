@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.9 · 7 August 2026 · Cited as `DX §n`**
+**Version 2.0 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -1023,4 +1023,32 @@ in source.
 
 ---
 
-*Design Excellence Bible v1.9 — 7 August 2026.*
+### §32 A utility is a token with a name; an inline style is a token with none
+
+Twenty-seven `style=` attributes sat in the page templates. Each was defensible alone;
+together they were **a second stylesheet with no tokens, no responsive tiers and no
+audit**. The clearest case: `padding-block:96px` on the 404 page — a value on no scale, on
+the one page every check skipped, because 404 is the page nobody plans to visit. It is now
+in the audited set.
+
+One exception, named rather than gestured at: a value the markup carries as **data**. A
+meter's fill is a measurement, not a style. Everything else is a class.
+
+### §33 Accessibility is a property of the rendered document
+
+Contrast is computed from the parsed tokens in the static suite. But a stylesheet cannot be
+asked whether the *document* is navigable — that is a property of the DOM, so it is read
+from the rendered page: duplicate ids (which silently break every `aria-*` reference
+pointing at them), `aria-describedby` targets that do not exist (the most common way an
+error message never gets read out), controls with no accessible name, images with no `alt`
+attribute at all, positive `tabindex`, more or fewer than one `h1`, and **heading levels
+that skip**.
+
+Across 80 page-renders it found one defect: the portal jumped `h1 → h3`, telling a screen-
+reader user a section was missing. The panel headings are sections of that page, so they
+are now `h2`. The heading *level* is a document-structure decision; the visual weight is a
+class. Keeping those two separate is what lets the fix cost nothing visually.
+
+---
+
+*Design Excellence Bible v2.0 — 7 August 2026.*
