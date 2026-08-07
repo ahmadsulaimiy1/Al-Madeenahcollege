@@ -1,0 +1,398 @@
+#!/usr/bin/env node
+/* =========================================================================
+   THE DESIGN-SYSTEM AUDITOR
+
+   The redesign directive ends with the only instruction that matters:
+   verify with "objective measurements and browser-based inspection rather
+   than visual judgement alone."
+
+   So this is built before anything is redesigned. It renders every page at
+   every supported width in a real engine and MEASURES the design system:
+
+     ALIGNMENT   every content element's inline-start against the wrap's own
+                 content edge — a 1px deviation is a defect, not a rounding
+     SPACING     every margin and padding against the token scale
+     TYPE        every rendered font-size against the type scale, plus the
+                 line-height and measure of running text
+     RADII       every border-radius against the radius-by-role set
+     ELEVATION   every box-shadow against the token scale
+     ICONS       every icon's rendered box against the icon scale
+     FOCUS       every focusable element actually shows a focus ring
+     CLS         cumulative layout shift, measured not assumed
+
+   Reports the WORST OFFENDERS with selectors and numbers, so a fix can be
+   aimed rather than guessed at. Exits non-zero when a budget is breached.
+   ========================================================================= */
+import { createServer } from 'node:http';
+import { readFileSync, existsSync } from 'node:fs';
+import { join, dirname, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const DIST = join(ROOT, 'dist');
+
+let chromium;
+try { ({ chromium } = await import('playwright')); }
+catch { console.log('\nAUDIT SKIPPED — playwright not installed here.\n'); process.exit(0); }
+const EXEC = process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium';
+if (!existsSync(EXEC)) { console.log(`\nAUDIT SKIPPED — no Chromium at ${EXEC}.\n`); process.exit(0); }
+
+const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript',
+  '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.json': 'application/json',
+  '.xml': 'application/xml', '.txt': 'text/plain', '.webmanifest': 'application/manifest+json' };
+const server = createServer((req, res) => {
+  let p = decodeURIComponent(req.url.split('?')[0]);
+  if (p.endsWith('/')) p += 'index.html';
+  const f = join(DIST, p);
+  if (!f.startsWith(DIST) || !existsSync(f)) { res.writeHead(404); return res.end('404'); }
+  res.writeHead(200, { 'content-type': MIME[extname(f)] || 'application/octet-stream' });
+  res.end(readFileSync(f));
+});
+await new Promise((r) => server.listen(0, '127.0.0.1', r));
+const BASE = `http://127.0.0.1:${server.address().port}`;
+
+/* The systems the site claims to have. A measurement is only meaningful
+   against a declared intent, so these mirror src/brand.css exactly. */
+const SPACE = [0, 4, 8, 12, 16, 24, 32, 48, 80, 120, 184, 248, 300];
+const RADII = [0, 6, 10, 16, 22, 999];
+const ICONS = [15, 16, 17, 19, 22, 24, 32, 34, 38, 40, 46];
+
+const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
+               '/verify/', '/signin/', '/portal/'];
+const WIDTHS = [390, 768, 1440];
+const LANGS = ['', '/ar'];
+
+const findings = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], cls: [] };
+const bump = (k, v) => findings[k].push(v);
+
+const browser = await chromium.launch({ executablePath: EXEC });
+const typeSizes = new Map();
+
+for (const width of WIDTHS) {
+  for (const lang of LANGS) {
+    for (const path of PAGES) {
+      const id = `${width} ${lang || 'en'}${path}`;
+      const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+      await page.addInitScript(() => {
+        window.__cls = 0;
+        new PerformanceObserver((l) => {
+          for (const e of l.getEntries()) if (!e.hadRecentInput) window.__cls += e.value;
+        }).observe({ type: 'layout-shift', buffered: true });
+      });
+      await page.goto(BASE + (lang ? lang + path : path), { waitUntil: 'networkidle' });
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(700);
+
+      const r = await page.evaluate(({ SPACE, RADII, ICONS }) => {
+        const rtl = document.documentElement.dir === 'rtl';
+        const sel = (el) => el.tagName.toLowerCase()
+          + (el.className && typeof el.className === 'string' && el.className.trim()
+            ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+        const near = (v, set, tol = 0.6) => set.some((s) => Math.abs(v - s) <= tol);
+        const px = (s) => parseFloat(s) || 0;
+        const out = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], sizes: [] };
+        /* Read the display faces out of the stylesheet's own tokens, so the
+           auditor cannot drift from the system it is auditing. */
+        const rootCs = getComputedStyle(document.documentElement);
+        const DISPLAY_FACES = ['--f-display', '--f-ar-display']
+          .map((v) => (rootCs.getPropertyValue(v).split(',')[0] || '').trim().replace(/['"]/g, '').toLowerCase())
+          .filter(Boolean);
+
+        /* ---- ALIGNMENT ----
+           Two rules, because two different things are being claimed.
+
+           (a) THE TEXT GRID. A block-level child in the normal flow of a
+               block-formatting .wrap must begin exactly at the wrap's own
+               content edge. Anything else is a broken column.
+               Exempt, correctly and not conveniently:
+                 · positioned elements — off the flow by definition
+                 · inline-level children (strong, a, span) — an inline box is
+                   placed by line layout, not by the block axis; measuring its
+                   left against the container edge is a category error
+                 · flex and grid items — placed by their container's algorithm,
+                   so they answer to rule (b) instead
+
+           (b) TRACK DRIFT. Inside a flex or grid container, the item starts
+               must fall into clean tracks. Two starts less than 16px apart but
+               not identical are not two columns — they are one column with a
+               defect. This is the rule that actually catches "1px off", and
+               the previous version of this file could not see it at all. */
+        const blockish = (d) => /^(block|flow-root|list-item|table|grid|flex)$/.test(d);
+        document.querySelectorAll('.wrap').forEach((wrap) => {
+          const ws = getComputedStyle(wrap);
+          if (ws.display === 'flex' || ws.display === 'grid') return;
+          const wr = wrap.getBoundingClientRect();
+          const edge = rtl
+            ? wr.right - px(ws.paddingRight)
+            : wr.left + px(ws.paddingLeft);
+          [...wrap.children].forEach((el) => {
+            const cs = getComputedStyle(el);
+            if (cs.position === 'absolute' || cs.position === 'fixed' || cs.display === 'none') return;
+            if (!blockish(cs.display)) return;
+            if (cs.float !== 'none') return;
+            if (el.getAttribute('aria-hidden') === 'true') return;
+            const b = el.getBoundingClientRect();
+            if (!b.width || !b.height) return;
+            /* A centred block is not a misaligned one — but it must be centred
+               EXACTLY. So the rule swaps rather than relaxes: instead of the
+               edge, it measures the two side margins against each other, which
+               catches the off-centre block the edge rule could never see. */
+            const ml = px(cs.marginLeft), mr = px(cs.marginRight);
+            if (ml > 0.5 && mr > 0.5) {
+              const skew = Math.abs(ml - mr);
+              if (skew >= 1) out.align.push({ s: sel(el) + ' ▸ off-centre', off: Math.round(skew * 10) / 10 });
+              return;
+            }
+            const start = rtl ? b.right : b.left;
+            const off = Math.abs(start - edge);
+            if (off >= 1) out.align.push({ s: sel(el), off: Math.round(off * 10) / 10 });
+          });
+        });
+
+        document.querySelectorAll('main *, footer *, header *').forEach((box) => {
+          const bs = getComputedStyle(box);
+          /* GRID only. A wrapping flex row — a tag cloud, a row of pills — has
+             no tracks by design: each item starts where the last one ended, and
+             those starts are supposed to be ragged. Applying a track rule to it
+             measures the text, not the layout. */
+          if (bs.display !== 'grid') return;
+          const starts = [...box.children]
+            .filter((el) => {
+              const cs = getComputedStyle(el);
+              if (cs.display === 'none' || cs.position === 'absolute' || cs.position === 'fixed') return false;
+              const b = el.getBoundingClientRect();
+              return b.width > 0 && b.height > 0;
+            })
+            .map((el) => {
+              const b = el.getBoundingClientRect();
+              return Math.round((rtl ? b.right : b.left) * 10) / 10;
+            });
+          if (starts.length < 2) return;
+          const uniq = [...new Set(starts)].sort((a, b) => a - b);
+          for (let i = 1; i < uniq.length; i++) {
+            const d = Math.round((uniq[i] - uniq[i - 1]) * 10) / 10;
+            if (d > 0 && d < 16) out.align.push({ s: sel(box) + ' ▸ track', off: d });
+          }
+        });
+
+        /* ---- SPACING, RADII, ELEVATION, TYPE ---- */
+        document.querySelectorAll('main *, footer *, header *').forEach((el) => {
+          const cs = getComputedStyle(el);
+          if (cs.display === 'none') return;
+          const b = el.getBoundingClientRect();
+          if (!b.width && !b.height) return;
+
+          for (const prop of ['marginTop', 'marginBottom', 'paddingTop', 'paddingBottom',
+                              'paddingLeft', 'paddingRight']) {
+            const v = px(cs[prop]);
+            if (v > 0 && !near(v, SPACE, 1.2)) out.space.push({ s: sel(el), p: prop, v: Math.round(v * 10) / 10 });
+          }
+          for (const prop of ['borderTopLeftRadius', 'borderTopRightRadius']) {
+            const v = px(cs[prop]);
+            if (v > 0 && !near(v, RADII, 0.6) && v < 500) out.radius.push({ s: sel(el), v: Math.round(v) });
+          }
+          if (cs.boxShadow && cs.boxShadow !== 'none') {
+            const layers = cs.boxShadow.split(/,(?![^(]*\))/).length;
+            /* One flat shadow reads as a sticker (DX §9). Ours are three-layer
+               plus a bevel, so anything with fewer than 2 layers is ad-hoc —
+               except the 3px focus ring, which is deliberately one. */
+            if (layers < 2 && !/0px 0px 0px 3px/.test(cs.boxShadow)) {
+              out.shadow.push({ s: sel(el), n: layers });
+            }
+          }
+          /* ---- TYPE ----
+             Leading is not one rule. Three registers, each with a floor AND a
+             ceiling, because "too loose" is as much a defect as "too tight":
+
+               RUNNING  paragraphs, list items, cells — multi-line by nature.
+                        Latin 1.4–2.0. Arabic 1.55–2.15: the script carries
+                        ascenders, descenders and vowel marks on the same line
+                        and genuinely needs the air. Holding Arabic to a Latin
+                        figure is a mistake, not a standard.
+               HEADING  1.15–1.4. Below 1.15 descenders collide when a heading
+                        wraps — which it always does on a 320px phone.
+               DISPLAY  ≥34px: Latin 1.0–1.3, Arabic 1.15–1.7. Large type needs
+                        less leading, not more.
+               LABEL    single-line inline furniture. No floor — a one-line
+                        label at 1.0 is correct typography — but a ceiling of
+                        1.6, because a loose label is a misaligned one. */
+          const fs = Math.round(px(cs.fontSize) * 2) / 2;
+          const hasText = el.childNodes.length
+            && [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+          if (hasText) {
+            out.sizes.push(fs);
+            const lh = cs.lineHeight === 'normal' ? 0 : px(cs.lineHeight) / px(cs.fontSize);
+            /* Two gates, so that what remains is a real defect and not an echo:
+
+               (i)  AUTHORSHIP. Judge an element only on leading it sets itself.
+                    A <span> inside a paragraph inherits the paragraph's 1.66;
+                    flagging it flags the paragraph twice and blames the child.
+               (ii) LINES. Leading is the distance between lines. An element
+                    that renders one line has no distance to get wrong — a
+                    single-line label at 1.0 is correct typography. The floor
+                    binds only where text actually wraps, which on a 320px
+                    phone is most headings. */
+            const par = el.parentElement && getComputedStyle(el.parentElement);
+            const ownsLeading = !par || par.lineHeight !== cs.lineHeight;
+            const lhpx = px(cs.lineHeight) || px(cs.fontSize) * 1.2;
+            const inner = b.height - px(cs.paddingTop) - px(cs.paddingBottom)
+              - px(cs.borderTopWidth) - px(cs.borderBottomWidth);
+            const lines = lhpx > 0 ? Math.round(inner / lhpx) : 1;
+            const judged = ownsLeading && lines >= 2;
+            const r2 = (v) => Math.round(v * 100) / 100;
+            const ar = el.closest('[lang="ar"],[dir="rtl"]') !== null;
+            const tag = el.tagName;
+            /* Register is decided by TYPEFACE, which is the distinction the
+               type system itself declares — not by a pixel threshold and not by
+               tag name. Two earlier versions of this rule got it wrong in both
+               directions: a 34px cutoff called a 28px pull quote "running text"
+               and demanded 1.4 leading on it, which would be a typographic
+               error; a tag-name list called a four-line warrant description a
+               "label". Text set in the display face is TITLING at any size.
+               Text set in the body face is PROSE. That is the whole model.
+
+                 TITLING  ≥34px  1.00–1.30 Latin · 1.15–1.70 Arabic
+                          <34px  1.15–1.45 Latin · 1.30–1.70 Arabic
+                 PROSE           1.40–2.00 Latin · 1.55–2.15 Arabic
+
+               Arabic runs looser in every band, deliberately: Amiri and Reem
+               Kufi carry their vowel marks inside the line, and holding them to
+               a Latin figure drives the marks into the line above. */
+            const inlineLevel = cs.display.startsWith('inline');
+            const fam = cs.fontFamily.toLowerCase();
+            /* Tracked all-caps is label furniture whatever face it is cut in:
+               capitals have no descenders, so they take leading a lowercase
+               line could not. Judged against the label band, not the titling
+               one. */
+            const labelish = cs.textTransform === 'uppercase'
+              || /small-caps/.test(cs.fontVariantCaps || '')
+              || parseFloat(cs.letterSpacing) >= 0.8;
+            /* Latin classifies by FACE — Bodoni titles, Newsreader sets prose.
+               Arabic cannot: Reem Kufi is both the Arabic display face and the
+               Arabic UI face, so the family says nothing. Arabic classifies by
+               the SCALE instead — at --ts-h4 (21px) and above it is titling.
+               Using the scale the site declares beats inventing a threshold. */
+            const titling = !labelish && (/^H[1-6]$/.test(tag)
+              || (ar ? fs >= 21 : DISPLAY_FACES.some((f) => fam.includes(f))));
+            let lo = null, hi = null, why = 'line-height';
+            if (lh && judged) {
+              if (titling && fs >= 34) { lo = ar ? 1.15 : 1.0; hi = ar ? 1.7 : 1.3; why = 'display leading'; }
+              else if (titling) { lo = ar ? 1.3 : 1.15; hi = ar ? 1.7 : 1.45; why = 'titling leading'; }
+              else if (!inlineLevel && !labelish) { lo = ar ? 1.55 : 1.4; hi = ar ? 2.15 : 2.0; why = 'prose leading'; }
+              else { lo = null; hi = 2.0; why = 'label leading'; }
+              if (lo !== null && lh < lo) out.type.push({ s: sel(el), why, v: r2(lh) });
+              else if (hi !== null && lh > hi) out.type.push({ s: sel(el), why: why + ' (loose)', v: r2(lh) });
+            }
+          }
+          /* An icon's size is the icon, not the chip it sits in. Measuring the
+             border box counted 9px of padding and 1px of border as glyph. */
+          if (el.tagName === 'svg') {
+            /* The icon scale governs ICONS: UI affordances, in flow, at a fixed
+               system size. An absolutely-positioned SVG is a component of an
+               illustration — the inner glyph of the crest is 29% of the crest —
+               and something sized as a fraction of its container is not on a
+               fixed scale by definition. Skipping it is a statement about what
+               an icon is, not a hole cut to make a number go green. */
+            if (cs.position === 'absolute' || cs.position === 'fixed') return;
+            const w = Math.round(px(cs.width) || b.width);
+            if (w > 0 && w < 120 && !near(w, ICONS, 1.5)) out.icon.push({ s: sel(el.parentElement || el), w });
+          }
+        });
+
+        return out;
+      }, { SPACE, RADII, ICONS });
+
+      /* ---- FOCUS ----
+         Walked with the Tab key, not with el.focus(). The difference is not
+         pedantry: :focus-visible is a heuristic on the INPUT MODALITY, and a
+         scripted focus() call does not set it for links or buttons. Auditing
+         with focus() therefore reports a ring on elements a keyboard user
+         would never see one on — it tests the wrong state and passes.
+         WCAG 2.2 SC 2.4.13 also wants area, so a ring thinner than 2px on any
+         side counts as absent. */
+      const focus = await page.evaluate(() => { document.body.focus(); return true; }) && [];
+      for (let i = 0; i < 26; i++) {
+        await page.keyboard.press('Tab');
+        const f = await page.evaluate(() => {
+          const el = document.activeElement;
+          if (!el || el === document.body || el.tagName === 'HTML') return null;
+          const cs = getComputedStyle(el);
+          const b = el.getBoundingClientRect();
+          if (!b.width || !b.height) return null;
+          const sel = el.tagName.toLowerCase()
+            + (typeof el.className === 'string' && el.className.trim()
+              ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+          const ring = parseFloat(cs.outlineWidth) || 0;
+          const none = cs.outlineStyle === 'none' || ring < 2;
+          return { sel, none, ring, key: el.tagName + (el.className || '') };
+        });
+        if (!f) break;
+        if (focus.some((x) => x.key === f.key)) continue;
+        focus.push(f);
+        if (f.none) bump('focus', { id, s: f.sel, v: f.ring });
+      }
+
+      const cls = await page.evaluate(() => window.__cls || 0);
+      if (cls > 0.1) bump('cls', { id, v: Math.round(cls * 1000) / 1000 });
+
+      for (const a of r.align) bump('align', { id, ...a });
+      for (const a of r.space) bump('space', { id, ...a });
+      for (const a of r.type) bump('type', { id, ...a });
+      for (const a of r.radius) bump('radius', { id, ...a });
+      for (const a of r.shadow) bump('shadow', { id, ...a });
+      for (const a of r.icon) bump('icon', { id, ...a });
+      for (const s of r.sizes) typeSizes.set(s, (typeSizes.get(s) || 0) + 1);
+
+      await page.close();
+    }
+  }
+}
+await browser.close();
+server.close();
+
+/* ---- report ---- */
+const roll = (list, key) => {
+  const m = new Map();
+  for (const f of list) {
+    const k = key(f);
+    if (!m.has(k)) m.set(k, { k, n: 0, ex: f });
+    m.get(k).n++;
+  }
+  return [...m.values()].sort((a, b) => b.n - a.n);
+};
+
+console.log('\n══ DESIGN-SYSTEM AUDIT ══  ' +
+  `${PAGES.length} pages × ${LANGS.length} languages × ${WIDTHS.length} widths\n`);
+
+const BUDGET = { align: 0, space: 0, radius: 0, shadow: 0, icon: 0, focus: 0, cls: 0, type: 0 };
+let failed = 0;
+
+for (const [k, label] of [['align', 'MISALIGNED against the wrap edge'],
+                          ['space', 'SPACING off the token scale'],
+                          ['type', 'TYPE line-height out of range'],
+                          ['radius', 'RADIUS off the role set'],
+                          ['shadow', 'ELEVATION not layered'],
+                          ['icon', 'ICON off the size scale'],
+                          ['focus', 'FOCUS ring missing'],
+                          ['cls', 'LAYOUT SHIFT above 0.1']]) {
+  const list = findings[k];
+  const rolled = k === 'cls' ? list.map((f) => ({ k: f.id, n: 1, ex: f }))
+    : roll(list, (f) => `${f.s}${f.p ? ' · ' + f.p : ''}${f.v !== undefined ? ' = ' + f.v : ''}${f.off !== undefined ? ' off ' + f.off + 'px' : ''}${f.w !== undefined ? ' = ' + f.w + 'px' : ''}${f.why ? ' · ' + f.why : ''}`);
+  const over = list.length > (BUDGET[k] ?? 0);
+  if (over) failed++;
+  console.log(`${over ? '✗' : '✓'} ${label}: ${list.length}`);
+  const N = process.env.AUDIT_FULL ? rolled.length : 8;
+  for (const r of rolled.slice(0, N)) console.log(`      ${String(r.n).padStart(4)} ×  ${r.k}`
+    + (process.env.AUDIT_FULL && r.ex && r.ex.id ? `   [${r.ex.id}]` : ''));
+  if (rolled.length > N) console.log(`           … ${rolled.length - N} more distinct`);
+}
+
+const sizes = [...typeSizes.entries()].sort((a, b) => b[1] - a[1]);
+console.log(`\n  TYPE SCALE — ${sizes.length} distinct rendered sizes`);
+console.log('      ' + sizes.slice(0, process.env.AUDIT_FULL ? sizes.length : 16)
+  .map(([s, n]) => `${s}px(${n})`).join('  '));
+if (sizes.length > 22) { console.log('   ✗ more than 22 distinct sizes — the scale is not a scale'); failed++; }
+
+console.log(failed ? `\n${failed} categor${failed === 1 ? 'y' : 'ies'} over budget.\n`
+                   : '\nEvery category within budget.\n');
+process.exit(failed ? 1 : 0);

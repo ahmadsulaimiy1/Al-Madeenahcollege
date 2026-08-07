@@ -97,6 +97,49 @@
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
   --s7:48px; --s8:80px; --s9:120px; --s10:184px; --s11:248px; --s12:300px;
 
+  /* ---- The type scale (DX §27) ----
+     Measured before it was written: the stylesheet carried SEVENTY-SEVEN
+     distinct font-size declarations, which rendered as fifty distinct sizes
+     across three widths — eleven of them crowded between 9.5px and 15px. That
+     is not a scale, it is seventy-seven separate decisions wearing a uniform.
+
+     Twelve steps, and nothing outside them. Two rules govern the shape:
+
+       1. THE SMALL END DOES NOT MOVE. Below the headings every step is a fixed
+          pixel value. Fluid type at the bottom of the scale is how a stylesheet
+          arrives at 9.5px rendered text on a phone — which is not a style
+          choice, it is an accessibility failure. 12px is the floor and nothing
+          is permitted beneath it.
+       2. ONLY THE TOP IS FLUID. Display type has to answer to the viewport;
+          body type does not. Four fluid steps × three widths + nine fixed
+          steps = twenty-one rendered sizes for the whole site.
+
+     Arabic does not get its own parallel set of sizes. Where Amiri or Reem Kufi
+     needs more optical size than Bodoni at the same rank — and it usually does,
+     because the script carries its marks inside the line — it takes the NEXT
+     STEP UP on this same scale, never a bespoke value. */
+  --ts-micro:12px;   /* all-caps labels, badges, warrant lines. The floor. */
+  --ts-label:13px;   /* eyebrows, small-caps furniture, table labels */
+  --ts-tiny:14px;    /* captions, hints, legal, footnotes */
+  --ts-small:15px;   /* secondary body, sidenotes */
+  --ts-ui:16px;      /* controls, nav, buttons */
+  --ts-body:17px;    /* running text */
+  --ts-lead:19px;    /* lead paragraph, standfirst, Arabic running text */
+  --ts-h4:21px;
+  --ts-h3:24px;
+  --ts-h2:clamp(28px,3.4vw,40px);
+  --ts-h1:clamp(38px,5.2vw,64px);
+  --ts-display:clamp(44px,7vw,88px);
+  --ts-mega:clamp(86px,10.5vw,144px);   /* chapter numerals, set as objects */
+
+  /* ---- Leading, by role and by script ----
+     One number cannot serve a 96px display line and a 13px label. Arabic is
+     given its own band throughout: holding Amiri to a Latin figure crushes the
+     vowel marks into the line above it. */
+  --lh-mega:.92; --lh-display:1.06; --lh-head:1.18; --lh-sub:1.26;
+  --lh-body:1.72; --lh-tight:1.45;
+  --lh-ar-display:1.34; --lh-ar-head:1.5; --lh-ar-body:1.95;
+
   /* ---- Radius by role ---- */
   --r-edge:0; --r-xs:6px; --r-sm:10px; --r-md:16px; --r-lg:22px; --r-pill:999px;
 
@@ -105,6 +148,11 @@
   --sh:0 1px 2px rgba(13,26,69,.07),0 12px 28px -14px rgba(13,26,69,.22),0 40px 80px -40px rgba(13,26,69,.32);
   --sh-lift:0 2px 4px rgba(13,26,69,.09),0 18px 40px -16px rgba(13,26,69,.28),0 56px 100px -48px rgba(13,26,69,.38);
   --bevel:inset 0 1px 0 rgba(255,255,255,.9);
+  /* The focus halo is a token too. It is not an elevation — nothing is being
+     lifted — but "not an elevation" is not a licence to be ad-hoc: a focus
+     indicator that differs by 1px between the form and the search bar is two
+     indicators. One value, used everywhere a ring needs reinforcement. */
+  --halo:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent);
 
   --ease:cubic-bezier(.16,.8,.24,1);
   --t-micro:200ms; --t-std:420ms; --t-enter:900ms;
@@ -164,14 +212,14 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);
-  font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:clip}
+  font-size:var(--ts-body);line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:clip}
 body.nav-lock{overflow:hidden}
 img,svg{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-h1,h2,h3,h4{font-family:var(--f-display);font-weight:500;line-height:1.12;margin:0 0 .5em;
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:500;line-height:var(--lh-head);margin:0 0 var(--s3);
   text-wrap:balance;letter-spacing:-.005em}
-p{margin:0 0 1.15em;max-width:var(--measure)}
-ul,ol{margin:0 0 1em;padding-inline-start:1.2em}
+p{margin:0 0 var(--s5);max-width:var(--measure)}
+ul,ol{margin:0 0 var(--s4);padding-inline-start:var(--s5)}
 table{border-collapse:collapse;width:100%}
 button,input,select,textarea{font:inherit;color:inherit}
 
@@ -179,10 +227,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 [lang=ar],[dir=rtl]{font-family:var(--f-ar);letter-spacing:normal!important;line-height:1.95}
 [lang=ar] h1,[lang=ar] h2,[lang=ar] h3,[lang=ar] h4,
 [dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3,[dir=rtl] h4{
-  font-family:var(--f-ar-display);line-height:1.55;letter-spacing:normal;font-weight:400}
-[lang=ar] body,[dir=rtl] body{font-size:18px}
+  font-family:var(--f-ar-display);line-height:var(--lh-ar-head);letter-spacing:normal;font-weight:400}
+[lang=ar] body,[dir=rtl] body{font-size:var(--ts-lead)}
 [dir=rtl] .u-caps,[lang=ar] .u-caps{text-transform:none;letter-spacing:normal}
-.text-mushakkal{font-family:var(--f-ar-display);font-size:19px;line-height:2.1}
+.text-mushakkal{font-family:var(--f-ar-display);font-size:var(--ts-lead);line-height:2.1}
 :where([dir=rtl]) .icon-dir{transform:scaleX(-1)}
 
 /* ---------- Focus ---------- */
@@ -254,30 +302,30 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Type ---------- */
 .eyebrow{display:inline-flex;align-items:center;gap:.75em;font-family:var(--f-label);
-  font-weight:500;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+  font-weight:500;font-size:var(--ts-micro);letter-spacing:.26em;text-transform:uppercase;
   color:var(--accent);margin-bottom:var(--s5)}
 .eyebrow::before{content:'';width:32px;height:1px;background:currentColor;opacity:.8}
-[dir=rtl] .eyebrow{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.92rem}
+[dir=rtl] .eyebrow{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-small)}
 .display{font-family:var(--f-display);font-weight:400;
-  font-size:clamp(2.5rem,5.2vw,4.2rem);line-height:1.06;letter-spacing:-.018em;margin:0 0 var(--s6)}
+  font-size:var(--ts-h1);line-height:1.06;letter-spacing:-.018em;margin:0 0 var(--s6)}
 .display .gilt{font-style:italic;color:var(--accent)}
 .section--deep .display .gilt,.section--blue .display .gilt,
 .hero--deep .display .gilt{color:var(--dhahab-light)}
-.display--xl{font-size:clamp(3rem,7vw,5.6rem)}
+.display--xl{font-size:var(--ts-display)}
 /* DX §2.2 — a heading is never closer than 32px to the text beneath it. */
-.h1{font-size:clamp(2.2rem,4.6vw,3.2rem);font-weight:400;margin-bottom:var(--s6)}
-.h2{font-size:clamp(1.9rem,3.4vw,2.65rem);font-weight:400;margin-bottom:var(--s6)}
-.h3{font-size:1.45rem;font-weight:500;margin-bottom:var(--s4)}
-.lead{font-size:1.24rem;line-height:1.72;color:var(--fg-soft);max-width:60ch;font-weight:300;
+.h1{font-size:var(--ts-h1);font-weight:400;margin-bottom:var(--s6)}
+.h2{font-size:var(--ts-h2);font-weight:400;margin-bottom:var(--s6)}
+.h3{font-size:var(--ts-h3);font-weight:500;margin-bottom:var(--s4)}
+.lead{font-size:var(--ts-lead);line-height:1.72;color:var(--fg-soft);max-width:60ch;font-weight:300;
   margin-bottom:var(--s7)}
 [lang=ar] .lead,[dir=rtl] .lead{font-weight:400}
-.small{font-size:.9375rem;color:var(--fg-soft)}
-.tiny{font-size:.8125rem;color:var(--fg-faint);line-height:1.6}
+.small{font-size:var(--ts-small);color:var(--fg-soft)}
+.tiny{font-size:var(--ts-label);color:var(--fg-faint);line-height:1.6}
 .measure{max-width:var(--measure)}
 [lang=ar] .display,[dir=rtl] .display{font-family:var(--f-ar-display);line-height:1.4;font-weight:400}
-.overline{display:block;font-family:var(--f-label);font-size:.68rem;letter-spacing:.32em;
+.overline{display:block;font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.32em;
   text-transform:uppercase;color:var(--accent);margin-bottom:var(--s6);font-weight:500}
-[dir=rtl] .overline{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.9rem}
+[dir=rtl] .overline{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 
 /* ---------- Editorial furniture: crisp by design ---------- */
 .rule{border:0;border-top:1px solid var(--rule);margin:var(--s8) 0}
@@ -294,9 +342,9 @@ button,input,select,textarea{font:inherit;color:inherit}
   transition:box-shadow var(--t-std) var(--ease),transform var(--t-std) var(--ease)}
 .card:hover{box-shadow:var(--sh-lift),var(--bevel);transform:translateY(-4px)}
 [data-theme=dark] .card{background:linear-gradient(168deg,#2A241B,#221D16 60%,#1D1913)}
-.card__n{font-family:var(--f-label);font-size:.7rem;letter-spacing:.24em;color:var(--accent);
+.card__n{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.24em;color:var(--accent);
   display:block;margin-bottom:var(--s4)}
-[dir=rtl] .card__n{font-family:var(--f-ar);letter-spacing:normal;font-size:.9rem}
+[dir=rtl] .card__n{font-family:var(--f-ar);letter-spacing:normal;font-size:var(--ts-tiny)}
 .card h3{margin-bottom:var(--s3)}
 .card p:last-child{margin-bottom:0}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);margin-block:var(--s8)}
@@ -304,12 +352,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Buttons ---------- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;
-  padding:1em 2.1em;min-height:48px;border-radius:var(--r-sm);font-family:var(--f-label);
-  font-weight:500;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:var(--s4) var(--s6);min-height:48px;border-radius:var(--r-sm);font-family:var(--f-label);
+  font-weight:500;font-size:var(--ts-micro);letter-spacing:.14em;text-transform:uppercase;
   border:1px solid transparent;cursor:pointer;position:relative;overflow:hidden;isolation:isolate;
   transition:box-shadow var(--t-std) var(--ease),transform var(--t-std) var(--ease),
              color var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease)}
-[dir=rtl] .btn{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.95rem}
+[dir=rtl] .btn{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-small)}
 .btn--primary{background:var(--lazaward);color:#fff;box-shadow:var(--sh-soft)}
 .btn--primary:hover{transform:translateY(-2px);box-shadow:var(--sh)}
 .btn--gilt{border-color:var(--dhahab);color:var(--dhahab);background:transparent}
@@ -335,22 +383,34 @@ button,input,select,textarea{font:inherit;color:inherit}
 }
 
 /* ---------- Ledger ---------- */
-.ledger{margin:var(--s7) 0;font-size:.95rem}
+.ledger{margin:var(--s7) 0;font-size:var(--ts-small)}
 /* overflow-wrap:anywhere, because the longest strings on this site are email
    addresses and certificate numbers, and an unbreakable 28-character token in
    a table cell pushes the whole table past a 320px viewport. */
 .ledger th,.ledger td{text-align:start;padding:var(--s5) var(--s4);
   border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
 .ledger td a{display:inline-flex;align-items:center;min-height:44px}
-.ledger thead th{font-family:var(--f-label);font-weight:500;font-size:.66rem;letter-spacing:.2em;
+.ledger thead th{font-family:var(--f-label);font-weight:500;font-size:var(--ts-micro);letter-spacing:.2em;
   text-transform:uppercase;color:var(--fg-faint);padding-bottom:var(--s3);
   border-bottom:1px solid var(--accent)}
-[dir=rtl] .ledger thead th{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.88rem}
+[dir=rtl] .ledger thead th{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 .ledger tbody tr{transition:background var(--t-micro) var(--ease)}
 .ledger tbody tr:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
 .ledger .num{font-variant-numeric:tabular-nums lining-nums;white-space:nowrap;color:var(--fg-soft)}
-.ledger__title{font-family:var(--f-display);font-size:1.15rem;font-weight:500}
-[lang=ar] .ledger__title,[dir=rtl] .ledger__title{font-family:var(--f-ar-display)}
+.ledger__title{font-family:var(--f-display);font-size:var(--ts-lead);font-weight:500;
+  display:block;line-height:var(--lh-sub)}
+/* Arabic takes the next step up the scale, per the scale's own rule — Amiri
+   and Reem Kufi need the optical size that Bodoni does not. */
+/* Self-matching selectors as well as descendant ones. `[lang=ar] .x` is a
+   DESCENDANT selector and cannot match an element that carries lang="ar"
+   itself — which is exactly how inline Arabic is marked up on the English
+   pages. Every rule that styles a class whose element may carry its own lang
+   attribute needs both forms, or the Arabic gets Latin metrics. */
+[lang=ar] .ledger__title,[dir=rtl] .ledger__title,
+.ledger__title[lang=ar],.ledger__title[dir=rtl]{
+  font-size:var(--ts-h4);line-height:var(--lh-ar-head)}
+[lang=ar] .ledger__title,[dir=rtl] .ledger__title,
+.ledger__title[lang=ar],.ledger__title[dir=rtl]{font-family:var(--f-ar-display)}
 .section--deep .ledger th,.section--deep .ledger td,.section--blue .ledger th,
 .section--blue .ledger td,.section--dark .ledger th,.section--dark .ledger td{border-color:var(--khatt-dark)}
 .section--deep .ledger thead th,.section--blue .ledger thead th,
@@ -362,16 +422,16 @@ button,input,select,textarea{font:inherit;color:inherit}
    released, the padding tightens, and the type steps down; the table still
    reads as a register rather than becoming a stack of cards. */
 @media (max-width:760px){
-  .ledger{font-size:.875rem}
+  .ledger{font-size:var(--ts-tiny)}
   .ledger th,.ledger td{padding:var(--s4) var(--s3)}
   .ledger .num{white-space:normal}
-  .ledger__title{font-size:1.02rem}
-  .ledger thead th{font-size:.58rem;letter-spacing:.14em}
+  .ledger__title{font-size:var(--ts-ui)}
+  .ledger thead th{font-size:var(--ts-micro);letter-spacing:.14em}
   .creds td{padding:var(--s4) var(--s3)}
 }
 @media (max-width:420px){
   .ledger th,.ledger td{padding:var(--s3) var(--s2)}
-  .ledger{font-size:.82rem}
+  .ledger{font-size:var(--ts-label)}
 }
 
 /* ---------- Dot list ---------- */
@@ -379,23 +439,23 @@ button,input,select,textarea{font:inherit;color:inherit}
 .dotlist li{display:flex;align-items:baseline;gap:var(--s4);padding:var(--s4) 0;
   border-bottom:1px solid var(--rule)}
 .dotlist li:last-child{border-bottom:0}
-.dotlist .idx{font-family:var(--f-label);font-size:.72rem;color:var(--accent);
+.dotlist .idx{font-family:var(--f-label);font-size:var(--ts-micro);color:var(--accent);
   letter-spacing:.1em;min-width:2.6em;flex-shrink:0}
 [dir=rtl] .dotlist .idx{font-family:var(--f-ar);letter-spacing:normal}
 .dotlist .txt{flex:1;max-width:62ch}
 
 /* ---------- Figures ---------- */
 .figure{display:block;font-family:var(--f-display);font-weight:400;
-  font-size:clamp(2.8rem,5.4vw,4rem);line-height:1;letter-spacing:-.02em;
+  font-size:var(--ts-h1);line-height:1;letter-spacing:-.02em;
   font-variant-numeric:lining-nums tabular-nums;color:var(--lazaward)}
 .section--deep .figure,.section--blue .figure,.section--dark .figure{color:var(--dhahab-light)}
 .figrow{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s6);
   border-block:1px solid var(--rule);padding-block:var(--s7);margin-block:var(--s8)}
 .figrow>div{padding-inline:var(--s4);border-inline-end:1px solid var(--rule)}
 .figrow>div:last-child{border-inline-end:0}
-.figrow p{font-family:var(--f-label);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+.figrow p{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.2em;text-transform:uppercase;
   color:var(--fg-faint);margin:var(--s4) 0 0;max-width:none}
-[dir=rtl] .figrow p{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.88rem}
+[dir=rtl] .figrow p{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 .section--deep .figrow p,.section--blue .figrow p,.section--dark .figrow p{color:#93A3C4}
 @media (max-width:860px){.figrow{grid-template-columns:repeat(2,1fr);row-gap:var(--s7)}
   .figrow>div:nth-child(2n){border-inline-end:0}}
@@ -403,15 +463,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* ---------- Tags & pills ---------- */
 .tags{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s5) 0;padding:0;list-style:none}
-.tags li{border:1px solid var(--rule);border-radius:var(--r-pill);padding:.45em 1.15em;
-  font-size:.875rem;color:var(--fg-soft);background:var(--white)}
+.tags li{border:1px solid var(--rule);border-radius:var(--r-pill);padding:var(--s2) var(--s4);
+  font-size:var(--ts-tiny);color:var(--fg-soft);background:var(--white)}
 .section--deep .tags li,.section--blue .tags li,.section--dark .tags li{
   color:#C9D3EC;border-color:var(--khatt-dark);background:transparent}
-.pill{display:inline-flex;align-items:center;gap:.5em;font-family:var(--f-label);font-size:.64rem;
-  font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:.4em .95em;
+.pill{display:inline-flex;align-items:center;gap:.5em;font-family:var(--f-label);font-size:var(--ts-micro);
+  font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:var(--s1) var(--s3);
   border-radius:var(--r-pill);border:1px solid currentColor;
   transition:border-color var(--t-micro) var(--ease)}
-[dir=rtl] .pill{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.85rem}
+[dir=rtl] .pill{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 .pill::before{content:'';width:5px;height:5px;background:currentColor;transform:rotate(45deg)}
 .pill--ok{color:var(--ok)} .pill--wip{color:var(--wip)} .pill--attn{color:var(--attn)}
 .pill--info{color:var(--info)}
@@ -424,11 +484,11 @@ button,input,select,textarea{font:inherit;color:inherit}
   background:var(--accent)}
 .section--deep .callout,.section--blue .callout,.section--dark .callout{
   background:rgba(255,255,255,.05);border-color:var(--khatt-dark);box-shadow:none}
-.callout__k{display:block;font-family:var(--f-label);font-weight:500;font-size:.66rem;
+.callout__k{display:block;font-family:var(--f-label);font-weight:500;font-size:var(--ts-micro);
   letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--s4)}
-[dir=rtl] .callout__k{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.88rem}
+[dir=rtl] .callout__k{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 .callout p:last-child{margin-bottom:0}
-.callout__date{font-size:.8125rem;color:var(--fg-faint);margin-top:var(--s4)}
+.callout__date{font-size:var(--ts-label);color:var(--fg-faint);margin-top:var(--s4)}
 
 /* ==========================================================================
    THE HEADER AS A REGISTER — the mega panel
@@ -445,18 +505,18 @@ button,input,select,textarea{font:inherit;color:inherit}
    was hiding. Each programme item carries its school's own accent.
    ========================================================================== */
 
-.topbar{background:var(--parchment);color:var(--fg-soft);font-size:.78rem;
+.topbar{background:var(--parchment);color:var(--fg-soft);font-size:var(--ts-micro);
   border-bottom:1px solid var(--rule)}
 .topbar .wrap{display:flex;gap:var(--s5);align-items:center;justify-content:space-between;flex-wrap:wrap}
 .topbar a{display:inline-flex;align-items:center;min-height:44px;color:var(--fg-soft)}
 .topbar a:hover{color:var(--accent)}
 .topbar__l{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
-.btn--mini{padding:0 var(--s4);min-height:44px;font-size:.62rem;
+.btn--mini{padding:0 var(--s4);min-height:44px;font-size:var(--ts-micro);
   border-color:var(--rule);color:var(--fg-soft);background:transparent}
 .btn--mini:hover{border-color:var(--accent);color:var(--accent)}
-[dir=rtl] .btn--mini{font-size:.82rem}
+[dir=rtl] .btn--mini{font-size:var(--ts-label)}
 @media (max-width:600px){
-  .topbar{font-size:.7rem}
+  .topbar{font-size:var(--ts-micro)}
   .topbar .wrap{flex-wrap:nowrap;gap:var(--s3)}
   .topbar__l:first-child{min-width:0;flex:1}
   .topbar__l:first-child a{display:block;overflow:hidden;text-overflow:ellipsis;
@@ -476,14 +536,14 @@ button,input,select,textarea{font:inherit;color:inherit}
   transition:color var(--t-std) var(--ease)}
 .lockup:hover svg{color:var(--accent)}
 [data-theme=dark] .lockup svg{color:var(--dhahab-light)}
-.lockup__ar{font-family:var(--f-ar-display);font-size:1.2rem;line-height:1.2;display:block}
+.lockup__ar{font-family:var(--f-ar-display);font-size:var(--ts-lead);line-height:1.2;display:block}
 .lockup__ar,.lockup__en{white-space:nowrap}
-.lockup__en{font-family:var(--f-label);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--fg-faint);line-height:1.3;display:block;margin-top:5px}
-[dir=rtl] .lockup__en{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.78rem}
+.lockup__en{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--fg-faint);line-height:1.3;display:block;margin-top:var(--s1)}
+[dir=rtl] .lockup__en{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-micro)}
 
 .nav{margin-inline-start:auto;display:flex;align-items:center;gap:var(--s5);flex-shrink:0}
-.nav>a:not(.btn),.drop__t{font-family:var(--f-body);font-size:.9rem;position:relative;
+.nav>a:not(.btn),.drop__t{font-family:var(--f-body);font-size:var(--ts-tiny);position:relative;
   padding:var(--s2) 0;white-space:nowrap;color:var(--fg-soft);
   transition:color var(--t-micro) var(--ease)}
 .nav>a:not(.btn)::after,.drop__t::after{content:'';position:absolute;inset-inline:0;bottom:0;height:1px;
@@ -518,20 +578,20 @@ a:hover>.arrow{transform:translateX(4px)}
 .mega__intro{padding:var(--s7) var(--s6);border-inline-end:1px solid var(--rule);
   background:color-mix(in srgb,var(--dhahab) 5%,transparent)}
 .mega__folio{display:flex;align-items:center;gap:var(--s3);font-family:var(--f-label);
-  font-size:.62rem;letter-spacing:.24em;color:var(--accent);margin-bottom:var(--s5)}
+  font-size:var(--ts-micro);letter-spacing:.24em;color:var(--accent);margin-bottom:var(--s5)}
 .mega__folio::before{content:'';width:6px;height:6px;background:currentColor;transform:rotate(45deg)}
 .mega__folio i{font-style:normal}
-[dir=rtl] .mega__folio{font-family:var(--f-ar);letter-spacing:normal;font-size:.86rem}
-.mega__intro h4{font-family:var(--f-display);font-size:1.5rem;font-weight:400;
+[dir=rtl] .mega__folio{font-family:var(--f-ar);letter-spacing:normal;font-size:var(--ts-tiny)}
+.mega__intro h4{font-family:var(--f-display);font-size:var(--ts-h3);font-weight:400;
   line-height:1.2;margin-bottom:var(--s4)}
 [lang=ar] .mega__intro h4,[dir=rtl] .mega__intro h4{font-family:var(--f-ar-display);line-height:1.5}
-.mega__intro p{font-size:.86rem;line-height:1.65;color:var(--fg-soft);margin:0}
+.mega__intro p{font-size:var(--ts-tiny);line-height:1.65;color:var(--fg-soft);margin:0}
 .mega__col{padding:var(--s5) 0;display:flex;flex-direction:column}
 .mega__i{display:flex;flex-direction:column;gap:3px;padding:var(--s3) var(--s6);
   border-inline-start:2px solid transparent;
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease)}
-.mega__i .t{font-size:.92rem;color:var(--fg)}
-.mega__i .d{font-size:.74rem;line-height:1.5;color:var(--fg-faint)}
+.mega__i .t{font-size:var(--ts-small);color:var(--fg)}
+.mega__i .d{font-size:var(--ts-micro);line-height:1.5;color:var(--fg-faint)}
 .mega__i:hover{background:color-mix(in srgb,var(--dhahab) 8%,transparent);border-inline-start-color:var(--dhahab)}
 .mega__i--s1:hover{border-inline-start-color:var(--firuzi)}
 .mega__i--s2:hover{border-inline-start-color:var(--sabz)}
@@ -541,17 +601,17 @@ a:hover>.arrow{transform:translateX(4px)}
 .mega__f{padding:var(--s7) var(--s6);border-inline-start:1px solid var(--rule);
   background:color-mix(in srgb,var(--lazaward) 4%,transparent);
   display:flex;flex-direction:column;justify-content:center}
-.mega__f-k{font-family:var(--f-label);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+.mega__f-k{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.2em;text-transform:uppercase;
   color:var(--accent);margin-bottom:var(--s4)}
-[dir=rtl] .mega__f-k{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.8rem}
-.mega__f-a{font-family:var(--f-display);font-size:1.16rem;line-height:1.3;color:var(--lazaward);
+[dir=rtl] .mega__f-k{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
+.mega__f-a{font-family:var(--f-display);font-size:var(--ts-lead);line-height:1.3;color:var(--lazaward);
   display:inline-flex;align-items:baseline;gap:.4em;margin-bottom:var(--s4)}
 [lang=ar] .mega__f-a,[dir=rtl] .mega__f-a{font-family:var(--f-ar-display);line-height:1.7}
 .mega__f-a:hover{color:var(--accent)}
-.mega__f p{font-size:.76rem;line-height:1.6;color:var(--fg-faint);margin:0}
+.mega__f p{font-size:var(--ts-micro);line-height:1.6;color:var(--fg-faint);margin:0}
 @media (max-width:1180px) and (min-width:1001px){
   .nav{gap:var(--s4)}
-  .nav>a:not(.btn),.drop__t{font-size:.84rem}
+  .nav>a:not(.btn),.drop__t{font-size:var(--ts-label)}
   .lockup__en{display:none}
   .mega{width:min(760px,94vw)}
 }
@@ -559,10 +619,10 @@ a:hover>.arrow{transform:translateX(4px)}
 /* ---- The drawer (mobile) ---- */
 .navtoggle{display:none;margin-inline-start:auto;background:none;border:1px solid var(--rule);
   border-radius:var(--r-sm);padding:0 var(--s5);min-height:48px;cursor:pointer;
-  font-family:var(--f-label);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.16em;text-transform:uppercase;
   align-items:center;gap:var(--s3);color:var(--fg)}
 .navtoggle svg{width:17px;height:17px}
-[dir=rtl] .navtoggle{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.92rem}
+[dir=rtl] .navtoggle{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-small)}
 
 @media (max-width:1000px){
   /* backdrop-filter must be dropped here, not merely for performance: a
@@ -580,9 +640,9 @@ a:hover>.arrow{transform:translateX(4px)}
   .nav__head{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
     position:sticky;top:0;z-index:2;background:var(--parchment);
     padding:var(--s4) var(--s5);border-bottom:1px solid var(--rule)}
-  .nav__head-t{font-family:var(--f-label);font-size:.66rem;letter-spacing:.24em;
+  .nav__head-t{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.24em;
     text-transform:uppercase;color:var(--accent)}
-  [dir=rtl] .nav__head-t{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.92rem}
+  [dir=rtl] .nav__head-t{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-small)}
   .nav__close{display:flex;align-items:center;justify-content:center;width:48px;height:48px;
     background:none;border:1px solid var(--rule);color:var(--fg);cursor:pointer;
     transition:border-color var(--t-micro) var(--ease),color var(--t-micro) var(--ease)}
@@ -591,7 +651,7 @@ a:hover>.arrow{transform:translateX(4px)}
 
   .drop{display:flex;flex-wrap:wrap;align-items:center;
     border-bottom:1px solid var(--rule);padding-inline:var(--s5)}
-  .drop__t{flex:1;display:flex;align-items:center;min-height:60px;font-size:1.06rem;
+  .drop__t{flex:1;display:flex;align-items:center;min-height:60px;font-size:var(--ts-body);
     padding:0;white-space:normal}
   .drop__t::after{display:none}
   .drop__x{display:flex;align-items:center;justify-content:center;width:48px;height:48px;
@@ -624,7 +684,7 @@ a:hover>.arrow{transform:translateX(4px)}
     padding:var(--s6);margin-top:var(--s4);background:transparent}
 
   .nav>a:not(.btn){display:flex;align-items:center;min-height:60px;padding-inline:var(--s5);
-    border-bottom:1px solid var(--rule);font-size:1.06rem;color:var(--fg-soft)}
+    border-bottom:1px solid var(--rule);font-size:var(--ts-body);color:var(--fg-soft)}
   .nav>a:not(.btn)::after{display:none}
   .nav a[aria-current=page]{color:var(--accent);
     background:color-mix(in srgb,var(--dhahab) 8%,transparent)}
@@ -655,8 +715,8 @@ a:hover>.arrow{transform:translateX(4px)}
 @media (max-width:600px){
   .site-header .wrap{min-height:64px}
   .lockup svg{width:34px;height:34px}
-  .lockup__ar{font-size:1.02rem}
-  .lockup__en{font-size:.5rem;letter-spacing:.16em}
+  .lockup__ar{font-size:var(--ts-ui)}
+  .lockup__en{font-size:var(--ts-micro);letter-spacing:.16em}
   .navtoggle span{display:none}
   .navtoggle{padding-inline:0;width:48px;justify-content:center}
 }
@@ -666,7 +726,7 @@ a:hover>.arrow{transform:translateX(4px)}
 .hero--deep{background:var(--lazaward-deep);color:var(--milk)}
 .hero--deep .display{color:#fff}
 .hero--deep .lead{color:#C9D3EC}
-.hero__ar{font-family:var(--f-ar-display);color:var(--accent);font-size:1.15rem;
+.hero__ar{font-family:var(--f-ar-display);color:var(--accent);font-size:var(--ts-lead);
   margin-bottom:var(--s5);direction:rtl}
 .hero--deep .hero__ar{color:var(--dhahab-light)}
 @media (max-width:820px){.hero{padding-block:var(--s9)}}
@@ -727,14 +787,14 @@ a:hover>.arrow{transform:translateX(4px)}
 /* ---------- Infographics ---------- */
 .info{margin-block:var(--s7);position:relative}
 .info svg{width:100%;height:auto;overflow:visible}
-.info figcaption{font-size:.8125rem;color:var(--fg-faint);margin-top:var(--s5);
+.info figcaption{font-size:var(--ts-label);color:var(--fg-faint);margin-top:var(--s5);
   padding-top:var(--s4);border-top:1px solid var(--rule);max-width:56ch;line-height:1.65}
 .info .track{fill:color-mix(in srgb,var(--fg) 7%,transparent)}
 .info .bar{fill:var(--lazaward)}
 .info .bar--alt{fill:var(--firuzi)}
 .info .bar--gilt{fill:var(--dhahab)}
-.info .lbl{font-family:var(--f-body);font-size:12.5px;fill:var(--fg-soft)}
-.info .val{font-family:var(--f-body);font-size:12.5px;font-weight:500;fill:var(--fg);
+.info .lbl{font-family:var(--f-body);font-size:var(--ts-micro);fill:var(--fg-soft)}
+.info .val{font-family:var(--f-body);font-size:var(--ts-micro);font-weight:500;fill:var(--fg);
   font-variant-numeric:tabular-nums}
 .section--deep .info .lbl,.section--blue .info .lbl{fill:#A9B6D2}
 .section--deep .info .val,.section--blue .info .val{fill:#E9ECF4}
@@ -753,13 +813,13 @@ a:hover>.arrow{transform:translateX(4px)}
   transition:box-shadow var(--t-std) var(--ease),transform var(--t-std) var(--ease)}
 .tenure:hover{box-shadow:var(--sh-lift),var(--bevel);transform:translateY(-4px)}
 [data-theme=dark] .tenure{background:linear-gradient(168deg,#2A241B,#221D16 60%,#1D1913)}
-.tenure__span{font-family:var(--f-display);font-size:3.4rem;line-height:1;font-weight:300;
+.tenure__span{font-family:var(--f-display);font-size:var(--ts-h1);line-height:1;font-weight:300;
   color:var(--lazaward);font-variant-numeric:lining-nums;display:block}
 [data-theme=dark] .tenure__span{color:var(--dhahab-light)}
-.tenure__ar{font-family:var(--f-ar-display);color:var(--accent);font-size:1.1rem;
+.tenure__ar{font-family:var(--f-ar-display);color:var(--accent);font-size:var(--ts-body);
   display:block;margin-block:var(--s3) var(--s5)}
-.tenure h3{font-size:1.25rem;margin-bottom:var(--s3)}
-.tenure ul{list-style:none;padding:0;margin:var(--s5) 0 0;font-size:.9375rem}
+.tenure h3{font-size:var(--ts-lead);margin-bottom:var(--s3)}
+.tenure ul{list-style:none;padding:0;margin:var(--s5) 0 0;font-size:var(--ts-small)}
 .tenure li{padding-block:var(--s3);border-block-end:1px solid var(--rule);
   display:flex;gap:var(--s3);align-items:baseline;color:var(--fg-soft)}
 .tenure li:last-child{border-block-end:0}
@@ -785,11 +845,11 @@ a:hover>.arrow{transform:translateX(4px)}
 .folio::before{content:'';width:7px;height:7px;background:currentColor;
   transform:rotate(45deg);flex-shrink:0}
 .folio::after{content:'';flex:1;height:1px;background:var(--rule);min-width:var(--s7)}
-.folio i,.folio b{font-style:normal;font-weight:500;font-size:.7rem;letter-spacing:.26em;
+.folio i,.folio b{font-style:normal;font-weight:500;font-size:var(--ts-micro);letter-spacing:.26em;
   text-transform:uppercase;flex-shrink:0;font-variant-numeric:lining-nums}
 .folio b{color:var(--fg-faint);letter-spacing:.2em}
 [dir=rtl] .folio i,[dir=rtl] .folio b{font-family:var(--f-ar);letter-spacing:normal;
-  text-transform:none;font-size:.92rem}
+  text-transform:none;font-size:var(--ts-small)}
 .section--deep .folio b,.section--blue .folio b,.section--dark .folio b{color:#A3B1D0}
 .section--deep .folio::after,.section--blue .folio::after,
 .section--dark .folio::after{background:var(--khatt-dark)}
@@ -806,7 +866,7 @@ a:hover>.arrow{transform:translateX(4px)}
    reference project. Four blue glyphs would be four blue boxes; four
    different hues make the rail read as a faculty rather than a pattern. */
 .monorail .glyph{display:block;font-family:var(--f-ar-display);
-  font-size:clamp(3rem,5.2vw,4.6rem);line-height:1;color:var(--lazaward);font-weight:400}
+  font-size:var(--ts-display);line-height:1;color:var(--lazaward);font-weight:400}
 .monorail>div:nth-child(1) .glyph{color:var(--firuzi)}
 .monorail>div:nth-child(2) .glyph{color:var(--sabz)}
 .monorail>div:nth-child(3) .glyph{color:var(--aqiq)}
@@ -827,9 +887,9 @@ a:hover>.arrow{transform:translateX(4px)}
 [data-theme=dark] .monorail>div:nth-child(3) .glyph,[data-theme=dark] .quad>div:nth-child(3) .ar{color:var(--aqiq-light)}
 [data-theme=dark] .monorail>div:nth-child(4) .glyph,[data-theme=dark] .quad>div:nth-child(4) .ar{color:var(--dhahab-light)}
 .monorail .word{display:block;margin-top:var(--s5);font-family:var(--f-label);
-  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-faint)}
+  font-size:var(--ts-micro);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-faint)}
 [dir=rtl] .monorail .word{font-family:var(--f-ar);letter-spacing:normal;
-  text-transform:none;font-size:.86rem}
+  text-transform:none;font-size:var(--ts-tiny)}
 @media (max-width:820px){.monorail{grid-template-columns:repeat(2,1fr)}
   .monorail>div{padding-block:var(--s7)}
   .monorail>div:nth-child(2n){border-inline-end:0}
@@ -843,19 +903,19 @@ a:hover>.arrow{transform:translateX(4px)}
 @media (max-width:900px){.pledges--2{grid-template-columns:1fr;gap:var(--s8)}}
 .pledge{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s6);
   align-items:start;padding-top:var(--s6);border-top:1px solid var(--accent)}
-.pledge__n{font-family:var(--f-display);font-size:2.4rem;line-height:.9;font-weight:300;
+.pledge__n{font-family:var(--f-display);font-size:var(--ts-h2);line-height:.9;font-weight:300;
   color:var(--accent);font-variant-numeric:lining-nums tabular-nums}
-.pledge__t{font-family:var(--f-display);font-size:1.5rem;line-height:1.25;font-weight:400;
+.pledge__t{font-family:var(--f-display);font-size:var(--ts-h3);line-height:1.25;font-weight:400;
   margin:0 0 var(--s4)}
 [lang=ar] .pledge__t,[dir=rtl] .pledge__t{font-family:var(--f-ar-display);line-height:1.5}
 .pledge p{margin:0;color:var(--fg-soft);max-width:56ch}
 /* The falsifiability clause is the point of the component, not a footnote to
    it — set to be read, though quieter than the pledge itself. */
 .pledge__test{display:block;margin-top:var(--s5);padding-top:var(--s4);
-  border-top:1px solid var(--rule);font-family:var(--f-label);font-size:.66rem;
+  border-top:1px solid var(--rule);font-family:var(--f-label);font-size:var(--ts-micro);
   letter-spacing:.12em;text-transform:uppercase;color:var(--fg-soft);line-height:1.8}
 [dir=rtl] .pledge__test{font-family:var(--f-ar);letter-spacing:normal;
-  text-transform:none;font-size:.84rem}
+  text-transform:none;font-size:var(--ts-label)}
 
 /* ---- DX §6.8 · Journey path — replaces the numbered list of steps ---- */
 .path{--stages:5;list-style:none;padding:0;margin:var(--s8) 0 0;display:grid;
@@ -868,11 +928,11 @@ a:hover>.arrow{transform:translateX(4px)}
 .path li{position:relative;padding-block:var(--s7) 0;padding-inline-end:var(--s6)}
 .path li::before{content:'';position:absolute;inset-block-start:0;inset-inline-start:0;
   width:13px;height:13px;background:var(--accent);transform:rotate(45deg)}
-.path .st{display:block;font-family:var(--f-label);font-size:.6rem;letter-spacing:.2em;
+.path .st{display:block;font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.2em;
   text-transform:uppercase;color:var(--accent);margin-bottom:var(--s3)}
-[dir=rtl] .path .st{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.84rem}
-.path h3{font-size:1.2rem;margin-bottom:var(--s3)}
-.path p{font-size:.9375rem;color:var(--fg-soft);margin:0;max-width:34ch}
+[dir=rtl] .path .st{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
+.path h3{font-size:var(--ts-lead);margin-bottom:var(--s3)}
+.path p{font-size:var(--ts-small);color:var(--fg-soft);margin:0;max-width:34ch}
 /* Stacked, the axis becomes a border on each step rather than one absolutely
    positioned rule — an absolute rule needs a height it cannot know, and the
    first attempt at it collapsed to nothing. The last step's border is made
@@ -880,7 +940,7 @@ a:hover>.arrow{transform:translateX(4px)}
 @media (max-width:900px){
   .path{grid-template-columns:1fr}
   .path::before{display:none}
-  .path li{margin-inline-start:6px;border-inline-start:1px solid var(--rule);
+  .path li{margin-inline-start:var(--s2);border-inline-start:1px solid var(--rule);
     padding-block:0 var(--s8);padding-inline:var(--s7) 0}
   .path li:last-child{border-inline-start-color:transparent;padding-bottom:0}
   .path li::before{inset-inline-start:-7px}
@@ -900,7 +960,7 @@ a:hover>.arrow{transform:translateX(4px)}
 .quad>div:nth-child(2n){border-inline-end:0}
 .quad>div:nth-last-child(-n+2){border-block-end:0}
 .quad .ar{display:block;font-family:var(--f-ar-display);color:var(--accent);
-  font-size:1.05rem;margin-bottom:var(--s5);direction:rtl}
+  font-size:var(--ts-body);margin-bottom:var(--s5);direction:rtl}
 .quad h3{margin-bottom:var(--s4)}
 .quad p:last-child,.quad ul:last-child{margin-bottom:0}
 @media (max-width:900px){
@@ -914,21 +974,21 @@ a:hover>.arrow{transform:translateX(4px)}
    Name · credential · role. Never populated with unnamed people (EB §46);
    until real appointments exist it renders its own empty state, which is a
    truer signal than a page of stock portraits. */
-.creds{width:100%;margin-block:var(--s7);font-size:.95rem}
-.creds thead th{text-align:start;font-family:var(--f-label);font-weight:500;font-size:.62rem;
+.creds{width:100%;margin-block:var(--s7);font-size:var(--ts-small)}
+.creds thead th{text-align:start;font-family:var(--f-label);font-weight:500;font-size:var(--ts-micro);
   letter-spacing:.2em;text-transform:uppercase;color:var(--fg-faint);
   padding:0 var(--s4) var(--s3);border-bottom:1px solid var(--accent)}
 [dir=rtl] .creds thead th{font-family:var(--f-ar);letter-spacing:normal;
-  text-transform:none;font-size:.86rem}
+  text-transform:none;font-size:var(--ts-tiny)}
 .creds td{padding:var(--s5) var(--s4);border-bottom:1px solid var(--rule);vertical-align:top}
-.creds .nm{font-family:var(--f-display);font-size:1.15rem}
+.creds .nm{font-family:var(--f-display);font-size:var(--ts-lead)}
 [lang=ar] .creds .nm,[dir=rtl] .creds .nm{font-family:var(--f-ar-display)}
-.creds .cr{font-family:var(--f-label);font-size:.64rem;letter-spacing:.16em;
+.creds .cr{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.16em;
   text-transform:uppercase;color:var(--accent)}
-[dir=rtl] .creds .cr{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.86rem}
+[dir=rtl] .creds .cr{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
 .creds__empty td{padding-block:var(--s8);text-align:center;color:var(--fg-faint);
-  font-size:.9375rem}
-.creds__empty strong{display:block;font-family:var(--f-display);font-size:1.3rem;
+  font-size:var(--ts-small)}
+.creds__empty strong{display:block;font-family:var(--f-display);font-size:var(--ts-h4);
   color:var(--fg-soft);font-weight:400;margin-bottom:var(--s3)}
 [lang=ar] .creds__empty strong,[dir=rtl] .creds__empty strong{font-family:var(--f-ar-display)}
 
@@ -941,33 +1001,33 @@ a:hover>.arrow{transform:translateX(4px)}
 .doc{border:1px solid var(--rule);padding:var(--s7) var(--s6);background:var(--white);
   display:flex;flex-direction:column}
 [data-theme=dark] .doc{background:var(--bg-panel)}
-.doc__code{font-family:var(--f-label);font-weight:500;font-size:.62rem;letter-spacing:.2em;
+.doc__code{font-family:var(--f-label);font-weight:500;font-size:var(--ts-micro);letter-spacing:.2em;
   text-transform:uppercase;color:var(--accent)}
-[dir=rtl] .doc__code{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.86rem}
-.doc__t{font-family:var(--f-display);font-size:1.4rem;line-height:1.22;font-weight:400;
+[dir=rtl] .doc__code{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
+.doc__t{font-family:var(--f-display);font-size:var(--ts-h4);line-height:1.22;font-weight:400;
   margin:var(--s4) 0 var(--s5)}
 [lang=ar] .doc__t,[dir=rtl] .doc__t{font-family:var(--f-ar-display);line-height:1.5}
-.doc p{font-size:.9375rem;color:var(--fg-soft);margin:0 0 var(--s6)}
+.doc p{font-size:var(--ts-small);color:var(--fg-soft);margin:0 0 var(--s6)}
 .doc dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s2) var(--s5);
-  margin:auto 0 0;padding-top:var(--s5);border-top:1px solid var(--rule);font-size:.8125rem}
-.doc dt{font-family:var(--f-label);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+  margin:auto 0 0;padding-top:var(--s5);border-top:1px solid var(--rule);font-size:var(--ts-label)}
+.doc dt{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.16em;text-transform:uppercase;
   color:var(--fg-faint);line-height:2}
-[dir=rtl] .doc dt{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.8rem}
+[dir=rtl] .doc dt{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 .doc dd{margin:0;color:var(--fg-soft);font-variant-numeric:tabular-nums lining-nums;line-height:2}
 
 /* ---- DX §6.10 · Letter — replaces the "about us" paragraph in the corporate "we" ----
    Authority comes from a signed name. Built and held: this component stays
    unused until a real named person exists to sign (EB §46.3). */
 .letter{max-width:68ch;margin-block:var(--s8)}
-.letter p{font-family:var(--f-display);font-size:1.35rem;line-height:1.62;
+.letter p{font-family:var(--f-display);font-size:var(--ts-h4);line-height:1.62;
   color:var(--fg);max-width:none;margin-bottom:var(--s6)}
 [lang=ar] .letter p,[dir=rtl] .letter p{font-family:var(--f-ar-display);line-height:1.95}
 .letter__sig{display:inline-block;margin-top:var(--s7);padding-top:var(--s5);
   border-top:1px solid var(--accent)}
-.letter__nm{display:block;font-family:var(--f-display);font-size:1.2rem}
-.letter__rl{display:block;margin-top:var(--s2);font-family:var(--f-label);font-size:.6rem;
+.letter__nm{display:block;font-family:var(--f-display);font-size:var(--ts-lead)}
+.letter__rl{display:block;margin-top:var(--s2);font-family:var(--f-label);font-size:var(--ts-micro);
   letter-spacing:.18em;text-transform:uppercase;color:var(--fg-faint)}
-[dir=rtl] .letter__rl{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.84rem}
+[dir=rtl] .letter__rl{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 
 /* ---- DX §6.12 · Watermark seal ----
    The mark at large scale and very low opacity, bled off one edge of a deep
@@ -981,15 +1041,25 @@ a:hover>.arrow{transform:translateX(4px)}
 
 /* ---------- Forms ---------- */
 .field{display:block;margin-bottom:var(--s5)}
-.field>span{display:block;font-family:var(--f-label);font-size:.66rem;letter-spacing:.16em;
+.field>span{display:block;font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.16em;
   text-transform:uppercase;color:var(--fg-soft);margin-bottom:var(--s3)}
-[dir=rtl] .field>span{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.9rem}
-.field input,.field select,.field textarea{width:100%;padding:.95em 1.1em;
+[dir=rtl] .field>span{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-tiny)}
+.field input,.field select,.field textarea{width:100%;padding:var(--s4) var(--s4);
   border:1px solid var(--rule);border-radius:var(--r-sm);background:var(--white);color:var(--fg);
   transition:border-color var(--t-micro) var(--ease),box-shadow var(--t-micro) var(--ease)}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);outline:none;
-  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
-.field__hint{font-size:.8125rem;color:var(--fg-faint);margin-top:var(--s3);line-height:1.6}
+/* The outline is NEVER removed. This rule previously read `outline:none` and
+   substituted a 1px border-colour change, which is the single most common
+   accessibility defect in production CSS: WCAG 2.2 SC 2.4.13 requires the
+   focus indicator to have a minimum AREA (a 2px perimeter) and 3:1 contrast
+   against adjacent colours, and recolouring an existing 1px border adds no
+   area at all. The soft halo stays as reinforcement, but the ring is what
+   carries the requirement. */
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{
+  border-color:var(--accent);outline:2px solid var(--accent);outline-offset:2px;
+  box-shadow:var(--halo)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);
+  box-shadow:var(--halo)}
+.field__hint{font-size:var(--ts-label);color:var(--fg-faint);margin-top:var(--s3);line-height:1.6}
 
 /* ---------- Panels ---------- */
 .panel{border:1px solid var(--rule);border-radius:var(--r-md);padding:var(--s6);
@@ -997,7 +1067,7 @@ a:hover>.arrow{transform:translateX(4px)}
 .panel+.panel{margin-top:var(--s5)}
 .panel__h{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
   margin-bottom:var(--s5);flex-wrap:wrap}
-.panel__h h3{margin:0;font-size:1.15rem}
+.panel__h h3{margin:0;font-size:var(--ts-lead)}
 .meter{height:6px;border-radius:var(--r-pill);
   background:color-mix(in srgb,var(--fg) 9%,transparent);overflow:hidden;margin:var(--s4) 0}
 .meter>i{display:block;height:100%;background:var(--accent);border-radius:var(--r-pill)}
@@ -1011,16 +1081,16 @@ a:hover>.arrow{transform:translateX(4px)}
   border-inline-end:1px solid var(--khatt-dark)}
 .portal__nav .lockup{margin-bottom:var(--s8);gap:var(--s3)}
 .portal__nav .lockup svg{color:var(--dhahab-light);width:32px;height:32px}
-.portal__nav .lockup__ar{color:#fff;font-size:1.05rem}
-.portal__nav .lockup__en{color:#8093B8;font-size:.56rem}
+.portal__nav .lockup__ar{color:#fff;font-size:var(--ts-body)}
+.portal__nav .lockup__en{color:#8093B8;font-size:var(--ts-micro)}
 .portal__nav ul{list-style:none;padding:0;margin:0}
-.portal__nav a{display:flex;align-items:center;gap:var(--s3);padding:.75em .9em;
-  border-radius:var(--r-sm);font-size:.9375rem;transition:background var(--t-micro) var(--ease)}
+.portal__nav a{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s3);
+  border-radius:var(--r-sm);font-size:var(--ts-small);transition:background var(--t-micro) var(--ease)}
 .portal__nav a:hover{background:rgba(255,255,255,.07)}
 .portal__nav a[aria-current=page]{background:rgba(224,199,132,.14);color:var(--dhahab-light)}
-.portal__nav .grp{font-family:var(--f-label);font-size:.6rem;letter-spacing:.2em;
-  text-transform:uppercase;color:#7788AD;margin:var(--s7) 0 var(--s3) .9em}
-[dir=rtl] .portal__nav .grp{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.82rem}
+.portal__nav .grp{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.2em;
+  text-transform:uppercase;color:#7788AD;margin:var(--s7) 0 var(--s3) var(--s3)}
+[dir=rtl] .portal__nav .grp{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 .portal__main{padding:var(--s8) var(--s8) var(--s10);max-width:1020px}
 @media (max-width:900px){
   .portal{grid-template-columns:minmax(0,1fr)}
@@ -1065,7 +1135,7 @@ a:hover>.arrow{transform:translateX(4px)}
    blue at 35% of rendered pixels) and gives gold 11.6:1 and milk 18.2:1.
    ========================================================================== */
 
-.site-footer{background:var(--seal);color:var(--seal-fg);font-size:.9375rem;
+.site-footer{background:var(--seal);color:var(--seal-fg);font-size:var(--ts-small);
   position:relative;overflow:clip}
 /* The lit edge where the light page meets the seal. A dark slab that simply
    begins reads as a colour change; a slab with a gold edge reads as something
@@ -1106,12 +1176,12 @@ a:hover>.arrow{transform:translateX(4px)}
 .fcrest__glyph{position:absolute;inset:35.5%;width:29%;height:29%;opacity:1;
   color:var(--dhahab-pale)}
 .fseal__ar{font-family:var(--f-ar-display);direction:rtl;
-  font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.7;color:var(--dhahab-light);
+  font-size:var(--ts-h2);line-height:1.7;color:var(--dhahab-light);
   margin:0 0 var(--s6);max-width:none;font-weight:500}
 .fseal__t{font-family:var(--f-display);font-style:italic;font-weight:400;
-  font-variation-settings:"opsz" 60;font-size:clamp(1.2rem,2.1vw,1.55rem);
-  line-height:1.5;color:#E7E3DA;margin:0 auto;max-width:36ch}
-[lang=ar] .fseal__t,[dir=rtl] .fseal__t{font-family:var(--f-ar);font-style:normal;line-height:1.9}
+  font-variation-settings:"opsz" 60;font-size:var(--ts-h3);
+  line-height:var(--lh-tight);color:#E7E3DA;margin:0 auto;max-width:36ch}
+[lang=ar] .fseal__t,[dir=rtl] .fseal__t{font-family:var(--f-ar);font-style:normal;line-height:var(--lh-ar-head)}
 .fseal__rule{display:flex;align-items:center;justify-content:center;gap:var(--s4);
   margin-top:var(--s7);color:var(--dhahab)}
 .fseal__rule i{width:56px;height:1px;background:currentColor;opacity:.55}
@@ -1121,13 +1191,13 @@ a:hover>.arrow{transform:translateX(4px)}
 .flockup{margin-top:var(--s8);padding-top:var(--s7);
   border-top:1px solid var(--seal-rule);max-width:820px;margin-inline:auto}
 .flockup__ar{display:block;font-family:var(--f-ar-display);font-weight:500;
-  font-size:clamp(1.25rem,2.3vw,1.7rem);line-height:1.7;color:#F2EFE8;direction:rtl}
+  font-size:var(--ts-h3);line-height:1.7;color:#F2EFE8;direction:rtl}
 .flockup__en{display:block;margin-top:var(--s4);font-family:var(--f-label);
-  font-variant-caps:all-small-caps;letter-spacing:.2em;font-size:.86rem;color:var(--seal-fg)}
+  font-variant-caps:all-small-caps;letter-spacing:.2em;font-size:var(--ts-tiny);color:var(--seal-fg)}
 .flockup__grp{display:block;margin-top:var(--s6);font-family:var(--f-label);
-  font-variant-caps:all-small-caps;letter-spacing:.24em;font-size:.72rem;color:var(--dhahab)}
+  font-variant-caps:all-small-caps;letter-spacing:.24em;font-size:var(--ts-micro);color:var(--dhahab)}
 [dir=rtl] .flockup__en,[dir=rtl] .flockup__grp{font-family:var(--f-ar-ui);
-  font-variant-caps:normal;letter-spacing:normal;font-size:.9rem}
+  font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-tiny)}
 
 /* ---- II · THE DIRECTORY ---- */
 .fbody{padding-block:var(--s9)}
@@ -1137,10 +1207,10 @@ a:hover>.arrow{transform:translateX(4px)}
 .site-footer h4{display:flex;align-items:center;gap:var(--s3);position:relative;
   min-height:2.4em;align-content:center;
   font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.18em;
-  font-size:.82rem;color:var(--dhahab-light);font-weight:500;
+  font-size:var(--ts-label);color:var(--dhahab-light);font-weight:500;
   margin-bottom:var(--s6);padding-bottom:var(--s4)}
 [dir=rtl] .site-footer h4{font-family:var(--f-ar-ui);font-variant-caps:normal;
-  letter-spacing:normal;font-size:.94rem}
+  letter-spacing:normal;font-size:var(--ts-small)}
 .site-footer h4 svg{width:16px;height:16px;flex-shrink:0;opacity:.9}
 .site-footer h4::after{content:'';position:absolute;inset-inline-start:0;bottom:0;
   width:36px;height:1px;background:var(--dhahab);transition:width var(--t-std) var(--ease)}
@@ -1148,16 +1218,16 @@ a:hover>.arrow{transform:translateX(4px)}
 .site-footer ul{list-style:none;padding:0;margin:0}
 .site-footer li{padding:0}
 .site-footer li a{display:inline-flex;align-items:center;min-height:44px;position:relative;
-  color:var(--seal-fg);font-size:.9rem;line-height:1.4}
+  color:var(--seal-fg);font-size:var(--ts-tiny);line-height:1.4}
 .site-footer li a::after{content:'';position:absolute;inset-inline-start:0;bottom:10px;
   width:0;height:1px;background:var(--dhahab-light);transition:width var(--t-std) var(--ease)}
 .site-footer li a:hover::after{width:100%}
 
 /* ---- III · THE ATLAS, on the seal ground ---- */
 .atlas__k{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.26em;
-  font-size:.78rem;color:var(--dhahab);text-align:center;
+  font-size:var(--ts-micro);color:var(--dhahab);text-align:center;
   margin:var(--s9) 0 var(--s6);max-width:none;position:relative}
-[dir=rtl] .atlas__k{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.94rem}
+[dir=rtl] .atlas__k{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-small)}
 .atlas__k::before,.atlas__k::after{content:'';position:absolute;top:50%;width:clamp(40px,14%,150px);
   height:1px;background:var(--seal-rule)}
 .atlas__k::before{inset-inline-start:0} .atlas__k::after{inset-inline-end:0}
@@ -1166,14 +1236,14 @@ a:hover>.arrow{transform:translateX(4px)}
   padding:var(--s5) var(--s2);border:1px solid var(--seal-rule);background:rgba(224,199,132,.03);
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease),
              transform var(--t-std) var(--ease)}
-.atlas__i svg{width:22px;height:22px;padding:9px;box-sizing:content-box;border-radius:var(--r-pill);
+.atlas__i svg{width:22px;height:22px;padding:var(--s2);box-sizing:content-box;border-radius:var(--r-pill);
   background:rgba(224,199,132,.07);border:1px solid var(--seal-rule);
   color:var(--dhahab-light);flex-shrink:0;
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease),
              transform var(--t-std) var(--ease)}
 .atlas__i span{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.1em;
-  font-size:.74rem;line-height:1.4;color:var(--seal-fg)}
-[dir=rtl] .atlas__i span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+  font-size:var(--ts-micro);line-height:1.4;color:var(--seal-fg)}
+[dir=rtl] .atlas__i span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
 .atlas__i:hover{background:rgba(224,199,132,.09);border-color:var(--seal-rule-lit);transform:translateY(-3px)}
 .atlas__i:hover svg{background:rgba(224,199,132,.16);border-color:var(--dhahab-light);transform:scale(1.06)}
 @media (max-width:1000px){.atlas{grid-template-columns:repeat(5,1fr)}}
@@ -1193,27 +1263,27 @@ a:hover>.arrow{transform:translateX(4px)}
   color:var(--dhahab-light);margin-bottom:var(--s5)}
 .warrant__i svg{width:22px;height:22px}
 .warrant__t{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
-  letter-spacing:.13em;font-size:.92rem;color:#F0ECE3;margin-bottom:var(--s3)}
-[dir=rtl] .warrant__t{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:1rem}
-.warrant__d{display:block;font-size:.84rem;line-height:1.62;color:var(--seal-faint);max-width:34ch}
+  letter-spacing:.13em;font-size:var(--ts-small);color:#F0ECE3;margin-bottom:var(--s3)}
+[dir=rtl] .warrant__t{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-ui)}
+.warrant__d{display:block;font-size:var(--ts-label);line-height:1.62;color:var(--seal-faint);max-width:34ch}
 
 /* ---- V · THE ATTESTATION BAR ---- */
 .fbar{border-top:1px solid var(--seal-rule);background:#070A11;padding-block:var(--s6)}
 .fbar .wrap{display:flex;align-items:center;justify-content:space-between;
   gap:var(--s5) var(--s7);flex-wrap:wrap}
 .fbar__l,.fbar__r{display:flex;align-items:center;gap:var(--s3) var(--s6);flex-wrap:wrap;min-width:0}
-.fbar__c{font-size:.78rem;color:var(--seal-faint)}
+.fbar__c{font-size:var(--ts-micro);color:var(--seal-faint)}
 .fbar__d{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.14em;
-  font-size:.74rem;color:var(--seal-faint)}
-[dir=rtl] .fbar__d{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+  font-size:var(--ts-micro);color:var(--seal-faint)}
+[dir=rtl] .fbar__d{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
 .fbar__badge{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.14em;
-  font-size:.74rem;color:#E8A08F;border:1px solid currentColor;padding:.55em 1em;
+  font-size:var(--ts-micro);color:#E8A08F;border:1px solid currentColor;padding:var(--s2) var(--s4);
   min-width:0;max-width:100%;line-height:1.7}
-[dir=rtl] .fbar__badge{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+[dir=rtl] .fbar__badge{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
 
 @media (max-width:820px){
   .fseal{padding-block:var(--s9) var(--s8)}
-  .fseal__c{width:26px;height:26px}
+  .fseal__c{width:24px;height:24px}
   .fcrest__mark{width:124px;height:124px}
   .atlas__k::before,.atlas__k::after{display:none}
 }
@@ -1223,11 +1293,11 @@ a:hover>.arrow{transform:translateX(4px)}
 }
 
 /* ---------- Preview bar ---------- */
-.previewbar{background:var(--parchment);color:#6B5518;font-size:.78rem;
+.previewbar{background:var(--parchment);color:#6B5518;font-size:var(--ts-micro);
   padding:var(--s3) 0;text-align:center;border-bottom:1px solid var(--rule)}
 .previewbar strong{color:#4A3A0F;font-family:var(--f-label);letter-spacing:.14em;
-  text-transform:uppercase;font-size:.68rem}
-[dir=rtl] .previewbar strong{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.82rem}
+  text-transform:uppercase;font-size:var(--ts-micro)}
+[dir=rtl] .previewbar strong{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 [data-theme=dark] .previewbar{background:#2A2318;color:#E0C784;border-color:var(--khatt-dark)}
 .u-center{justify-content:center}
 ::selection{background:var(--dhahab-light);color:var(--lazaward-deep)}
@@ -1292,18 +1362,21 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    must then be set back explicitly, or the Arabic title flies to the right
    margin and detaches from the English column it is titling. A bilingual
    title page sets both scripts from the SAME margin. */
+/* Set explicitly rather than left to inherit 1.95 from [lang=ar]: that figure
+   is for running Amiri at 19px, and applied to a 64px Reem Kufi cover line it
+   opens a 60px gutter between the two lines of the college's own name. */
 .cover__ar{font-family:var(--f-ar-display);direction:rtl;text-align:left;
-  font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.42;color:var(--dhahab-ink);
+  font-size:var(--ts-h2);line-height:var(--lh-ar-display);color:var(--dhahab-ink);
   margin:0 0 var(--s7);max-width:none;font-weight:400}
 [dir=rtl] .cover__ar{text-align:right}
 /* A Didone carries far more visual weight per point than a Garamond: the
    same measure that suited Cormorant at 6.2rem is oversized here. Sized down
    and tightened; the drama comes from the contrast in the letterform, not
    from scale alone. */
-.cover h1{font-size:clamp(2.7rem,5.6vw,4.7rem);line-height:1.04;letter-spacing:-.02em;
+.cover h1{font-size:var(--ts-display);line-height:1.04;letter-spacing:-.02em;
   font-weight:400;margin:0 0 var(--s7);text-wrap:balance}
 .cover h1 .gilt{font-style:italic;color:var(--dhahab-ink)}
-.cover__lead{font-size:clamp(1.18rem,1.7vw,1.42rem);line-height:1.62;font-weight:300;
+.cover__lead{font-size:var(--ts-h4);line-height:1.62;font-weight:300;
   color:var(--fg-soft);max-width:52ch;margin:0 0 var(--s8)}
 @media (max-width:820px){.cover{padding-block:var(--s10) var(--s9)}}
 
@@ -1324,7 +1397,7 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    and still the clearest signal that a passage is meant to be READ rather
    than skimmed. */
 .opener::first-letter{float:inline-start;font-family:var(--f-display);font-weight:400;
-  font-size:4.4em;line-height:.82;margin-inline-end:.09em;margin-block-start:.06em;
+  font-size:var(--ts-h1);line-height:.82;margin-inline-end:.09em;margin-block-start:.06em;
   color:var(--dhahab-ink)}
 [lang=ar] .opener::first-letter,[dir=rtl] .opener::first-letter{
   float:none;font-size:inherit;margin:0;color:inherit}
@@ -1334,35 +1407,35 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    the measure stays optically flush. Hanging punctuation is the detail no
    template does and every fine book does. */
 .pull{margin:var(--s9) 0;padding-inline-start:var(--s7);position:relative;max-width:26ch}
-.pull p{font-family:var(--f-display);font-size:clamp(1.6rem,3.1vw,2.5rem);line-height:1.28;
+.pull p{font-family:var(--f-display);font-size:var(--ts-h2);line-height:1.28;
   font-weight:400;color:var(--fg);margin:0;max-width:none;text-wrap:balance}
-[lang=ar] .pull p,[dir=rtl] .pull p{font-family:var(--f-ar-display);line-height:1.85}
+[lang=ar] .pull p,[dir=rtl] .pull p{font-family:var(--f-ar-display);line-height:1.6}
 .pull::before{content:'\201C';position:absolute;inset-inline-start:0;inset-block-start:-.12em;
-  font-family:var(--f-display);font-size:4.6em;line-height:1;color:var(--dhahab);opacity:.45}
+  font-family:var(--f-display);font-size:var(--ts-mega);line-height:1;color:var(--dhahab);opacity:.45}
 [dir=rtl] .pull::before{content:'\201D'}
 .pull cite{display:block;margin-top:var(--s6);font-family:var(--f-label);font-style:normal;
-  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-faint)}
-[dir=rtl] .pull cite{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.84rem}
+  font-size:var(--ts-micro);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-faint)}
+[dir=rtl] .pull cite{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 
 /* ---- SIDENOTE ------------------------------------------------------------
    A marginal note in the outer column, the way an annotated edition carries
    its apparatus. Below the fold of the grid it becomes an indented aside
    rather than disappearing. */
-.sidenote{font-size:.8125rem;line-height:1.7;color:var(--fg-faint);
+.sidenote{font-size:var(--ts-label);line-height:1.7;color:var(--fg-faint);
   border-inline-start:2px solid var(--dhahab);padding-inline-start:var(--s5);
   margin-block:var(--s7);max-width:34ch}
-.sidenote b{display:block;font-family:var(--f-label);font-size:.58rem;letter-spacing:.18em;
+.sidenote b{display:block;font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.18em;
   text-transform:uppercase;color:var(--accent);margin-bottom:var(--s2);font-weight:500}
-[dir=rtl] .sidenote b{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.8rem}
+[dir=rtl] .sidenote b{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 
 /* ---- RUNNING HEAD --------------------------------------------------------
    The line at the top of every page of a bound book: institution on one side,
    section on the other, hairline beneath. */
 .runhead{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s5);
   padding-bottom:var(--s4);margin-bottom:var(--s9);border-bottom:1px solid var(--rule);
-  font-family:var(--f-label);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.22em;text-transform:uppercase;
   color:var(--fg-faint)}
-[dir=rtl] .runhead{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.8rem}
+[dir=rtl] .runhead{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-label)}
 .runhead span:last-child{color:var(--accent)}
 
 /* ---- CHAPTER NUMERAL -----------------------------------------------------
@@ -1371,11 +1444,11 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    cheapest drama in typography and this page had none. */
 .chapter{position:relative}
 .chapter__n{position:absolute;inset-block-start:-.52em;inset-inline-start:-.14em;
-  font-family:var(--f-display);font-size:clamp(5.4rem,10.5vw,9rem);line-height:1;font-weight:400;
+  font-family:var(--f-display);font-size:var(--ts-mega);line-height:1;font-weight:400;
   color:transparent;-webkit-text-stroke:1px var(--dhahab);opacity:.34;
   pointer-events:none;user-select:none;z-index:0;font-variant-numeric:lining-nums}
 .chapter>*:not(.chapter__n){position:relative;z-index:1}
-@media (max-width:820px){.chapter__n{font-size:6rem;inset-block-start:-.28em}}
+@media (max-width:820px){.chapter__n{font-size:var(--ts-mega);inset-block-start:-.28em}}
 
 /* ---- FIGURES IN PROSE ----------------------------------------------------
    Oldstyle figures sit ON the baseline with ascenders and descenders, so they
@@ -1405,7 +1478,7 @@ body{font-variant-numeric:oldstyle-nums}
 .plated__art svg{width:74%;height:auto;opacity:.5}
 .plated__b{padding:var(--s6)}
 .plated__b h3{margin-bottom:var(--s3)}
-.plated__b p{margin:0;font-size:.9375rem;color:var(--fg-soft)}
+.plated__b p{margin:0;font-size:var(--ts-small);color:var(--fg-soft)}
 
 @media (prefers-reduced-motion:reduce){.plate,.plated__art svg{transition:none}}
 
@@ -1426,7 +1499,7 @@ body{font-variant-numeric:oldstyle-nums}
 
 /* Ligatures, contextual alternates and kerning on everywhere. Off by default
    in some engines; a page without them has visibly wrong 'fi', 'ffi', 'Th'. */
-body{font-family:var(--f-body);font-size:19px;line-height:1.66;
+body{font-family:var(--f-body);font-size:var(--ts-lead);line-height:1.66;
   font-optical-sizing:auto;font-feature-settings:"kern" 1,"liga" 1,"clig" 1,"calt" 1;
   font-variation-settings:"opsz" 16;letter-spacing:.002em}
 
@@ -1452,7 +1525,7 @@ body{font-family:var(--f-body);font-size:19px;line-height:1.66;
    was a web-app measure. */
 p,li,td,th,figcaption,dd,blockquote{font-optical-sizing:auto}
 .lead{font-family:var(--f-body);font-weight:300;font-variation-settings:"opsz" 28;
-  font-size:clamp(1.24rem,1.7vw,1.5rem);line-height:1.55;letter-spacing:-.004em}
+  font-size:var(--ts-h3);line-height:1.55;letter-spacing:-.004em}
 .small{font-variation-settings:"opsz" 14}
 .tiny{font-variation-settings:"opsz" 10}
 
@@ -1469,22 +1542,28 @@ p,li,td,th,figcaption,dd,blockquote{font-optical-sizing:auto}
   font-variation-settings:"opsz" 12;font-weight:500;text-transform:none}
 .eyebrow,.overline,.atlas__k,.runhead,.mega__f-k,.doc__code,.seal__badge{letter-spacing:.16em}
 .folio i,.folio b,.callout__k,.site-footer h4,.nav__head-t{letter-spacing:.14em}
-.btn{letter-spacing:.1em;font-size:.86rem}
-.lockup__en{letter-spacing:.13em;font-size:.68rem}
+.btn{letter-spacing:.1em;font-size:var(--ts-tiny)}
+.lockup__en{letter-spacing:.13em;font-size:var(--ts-micro)}
 .atlas__i span,.pledge__test,.creds .cr,.path .st,.doc dt,.sidenote b{letter-spacing:.08em}
-.ledger thead th,.figrow p{letter-spacing:.1em;font-size:.76rem}
+.ledger thead th,.figrow p{letter-spacing:.1em;font-size:var(--ts-micro)}
 
 /* ARABIC — Reem Kufi for display, Amiri for reading. Reem Kufi is built on
    the same square-and-circle construction as the girih plates, so the Arabic
    title and the illumination share one geometry rather than merely sitting on
    the same page. */
-[lang=ar],[dir=rtl]{font-family:var(--f-ar);letter-spacing:normal!important;line-height:1.95}
+/* The base Arabic rule is declared ONCE, at the top of the Arabic section.
+   A second copy used to sit here, and because it carried the same specificity
+   but came 1,300 lines later it silently re-declared line-height:1.95 over
+   every Arabic-specific leading set in between — including the cover, which
+   asks for 1.42 and rendered at 1.95. Re-stating a base rule mid-sheet is not
+   a redundancy, it is a reset. */
+[lang=ar],[dir=rtl]{font-family:var(--f-ar);letter-spacing:normal!important}
 [lang=ar] h1,[lang=ar] h2,[lang=ar] h3,[lang=ar] h4,[dir=rtl] h1,[dir=rtl] h2,
 [dir=rtl] h3,[dir=rtl] h4,[dir=rtl] .display,[dir=rtl] .h1,[dir=rtl] .h2,
 [dir=rtl] .cover h1,[dir=rtl] .cover__ar,[lang=ar] .cover__ar{
   font-family:var(--f-ar-display);font-weight:500;line-height:1.55;
   letter-spacing:normal;font-variation-settings:normal}
-[dir=rtl] body,[lang=ar] body{font-size:20px}
+[dir=rtl] body,[lang=ar] body{font-size:var(--ts-lead)}
 /* Arabic has no small caps and no case. Labels revert to the UI sans at a
    slightly larger size, which is how Arabic carries a "label" register. */
 [dir=rtl] .eyebrow,[dir=rtl] .overline,[dir=rtl] .folio i,[dir=rtl] .folio b,
@@ -1495,12 +1574,16 @@ p,li,td,th,figcaption,dd,blockquote{font-optical-sizing:auto}
 [dir=rtl] .pull cite,[dir=rtl] .field>span,[dir=rtl] .ledger thead th,[dir=rtl] .figrow p,
 [dir=rtl] .doc dt,[dir=rtl] .btn,[dir=rtl] .navtoggle{
   font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;
-  font-variation-settings:normal;font-size:.92rem}
-[dir=rtl] .cover__ar{font-size:clamp(2rem,4.8vw,3.6rem);line-height:1.5}
+  font-variation-settings:normal;font-size:var(--ts-small)}
+[dir=rtl] .cover__ar{font-size:var(--ts-h1);line-height:var(--lh-ar-display)}
 
-/* The nav and forms keep the UI sans: navigation is an interface, not prose,
-   and a Didone or a book serif in a 14px menu is affectation. */
-.nav>a:not(.btn),.drop__t,.mega__i .t,.mega__i .d,.topbar,.nav a,
+/* The nav and forms keep the UI face: navigation is an interface, not prose,
+   and a Didone in a 14px menu is affectation. The one exception is carved out
+   explicitly — .mega__f-a is a feature TITLE inside the nav, and the blanket
+   `.nav a` selector (0,1,1) silently outranked its own display-face rule
+   (0,1,0), so it had been rendering in the body face for as long as it has
+   existed. Nothing in the stylesheet showed this; the rendered page did. */
+.nav>a:not(.btn),.drop__t,.mega__i .t,.mega__i .d,.topbar,.nav a:not(.mega__f-a),
 input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 .previewbar,.info .lbl,.info .val{font-family:var(--f-ui)}
 [dir=rtl] .nav>a:not(.btn),[dir=rtl] .drop__t,[dir=rtl] .mega__i .t,
@@ -1521,29 +1604,34 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 .s-bar{display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6);
   border-bottom:1px solid var(--rule);flex-shrink:0}
 .s-bar svg{width:19px;height:19px;color:var(--accent);flex-shrink:0}
-.s-bar input{flex:1;min-width:0;border:0;background:none;font-size:1.12rem;
+.s-bar input{flex:1;min-width:0;border:0;background:none;font-size:var(--ts-body);
   padding:var(--s3) 0;color:var(--fg)}
+/* The search field fills its bar, so an outline on the input itself would sit
+   under the bar's own border. The ring is drawn on the bar instead — same
+   perimeter, same contrast, and it is a ring rather than a recolour. */
+.s-bar:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 .s-bar input:focus{outline:none}
 .s-bar input::-webkit-search-cancel-button{display:none}
 .s-esc{background:none;border:1px solid var(--rule);color:var(--fg-faint);cursor:pointer;
   font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.12em;
-  font-size:.72rem;padding:.45em .8em;flex-shrink:0}
+  font-size:var(--ts-micro);padding:var(--s2) var(--s3);flex-shrink:0}
 .s-esc:hover{border-color:var(--accent);color:var(--accent)}
 .s-out{overflow-y:auto;flex:1;min-height:0}
 .s-hit{display:flex;flex-direction:column;gap:3px;padding:var(--s5) var(--s6);
   border-bottom:1px solid var(--rule);border-inline-start:2px solid transparent;
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease)}
 .s-hit:hover,.s-hit:focus{background:color-mix(in srgb,var(--dhahab) 8%,transparent);
-  border-inline-start-color:var(--dhahab);outline:none}
-.s-t{font-family:var(--f-display);font-size:1.14rem;font-variation-settings:"opsz" 24;color:var(--fg)}
+  border-inline-start-color:var(--dhahab)}
+.s-hit:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.s-t{font-family:var(--f-display);font-size:var(--ts-lead);font-variation-settings:"opsz" 24;color:var(--fg)}
 [dir=rtl] .s-t{font-family:var(--f-ar-display);font-variation-settings:normal}
-.s-d{font-size:.84rem;color:var(--fg-faint);line-height:1.55}
+.s-d{font-size:var(--ts-label);color:var(--fg-faint);line-height:1.55}
 .s-none{padding:var(--s8) var(--s6);color:var(--fg-faint);text-align:center;margin:0}
 .s-hint{margin:0;padding:var(--s4) var(--s6);border-top:1px solid var(--rule);flex-shrink:0;
   font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.12em;
-  font-size:.72rem;color:var(--fg-faint);text-align:center}
+  font-size:var(--ts-micro);color:var(--fg-faint);text-align:center}
 [dir=rtl] .s-hint,[dir=rtl] .s-esc{font-family:var(--f-ar-ui);font-variant-caps:normal;
-  letter-spacing:normal;font-size:.82rem}
+  letter-spacing:normal;font-size:var(--ts-label)}
 @media (max-width:600px){
   .s-overlay{padding:0}
   .s-panel{width:100%;max-height:100vh;height:100%;border:0}
@@ -1666,16 +1754,16 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 .fcol:not(:first-child)::before{content:'';position:absolute;inset-block-start:-1px;
   inset-inline-start:-1px;width:1px;height:26px;background:var(--dhahab);opacity:.85}
 .bay{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
-  letter-spacing:.24em;font-size:.62rem;color:var(--dhahab);opacity:.62;margin-bottom:var(--s5)}
-[dir=rtl] .bay{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.74rem}
-.fcol--lead .fcol__p{font-size:.9rem;line-height:1.68;color:var(--seal-fg);max-width:40ch;
+  letter-spacing:.24em;font-size:var(--ts-micro);color:var(--dhahab);opacity:.62;margin-bottom:var(--s5)}
+[dir=rtl] .bay{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-micro)}
+.fcol--lead .fcol__p{font-size:var(--ts-tiny);line-height:1.68;color:var(--seal-fg);max-width:40ch;
   margin:0 0 var(--s6)}
 .fcol__meta{display:flex;flex-direction:column;gap:var(--s2);margin:0;max-width:none}
 .fcol__meta span{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.1em;
-  font-size:.72rem;color:var(--seal-faint);display:flex;align-items:baseline;gap:var(--s3)}
+  font-size:var(--ts-micro);color:var(--seal-faint);display:flex;align-items:baseline;gap:var(--s3)}
 .fcol__meta span::before{content:'';width:5px;height:5px;background:var(--dhahab);
   transform:rotate(45deg);flex-shrink:0;opacity:.8}
-[dir=rtl] .fcol__meta span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+[dir=rtl] .fcol__meta span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
 @media (max-width:1100px){
   .fgrid{grid-template-columns:1fr 1fr}
   .fcol{padding:var(--s7) var(--s6);border-block-start:1px solid var(--seal-rule)}
@@ -1729,7 +1817,7 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 .warrant:first-child{border-inline-start:0;padding-inline-start:0}
 .warrant:last-child{padding-inline-end:0}
 .bay--w{position:absolute;inset-block-start:var(--s5);inset-inline-end:var(--s5);
-  margin:0;font-size:.72rem;opacity:.5}
+  margin:0;font-size:var(--ts-micro);opacity:.5}
 .warrant:last-child .bay--w{inset-inline-end:0}
 @media (max-width:1000px){
   .warrants{grid-template-columns:1fr 1fr}

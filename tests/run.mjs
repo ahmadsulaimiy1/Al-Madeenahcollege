@@ -241,7 +241,7 @@ ok('gold gradients are hairlines only, never fills', goldFills.length === 0, gol
    sticker, three stacked blurs read as physical depth. What matters is that
    every elevation comes from the token scale rather than an ad-hoc value. */
 const shadowDecls = brand.match(/box-shadow:[^;}]+/g) || [];
-const adHoc = shadowDecls.filter((d) => !/var\(--sh|var\(--bevel|none|0 0 0 3px/.test(d));
+const adHoc = shadowDecls.filter((d) => !/var\(--sh|var\(--bevel|var\(--halo|none|0 0 0 3px/.test(d));
 ok('every elevation uses the token scale, none ad-hoc', adHoc.length === 0, adHoc[0] || '');
 ok('three-layer elevation tokens exist', /--sh-soft:[^;]+,[^;]+,[^;]+;/.test(brand));
 
