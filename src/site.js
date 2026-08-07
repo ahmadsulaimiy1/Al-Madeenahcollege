@@ -152,4 +152,130 @@
       try { p.style.setProperty('--len', Math.ceil(p.getTotalLength())); } catch (e) {}
     });
   }
+
+  /* ---- FR-1 · Site search ------------------------------------------------
+     The index is fetched only when the reader opens search, so a visitor who
+     never searches never pays for it. Scoring is deliberate rather than
+     naive: a term in the title outranks the same term in the body, because
+     "fees" in a heading means the page is ABOUT fees and "fees" in a
+     paragraph means it was mentioned. */
+  var so = document.getElementById('search');
+  if (so) {
+    var sInput = so.querySelector('[data-s-input]');
+    var sOut = so.querySelector('[data-s-out]');
+    var sIdx = null, sReq = null;
+    var ar = document.documentElement.lang === 'ar';
+    var load = function () {
+      if (!sReq) sReq = fetch(ar ? '/search-ar.json' : '/search-en.json')
+        .then(function (r) { return r.json(); })
+        .then(function (d) { sIdx = d; })
+        .catch(function () { sIdx = []; });
+      return sReq;
+    };
+    var openSearch = function () {
+      so.hidden = false;
+      document.body.classList.add('nav-lock');
+      load().then(function () { run(); });
+      setTimeout(function () { sInput.focus(); }, 30);
+    };
+    var closeSearch = function () {
+      so.hidden = true;
+      document.body.classList.remove('nav-lock');
+    };
+    var esc = function (t) {
+      return String(t).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    };
+    var run = function () {
+      var q = (sInput.value || '').trim().toLowerCase();
+      if (!sIdx) return;
+      var list;
+      if (!q) {
+        list = sIdx.slice(0, 8).map(function (p) { return { p: p, s: 0 }; });
+      } else {
+        var terms = q.split(/\s+/).filter(Boolean);
+        list = sIdx.map(function (p) {
+          var t = (p.t || '').toLowerCase(), d = (p.d || '').toLowerCase(),
+              b = (p.b || '').toLowerCase(), u = (p.u || '').toLowerCase();
+          var s = 0;
+          terms.forEach(function (w) {
+            /* The URL outranks everything. A term in the path means the page
+               IS that thing: searching "fees" returned Contact above Tuition
+               because contact lists fees@almadinah.college four times, and a
+               body count cannot tell mention from subject. The path can. */
+            if (u.indexOf(w) > -1) s += 20;
+            if (t.indexOf(w) > -1) s += 12;
+            if (d.indexOf(w) > -1) s += 4;
+            var n = b.split(w).length - 1;
+            /* Body matches are capped hard: a page that repeats a word is not
+               more about it than a page that names it once in its title. */
+            if (n) s += Math.min(n, 3);
+          });
+          return { p: p, s: s };
+        }).filter(function (r) { return r.s > 0; }).sort(function (a, b) { return b.s - a.s; }).slice(0, 8);
+      }
+      if (!list.length) {
+        sOut.innerHTML = '<p class="s-none">' + (ar
+          ? 'لا نتائج. جرّب: الرسوم، القبول، التوثيق، الوضع المؤسسي.'
+          : 'Nothing found. Try: fees, admissions, verify, status.') + '</p>';
+        return;
+      }
+      /* Truncate on a word boundary. "…one application includ" is the kind of
+         detail that makes a whole interface feel unfinished. */
+      var clip = function (t, n) {
+        t = String(t || '');
+        if (t.length <= n) return t;
+        var cut = t.slice(0, n);
+        var sp = cut.lastIndexOf(' ');
+        return (sp > n * 0.6 ? cut.slice(0, sp) : cut).replace(/[ ,.;:—-]+$/, '') + '…';
+      };
+      sOut.innerHTML = list.map(function (r) {
+        return '<a class="s-hit" href="' + esc(r.p.u) + '">'
+          + '<span class="s-t">' + esc(r.p.t) + '</span>'
+          + '<span class="s-d">' + esc(clip(r.p.d, 118)) + '</span></a>';
+      }).join('');
+    };
+    sInput.addEventListener('input', run);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-s-open]'), function (b) {
+      b.addEventListener('click', openSearch);
+    });
+    so.addEventListener('click', function (e) {
+      if (e.target === so || e.target.closest('[data-s-close]') || e.target.closest('.s-hit')) closeSearch();
+    });
+    document.addEventListener('keydown', function (e) {
+      /* ⌘K / Ctrl-K to open, / as a bare shortcut when not already typing,
+         Escape to close. A search a keyboard cannot reach is a decoration. */
+      if ((e.key === 'k' || e.key === 'K') && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openSearch(); }
+      else if (e.key === '/' && so.hidden && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+        e.preventDefault(); openSearch();
+      } else if (e.key === 'Escape' && !so.hidden) closeSearch();
+    });
+  }
+
+  /* ---- FR-3 · Reading size ----------------------------------------------
+     Three steps, remembered. Not a novelty: EB §14 commits this College to
+     readers on small, old devices, and a 19px book measure is not right for
+     every eye. Scales the root, so every measure in ch and rem follows. */
+  var sizes = ['', 'lg', 'xl'];
+  try {
+    var saved = localStorage.getItem('read-size');
+    if (saved) document.documentElement.setAttribute('data-read', saved);
+  } catch (err) {}
+  Array.prototype.forEach.call(document.querySelectorAll('[data-read-step]'), function (btn) {
+    btn.addEventListener('click', function () {
+      var cur = document.documentElement.getAttribute('data-read') || '';
+      var next = sizes[(sizes.indexOf(cur) + 1) % sizes.length];
+      if (next) document.documentElement.setAttribute('data-read', next);
+      else document.documentElement.removeAttribute('data-read');
+      try { next ? localStorage.setItem('read-size', next) : localStorage.removeItem('read-size'); } catch (e2) {}
+    });
+  });
+
+  /* ---- FR-2 · Service worker -------------------------------------------- */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
 })();

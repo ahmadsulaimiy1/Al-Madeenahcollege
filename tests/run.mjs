@@ -30,7 +30,40 @@ const rel = (f) => f.slice(DIST.length);
 const doc = (f) => readFileSync(f, 'utf8');
 
 /* ---- structure ---- */
-ok('builds 20 pages', html.length === 20, `got ${html.length}`);
+ok('builds 22 pages', html.length === 22, `got ${html.length}`);
+/* FR-2 — the PWA surface must actually exist, not merely be referenced.
+   A manifest link with no manifest, or a worker registration with no worker,
+   is an install prompt that fails on the reader's phone. */
+ok('FR-2: service worker is emitted', existsSync(join(DIST, 'sw.js')));
+ok('FR-2: web manifest is emitted', existsSync(join(DIST, 'manifest.webmanifest')));
+ok('FR-2: the offline fallback exists in both languages',
+   existsSync(join(DIST, 'offline/index.html')) && existsSync(join(DIST, 'ar/offline/index.html')));
+{
+  const sw = readFileSync(join(DIST, 'sw.js'), 'utf8');
+  /* The doctrine, asserted. A cache-first worker would let a corrected
+     institutional-status statement sit unseen behind a stale page — which
+     would make EB §46 unenforceable at the one moment it matters. */
+  ok('FR-2: navigations are NETWORK-first, never cache-first',
+     /req\.mode === 'navigate'/.test(sw) && /fetch\(req\)[\s\S]{0,400}?\.catch\(\(\) => caches\.match/.test(sw));
+  ok('FR-2: the cache is versioned per build', /const VERSION = 'almadinah-\d{4}-\d{2}-\d{2}'/.test(sw));
+  ok('FR-2: no unfilled token in the worker', !/\{\{\w+\}\}/.test(sw));
+}
+/* FR-1 — a search index that ships empty is a search box that lies. */
+for (const [lang, min] of [['en', 8], ['ar', 8]]) {
+  const f = join(DIST, `search-${lang}.json`);
+  ok(`FR-1: ${lang} search index exists`, existsSync(f));
+  if (!existsSync(f)) continue;
+  const idx = JSON.parse(readFileSync(f, 'utf8'));
+  ok(`FR-1: ${lang} index covers the public pages`, idx.length >= min, `${idx.length} entries`);
+  ok(`FR-1: every ${lang} entry has a title, a description and body text`,
+     idx.every((e) => e.t && e.d && e.b && e.b.length > 80));
+  ok(`FR-1: the ${lang} index excludes noindex pages`,
+     !idx.some((e) => /portal|offline/.test(e.u)), idx.map((e) => e.u).join(' '));
+  ok(`FR-1: ${lang} index stays under 40KB (it downloads on a metered plan)`,
+     statSync(f).size < 40 * 1024, `${Math.round(statSync(f).size / 1024)}KB`);
+}
+/* FR-4 — print. A publication that prints badly is not one. */
+ok('FR-4: a print stylesheet exists', /@media print\{/.test(readFileSync(join(DIST, 'brand.css'), 'utf8')));
 
 for (const f of html) {
   const s = doc(f);
@@ -414,6 +447,7 @@ for (const p of ['/portal/index.html', '/ar/portal/index.html', '/404.html']) {
 const sitemap = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
 ok('sitemap excludes portal preview', !sitemap.includes('/portal/'));
 ok('sitemap has 16 public urls', (sitemap.match(/<url>/g) || []).length === 16, `${(sitemap.match(/<url>/g) || []).length}`);
+ok('sitemap excludes the offline fallback', !sitemap.includes('/offline/'));
 
 /* ---- report ---- */
 console.log(`\n${pass} passed, ${fails.length} failed`);

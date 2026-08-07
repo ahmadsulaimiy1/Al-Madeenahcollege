@@ -185,6 +185,24 @@
       "lang": "ar",
       "altHref": "/",
       "noindex": true
+    },
+    {
+      "output": "offline/index.html",
+      "contentFile": "offline.html",
+      "lang": "en",
+      "title": "Offline — Al-Madinah International College",
+      "description": "You are offline. Pages already opened remain available.",
+      "altHref": "/ar/offline/",
+      "noindex": true
+    },
+    {
+      "output": "ar/offline/index.html",
+      "contentFile": "offline.ar.html",
+      "lang": "ar",
+      "title": "بلا اتصال — كلية المدينة الدولية",
+      "description": "أنت بلا اتصال. الصفحاتُ التي فُتِحت من قبل تبقى متاحة.",
+      "altHref": "/offline/",
+      "noindex": true
     }
   ]
 }

@@ -12,7 +12,7 @@ Institutional design and build repository.
 | **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
 | **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
 
-20 pages · **1,634 static checks + 370 rendered-browser checks** including computed WCAG contrast on six light grounds,
+22 pages · **1,829 static checks + 370 rendered-browser checks** including computed WCAG contrast on six light grounds,
 the two mechanically checkable excellence gates, light-dominance, folio sequence and
 reduced-motion coverage · **the responsive gate — a real browser at 320, 360, 375, 390, 414
 and 768 px, on nine pages in two languages, plus a colour gate measuring rendered pixels
@@ -52,6 +52,7 @@ four-award ladder) · D-10 (disclosed regional pricing) · D-12 (group architect
 | [`docs/06-future-considerations-register.md`](docs/06-future-considerations-register.md) | **Permanent.** 22 valuable-but-premature ideas, each with the trigger that would revive it — plus items rejected on principle, which have no trigger. Cited as `F-nn`. |
 | [`docs/07-phase-5-peer-review.md`](docs/07-phase-5-peer-review.md) | **Adversarial review** of the architecture. 24 findings — including a direct contradiction between two ratified documents. Twelve fixed; twelve owned. |
 | [`docs/08-wec-lc-engineering-study.md`](docs/08-wec-lc-engineering-study.md) | **Systems study of the WEC-LC precedent** — colour architecture, build structure, LMS data model, portal pattern, and the backend patterns to reach for at Phase 9 rather than re-derive. Cited as `WEC §n`. |
+| [`docs/11-shrs-feature-register.md`](docs/11-shrs-feature-register.md) | **The complete feature study of shroyalschools.com** — 148 pages, 74 client modules, 40+ backend functions, inventoried feature by feature with a decision and a reason for each: **build, adapt, gated, or rejected**. Six built in this pass; twenty-two gated on a fact only the Founder can supply, each with its trigger; seven rejected on a ratified principle. Cited as `FR-n`. |
 | [`docs/10-nine-persona-walkthrough.md`](docs/10-nine-persona-walkthrough.md) | **Walk 1 of the shipped site** by the nine readers of `DX §13` — parent, adult student, GCC student, donor, regulator, accreditation reviewer, foreign registrar, employer, scholar. Two outright failures, five partial, two strong. **Six of the nine failures are absences of fact, not of design.** Cited as `PW-n`. |
 | [`docs/09-design-excellence-bible.md`](docs/09-design-excellence-bible.md) | **The design flagship.** Written after a close study of the Sultan Hanafi Royal Schools project. The doctrine of space, the fourteen-component canon and what each replaces, typographic and surface excellence, motion as ceremony, the register of prestige, the nine-persona walkthrough, six excellence gates, and the register of conventions this institution will not use. Cited as `DX §n`. |
 
@@ -82,7 +83,7 @@ Each phase is reviewed against `EB §45`'s five quality gates before the next be
 
 ```
 npm run build     # fetch fonts if absent, generate dist/
-npm test           # build + 1,634 static checks + 370 rendered-browser checks
+npm test           # build + 1,829 static checks + 370 rendered-browser checks
 npm run test:static      # the fast half
 npm run test:responsive  # the browser half (skips cleanly with no Chromium)
 npm run dev       # build + serve dist/ at :8000

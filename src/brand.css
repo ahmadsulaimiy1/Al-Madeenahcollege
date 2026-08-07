@@ -1450,3 +1450,92 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 [dir=rtl] .nav>a:not(.btn),[dir=rtl] .drop__t,[dir=rtl] .mega__i .t,
 [dir=rtl] .mega__i .d,[dir=rtl] .topbar,[dir=rtl] input,[dir=rtl] select,
 [dir=rtl] textarea,[dir=rtl] .pill,[dir=rtl] .tags li{font-family:var(--f-ar-ui)}
+
+/* ==========================================================================
+   FR-1 SEARCH · FR-3 READING SIZE · FR-4 PRINT
+   ========================================================================== */
+
+.s-overlay{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;
+  justify-content:center;padding:12vh var(--s5) var(--s5);
+  background:color-mix(in srgb,var(--lazaward-deep) 34%,transparent);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.s-overlay[hidden]{display:none}
+.s-panel{width:min(660px,100%);background:var(--milk);border:1px solid var(--rule);
+  box-shadow:var(--sh-lift),var(--bevel);max-height:76vh;display:flex;flex-direction:column}
+.s-bar{display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);flex-shrink:0}
+.s-bar svg{width:19px;height:19px;color:var(--accent);flex-shrink:0}
+.s-bar input{flex:1;min-width:0;border:0;background:none;font-size:1.12rem;
+  padding:var(--s3) 0;color:var(--fg)}
+.s-bar input:focus{outline:none}
+.s-bar input::-webkit-search-cancel-button{display:none}
+.s-esc{background:none;border:1px solid var(--rule);color:var(--fg-faint);cursor:pointer;
+  font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.12em;
+  font-size:.72rem;padding:.45em .8em;flex-shrink:0}
+.s-esc:hover{border-color:var(--accent);color:var(--accent)}
+.s-out{overflow-y:auto;flex:1;min-height:0}
+.s-hit{display:flex;flex-direction:column;gap:3px;padding:var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);border-inline-start:2px solid transparent;
+  transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease)}
+.s-hit:hover,.s-hit:focus{background:color-mix(in srgb,var(--dhahab) 8%,transparent);
+  border-inline-start-color:var(--dhahab);outline:none}
+.s-t{font-family:var(--f-display);font-size:1.14rem;font-variation-settings:"opsz" 24;color:var(--fg)}
+[dir=rtl] .s-t{font-family:var(--f-ar-display);font-variation-settings:normal}
+.s-d{font-size:.84rem;color:var(--fg-faint);line-height:1.55}
+.s-none{padding:var(--s8) var(--s6);color:var(--fg-faint);text-align:center;margin:0}
+.s-hint{margin:0;padding:var(--s4) var(--s6);border-top:1px solid var(--rule);flex-shrink:0;
+  font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.12em;
+  font-size:.72rem;color:var(--fg-faint);text-align:center}
+[dir=rtl] .s-hint,[dir=rtl] .s-esc{font-family:var(--f-ar-ui);font-variant-caps:normal;
+  letter-spacing:normal;font-size:.82rem}
+@media (max-width:600px){
+  .s-overlay{padding:0}
+  .s-panel{width:100%;max-height:100vh;height:100%;border:0}
+  .s-hint{display:none}
+}
+@media (prefers-reduced-motion:reduce){.s-hit{transition:none}}
+
+/* FR-3 — reading size. Scales the ROOT, so every measure expressed in rem or
+   ch follows it and the line length stays right at every step. Changing only
+   the body size would widen the measure past 66ch and make large text harder
+   to read, not easier. */
+:root[data-read=lg]{font-size:112.5%}
+:root[data-read=xl]{font-size:125%}
+
+/* FR-4 — print. This estate is a publication; a publication that prints badly
+   is not one. Chrome is dropped, plates and grounds are dropped, the measure
+   opens to the page, and every link's destination is printed after it so a
+   paper copy is not a dead end. */
+@media print{
+  .topbar,.site-header,.nav,.previewbar,.s-overlay,.plate,.watermark,.ground,
+  .girih,.atlas,.btn-row,.navtoggle,.unwan{display:none!important}
+  :root{--bg:#fff;--fg:#000;--fg-soft:#333;--fg-faint:#555;--rule:#bbb}
+  body{background:#fff;color:#000;font-size:11pt;line-height:1.5}
+  .section,.cover{padding-block:0 18pt!important;background:none!important;break-inside:auto}
+  .wrap{max-width:none;padding-inline:0}
+  .cover h1,.display{font-size:26pt;line-height:1.1}
+  .h2{font-size:15pt} .h3{font-size:12pt}
+  .lead{font-size:12pt}
+  h1,h2,h3,.folio,.chapter__n{break-after:avoid}
+  .chapter__n{opacity:.25}
+  .ledger,.quad,.pledge,.callout,.doc,.creds,figure,.tenure{break-inside:avoid}
+  .callout,.quad,.doc,.panel{border:1px solid #999;box-shadow:none}
+  a[href^="/"]::after{content:" (almadinah.college" attr(href) ")";font-size:8pt;color:#555}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
+  .site-footer{border-top:1px solid #999;padding-block:12pt 0;background:none}
+  .colophon{background:none!important;border:0;padding-block:12pt}
+  .colophon__c,.seal__b svg{display:none}
+  @page{margin:18mm 16mm}
+}
+
+/* The topbar carries four controls now — search, reading size, theme and the
+   language switch. At 320–360px their labels do not fit, and the gate caught
+   them pushing the page sideways. Labels drop; icons and the 44px target
+   stay, and aria-label carries the name for anyone who cannot see the icon. */
+@media (max-width:640px){
+  .topbar__l:last-child{gap:var(--s2)}
+  .btn--mini span{position:absolute;width:1px;height:1px;overflow:hidden;
+    clip-path:inset(50%);white-space:nowrap}
+  .btn--mini{padding-inline:var(--s3);min-width:44px;justify-content:center}
+  .btn--mini svg{margin:0}
+}

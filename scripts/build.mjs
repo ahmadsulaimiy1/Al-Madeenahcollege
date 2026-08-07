@@ -94,6 +94,19 @@ ${head}
       : '<strong>Design preview</strong> — a work in progress, not a live institutional site. Arabic copy awaits native-speaker review (EB §11.8).'
   }</div></div>
 ${body}
+<div class="s-overlay" id="search" hidden>
+  <div class="s-panel" role="dialog" aria-modal="true" aria-label="${ar ? 'بحث في الموقع' : 'Search this site'}">
+    <div class="s-bar">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input type="search" data-s-input autocomplete="off" spellcheck="false"
+        placeholder="${ar ? 'ابحث في الكلية…' : 'Search the College…'}"
+        aria-label="${ar ? 'كلمة البحث' : 'Search terms'}">
+      <button type="button" data-s-close class="s-esc" aria-label="${ar ? 'إغلاق' : 'Close'}">esc</button>
+    </div>
+    <div class="s-out" data-s-out></div>
+    <p class="s-hint">${ar ? 'اضغط ⌘K أو / للبحث' : 'Press ⌘K or / to search'}</p>
+  </div>
+</div>
 <script src="/site.js" defer></script>
 </body>
 </html>
@@ -128,6 +141,60 @@ writeFileSync(
   join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
 );
+/* ---------------- search index (FR-1) ----------------
+   Built from the rendered pages, not from the source: what a reader can search
+   is exactly what a reader can see. One index per language, because a search
+   that returns Arabic results to an English reader is a broken search, not a
+   bilingual one. */
+const strip = (h) => h
+  .replace(/<script[\s\S]*?<\/script>/g, ' ')
+  .replace(/<style[\s\S]*?<\/style>/g, ' ')
+  .replace(/<svg[\s\S]*?<\/svg>/g, ' ')
+  .replace(/<(header|footer|nav)[\s\S]*?<\/\1>/g, ' ')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/&[a-z]+;|&#\d+;/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+for (const lang of ['en', 'ar']) {
+  const idx = manifest.pages
+    .filter((pg) => (pg.lang || 'en') === lang && !pg.noindex && pg.output !== '404.html')
+    .map((pg) => {
+      const file = join(OUT, pg.output);
+      const html = readFileSync(file, 'utf8');
+      const url = '/' + pg.output.replace(/index\.html$/, '');
+      const main = (html.match(/<main id="main">([\s\S]*?)<\/main>/) || [, ''])[1];
+      return {
+        u: url,
+        t: (html.match(/<title>([^<]*)<\/title>/) || [, ''])[1].replace(/ — .*$/, ''),
+        d: (html.match(/name="description" content="([^"]*)"/) || [, ''])[1],
+        /* Capped: an index a phone must download before it can search is not a
+           feature. 1,800 characters covers every heading and lead on a page. */
+        b: strip(main).slice(0, 1800),
+      };
+    });
+  writeFileSync(join(OUT, `search-${lang}.json`), JSON.stringify(idx), 'utf8');
+}
+
+/* FR-2 — the worker is versioned by build date so a deploy invalidates the
+   old cache. Written from src/ with the token filled, not copied. */
+writeFileSync(join(OUT, 'sw.js'), fill(read('sw.js'), { BUILT }), 'utf8');
+writeFileSync(join(OUT, 'manifest.webmanifest'), JSON.stringify({
+  name: "Al-Madinah International College of Arabic and Qur'anic Studies",
+  short_name: 'Al-Madinah',
+  start_url: '/',
+  scope: '/',
+  display: 'standalone',
+  background_color: '#F6F0E1',
+  theme_color: '#1A3280',
+  lang: 'en',
+  dir: 'ltr',
+  description: "Arabic language, Qur'anic memorisation and the Islamic sciences, taught to a published standard.",
+  icons: [
+    { src: '/assets/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' },
+  ],
+}, null, 2), 'utf8');
+
 writeFileSync(join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://almadinah.college/sitemap.xml\n');
 writeFileSync(
   join(OUT, '_headers'),
