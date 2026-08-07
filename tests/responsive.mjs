@@ -152,7 +152,12 @@ for (const lang of ['', '/ar']) {
       visible: getComputedStyle(n).display !== 'none',
       h: Math.round(r.height), top: Math.round(r.top),
       locked: document.body.classList.contains('nav-lock'),
-      links: [...n.querySelectorAll('a')].filter((a) => a.getBoundingClientRect().height >= 44).length,
+      /* Only VISIBLE links are tap targets. A link inside a collapsed
+         accordion has zero height and is not something a finger can miss. */
+      links: [...n.querySelectorAll('a')].filter((a) => {
+        const b = a.getBoundingClientRect();
+        return b.height === 0 || b.height >= 44;
+      }).length,
       total: n.querySelectorAll('a').length,
       /* Is the last item actually reachable? A drawer can pass every other
          check while rendering as a sliver — which it did, because a
@@ -174,6 +179,34 @@ for (const lang of ['', '/ar']) {
   ok(`drawer fills the screen · ${L}`, open.h >= open.vh - 2 && open.top <= 1,
      `${open.h}px tall at top:${open.top}, viewport ${open.vh}`);
   ok(`the last drawer item is on screen · ${L}`, open.lastInside);
+  /* Every accordion inside the drawer, opened. A collapsed panel is invisible
+     to the overflow sweep, so a panel that only misbehaves once opened would
+     never be seen — and one did: :focus-within fires on tap, which re-applied
+     the desktop translateX(-50%) and slid the panel half a screen off the
+     left edge while every other check passed. */
+  const drops = await page.$$('.drop__x');
+  for (let i = 0; i < drops.length; i++) {
+    await drops[i].click();
+    await page.waitForTimeout(300);
+    const panel = await page.evaluate((n) => {
+      const d = document.querySelectorAll('.drop')[n];
+      const m = d.querySelector('.mega');
+      const b = m.getBoundingClientRect();
+      return {
+        open: getComputedStyle(m).display !== 'none',
+        left: Math.round(b.left), right: Math.round(b.right),
+        docW: document.documentElement.clientWidth,
+        scrollW: document.documentElement.scrollWidth,
+      };
+    }, i);
+    ok(`drawer panel ${i + 1} opens · ${L}`, panel.open);
+    ok(`drawer panel ${i + 1} sits inside the viewport · ${L}`,
+       panel.left >= -1 && panel.right <= panel.docW + 1,
+       `[${panel.left} → ${panel.right}] in ${panel.docW}`);
+    ok(`drawer panel ${i + 1} adds no sideways scroll · ${L}`,
+       panel.scrollW <= panel.docW + 1, `${panel.scrollW} > ${panel.docW}`);
+  }
+
   await page.keyboard.press('Escape');
   await page.waitForTimeout(200);
   ok(`Escape closes the drawer · ${L}`,

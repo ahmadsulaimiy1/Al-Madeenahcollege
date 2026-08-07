@@ -50,7 +50,31 @@
     window.addEventListener('resize', function () {
       if (window.innerWidth > 1000 && nav.getAttribute('data-open') === 'true') setNav(false);
     });
+    var close = nav.querySelector('.nav__close');
+    if (close) close.addEventListener('click', function () { setNav(false); toggle.focus(); });
   }
+
+  // Mega panels. On the desktop they open on hover and focus, in CSS alone, so
+  // they work before this script has loaded. In the drawer they are accordions,
+  // which needs a click handler — and only there: the chevron button does not
+  // exist as a control at desktop widths.
+  Array.prototype.forEach.call(document.querySelectorAll('.drop'), function (drop) {
+    var btn = drop.querySelector('.drop__x');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var open = drop.getAttribute('data-open') === 'true';
+      // One panel at a time: two open accordions in a full-screen drawer means
+      // the reader scrolls past the section they were looking for.
+      Array.prototype.forEach.call(document.querySelectorAll('.drop[data-open=true]'), function (d) {
+        if (d !== drop) {
+          d.setAttribute('data-open', 'false');
+          d.querySelector('.drop__x').setAttribute('aria-expanded', 'false');
+        }
+      });
+      drop.setAttribute('data-open', String(!open));
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
 
   // Mark the current page in navigation.
   var here = location.pathname.replace(/\/$/, '') || '/';

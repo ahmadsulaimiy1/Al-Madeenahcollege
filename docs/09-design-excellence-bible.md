@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.3 · 6 August 2026 · Cited as `DX §n`**
+**Version 1.4 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -542,6 +542,69 @@ across three rounds of review, and both descriptions were accurate.
 
 **The gate:** `tests/responsive.mjs` now measures rendered pixels in all four arrival modes
 and fails if blue exceeds 35% or the warm register falls below 45%.
+
+## §19b. Chrome is a component too — the register menu and the colophon
+
+The canon at `§6` covered the *page* and left the *chrome* — the header and the footer — as
+undesigned furniture. That is where the last of the blue was hiding, and it is also where
+the reference project is at its strongest. Both were rebuilt after a close read of
+`ahmadsulaimiy1/sultan-`.
+
+### 6.15 Register menu — `.mega`
+
+Their navigation panel does three things a dropdown list cannot, and all three are adopted:
+
+| Move | Why it works |
+|---|---|
+| **It introduces the section** — a heading and a sentence in their own column | The reader knows what they are entering before they choose inside it |
+| **Every item carries a one-line description** | The choice is informed rather than a guess at a noun. "Faculty register" alone means nothing; "generated from the appointment record" means everything |
+| **One destination is featured**, with a label, an arrow and a reason | The panel has a recommendation, which is what an institution with a view has |
+
+**Improved rather than copied.** Theirs is a dark panel on a dark header. Ours is **a lit
+sheet of paper** — the three-layer elevation, the inset bevel, a gold hairline along the
+top edge — because the light register governs chrome too. Each programme item takes its
+own school's accent on hover, so the menu carries the same four-colour system as the page.
+The panel opens on `:hover` **and `:focus-within`, in CSS alone**, so it works before the
+script has loaded and for a keyboard.
+
+### 6.16 Colophon — `.colophon`, `.atlas`, `.seal`
+
+Their footer is in three movements, and the shape is right: it **arrives** (a ceremonial
+statement framed by corner brackets, before any links), it shows the institution **at a
+glance** (an icon grid of every public surface, so nothing needs hunting), and it **signs
+off** (a seal bar with the mark and the founding facts).
+
+**Improved rather than copied.**
+
+1. **Printed on the document's own paper.** A colophon belongs to the book. Theirs is a
+   dark slab; ours is the gilt ground, which is also what removed the last large blue area
+   from the estate.
+2. **The brackets frame the statement, not the screen.** Pinned to the viewport corners on
+   a 1440px display they read as decoration stuck in a window; anchored to the measure —
+   `max(var(--s6), calc(50% - 470px))` — they read as a letterhead frame.
+3. **The atlas opens with the Qur'anic petition** `وَقُل رَّبِّ زِدْنِى عِلْمًا` rather than a
+   marketing line.
+4. **Nothing loops.** Their gold underlines and header shimmer run on infinite animations.
+   `EB §22` forbids anything that moves while a reader is reading, and the build fails on
+   `animation … infinite`. So the gold rule under each footer heading **grows on
+   engagement** instead of travelling forever — it responds rather than performs, which is
+   the more confident gesture anyway.
+
+### What the rebuild cost, and what caught it
+
+Three defects, none visible by reading the CSS:
+
+- `backdrop-filter` on the header made it the containing block for `position:fixed`
+  children, so the drawer rendered as a sliver.
+- Inside the drawer, **`:focus-within` fires on tap**, and the desktop rule it triggers
+  re-applied `translateX(-50%)` — sliding the whole panel half a screen off the left edge.
+  The mobile reset was one class less specific and lost.
+- The drawer panel's tint stopped 24px short of the right edge, because a negative inline
+  margin was not matched by a width increase.
+
+The second is the instructive one: **a collapsed accordion is invisible to an overflow
+sweep.** The gate now opens every panel in the drawer and re-measures. `§20` again — the
+only valid test of a layout is to render it and look.
 
 ## §20. The rule that governs all of Part IX
 

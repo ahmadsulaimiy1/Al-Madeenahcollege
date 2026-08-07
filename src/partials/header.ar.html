@@ -11,14 +11,100 @@
       <span class="lockup__en">Al-Madinah International College</span>
     </span>
   </a>
-  <button class="navtoggle" aria-expanded="false" aria-controls="nav">القائمة</button>
+
+  <button class="navtoggle" aria-expanded="false" aria-controls="nav">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <span>القائمة</span>
+  </button>
+
   <nav class="nav" id="nav" aria-label="التنقل الرئيسي">
-    <a href="/ar/about/">عن الكلية</a>
-    <a href="/ar/programmes/">البرامج</a>
-    <a href="/ar/admissions/">القبول</a>
+    <div class="nav__head">
+      <span class="nav__head-t">التنقّل</span>
+      <button type="button" class="nav__close" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="drop">
+      <a href="/ar/about/" class="drop__t">عن الكلية</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="فتح قائمة عن الكلية">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>١</i></span>
+          <h4>المؤسسة</h4>
+          <p>مؤسسةٌ أفريقية تخدم العالم — وبيانٌ منشور بما هو صحيحٌ فيها وما ليس صحيحًا بعد.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i" href="/ar/about/"><span class="t">الرؤية والقيم</span><span class="d">ثماني قيم، لكلٍّ منها اختبارٌ يمكن أن يسقط فيه</span></a>
+          <a class="mega__i" href="/ar/about/"><span class="t">نموذج العمل</span><span class="d">التعليم عن بُعد أوّلًا، قرارًا أكاديميًّا</span></a>
+          <a class="mega__i" href="/ar/about/#governance"><span class="t">الحوكمة</span><span class="d">منشورةٌ قبل أن تدفع، ومن غير حساب</span></a>
+          <a class="mega__i" href="/ar/about/"><span class="t">السجلّ المنشور</span><span class="d">ستُّ وثائقَ حاكمة، مرقَّمةُ الإصدار</span></a>
+          <a class="mega__i" href="/ar/about/"><span class="t">سجلّ هيئة التدريس</span><span class="d">يُولَّد من سجلّ التعيينات</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">اقرأ هذا أولًا</span>
+          <a class="mega__f-a" href="/ar/about/#status">ما ليس صحيحًا بعد <span class="arrow" aria-hidden="true">←</span></a>
+          <p>الاعتماد وهيئة التدريس والمقرّ والاسم — مذكورةٌ صراحةً، بالصوت نفسه الذي نكتب به كلَّ شيء.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="drop">
+      <a href="/ar/programmes/" class="drop__t">البرامج</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="فتح قائمة البرامج">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>٢</i></span>
+          <h4>أربعُ كليّات</h4>
+          <p>معيارٌ واحد وأربعةُ مساراتٍ إليه. ومن سلك أيَّ مدّةٍ نال الشهادةَ نفسَها.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i mega__i--s1" href="/ar/programmes/"><span class="t">كلية اللغة العربية</span><span class="d">خمسُ مهارات، منها النصّ التراثي</span></a>
+          <a class="mega__i mega__i--s2" href="/ar/programmes/"><span class="t">كلية القرآن</span><span class="d">يُقاس بالإتقان والثبات</span></a>
+          <a class="mega__i mega__i--s3" href="/ar/programmes/"><span class="t">كلية العلوم الشرعية</span><span class="d">من متونٍ مسمّاة، والكليةُ لا تُفتي</span></a>
+          <a class="mega__i mega__i--s4" href="/ar/programmes/"><span class="t">معهد إعداد المعلمين</span><span class="d">طرائقُ التدريس والتقويم والأدب</span></a>
+          <a class="mega__i" href="/ar/programmes/"><span class="t">كيف يكون التقدّم</span><span class="d">بوّابةٌ لا درجة، والإعادةُ مجّانية</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">اختر مدّتك</span>
+          <a class="mega__f-a" href="/ar/programmes/">سنة · ثلاث سنوات · مفتوحة <span class="arrow" aria-hidden="true">←</span></a>
+          <p>الفرقُ في قدر ما تمنحه من أسبوعك، لا في المعيار.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="drop">
+      <a href="/ar/admissions/" class="drop__t">القبول</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="فتح قائمة القبول">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>٣</i></span>
+          <h4>لا استمارةَ قبل الحقائق</h4>
+          <p>الرسومُ والمدّةُ والجهدُ والشروط، كلُّها ظاهرةٌ قبل أن تعطينا شيئًا.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i" href="/ar/admissions/"><span class="t">الرحلة</span><span class="d">خمسُ خطوات، وأوّلُ ثلاثٍ بلا حساب</span></a>
+          <a class="mega__i" href="/ar/admissions/"><span class="t">تحديد المستوى</span><span class="d">بلا وقتٍ محدَّد، ولا يُعرَض بوصفه درجة</span></a>
+          <a class="mega__i" href="/ar/fees/"><span class="t">الرسوم والمنح</span><span class="d">استمارةٌ واحدة، احتجتَ أو لم تحتج</span></a>
+          <a class="mega__i" href="/ar/verify/"><span class="t">توثيق شهادة</span><span class="d">مجّانًا وفورًا وبلا حساب</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">الوضع المؤسسي</span>
+          <a class="mega__f-a" href="/ar/admissions/#apply">بابُ القبول لم يُفتَح بعد <span class="arrow" aria-hidden="true">←</span></a>
+          <p>لا طلابَ مسجَّلين، ولا تاريخَ مؤكَّدًا للدفعة الأولى، ولا استمارةً تبدو عاملةً وهي لا تُفضي إلى شيء.</p>
+        </div>
+      </div>
+    </div>
+
     <a href="/ar/fees/">الرسوم والمنح</a>
     <a href="/ar/contact/">اتصل بنا</a>
     <a href="/ar/signin/">تسجيل الدخول</a>
-    <a class="btn btn--primary" href="/ar/admissions/#apply">قدِّم الآن</a>
+    <a class="btn btn--primary" href="/ar/admissions/#apply">قدِّم الآن <span class="arrow" aria-hidden="true">←</span></a>
   </nav>
 </div></header>

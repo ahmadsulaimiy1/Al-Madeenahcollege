@@ -11,14 +11,105 @@
       <span class="lockup__en">Al-Madinah International College</span>
     </span>
   </a>
-  <button class="navtoggle" aria-expanded="false" aria-controls="nav">Menu</button>
+
+  <button class="navtoggle" aria-expanded="false" aria-controls="nav">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <span>Menu</span>
+  </button>
+
   <nav class="nav" id="nav" aria-label="Primary">
-    <a href="/about/">About</a>
-    <a href="/programmes/">Programmes</a>
-    <a href="/admissions/">Admissions</a>
+    <div class="nav__head">
+      <span class="nav__head-t">Navigation</span>
+      <button type="button" class="nav__close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="drop">
+      <a href="/about/" class="drop__t">About</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="Open the About menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>I</i></span>
+          <h4>The institution</h4>
+          <p>An African institution serving the world — and a published account of what is,
+            and is not, yet true of it.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i" href="/about/"><span class="t">Vision &amp; values</span><span class="d">Eight values, each with a test that can fail</span></a>
+          <a class="mega__i" href="/about/"><span class="t">Operating model</span><span class="d">Online-first, by academic decision</span></a>
+          <a class="mega__i" href="/about/#governance"><span class="t">Governance</span><span class="d">Published before you pay, without an account</span></a>
+          <a class="mega__i" href="/about/"><span class="t">The published record</span><span class="d">Six governing documents, versioned</span></a>
+          <a class="mega__i" href="/about/"><span class="t">Faculty register</span><span class="d">Generated from the appointment record</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">Read first</span>
+          <a class="mega__f-a" href="/about/#status">What is not yet true <span class="arrow" aria-hidden="true">→</span></a>
+          <p>Accreditation, faculty, premises and the name — stated plainly, in the same
+            voice as everything else.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="drop">
+      <a href="/programmes/" class="drop__t">Programmes</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="Open the Programmes menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>II</i></span>
+          <h4>Four schools</h4>
+          <p>One standard, four routes through it. A student on any tenure earns the
+            identical certificate.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i mega__i--s1" href="/programmes/"><span class="t">School of Arabic Language</span><span class="d">Five modalities, including classical text</span></a>
+          <a class="mega__i mega__i--s2" href="/programmes/"><span class="t">School of Qur'an</span><span class="d">Measured in <em>itqān</em> and retention</span></a>
+          <a class="mega__i mega__i--s3" href="/programmes/"><span class="t">School of Islamic Sciences</span><span class="d">Named texts; the College issues no fatwā</span></a>
+          <a class="mega__i mega__i--s4" href="/programmes/"><span class="t">Institute of Teacher Certification</span><span class="d">Pedagogy, assessment, and <em>adab</em></span></a>
+          <a class="mega__i" href="/programmes/"><span class="t">How progression works</span><span class="d">A gate, not a grade — retakes are free</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">Choose your tenure</span>
+          <a class="mega__f-a" href="/programmes/">One year · three years · open <span class="arrow" aria-hidden="true">→</span></a>
+          <p>What differs is how much of the week you can give it. Never the standard.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="drop">
+      <a href="/admissions/" class="drop__t">Admissions</a>
+      <button type="button" class="drop__x" aria-expanded="false" aria-label="Open the Admissions menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mega">
+        <div class="mega__intro">
+          <span class="mega__folio"><i>III</i></span>
+          <h4>No form before the facts</h4>
+          <p>Price, duration, workload and requirements are all visible before you give us
+            anything.</p>
+        </div>
+        <div class="mega__col">
+          <a class="mega__i" href="/admissions/"><span class="t">The journey</span><span class="d">Five steps; the first three need no account</span></a>
+          <a class="mega__i" href="/admissions/"><span class="t">Placement assessment</span><span class="d">Untimed, resumable, never shown as a grade</span></a>
+          <a class="mega__i" href="/fees/"><span class="t">Fees &amp; scholarships</span><span class="d">One application, whether or not you need help</span></a>
+          <a class="mega__i" href="/verify/"><span class="t">Verify a certificate</span><span class="d">Free, instant, no account</span></a>
+        </div>
+        <div class="mega__f">
+          <span class="mega__f-k">Institutional status</span>
+          <a class="mega__f-a" href="/admissions/#apply">Applications are not yet open <span class="arrow" aria-hidden="true">→</span></a>
+          <p>No enrolled students, no confirmed first-cohort date, and no form here that
+            would look functional while going nowhere.</p>
+        </div>
+      </div>
+    </div>
+
     <a href="/fees/">Tuition &amp; Scholarships</a>
     <a href="/contact/">Contact</a>
     <a href="/signin/">Sign in</a>
-    <a class="btn btn--primary" href="/admissions/#apply">Apply</a>
+    <a class="btn btn--primary" href="/admissions/#apply">Apply <span class="arrow" aria-hidden="true">→</span></a>
   </nav>
 </div></header>
