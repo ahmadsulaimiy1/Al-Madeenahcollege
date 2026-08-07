@@ -68,7 +68,7 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
-| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.4, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
+| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.5, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
@@ -87,6 +87,15 @@ npm run test:static      # the fast half
 npm run test:responsive  # the browser half (skips cleanly with no Chromium)
 npm run dev       # build + serve dist/ at :8000
 ```
+
+**The publication layer.** The estate was correct — responsive, warm, AAA, composed from a
+named vocabulary — and still read as a template, because a template is a layout with no hand
+in it. `DX §19c` adds what a word processor cannot produce: **paper** (fractal-noise stock),
+**plates** (`scripts/make-art.mjs` computes a sixteen-fold shamsa, an eight-fold khatam
+tessellation and an unwan from real geometric construction, inlined via `{{ART:name}}`), a
+**cover** rather than a hero, and the apparatus of a printed book — decree rules, drop
+capitals, hung pull quotes, sidenotes, running heads, outlined chapter numerals, and oldstyle
+figures in prose against lining tabular in tables.
 
 **The design canon.** Fourteen named components (`DX §6`), each existing to replace a
 generic convention — the folio marker replaces the eyebrow, the quad replaces the four-card

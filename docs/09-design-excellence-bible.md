@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.4 · 7 August 2026 · Cited as `DX §n`**
+**Version 1.5 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -605,6 +605,63 @@ Three defects, none visible by reading the CSS:
 The second is the instructive one: **a collapsed accordion is invisible to an overflow
 sweep.** The gate now opens every panel in the drawer and re-measures. `§20` again — the
 only valid test of a layout is to render it and look.
+
+## §19c. Why a correct layout still read as a template
+
+The estate was, by every measure this document had: correct on mobile, warm, well spaced,
+composed from a named vocabulary, AAA on contrast. The Founder's verdict was **"a Microsoft
+template."** That verdict was right, and none of the existing rules could have caught it,
+because they all measured *tidiness*.
+
+**A template is a layout with no hand in it.** What separates it from a publication is not
+correctness — it is the presence of craft a word processor cannot produce. Four things were
+missing, and none of them is decoration:
+
+| Missing | Why the page failed without it |
+|---|---|
+| **Paper** | Flat colour fills are the loudest "this was typed, not printed" signal available. Every ground was a flat hex |
+| **Plates** | There was no *art* anywhere — only rules and boxes. An institution with no photography can still have illumination; it cannot have nothing |
+| **A cover** | The hero was a headline stacked on a paragraph. A publication opens with a composed title page |
+| **A type layer** | No drop capital, no pull quote, no sidenote, no running head, no scale drama, and figures left at the browser default. That apparatus *is* what a book looks like |
+
+### 6.17 Illumination — generated, not drawn
+
+`scripts/make-art.mjs` computes three plates from real geometric construction rather than
+approximating shapes by eye:
+
+- **Shamsa** — a sixteen-fold sunburst rosette: two interleaved `{16/6}` star polygons, a
+  thirty-two petal corona, concentric rings, and the nuqṭah at the centre. The inner radius
+  of every star is **derived** — `R·cos(mπ/n)/cos((m−1)π/n)` — which is the whole difference
+  between geometry and decoration.
+- **Girih** — the eight-fold khatam tessellation. `R = T/2` at phase 0 puts a star point
+  exactly on the lattice axis so adjacent octagrams meet tip to tip and the pattern *closes*.
+  The first attempt used an arbitrary radius; it left gaps and read as scattered marks
+  rather than a lattice, which is exactly how "geometric-ish" decoration fails.
+- **Unwan** — the illuminated chapter headpiece: double rule, centred rosette, tapered
+  interlace.
+
+They are inlined at build time through an `{{ART:name}}` token, so a plate costs no request
+and inherits `currentColor` from the band it sits in. **A plate is always bled off an edge
+and set behind type. A boxed ornament is clip-art; a bled one is a printed page.**
+
+### 6.18 The publication apparatus
+
+| Device | Class | The job it does |
+|---|---|---|
+| Paper | `body::before` | Fractal noise at 3.2%, multiply-blended. One filter; it is what makes a ground read as stock rather than fill |
+| Cover | `.cover` | A title page: decree rule, tracked overline, the Arabic set as the title at ceremonial scale **from the same margin as the English**, display type to 6.2rem, composed against a bled shamsa |
+| Decree rule | `.decree` | A thick rule and a thin one with air between. Every rule on the site was 1px — the typographic equivalent of setting a whole document in one weight |
+| Drop capital | `.opener` | Three lines deep, display face, gold. Marks a passage as meant to be *read* |
+| Pull quote | `.pull` | Three times body size with the opening mark **hung into the margin**, so the measure stays optically flush. Hanging punctuation is the detail no template does and every fine book does |
+| Sidenote | `.sidenote` | A marginal note, the way an annotated edition carries its apparatus |
+| Running head | `.runhead` | Institution one side, section the other, hairline beneath — the line at the top of every page of a bound book |
+| Chapter numeral | `.chapter__n` | The section number at up to 11rem, in **outline**, bled to the outer margin, sitting behind the heading. Scale contrast is the cheapest drama in typography and the page had none |
+| Figures | — | **Oldstyle in prose, lining tabular in tables.** Oldstyle figures sit on the baseline with ascenders and descenders, so they read as words inside a sentence instead of shouting. The default does neither job |
+
+**The bilingual title-page rule, learned by breaking it.** `direction: rtl` is required for
+correct Arabic shaping and word order — and it also flings the line to the right margin,
+where it detached from the English column it was titling. `text-align` must then be set back
+explicitly. **A bilingual title page sets both scripts from the same margin.**
 
 ## §20. The rule that governs all of Part IX
 
