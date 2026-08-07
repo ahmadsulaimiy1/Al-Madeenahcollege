@@ -63,11 +63,34 @@
   /* ---- Type: display serif · inscriptional caps · humanist sans ----
      The caps face is what most institutional sites lack, and it carries a
      disproportionate share of the "expensive". */
-  --f-display:'Cormorant Garamond','Source Serif 4',Georgia,serif;
-  --f-label:'Cinzel','Cormorant Garamond',Georgia,serif;
-  --f-body:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
-  --f-ar:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif;
-  --f-ar-display:'Amiri','Cormorant Garamond',Georgia,serif;
+  /* v3. Display is a DIDONE — extreme thick/thin, the letterform of a
+     jewellery house. Reading text is a serif, because running copy in a
+     technical sans is what makes a page read as an app rather than a
+     publication. Labels are the reading face in small caps with tracking,
+     not a separate "Roman capitals" font: real small caps are refined,
+     a display caps face pasted onto 10px labels is costume. */
+  /* FOUR faces, no neutral sans anywhere.
+     IBM Plex Sans is a deliberately neutral technical grotesque — excellent
+     for a terminal, and the source of the last of the dryness here. It carried
+     the nav, the forms and the labels, so a quarter of every page was set in a
+     face chosen for having no voice. It is gone. Newsreader takes the
+     interface too: it has a true italic and drawn small caps, and one voice
+     across chrome and prose is what a publication sounds like.
+
+     Arabic follows the same logic, and the Founder's instruction: KUFI where
+     the register is architectural — titles, labels, navigation, the interface —
+     and NASKH where it is read. Reem Kufi is built on the square-and-circle
+     construction the girih plates are drawn from, so the Arabic chrome and the
+     illumination share one geometry. Amiri, a revival of the Bulaq press
+     types, carries the running text, which is the correct scholarly register
+     and the only one appropriate to a College of Qur'anic studies. */
+  --f-display:'Bodoni Moda',Didot,'Times New Roman',serif;
+  --f-body:'Newsreader',Georgia,'Times New Roman',serif;
+  --f-label:'Newsreader',Georgia,serif;
+  --f-ui:'Newsreader',Georgia,serif;
+  --f-ar:'Amiri',serif;
+  --f-ar-display:'Reem Kufi','Amiri',sans-serif;
+  --f-ar-ui:'Reem Kufi','Amiri',sans-serif;
 
   /* ---- Space: the primary material (DX §1). Placed first, not left over. ---- */
   --n:8px;
@@ -236,7 +259,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .eyebrow::before{content:'';width:32px;height:1px;background:currentColor;opacity:.8}
 [dir=rtl] .eyebrow{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.92rem}
 .display{font-family:var(--f-display);font-weight:400;
-  font-size:clamp(2.9rem,6.4vw,5rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 var(--s6)}
+  font-size:clamp(2.5rem,5.2vw,4.2rem);line-height:1.06;letter-spacing:-.018em;margin:0 0 var(--s6)}
 .display .gilt{font-style:italic;color:var(--accent)}
 .section--deep .display .gilt,.section--blue .display .gilt,
 .hero--deep .display .gilt{color:var(--dhahab-light)}
@@ -1214,11 +1237,15 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    margin and detaches from the English column it is titling. A bilingual
    title page sets both scripts from the SAME margin. */
 .cover__ar{font-family:var(--f-ar-display);direction:rtl;text-align:left;
-  font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1.7;color:var(--dhahab-ink);
+  font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.42;color:var(--dhahab-ink);
   margin:0 0 var(--s7);max-width:none;font-weight:400}
 [dir=rtl] .cover__ar{text-align:right}
-.cover h1{font-size:clamp(3.1rem,7.6vw,6.2rem);line-height:.98;letter-spacing:-.028em;
-  font-weight:300;margin:0 0 var(--s7);text-wrap:balance}
+/* A Didone carries far more visual weight per point than a Garamond: the
+   same measure that suited Cormorant at 6.2rem is oversized here. Sized down
+   and tightened; the drama comes from the contrast in the letterform, not
+   from scale alone. */
+.cover h1{font-size:clamp(2.7rem,5.6vw,4.7rem);line-height:1.04;letter-spacing:-.02em;
+  font-weight:400;margin:0 0 var(--s7);text-wrap:balance}
 .cover h1 .gilt{font-style:italic;color:var(--dhahab-ink)}
 .cover__lead{font-size:clamp(1.18rem,1.7vw,1.42rem);line-height:1.62;font-weight:300;
   color:var(--fg-soft);max-width:52ch;margin:0 0 var(--s8)}
@@ -1287,9 +1314,9 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
    the outer margin and sitting BEHIND the heading. Scale contrast is the
    cheapest drama in typography and this page had none. */
 .chapter{position:relative}
-.chapter__n{position:absolute;inset-block-start:-.34em;inset-inline-start:-.06em;
-  font-family:var(--f-display);font-size:clamp(6rem,13vw,11rem);line-height:1;font-weight:300;
-  color:transparent;-webkit-text-stroke:1px var(--dhahab);opacity:.42;
+.chapter__n{position:absolute;inset-block-start:-.52em;inset-inline-start:-.14em;
+  font-family:var(--f-display);font-size:clamp(5.4rem,10.5vw,9rem);line-height:1;font-weight:400;
+  color:transparent;-webkit-text-stroke:1px var(--dhahab);opacity:.34;
   pointer-events:none;user-select:none;z-index:0;font-variant-numeric:lining-nums}
 .chapter>*:not(.chapter__n){position:relative;z-index:1}
 @media (max-width:820px){.chapter__n{font-size:6rem;inset-block-start:-.28em}}
@@ -1330,3 +1357,96 @@ body{font-variant-numeric:oldstyle-nums}
 .unwan{display:block;width:min(100%,520px);margin:0 auto var(--s8);color:var(--dhahab);opacity:.85}
 .unwan svg{width:100%;height:auto}
 .section--blue .unwan,.section--deep .unwan{color:var(--dhahab-light)}
+
+/* ==========================================================================
+   TYPE SYSTEM v3 — the settings, not just the faces
+
+   Swapping typefaces changes nothing on its own. What separates a set page
+   from a typed one is the settings underneath: optical size matched to the
+   size actually rendered, real small caps rather than shrunken capitals,
+   ligatures and contextual alternates on, and a display cut that is TRACKED
+   IN as it grows instead of keeping the text fit.
+   ========================================================================== */
+
+/* Ligatures, contextual alternates and kerning on everywhere. Off by default
+   in some engines; a page without them has visibly wrong 'fi', 'ffi', 'Th'. */
+body{font-family:var(--f-body);font-size:19px;line-height:1.66;
+  font-optical-sizing:auto;font-feature-settings:"kern" 1,"liga" 1,"clig" 1,"calt" 1;
+  font-variation-settings:"opsz" 16;letter-spacing:.002em}
+
+/* DISPLAY — the Didone. Optical size is pushed to the top of its range so the
+   hairlines thin and the fit tightens; then negative tracking closes the
+   remaining gaps, because a display face set at text tracking looks inflated.
+   This pairing — high opsz + negative tracking — is the whole difference
+   between "big text" and a headline. */
+.display,h1,h2,h3,h4,.h1,.h2,.h3,.cover h1,.pull p,.mega__intro h4,.mega__f-a,
+.doc__t,.pledge__t,.figure,.tenure__span,.chapter__n,.ledger__title,.creds .nm{
+  font-family:var(--f-display);font-optical-sizing:none}
+.display,.cover h1{font-variation-settings:"opsz" 96;letter-spacing:-.022em;font-weight:400}
+.h1{font-variation-settings:"opsz" 72;letter-spacing:-.018em;font-weight:400}
+.h2{font-variation-settings:"opsz" 60;letter-spacing:-.014em;font-weight:400}
+.h3,.mega__intro h4,.doc__t,.pledge__t{font-variation-settings:"opsz" 32;letter-spacing:-.006em;font-weight:500}
+.ledger__title,.creds .nm,.mega__f-a{font-variation-settings:"opsz" 24;font-weight:500}
+.figure,.tenure__span,.chapter__n{font-variation-settings:"opsz" 96;font-weight:400}
+.pull p{font-variation-settings:"opsz" 72;letter-spacing:-.014em;font-weight:400}
+.display .gilt,.cover h1 .gilt{font-style:italic;font-variation-settings:"opsz" 96}
+
+/* READING TEXT — Newsreader at a genuine reading size with the optical size
+   set to match. 19px/1.66 in a serif is a book measure; 17px/1.72 in a sans
+   was a web-app measure. */
+p,li,td,th,figcaption,dd,blockquote{font-optical-sizing:auto}
+.lead{font-family:var(--f-body);font-weight:300;font-variation-settings:"opsz" 28;
+  font-size:clamp(1.24rem,1.7vw,1.5rem);line-height:1.55;letter-spacing:-.004em}
+.small{font-variation-settings:"opsz" 14}
+.tiny{font-variation-settings:"opsz" 10}
+
+/* LABELS — real small caps of the reading face, tracked. `all-small-caps`
+   uses the font's DRAWN small-cap forms where they exist rather than scaling
+   capitals down, which is the difference between a label that looks set and
+   one that looks squashed. */
+.eyebrow,.overline,.folio i,.folio b,.card__n,.callout__k,
+.doc__code,.creds .cr,.path .st,.pledge__test,.atlas__k,.atlas__i span,
+.site-footer h4,.endorse,.seal__badge,.runhead,.mega__folio,.mega__f-k,
+.nav__head-t,.lockup__en,.sidenote b,.pull cite,.field>span,.portal__nav .grp,
+.ledger thead th,.figrow p,.doc dt,.btn,.navtoggle,.previewbar strong{
+  font-family:var(--f-label);font-variant-caps:all-small-caps;
+  font-variation-settings:"opsz" 12;font-weight:500;text-transform:none}
+.eyebrow,.overline,.atlas__k,.runhead,.mega__f-k,.doc__code,.seal__badge{letter-spacing:.16em}
+.folio i,.folio b,.callout__k,.site-footer h4,.nav__head-t{letter-spacing:.14em}
+.btn{letter-spacing:.1em;font-size:.86rem}
+.lockup__en{letter-spacing:.13em;font-size:.68rem}
+.atlas__i span,.pledge__test,.creds .cr,.path .st,.doc dt,.sidenote b{letter-spacing:.08em}
+.ledger thead th,.figrow p{letter-spacing:.1em;font-size:.76rem}
+
+/* ARABIC — Reem Kufi for display, Amiri for reading. Reem Kufi is built on
+   the same square-and-circle construction as the girih plates, so the Arabic
+   title and the illumination share one geometry rather than merely sitting on
+   the same page. */
+[lang=ar],[dir=rtl]{font-family:var(--f-ar);letter-spacing:normal!important;line-height:1.95}
+[lang=ar] h1,[lang=ar] h2,[lang=ar] h3,[lang=ar] h4,[dir=rtl] h1,[dir=rtl] h2,
+[dir=rtl] h3,[dir=rtl] h4,[dir=rtl] .display,[dir=rtl] .h1,[dir=rtl] .h2,
+[dir=rtl] .cover h1,[dir=rtl] .cover__ar,[lang=ar] .cover__ar{
+  font-family:var(--f-ar-display);font-weight:500;line-height:1.55;
+  letter-spacing:normal;font-variation-settings:normal}
+[dir=rtl] body,[lang=ar] body{font-size:20px}
+/* Arabic has no small caps and no case. Labels revert to the UI sans at a
+   slightly larger size, which is how Arabic carries a "label" register. */
+[dir=rtl] .eyebrow,[dir=rtl] .overline,[dir=rtl] .folio i,[dir=rtl] .folio b,
+[dir=rtl] .callout__k,[dir=rtl] .doc__code,[dir=rtl] .creds .cr,[dir=rtl] .path .st,
+[dir=rtl] .pledge__test,[dir=rtl] .atlas__k,[dir=rtl] .atlas__i span,
+[dir=rtl] .site-footer h4,[dir=rtl] .endorse,[dir=rtl] .seal__badge,[dir=rtl] .runhead,
+[dir=rtl] .mega__folio,[dir=rtl] .mega__f-k,[dir=rtl] .nav__head-t,[dir=rtl] .sidenote b,
+[dir=rtl] .pull cite,[dir=rtl] .field>span,[dir=rtl] .ledger thead th,[dir=rtl] .figrow p,
+[dir=rtl] .doc dt,[dir=rtl] .btn,[dir=rtl] .navtoggle{
+  font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;
+  font-variation-settings:normal;font-size:.92rem}
+[dir=rtl] .cover__ar{font-size:clamp(2rem,4.8vw,3.6rem);line-height:1.5}
+
+/* The nav and forms keep the UI sans: navigation is an interface, not prose,
+   and a Didone or a book serif in a 14px menu is affectation. */
+.nav>a:not(.btn),.drop__t,.mega__i .t,.mega__i .d,.topbar,.nav a,
+input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
+.previewbar,.info .lbl,.info .val{font-family:var(--f-ui)}
+[dir=rtl] .nav>a:not(.btn),[dir=rtl] .drop__t,[dir=rtl] .mega__i .t,
+[dir=rtl] .mega__i .d,[dir=rtl] .topbar,[dir=rtl] input,[dir=rtl] select,
+[dir=rtl] textarea,[dir=rtl] .pill,[dir=rtl] .tags li{font-family:var(--f-ar-ui)}

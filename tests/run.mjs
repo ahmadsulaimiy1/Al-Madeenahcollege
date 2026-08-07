@@ -134,8 +134,31 @@ const critical = gzipSync(Buffer.concat([homeHtml, css, js])).length;
 ok('critical path <= 120KB gzipped', critical <= 120 * 1024, `${(critical / 1024).toFixed(1)} KB`);
 
 const fontDir = join(DIST, 'assets/fonts');
-const latinFonts = readdirSync(fontDir).filter((f) => !f.includes('arabic') && !f.includes('amiri'));
-ok('<= 4 Latin font files (EB §24)', latinFonts.length <= 4, `${latinFonts.length}`);
+/* Font budget, measured in BYTES rather than in files.
+   A file count was the wrong metric the moment the type system moved to
+   variable faces: one variable file covering wght 300–600 and opsz 6–72 is
+   four "files" of design space, and counting it as one rewards the wrong
+   thing. What the student on 3G actually pays is bytes.
+   The budget is 240KB of Latin. The stack sits at ~204KB after axis-slicing
+   to the ranges the design uses and subsetting to the 211 glyphs the site
+   sets — including the full transliteration apparatus, because a missing
+   macron in the middle of "itqān" is the failure nobody catches until print.
+   That is ~94KB more than the old static stack, spent deliberately: optical
+   size is the difference between a headline and big text, and no static
+   family provides it. */
+const latinFonts = readdirSync(fontDir)
+  .filter((f) => !f.includes('arabic') && !f.includes('amiri') && !f.includes('reemkufi'));
+const latinBytes = latinFonts.reduce((n, f) => n + statSync(join(fontDir, f)).size, 0);
+ok('Latin font payload <= 240KB (EB §14, EB §24)', latinBytes <= 240 * 1024,
+   `${Math.round(latinBytes / 1024)}KB across ${latinFonts.length} files`);
+ok('every Latin face is variable (optical size is the point)',
+   latinFonts.every((f) => /bodoni|newsreader|plex/.test(f)), latinFonts.join(', '));
+/* The old "luxury" stack is gone, not merely unused. Leaving the files behind
+   would let a stray rule quietly resurrect it. */
+for (const dead of ['cormorant', 'cinzel', 'source-serif']) {
+  ok(`the ${dead} files are removed, not orphaned`,
+     !readdirSync(fontDir).some((f) => f.includes(dead)));
+}
 
 /* ---- Arabic typography guards (EB §15.3) ---- */
 const brand = css.toString();

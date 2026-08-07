@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.5 · 7 August 2026 · Cited as `DX §n`**
+**Version 1.6 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -684,3 +684,89 @@ pixels, not by re-reading the palette.
 *Design Excellence Bible v1.2 — 6 August 2026. Governing on all questions of design
 excellence. v1.0 specified the canon; v1.1 recorded it as built; v1.2 records what v1.0
 and v1.1 got wrong.*
+
+---
+
+# PART X — THE TYPE SYSTEM (v3)
+
+## §21. The stack was the problem
+
+`§19c` gave the page paper, plates, a cover and an apparatus, and the Founder's verdict was
+still that the typography was **dry**. That was correct, and the cause was not the settings.
+It was the faces.
+
+**Cormorant Garamond + Cinzel + IBM Plex Sans is the most-used "luxury" combination on the
+web.** It is what a template ships with. It cannot be set out of looking like one, because
+the recognition is instant and happens before anything else on the page is read. The
+reference project uses the same trio; adopting it would have been copying a weakness.
+
+Two further faults, both structural:
+
+1. **Running text was in a technical sans.** IBM Plex Sans is a deliberately neutral
+   grotesque — excellent in a terminal, and chosen for having no voice. Body copy in a sans
+   is the single clearest signal that a page is an *app* and not a *publication*. It also
+   carried the nav, the forms and every label, so roughly a quarter of every page was set
+   in a face selected for neutrality. **That is what "dry" is.**
+2. **No optical size anywhere.** A display cut at 96pt has finer hairlines and a tighter fit
+   than the same design at 10pt. Serving one static weight for both is why headlines looked
+   inflated and body copy looked thin — and no static family can fix it.
+
+## §22. Four faces, no neutral sans
+
+| Role | Face | Why this one |
+|---|---|---|
+| **Display** | **Bodoni Moda** — variable, `opsz 6–96` | A Didone: extreme thick/thin, the letterform of a jewellery house and a fashion plate. **Display sizes only** — a Didone at reading size is cruel to the reader |
+| **Reading & interface** | **Newsreader** — variable, `opsz 6–72`, true italic, drawn small caps | Running text in a serif is the largest publication signal there is. It takes the interface too: one voice across chrome and prose is what a publication sounds like |
+| **Arabic display, labels, navigation** | **Reem Kufi** — variable | **Kufi where the register is architectural.** It is built on the same square-and-circle construction the girih plates are drawn from, so the Arabic chrome and the illumination share one geometry rather than merely sharing a page |
+| **Arabic reading** | **Amiri** | **Naskh where it is read.** A revival of the Bulaq press types — the correct scholarly register, and the only one appropriate to a College of Qur'anic studies |
+
+**The Arabic rule, stated once: Kufi is architecture, Naskh is reading.** Titles, labels,
+navigation and interface take Reem Kufi. Anything a reader reads at length takes Amiri.
+
+## §23. The settings, which matter as much as the faces
+
+Swapping typefaces changes nothing on its own.
+
+- **Optical size matched to the size actually rendered.** `opsz 96` on the cover, 72 on `h1`
+  and pull quotes, 60 on `h2`, 32 on `h3`, 16 in body, 10 in captions.
+- **Negative tracking that increases with size.** −0.022em on the cover down to +0.002em in
+  body. A display face set at text tracking looks inflated; this pairing is the whole
+  difference between "big text" and a headline.
+- **Real small caps** (`font-variant-caps: all-small-caps`) for every label, using the
+  font's *drawn* small-cap forms. A display capitals face pasted onto a 10px label is
+  costume; drawn small caps are refined.
+- **Ligatures, contextual alternates and kerning on** — off by default in some engines, and
+  a page without them has visibly wrong `fi`, `ffi` and `Th`.
+- **Oldstyle figures in prose, lining tabular in tables** (carried from `§19c`).
+- **19px/1.66 in a serif**, replacing 17px/1.72 in a sans — a book measure rather than a
+  web-app measure.
+
+## §24. What it costs, and what was done about it
+
+Variable faces with two italics came to **~420KB of Latin**, four times the static stack.
+`EB §14` commits this College to *"a three-year-old Android phone, on 3G, on a metered
+plan"*, and 420KB of type on that connection is a decision made against our own students.
+
+Two reductions, in order:
+
+1. **Axis slicing.** Variable *deltas*, not outlines, are the bulk of a variable font. A
+   face carrying `wght 200–800` when the design uses `300–600` is paying for four weights it
+   never sets. Each axis was cut to its used range; the two italics, which are set at one
+   weight each, were instanced to a single weight with `opsz` intact. **370KB → 248KB.**
+2. **Subsetting to the glyphs the site sets** — read out of the *built* HTML, not guessed —
+   plus the full transliteration apparatus (ā ḥ ī ṣ ṭ ū ẓ ʿ ʾ), because a missing macron in
+   the middle of *itqān* is the defect nobody catches until print. **248KB → 204KB.**
+
+Dropping IBM Plex entirely removed a further 77KB. **The final stack is 204KB of Latin
+across four files** — roughly 94KB more than the old static stack, spent deliberately on
+the one thing no static family provides.
+
+**The build now measures the font budget in bytes, not files.** A file count was the wrong
+metric the moment the system went variable: one file covering `wght 300–600` and
+`opsz 6–72` is four files of design space, and counting it as one rewards the wrong thing.
+What the student on 3G pays is bytes. The budget is 240KB, and the old faces are asserted
+*absent* rather than merely unused, so a stray rule cannot resurrect them.
+
+---
+
+*Design Excellence Bible v1.6 — 7 August 2026.*
