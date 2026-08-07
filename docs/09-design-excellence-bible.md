@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.6 · 7 August 2026 · Cited as `DX §n`**
+**Version 1.7 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -770,3 +770,77 @@ What the student on 3G pays is bytes. The budget is 240KB, and the old faces are
 ---
 
 *Design Excellence Bible v1.6 — 7 August 2026.*
+
+---
+
+# PART XI — THE FOOTER
+
+## §25. A footer is a seal, not a strip
+
+The pale parchment footer was the honest consequence of `§19a` — chrome counts against the
+colour budget, so the two largest blue areas were made light. It removed the blue and it
+read as **dry**, which was correct.
+
+**The error was treating the foot of the page as more page.** It is not. It is where an
+institution puts its emblem and signs, and a seal pressed in the same colour as the paper
+is not a seal.
+
+### What the Gulf official register does
+
+Studied from Saudi and Emirati institutional estates — `my.gov.sa`, `u.ae`, the cultural
+and royal-commission sites. Four moves, all adopted:
+
+1. **The foot of the page is a deep slab.** Never a pale strip. The document ends and the
+   seal begins, and the transition is visible.
+2. **The emblem is set at scale, in gold, alone** — not shrunk into a corner beside a
+   copyright line. Ours is now 240px, lit, inside its own shamsa: a mark presented the way
+   a seal is presented, framed rather than floated.
+3. **Both scripts carry the name at weight.** In that register the Arabic is never the
+   smaller line. Ours is the larger.
+4. **The institution warrants something.** Their footers carry conformance and transparency
+   statements — accessibility standard, last updated, certification. It is the most
+   institutional device in the whole vocabulary.
+
+### The warrants — the move that only works if it is true
+
+`§6.19 .warrants` — four statements of what this estate guarantees. **Every one is verified
+in the build**, which is the difference between a warranty and a boast (`EB §46`):
+
+| Warrant | Enforced by |
+|---|---|
+| WCAG 2.2 AA and AAA | Contrast computed from the shipped stylesheet across all six light grounds; a failing colour fails the deploy |
+| Bilingual in full | Every English path asserted to have an Arabic counterpart; the build fails if one is missing |
+| The honesty protocol | The superlative guard and the institutional-status blocks |
+| Six governing documents | Versioned, owned, and listed in the register |
+
+A conformance badge nobody checks is a sticker. Ours is a check that runs 1,949 times.
+
+### The ground, chosen by measurement
+
+**`#0B0E16`** — a blue-black ink that reads as near-black. Selected against three criteria,
+not by eye:
+
+- **It does not spend the blue budget.** `§19a` caps blue at 35% of rendered pixels, and
+  the classifier reads a colour as blue when `b > r+14 && b > g+8`. At `#0B0E16` the blue
+  channel is 22 against a threshold of 25 — dark enough to fall on the ink side. Measured
+  after the change: blue **14.9%** on the home page and **1.5%** on programmes, with the
+  seal itself 20–28% and the warm register above it at 50–56%.
+- **It carries gold at 11.6:1 and reversed body at 18.2:1** — AAA on both, with room.
+- **It is our own ink**, not a new colour. The palette did not grow.
+
+### The five movements
+
+| | | |
+|---|---|---|
+| I | **The arrival** — `.fseal` | Corner brackets anchored to the measure, a girih field at 6%, the emblem at scale, `وَقُل رَّبِّ زِدْنِى عِلْمًا`, the institutional line, a rosette rule, then both lockups |
+| II | **The directory** — `.fgrid` | Four columns, iconised small-caps headings, a gold rule that grows on engagement |
+| III | **The atlas** — `.atlas` | Fourteen icon medallions: every public surface visible at once, no hunting |
+| IV | **The warrants** — `.warrants` | What the estate guarantees, each with a gold cap rule |
+| V | **The attestation bar** — `.fbar` | Bilingual copyright, build date, and the accreditation status as a bordered badge rather than fine print |
+
+**A lit gold edge marks the join.** A dark slab that simply begins reads as a colour change;
+a slab with a gold edge reads as something *pressed onto* the page.
+
+---
+
+*Design Excellence Bible v1.7 — 7 August 2026.*

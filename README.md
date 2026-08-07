@@ -12,7 +12,7 @@ Institutional design and build repository.
 | **English** | [`/`](https://almadinah-college.vercel.app/) · [about](https://almadinah-college.vercel.app/about/) · [programmes](https://almadinah-college.vercel.app/programmes/) · [admissions](https://almadinah-college.vercel.app/admissions/) · [fees](https://almadinah-college.vercel.app/fees/) · [contact](https://almadinah-college.vercel.app/contact/) · [sign in](https://almadinah-college.vercel.app/signin/) · [portal](https://almadinah-college.vercel.app/portal/) · [verify](https://almadinah-college.vercel.app/verify/) |
 | **العربية** | [`/ar/`](https://almadinah-college.vercel.app/ar/) — complete mirror at every path |
 
-22 pages · **1,829 static checks + 370 rendered-browser checks** including computed WCAG contrast on six light grounds,
+22 pages · **1,949 static checks + 370 rendered-browser checks** including computed WCAG contrast on six light grounds,
 the two mechanically checkable excellence gates, light-dominance, folio sequence and
 reduced-motion coverage · **the responsive gate — a real browser at 320, 360, 375, 390, 414
 and 768 px, on nine pages in two languages, plus a colour gate measuring rendered pixels
@@ -69,7 +69,7 @@ The Editorial Bible is in force. Every downstream decision is bound by it (`EB �
 | 3 | Academic Framework | ~~D-04~~ closed; blocked on D-03, D-06, and **A-1** (credit framework) |
 | 4 | Brand Identity System | ✅ **Complete** — v1.2 (lapis & gold), peer-reviewed. Two production gates before assets are made |
 | 5 | Website Information Architecture | ✅ **Complete** — v1.1, peer-reviewed |
-| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.6, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
+| 6 | UI/UX Design System | ✅ **Complete** — `docs/09-design-excellence-bible.md` v1.7, implemented in `src/brand.css`, gates G1–G3 enforced in CI |
 | 7 | Admissions & Student Experience | Blocked on D-03, D-07, D-09 |
 | 8 | Pricing & Financial Model | ~~D-10~~ closed; blocked on D-11. Carry French localisation cost (`EB §38.3`) |
 | 9 | Technology Architecture | Blocked on **C-1** (data residency) before any real student data |
@@ -83,7 +83,7 @@ Each phase is reviewed against `EB §45`'s five quality gates before the next be
 
 ```
 npm run build     # fetch fonts if absent, generate dist/
-npm test           # build + 1,829 static checks + 370 rendered-browser checks
+npm test           # build + 1,949 static checks + 370 rendered-browser checks
 npm run test:static      # the fast half
 npm run test:responsive  # the browser half (skips cleanly with no Chromium)
 npm run dev       # build + serve dist/ at :8000

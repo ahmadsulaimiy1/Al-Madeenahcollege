@@ -1041,130 +1041,185 @@ a:hover>.arrow{transform:translateX(4px)}
 }
 
 /* ==========================================================================
-   THE FOOTER AS A COLOPHON — three movements
+   THE FOOTER AS A SEAL — five movements
 
-   Studied from the SH Royal Schools footer, which does three things almost no
-   institutional footer does: it ARRIVES (a ceremonial statement band framed by
-   corner brackets before any links), it gives the whole institution AT A GLANCE
-   (an icon grid of every public surface, so nothing needs hunting), and it
-   SIGNS OFF (a seal bar with the mark and the founding facts).
+   Studied from the register of Saudi and Emirati official institutional sites
+   (my.gov.sa, u.ae, the cultural and royal-commission estates). Four things
+   they do that almost no other tradition does, and all four are adopted:
 
-   Adapted rather than copied. Theirs is dark on dark; ours is printed on the
-   document's own paper, because a colophon belongs to the book. Theirs animates
-   on a loop; ours never does — EB §22 forbids anything that moves while the
-   reader is reading, and the build enforces it.
+   1. THE FOOT OF THE PAGE IS A DEEP SLAB, not a pale strip. A footer is the
+      SEAL on a document — the place where an institution puts its emblem and
+      signs. A parchment footer was the honest experiment and it read as dry,
+      because a seal pressed in the same colour as the paper is not a seal.
+   2. THE EMBLEM IS SET AT SCALE, in gold, on its own, above everything else —
+      not shrunk into a corner beside a copyright line.
+   3. BOTH SCRIPTS CARRY THE NAME, at weight. In that register Arabic is never
+      the smaller line.
+   4. THE INSTITUTION WARRANTS SOMETHING. Their footers carry conformance and
+      transparency statements — accessibility standard, last updated, quality
+      certification. It is the single most institutional device in the whole
+      vocabulary, and ours are all TRUE and machine-enforced (EB §46).
+
+   The ground is #0B0E16 — a blue-black ink that reads as near-black. Chosen by
+   measurement: it is dark enough not to spend the blue budget (DX §19a caps
+   blue at 35% of rendered pixels) and gives gold 11.6:1 and milk 18.2:1.
    ========================================================================== */
 
-.site-footer{background:var(--parchment);color:var(--fg-soft);font-size:.9375rem}
+.site-footer{background:var(--seal);color:var(--seal-fg);font-size:.9375rem;
+  position:relative;overflow:clip}
+/* The lit edge where the light page meets the seal. A dark slab that simply
+   begins reads as a colour change; a slab with a gold edge reads as something
+   pressed onto the page. */
+.site-footer::before{content:'';position:absolute;inset-inline:0;top:0;height:1px;z-index:3;
+  background:linear-gradient(90deg,transparent,var(--dhahab-light) 22%,var(--dhahab-light) 78%,transparent);
+  opacity:.5}
+:root{--seal:#0B0E16;--seal-2:#11151F;--seal-fg:#B9BFCF;--seal-faint:#98A0B2;
+  --seal-rule:rgba(224,199,132,.18);--seal-rule-lit:rgba(224,199,132,.34)}
+.site-footer a{color:var(--seal-fg)}
+.site-footer a:hover{color:var(--dhahab-light)}
+.site-footer .wrap{position:relative;z-index:2}
 
-/* --- Movement I: the arrival ------------------------------------------- */
-.colophon{position:relative;background:linear-gradient(168deg,var(--gilt),var(--parchment));
-  border-block:1px solid var(--rule);padding-block:var(--s9);text-align:center;overflow:clip}
-.colophon::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 60% 70% at 50% 0%,rgba(156,120,38,.13),transparent 62%)}
-.colophon .wrap{position:relative;max-width:720px}
-.colophon__c{position:absolute;width:34px;height:34px;color:var(--dhahab);opacity:.8}
-.colophon__c svg{width:100%;height:100%}
-/* Anchored to the measure, not to the viewport. On a 1440px screen brackets
-   pinned to the page edges read as decoration stuck in the corners of a
-   window; pinned to the text block they read as a frame around a statement,
-   which is what a letterhead bracket is. */
-.colophon__c--tl{inset-block-start:var(--s7);inset-inline-start:max(var(--s6),calc(50% - 470px))}
-.colophon__c--tr{inset-block-start:var(--s7);inset-inline-end:max(var(--s6),calc(50% - 470px));transform:scaleX(-1)}
-.colophon__c--bl{inset-block-end:var(--s7);inset-inline-start:max(var(--s6),calc(50% - 470px));transform:scaleY(-1)}
-.colophon__c--br{inset-block-end:var(--s7);inset-inline-end:max(var(--s6),calc(50% - 470px));transform:scale(-1,-1)}
-[dir=rtl] .colophon__c--tl,[dir=rtl] .colophon__c--bl{transform:scaleX(-1)}
-[dir=rtl] .colophon__c--tr{transform:none}
-[dir=rtl] .colophon__c--br{transform:scaleY(-1)}
-.colophon__ar{font-family:var(--f-ar-display);font-size:clamp(1.5rem,3vw,2.1rem);
-  color:var(--dhahab-ink);line-height:2;margin:0 0 var(--s6);max-width:none}
-.colophon__t{font-family:var(--f-display);font-style:italic;font-weight:400;
-  font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.5;color:var(--fg);
-  margin:0 auto;max-width:34ch}
-[lang=ar] .colophon__t,[dir=rtl] .colophon__t{font-family:var(--f-ar-display);font-style:normal;line-height:1.9}
-.colophon__m{display:flex;align-items:center;justify-content:center;gap:var(--s4);
+/* ---- I · THE ARRIVAL ---- */
+.fseal{position:relative;padding-block:var(--s9) var(--s9);text-align:center;
+  border-bottom:1px solid var(--seal-rule);
+  background:radial-gradient(ellipse 70% 90% at 50% 0%,#161B28,var(--seal) 72%)}
+.fseal__field{opacity:.06;color:var(--dhahab-light)}
+.fseal__c{position:absolute;width:40px;height:40px;color:var(--dhahab-light);opacity:.78;z-index:1}
+.fseal__c svg{width:100%;height:100%}
+.fseal__c--tl{inset-block-start:var(--s7);inset-inline-start:max(var(--s6),calc(50% - 500px))}
+.fseal__c--tr{inset-block-start:var(--s7);inset-inline-end:max(var(--s6),calc(50% - 500px));transform:scaleX(-1)}
+.fseal__c--bl{inset-block-end:var(--s7);inset-inline-start:max(var(--s6),calc(50% - 500px));transform:scaleY(-1)}
+.fseal__c--br{inset-block-end:var(--s7);inset-inline-end:max(var(--s6),calc(50% - 500px));transform:scale(-1,-1)}
+[dir=rtl] .fseal__c--tl,[dir=rtl] .fseal__c--bl{transform:scaleX(-1)}
+[dir=rtl] .fseal__c--tr{transform:none}
+[dir=rtl] .fseal__c--br{transform:scaleY(-1)}
+
+/* The emblem at scale — the move the pale footer was missing entirely. The
+   institutional glyph sits inside its own shamsa, so the mark is presented
+   the way a seal is presented: framed, not floated. */
+.fcrest{max-width:760px;margin-inline:auto}
+/* The emblem is the point of this band, so it is set at 240px and lit. At
+   168px and .55 opacity it read as a watermark somebody forgot to remove. */
+.fcrest__mark{position:relative;display:block;width:min(240px,52vw);aspect-ratio:1;
+  margin:0 auto var(--s7);color:var(--dhahab-light)}
+.fcrest__shamsa{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.fcrest__glyph{position:absolute;inset:35.5%;width:29%;height:29%;opacity:1;
+  color:var(--dhahab-pale)}
+.fseal__ar{font-family:var(--f-ar-display);direction:rtl;
+  font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.7;color:var(--dhahab-light);
+  margin:0 0 var(--s6);max-width:none;font-weight:500}
+.fseal__t{font-family:var(--f-display);font-style:italic;font-weight:400;
+  font-variation-settings:"opsz" 60;font-size:clamp(1.2rem,2.1vw,1.55rem);
+  line-height:1.5;color:#E7E3DA;margin:0 auto;max-width:36ch}
+[lang=ar] .fseal__t,[dir=rtl] .fseal__t{font-family:var(--f-ar);font-style:normal;line-height:1.9}
+.fseal__rule{display:flex;align-items:center;justify-content:center;gap:var(--s4);
   margin-top:var(--s7);color:var(--dhahab)}
-.colophon__m::before,.colophon__m::after{content:'';width:40px;height:1px;background:currentColor;opacity:.5}
-.colophon__m svg{width:16px;height:16px;flex-shrink:0}
-@media (max-width:820px){
-  .colophon{padding-block:var(--s9)}
-  .colophon__c{width:26px;height:26px;inset-inline:18px}
-  .colophon__c--tl,.colophon__c--tr{inset-block-start:18px}
-  .colophon__c--bl,.colophon__c--br{inset-block-end:18px}
-  .colophon__c--tl,.colophon__c--bl{inset-inline-end:auto}
-  .colophon__c--tr,.colophon__c--br{inset-inline-start:auto}
-}
+.fseal__rule i{width:56px;height:1px;background:currentColor;opacity:.55}
+.fseal__rule svg{width:15px;height:15px;flex-shrink:0}
 
-/* --- Movement II: the atlas -------------------------------------------- */
-/* Every public surface of the institution, visible at once, no hunting. The
-   icon sits in a medallion so the grid reads as a set of seals rather than a
-   row of bare glyphs. */
-.atlas__k{font-family:var(--f-label);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--accent);text-align:center;margin:var(--s9) 0 var(--s6);max-width:none}
-[dir=rtl] .atlas__k{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.88rem}
+/* Both scripts carry the name, and the Arabic is never the smaller line. */
+.flockup{margin-top:var(--s8);padding-top:var(--s7);
+  border-top:1px solid var(--seal-rule);max-width:820px;margin-inline:auto}
+.flockup__ar{display:block;font-family:var(--f-ar-display);font-weight:500;
+  font-size:clamp(1.25rem,2.3vw,1.7rem);line-height:1.7;color:#F2EFE8;direction:rtl}
+.flockup__en{display:block;margin-top:var(--s4);font-family:var(--f-label);
+  font-variant-caps:all-small-caps;letter-spacing:.2em;font-size:.86rem;color:var(--seal-fg)}
+.flockup__grp{display:block;margin-top:var(--s6);font-family:var(--f-label);
+  font-variant-caps:all-small-caps;letter-spacing:.24em;font-size:.72rem;color:var(--dhahab)}
+[dir=rtl] .flockup__en,[dir=rtl] .flockup__grp{font-family:var(--f-ar-ui);
+  font-variant-caps:normal;letter-spacing:normal;font-size:.9rem}
+
+/* ---- II · THE DIRECTORY ---- */
+.fbody{padding-block:var(--s9)}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s8)}
+@media (max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:var(--s7)}}
+@media (max-width:520px){.fgrid{grid-template-columns:1fr}}
+.site-footer h4{display:flex;align-items:center;gap:var(--s3);position:relative;
+  font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.18em;
+  font-size:.82rem;color:var(--dhahab-light);font-weight:500;
+  margin-bottom:var(--s6);padding-bottom:var(--s4)}
+[dir=rtl] .site-footer h4{font-family:var(--f-ar-ui);font-variant-caps:normal;
+  letter-spacing:normal;font-size:.94rem}
+.site-footer h4 svg{width:16px;height:16px;flex-shrink:0;opacity:.9}
+.site-footer h4::after{content:'';position:absolute;inset-inline-start:0;bottom:0;
+  width:36px;height:1px;background:var(--dhahab);transition:width var(--t-std) var(--ease)}
+.fcol:hover>h4::after,.fcol:focus-within>h4::after{width:100%}
+.site-footer ul{list-style:none;padding:0;margin:0}
+.site-footer li{padding:0}
+.site-footer li a{display:inline-flex;align-items:center;min-height:44px;position:relative;
+  color:var(--seal-fg)}
+.site-footer li a::after{content:'';position:absolute;inset-inline-start:0;bottom:10px;
+  width:0;height:1px;background:var(--dhahab-light);transition:width var(--t-std) var(--ease)}
+.site-footer li a:hover::after{width:100%}
+
+/* ---- III · THE ATLAS, on the seal ground ---- */
+.atlas__k{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.26em;
+  font-size:.78rem;color:var(--dhahab);text-align:center;
+  margin:var(--s9) 0 var(--s6);max-width:none;position:relative}
+[dir=rtl] .atlas__k{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.94rem}
+.atlas__k::before,.atlas__k::after{content:'';position:absolute;top:50%;width:clamp(40px,14%,150px);
+  height:1px;background:var(--seal-rule)}
+.atlas__k::before{inset-inline-start:0} .atlas__k::after{inset-inline-end:0}
 .atlas{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s3)}
 .atlas__i{display:flex;flex-direction:column;align-items:center;gap:var(--s3);text-align:center;
-  padding:var(--s5) var(--s2);border:1px solid var(--rule);background:var(--milk);
+  padding:var(--s5) var(--s2);border:1px solid var(--seal-rule);background:rgba(224,199,132,.03);
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease),
              transform var(--t-std) var(--ease)}
 .atlas__i svg{width:22px;height:22px;padding:9px;box-sizing:content-box;border-radius:var(--r-pill);
-  background:color-mix(in srgb,var(--dhahab) 9%,transparent);border:1px solid var(--rule);
-  color:var(--dhahab-ink);flex-shrink:0;
+  background:rgba(224,199,132,.07);border:1px solid var(--seal-rule);
+  color:var(--dhahab-light);flex-shrink:0;
   transition:background var(--t-micro) var(--ease),border-color var(--t-micro) var(--ease),
              transform var(--t-std) var(--ease)}
-.atlas__i span{font-family:var(--f-label);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
-  line-height:1.4;color:var(--fg-soft)}
-[dir=rtl] .atlas__i span{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.78rem}
-.atlas__i:hover{background:var(--white);border-color:var(--dhahab);transform:translateY(-3px)}
-.atlas__i:hover svg{background:color-mix(in srgb,var(--dhahab) 18%,transparent);
-  border-color:var(--dhahab);transform:scale(1.06)}
+.atlas__i span{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.1em;
+  font-size:.74rem;line-height:1.4;color:var(--seal-fg)}
+[dir=rtl] .atlas__i span{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+.atlas__i:hover{background:rgba(224,199,132,.09);border-color:var(--seal-rule-lit);transform:translateY(-3px)}
+.atlas__i:hover svg{background:rgba(224,199,132,.16);border-color:var(--dhahab-light);transform:scale(1.06)}
 @media (max-width:1000px){.atlas{grid-template-columns:repeat(5,1fr)}}
 @media (max-width:700px){.atlas{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:380px){.atlas{grid-template-columns:repeat(2,1fr)}}
 
-/* --- Movement III: the directory and the seal -------------------------- */
-.footer-grid{display:grid;grid-template-columns:2.1fr 1fr 1fr 1fr;gap:var(--s8);
-  margin-top:var(--s9);padding-top:var(--s9);border-top:1px solid var(--rule)}
-@media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:var(--s7)}}
-@media (max-width:540px){.footer-grid{grid-template-columns:1fr}}
-.site-footer h4{display:flex;align-items:center;gap:var(--s3);position:relative;
-  font-family:var(--f-label);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--accent);font-weight:500;margin-bottom:var(--s6);padding-bottom:var(--s4)}
-[dir=rtl] .site-footer h4{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.88rem}
-.site-footer h4 svg{width:15px;height:15px;flex-shrink:0;opacity:.85}
-/* A gold rule that GROWS when the column is engaged. The reference project
-   animates this on an infinite loop; nothing here loops while a reader is
-   reading (EB §22), so it responds instead of performing. */
-.site-footer h4::after{content:'';position:absolute;inset-inline-start:0;bottom:0;
-  width:34px;height:1px;background:var(--dhahab);
-  transition:width var(--t-std) var(--ease)}
-.site-footer div:hover>h4::after,.site-footer div:focus-within>h4::after{width:100%}
-.site-footer .lockup__ar{font-size:1.24rem;line-height:1.6;color:var(--fg);display:block}
-.site-footer ul{list-style:none;padding:0;margin:0}
-.site-footer li{padding:0}
-.site-footer li a{display:inline-flex;align-items:center;min-height:44px;position:relative}
-.site-footer li a::after{content:'';position:absolute;inset-inline-start:0;bottom:10px;
-  width:0;height:1px;background:var(--accent);transition:width var(--t-std) var(--ease)}
-.site-footer li a:hover{color:var(--accent)}
-.site-footer li a:hover::after{width:100%}
-.endorse{font-family:var(--f-label);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--fg-faint);margin-top:var(--s5)}
-[dir=rtl] .endorse{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.84rem}
+/* ---- IV · THE WARRANTS ----
+   The device that makes an official estate read as official: the institution
+   states what it guarantees. Every one of ours is verified in the build, so
+   this is a warranty and not a boast (EB §46). */
+.warrants{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s6);margin-top:var(--s6)}
+@media (max-width:1000px){.warrants{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.warrants{grid-template-columns:1fr}}
+.warrant{border-top:2px solid var(--dhahab);padding-top:var(--s6)}
+.warrant__i{display:flex;align-items:center;justify-content:center;width:46px;height:46px;
+  border-radius:var(--r-pill);border:1px solid var(--seal-rule);background:rgba(224,199,132,.05);
+  color:var(--dhahab-light);margin-bottom:var(--s5)}
+.warrant__i svg{width:22px;height:22px}
+.warrant__t{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
+  letter-spacing:.13em;font-size:.92rem;color:#F0ECE3;margin-bottom:var(--s3)}
+[dir=rtl] .warrant__t{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:1rem}
+.warrant__d{display:block;font-size:.84rem;line-height:1.62;color:var(--seal-faint);max-width:34ch}
 
-.seal{display:flex;align-items:center;justify-content:space-between;gap:var(--s6);flex-wrap:wrap;
-  margin-top:var(--s9);padding-block:var(--s7) var(--s9);border-top:1px solid var(--rule)}
-.seal__b{display:flex;align-items:center;gap:var(--s5);min-width:0}
-.seal__b svg{width:38px;height:38px;color:var(--dhahab-ink);flex-shrink:0}
-.seal__c,.seal__s{display:block;font-size:.8rem;line-height:1.6}
-.seal__c{color:var(--fg-soft)}
-.seal__s{color:var(--fg-faint);font-size:.75rem}
-/* min-width:0 and a wrap: the badge is a full sentence and at 320px it was
-   50px wider than the viewport. A status statement may wrap; it may not push
-   the page sideways. */
-.seal__badge{font-family:var(--f-label);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--attn);border:1px solid currentColor;padding:.7em 1.1em;
+/* ---- V · THE ATTESTATION BAR ---- */
+.fbar{border-top:1px solid var(--seal-rule);background:#070A11;padding-block:var(--s6)}
+.fbar .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s5) var(--s7);flex-wrap:wrap}
+.fbar__l,.fbar__r{display:flex;align-items:center;gap:var(--s3) var(--s6);flex-wrap:wrap;min-width:0}
+.fbar__c{font-size:.78rem;color:var(--seal-faint)}
+.fbar__d{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.14em;
+  font-size:.74rem;color:var(--seal-faint)}
+[dir=rtl] .fbar__d{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+.fbar__badge{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.14em;
+  font-size:.74rem;color:#E8A08F;border:1px solid currentColor;padding:.55em 1em;
   min-width:0;max-width:100%;line-height:1.7}
-[dir=rtl] .seal__badge{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:.8rem}
+[dir=rtl] .fbar__badge{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:.82rem}
+
+@media (max-width:820px){
+  .fseal{padding-block:var(--s9) var(--s8)}
+  .fseal__c{width:26px;height:26px}
+  .fcrest__mark{width:124px;height:124px}
+  .atlas__k::before,.atlas__k::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .atlas__i,.atlas__i svg,.site-footer h4::after,.site-footer li a::after{transition:none}
+  .atlas__i:hover,.atlas__i:hover svg{transform:none}
+}
 
 /* ---------- Preview bar ---------- */
 .previewbar{background:var(--parchment);color:#6B5518;font-size:.78rem;
