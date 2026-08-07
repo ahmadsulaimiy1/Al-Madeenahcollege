@@ -225,8 +225,21 @@ ok('reduced-motion blocks were located', rmBlocks.length > 200, `${rmBlocks.leng
 for (const sel of ['girih--draw', 'mark-draw', '.rv', 'grow', 'gilt']) {
   ok(`EB §22.4: "${sel}" has a reduced-motion override`, rmBlocks.includes(sel));
 }
-/* Nothing may loop: infinite animations repeat while the reader is reading. */
-ok('no infinite animation', !/animation[^;]*infinite/.test(brand));
+/* Nothing may loop: infinite animations repeat while the reader is reading.
+   ONE exception, and it is narrow enough to state precisely: an indeterminate
+   busy indicator. The rule's own reason does not reach it — a spinner does not
+   repeat while the reader is reading, it exists only while an operation is in
+   flight, and a busy indicator that does not move does not indicate busy. The
+   exception is bought at a price: it is admissible only on a selector carrying
+   [aria-busy=true] — the same attribute the assistive tree reads, so the
+   visual state cannot drift from the announced one — and only if a
+   reduced-motion override cancels the loop. */
+const loops = (brand.match(/[^{}]*\{[^}]*animation[^;}]*infinite[^}]*\}/g) || []);
+const badLoops = loops.filter((b) => !/\[aria-busy=true\]/.test(b));
+ok('no infinite animation except an aria-busy indicator', badLoops.length === 0, badLoops[0] || '');
+ok('every looping busy indicator is cancelled under reduced motion',
+  loops.length === 0 || /aria-busy=true\]::after\{animation:none/.test(rmBlocks),
+  `${loops.length} loop(s) found`);
 ok('logical properties used, not physical', !/(margin|padding)-(left|right)\s*:/.test(brand));
 
 /* ---- identity guards (IS §17.2, IS §31) ---- */

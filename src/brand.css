@@ -153,12 +153,47 @@
      indicator that differs by 1px between the form and the search bar is two
      indicators. One value, used everywhere a ring needs reinforcement. */
   --halo:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent);
+  --halo-attn:0 0 0 4px color-mix(in srgb,var(--attn) 16%,transparent);
 
   --ease:cubic-bezier(.16,.8,.24,1);
   --t-micro:200ms; --t-std:420ms; --t-enter:900ms;
   --wrap:1180px; --measure:66ch;
   /* light only by default; dark is applied solely by [data-theme=dark] */
   color-scheme:light;
+}
+
+/* ---- The ultra-wide tier (DX §29) ----
+   Measured at 2560px: the content column held 46% of the viewport, the display
+   line stayed at its 88px cap, and the section rhythm stayed at 120px. Nothing
+   was broken — 586 responsive checks passed — and the page still read as a
+   1180px layout adrift in a field, because "nothing overflows" is not the same
+   claim as "this was designed for this screen".
+
+   What changes and what does NOT:
+     · --measure does not move. 66ch is correct typography on a 13" laptop and
+       on a 32" monitor alike; widening the text column on a large screen is
+       the single most common ultra-wide mistake. Prose stays where it is.
+     · --wrap grows, because the wrap governs FURNITURE — grids, the footer
+       atlas, tables, plates — and a four-column grid pinned to 1180px on a
+       2560px screen is wasted room, not restraint.
+     · Display type and vertical rhythm scale, because a headline that stops
+       growing while its canvas keeps growing reads as smaller every step. */
+@media (min-width:1800px){
+  :root{
+    --wrap:1340px;
+    --ts-display:clamp(44px,7vw,104px);
+    --ts-h1:clamp(38px,5.2vw,76px);
+    --ts-mega:clamp(86px,10.5vw,168px);
+    --s9:144px; --s10:212px;
+  }
+}
+@media (min-width:2300px){
+  :root{
+    --wrap:1480px;
+    --ts-display:clamp(44px,7vw,120px);
+    --ts-h1:clamp(38px,5.2vw,88px);
+    --s9:168px; --s10:240px;
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -375,11 +410,58 @@ button,input,select,textarea{font:inherit;color:inherit}
 .section--deep .btn--ghost,.section--blue .btn--ghost,.hero--deep .btn--ghost{
   color:#C9D3EC;border-color:rgba(224,199,132,.32)}
 .btn-row{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s7)}
+
+/* ---------- The states a button actually has ----------
+   Measured before written: the stylesheet carried FORTY-FIVE :hover rules and
+   not one :active, :disabled or busy state. Hover is a pointer affordance. On
+   a phone — which EB §48 names the primary device for this college's readers —
+   there is no hover at all, so every button on the site gave touch users no
+   feedback whatsoever between tapping and the next page painting. On a slow
+   connection that is several seconds of a control that appears dead.
+
+   PRESS is therefore not a polish item; it is the only feedback the primary
+   device gets. It must be instant — a 420ms ease on press feels broken, so the
+   press transition is deliberately the micro duration and the release is not
+   animated at all. */
+.btn:active{transform:translateY(1px) scale(.985);transition-duration:var(--t-micro)}
+.btn--primary:active{box-shadow:var(--sh-soft)}
+.btn--gilt:active,.btn--ghost:active{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.card:active,.tenure:active{transform:translateY(-1px);transition-duration:var(--t-micro)}
+
+/* DISABLED. A disabled control must look disabled BEFORE it is pressed, must
+   not respond to hover, and must not sit at 30% opacity — the common pattern,
+   which takes legible text below 4.5:1 and makes the state unreadable to the
+   people most likely to need to read it. Reduced contrast, not erased. */
+.btn[disabled],.btn[aria-disabled=true],
+button[disabled],input[disabled],select[disabled],textarea[disabled]{
+  cursor:not-allowed;opacity:.62;filter:saturate(.55)}
+.btn[disabled]:hover,.btn[aria-disabled=true]:hover,
+.btn[disabled]:active,.btn[aria-disabled=true]:active{
+  transform:none;box-shadow:var(--sh-soft)}
+.btn--gilt[disabled]:hover::before,.btn--gilt[aria-disabled=true]:hover::before{transform:scaleY(0)}
+
+/* BUSY. aria-busy is the state the assistive tree already understands, so the
+   visual state is hung on the same attribute rather than on a second class
+   that can drift out of step with it. The label stays in place and keeps its
+   width — swapping it for a spinner reflows the row and shifts the page. */
+.btn[aria-busy=true]{cursor:progress;pointer-events:none}
+.btn[aria-busy=true]>*{opacity:.35}
+.btn[aria-busy=true]::after{content:'';position:absolute;inset-block-start:50%;
+  inset-inline-start:50%;width:18px;height:18px;margin:-9px 0 0 -9px;
+  border:2px solid currentColor;border-block-start-color:transparent;
+  border-radius:var(--r-pill);animation:spin 720ms linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 @media (prefers-reduced-motion:reduce){
   .btn,.card,.tenure{transition:none}
   .btn--gilt::before{transition:none}
   .btn--gilt:hover::before{transform:scaleY(1)}
   .btn--primary:hover,.card:hover,.tenure:hover{transform:none}
+  /* The press state KEEPS its transform. Reduced-motion asks for no animation,
+     not for no feedback — and a 1px displacement on touch is confirmation, not
+     motion. Removing it would leave the same silence this section exists to
+     fix. What goes is the spinner's rotation, replaced by a static mark. */
+  .btn[aria-busy=true]::after{animation:none;border-block-start-color:currentColor;opacity:.5}
 }
 
 /* ---------- Ledger ---------- */
@@ -622,6 +704,12 @@ a:hover>.arrow{transform:translateX(4px)}
   font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.16em;text-transform:uppercase;
   align-items:center;gap:var(--s3);color:var(--fg)}
 .navtoggle svg{width:17px;height:17px}
+/* The menu button is the most-tapped control on the site and the one that only
+   ever appears on the device with no hover state. It had no press feedback at
+   all — the audit found it by actually pressing it. */
+.navtoggle:active{background:color-mix(in srgb,var(--accent) 12%,transparent);
+  border-color:var(--accent);transform:scale(.97)}
+.navtoggle[aria-expanded=true]{border-color:var(--accent);color:var(--accent)}
 [dir=rtl] .navtoggle{font-family:var(--f-ar);letter-spacing:normal;text-transform:none;font-size:var(--ts-small)}
 
 @media (max-width:1000px){
@@ -1060,6 +1148,42 @@ a:hover>.arrow{transform:translateX(4px)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);
   box-shadow:var(--halo)}
 .field__hint{font-size:var(--ts-label);color:var(--fg-faint);margin-top:var(--s3);line-height:1.6}
+
+/* ---------- Field states (DX §28) ----------
+   REQUIRED is marked in the label, not by an unexplained red asterisk. The
+   asterisk convention fails twice: it carries no accessible name unless one is
+   supplied, and it tells a first-time applicant nothing. A word does both.
+   The College's admissions form will be filled in by people applying in their
+   second or third language, often on a phone, often once. */
+.field>span .req{color:var(--attn);font-variant-caps:normal;letter-spacing:normal;
+  text-transform:none;font-size:var(--ts-micro);margin-inline-start:var(--s2)}
+.field--optional>span::after{content:' — optional';color:var(--fg-faint);
+  text-transform:none;letter-spacing:normal;font-size:var(--ts-micro)}
+[lang=ar] .field--optional>span::after,[dir=rtl] .field--optional>span::after{content:' — اختياري'}
+
+/* INVALID is never colour alone (WCAG 1.4.1). Three signals carry it: the
+   border weight changes, an icon is drawn into the field, and the error text
+   is bound to the input by aria-describedby so a screen reader reads the
+   reason rather than just the word "invalid". */
+.field input[aria-invalid=true],.field select[aria-invalid=true],
+.field textarea[aria-invalid=true]{
+  border-color:var(--attn);border-width:2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%239A3324' stroke-width='1.6'%3E%3Ccircle cx='10' cy='10' r='7.5'/%3E%3Cpath d='M10 6v5M10 13.6v.1'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right var(--s3) center;
+  background-size:20px;padding-inline-end:var(--s7)}
+[dir=rtl] .field input[aria-invalid=true],[dir=rtl] .field select[aria-invalid=true],
+[dir=rtl] .field textarea[aria-invalid=true]{background-position:left var(--s3) center;
+  padding-inline-end:var(--s4);padding-inline-start:var(--s7)}
+.field__err{display:flex;align-items:flex-start;gap:var(--s2);font-size:var(--ts-label);
+  color:var(--attn);margin-top:var(--s3);line-height:1.6}
+.field__err svg{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+.field input[aria-invalid=true]:focus-visible,.field select[aria-invalid=true]:focus-visible,
+.field textarea[aria-invalid=true]:focus-visible{outline-color:var(--attn);
+  box-shadow:var(--halo-attn)}
+/* VALID is confirmed only once the field has been touched. Marking an empty
+   field green because it is not yet wrong is noise, and it trains people to
+   stop reading the marks. */
+.field input[aria-invalid=false]:not(:placeholder-shown){border-color:var(--ok)}
 
 /* ---------- Panels ---------- */
 .panel{border:1px solid var(--rule);border-radius:var(--r-md);padding:var(--s6);

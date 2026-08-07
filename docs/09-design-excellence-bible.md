@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 1.8 · 7 August 2026 · Cited as `DX §n`**
+**Version 1.9 · 7 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -895,4 +895,132 @@ clearest signal available that a layout is **a plan** rather than an arrangement
 
 ---
 
-*Design Excellence Bible v1.8 — 7 August 2026.*
+## Part XII — What measurement found that reading could not
+
+### §27 The type scale, and why there wasn't one
+
+The stylesheet carried **seventy-seven distinct `font-size` declarations**, which rendered
+as **fifty distinct sizes** across three widths — eleven of them crowded between 9.5px and
+15px. Every one had been chosen carefully. That is exactly the problem: seventy-seven
+careful decisions are not a system, they are seventy-seven careful decisions wearing a
+uniform. A scale is a *constraint*, and a constraint that admits `.82rem`, `.84rem` and
+`.85rem` as three separate values is not constraining anything.
+
+Twelve steps now, and nothing outside them. Two rules give it its shape:
+
+1. **The small end does not move.** Below the headings every step is a fixed pixel value.
+   Fluid type at the bottom of a scale is how a stylesheet arrives at **9.5px rendered
+   text on a phone** — which is not a style choice, it is an accessibility failure. 12px
+   is the floor and nothing goes beneath it.
+2. **Only the top is fluid.** Display type answers to the viewport; body type does not.
+   Nine fixed steps plus four fluid ones is the whole system, and the audit's budget is
+   that arithmetic rather than a round number: `9 + 4 × widths tested`.
+
+**Arabic does not get a parallel set of sizes.** Where Amiri or Reem Kufi needs more
+optical size than Bodoni at the same rank — and it usually does, because the script carries
+its marks inside the line — it takes the **next step up on the same scale**.
+
+Leading follows the same discipline, and is classified by **typeface**, which is the
+distinction the type system already declares: text set in the display face is *titling* at
+any size; text set in the body face is *prose*. A pull quote at 28px is titling and takes
+1.28 leading; demanding 1.4 of it because it fell under a pixel threshold would be a
+typographic error enforced by a test. Arabic runs looser in every band by design.
+
+### §28 Hover is not a state on a phone
+
+Measured before it was written: **forty-five `:hover` rules and zero `:active` rules.**
+Not one disabled state. No busy state.
+
+Hover is a pointer affordance. `EB §48` names the phone as the primary device for this
+College's readers, and a phone has no pointer. So every button on the site gave touch
+users **no feedback whatsoever** between the tap and the next page painting — which on a
+slow connection is several seconds of a control that appears dead. Press feedback is
+therefore not polish; it is the only feedback the primary device receives.
+
+Three consequences follow:
+
+- **Press must be instant.** A 420ms ease on `:active` feels broken. The press transition
+  is the micro duration and the release is not animated at all.
+- **Press survives reduced motion.** `prefers-reduced-motion` asks for no animation, not
+  for no feedback. A 1px displacement on touch is confirmation. What goes is the busy
+  indicator's rotation, not the button's answer.
+- **Disabled is reduced, never erased.** The common 30% opacity takes legible text below
+  4.5:1 and makes the state unreadable to the people most likely to need to read it.
+
+**Required is a word, not an asterisk.** A red `*` carries no accessible name unless one is
+supplied and tells a first-time applicant nothing. The College's admissions form will be
+filled in by people applying in their second or third language, often on a phone, often
+once. **Invalid is never colour alone** (`WCAG 1.4.1`): border weight, an icon drawn into
+the field, and error text bound by `aria-describedby` so the reason is read rather than the
+word "invalid". **Valid is confirmed only once a field has been touched** — marking an
+empty field green because it is not yet wrong trains people to stop reading the marks.
+
+### §29 Ultra-wide: "nothing overflows" is not "this was designed for this"
+
+At 2560px the content column held **46% of the viewport**, the display line stayed at its
+88px cap and the section rhythm stayed at 120px. 586 responsive checks passed. The page
+still read as a 1180px layout adrift in a field.
+
+What changes above 1800px, and what does not:
+
+- **`--measure` does not move.** 66ch is correct typography on a 13" laptop and on a 32"
+  monitor alike. Widening the text column on a large screen is the single most common
+  ultra-wide mistake.
+- **`--wrap` grows**, because the wrap governs *furniture* — grids, the footer atlas,
+  tables, plates — and a four-column grid pinned to 1180px on a 2560px screen is wasted
+  room, not restraint.
+- **Display type and vertical rhythm scale**, because a headline that stops growing while
+  its canvas keeps growing reads as smaller at every step.
+
+Measured after: prose held at 493px across 1440, 1920 and 2560 while the wrap went
+1180 → 1340 → 1480 and the display line went 88 → 104 → 120px.
+
+### §30 An auditor may not keep a copy of what it audits
+
+The first version of the auditor carried a hand-copied mirror of the token block. The
+moment the ultra-wide tier redefined `--s9` and `--s10`, it reported **220 spacing defects
+that were not defects** — it was measuring the page against a stale copy of the page's own
+rules.
+
+It now reads the spacing scale, the radius set and the display faces out of the rendered
+page's custom properties, at the width being measured. An instrument holding its own
+duplicate of the thing it measures will eventually be measuring the duplicate.
+
+The same principle governs how the instrument was corrected four times during this work.
+Each pass narrowed it toward **precision, not quiet**:
+
+| It was measuring | Why that was wrong | What replaced it |
+|---|---|---|
+| inline `<strong>` against a block grid | an inline box is placed by line layout, not the block axis | block-level children only — **plus** grid track drift, which catches the 1px error the old rule could not see |
+| a 22px icon's 9px padding as glyph | an icon's size is the icon, not the chip | content box, and absolutely-positioned SVGs excluded as illustration |
+| four-line descriptions by a caption rule | register is behaviour, not tag name | classification by typeface, and by the scale in Arabic |
+| `el.focus()` | `:focus-visible` is a heuristic on input *modality*; a scripted call does not set it | the **Tab key**, walked for real |
+| `:active` against an un-hovered baseline | a hover-only control would pass | pointer moved over the control **before** the baseline is read |
+
+Where the rules were merely loud they are now narrower. Where they were silent —
+off-centre blocks, track drift, keyboard focus, press state — they are new and stricter.
+
+### §31 Four defects that reading the stylesheet could never have found
+
+1. **`.field input:focus` carried `outline:none`** and substituted a 1px border-colour
+   change. `WCAG 2.2 SC 2.4.13` requires the indicator to have *area* and 3:1 contrast;
+   recolouring an existing 1px border adds no area. Every keyboard user was navigating the
+   forms blind.
+2. **`[lang=ar],[dir=rtl]` was declared twice**, 1,300 lines apart. Equal specificity,
+   later position — so the second copy silently re-declared `line-height:1.95` over every
+   Arabic-specific leading set between them. *Restating a base rule mid-sheet is not a
+   redundancy, it is a reset.*
+3. **`.nav a` (0,1,1) outranked `.mega__f-a` (0,1,0)**, so the mega-menu feature title had
+   been rendering in the body face for its entire existence. Nothing in the stylesheet
+   read as wrong.
+4. **`[lang=ar] .x` is a descendant selector** and cannot match an element carrying
+   `lang="ar"` itself — which is exactly how inline Arabic is marked up on the English
+   pages. Those spans were getting Latin metrics.
+
+`DX §20` said *a stylesheet cannot be checked by reading it*. These four are what that
+sentence costs when it is ignored: every one passed 1,949 static checks and looked correct
+in source.
+
+---
+
+*Design Excellence Bible v1.9 — 7 August 2026.*

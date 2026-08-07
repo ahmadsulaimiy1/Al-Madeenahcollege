@@ -24,8 +24,10 @@ run(`curl -fsSL https://codeload.github.com/${REPO}/tar.gz/${SHA} | tar xz --str
 
 /* The test suite IS the build. A failing check fails the deploy rather than
    shipping quietly.
-   The responsive gate needs a browser binary the deploy host does not have, so
-   it prints its reason and exits 0 there. It is a local release gate, not a
-   deploy gate — stated plainly rather than left to look like it ran. */
+   The responsive gate and the design-system audit both need a browser binary
+   the deploy host does not have, so each prints its reason and exits 0 there.
+   They are local release gates, not deploy gates — stated plainly rather than
+   left to look like they ran. The static suite is the one the deploy enforces,
+   and its check count in the build log is the receipt. */
 run('node scripts/fetch-fonts.mjs && node scripts/build.mjs'
-  + ' && node tests/run.mjs && node tests/responsive.mjs');
+  + ' && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs');

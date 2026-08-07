@@ -51,18 +51,26 @@ const server = createServer((req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const BASE = `http://127.0.0.1:${server.address().port}`;
 
-/* The systems the site claims to have. A measurement is only meaningful
-   against a declared intent, so these mirror src/brand.css exactly. */
-const SPACE = [0, 4, 8, 12, 16, 24, 32, 48, 80, 120, 184, 248, 300];
-const RADII = [0, 6, 10, 16, 22, 999];
+/* The icon sizes are the one system with no token of its own, so they are
+   listed. The SPACING and RADIUS scales are NOT listed here: they are read out
+   of the rendered page's custom properties at audit time.
+
+   That is not a convenience. This file used to carry a hand-copied mirror of
+   the token block, and the moment the ultra-wide tier redefined --s9 and --s10
+   the auditor reported 220 spacing defects that were not defects — it was
+   measuring the page against a stale copy of the page's own rules. An auditor
+   holding its own duplicate of the thing it audits will eventually be auditing
+   the duplicate. It reads the live values, per tier, per width. */
 const ICONS = [15, 16, 17, 19, 22, 24, 32, 34, 38, 40, 46];
 
 const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
                '/verify/', '/signin/', '/portal/'];
-const WIDTHS = [390, 768, 1440];
+/* 1920 is in this list because the ultra-wide tier redefines the scale tokens
+   above 1800px, and a tier that is never measured is a tier that drifts. */
+const WIDTHS = [390, 768, 1440, 1920];
 const LANGS = ['', '/ar'];
 
-const findings = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], cls: [] };
+const findings = { align: [], space: [], type: [], radius: [], shadow: [], icon: [], focus: [], press: [], cls: [] };
 const bump = (k, v) => findings[k].push(v);
 
 const browser = await chromium.launch({ executablePath: EXEC });
@@ -83,7 +91,7 @@ for (const width of WIDTHS) {
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await page.waitForTimeout(700);
 
-      const r = await page.evaluate(({ SPACE, RADII, ICONS }) => {
+      const r = await page.evaluate(({ ICONS }) => {
         const rtl = document.documentElement.dir === 'rtl';
         const sel = (el) => el.tagName.toLowerCase()
           + (el.className && typeof el.className === 'string' && el.className.trim()
@@ -94,6 +102,15 @@ for (const width of WIDTHS) {
         /* Read the display faces out of the stylesheet's own tokens, so the
            auditor cannot drift from the system it is auditing. */
         const rootCs = getComputedStyle(document.documentElement);
+        /* The scales, read from the page itself at the width being measured, so
+           a responsive tier that redefines a token is audited against the token
+           it actually declares. */
+        const readScale = (names) => [0, ...names
+          .map((n) => parseFloat(rootCs.getPropertyValue(n)))
+          .filter((v) => !Number.isNaN(v))];
+        const SPACE = readScale(['--s1', '--s2', '--s3', '--s4', '--s5', '--s6',
+          '--s7', '--s8', '--s9', '--s10', '--s11', '--s12']);
+        const RADII = readScale(['--r-edge', '--r-xs', '--r-sm', '--r-md', '--r-lg', '--r-pill']);
         const DISPLAY_FACES = ['--f-display', '--f-ar-display']
           .map((v) => (rootCs.getPropertyValue(v).split(',')[0] || '').trim().replace(/['"]/g, '').toLowerCase())
           .filter(Boolean);
@@ -300,7 +317,7 @@ for (const width of WIDTHS) {
         });
 
         return out;
-      }, { SPACE, RADII, ICONS });
+      }, { ICONS });
 
       /* ---- FOCUS ----
          Walked with the Tab key, not with el.focus(). The difference is not
@@ -330,6 +347,44 @@ for (const width of WIDTHS) {
         if (focus.some((x) => x.key === f.key)) continue;
         focus.push(f);
         if (f.none) bump('focus', { id, s: f.sel, v: f.ring });
+      }
+
+      /* ---- PRESS ----
+         The directive asks for interaction states verified in the browser. So
+         the buttons are actually pressed: mouse down over the control, read the
+         computed style while the pointer is held, mouse up. Nothing here infers
+         a state from the stylesheet — :active is produced by the engine the way
+         a finger produces it.
+
+         This exists because the measurement that preceded it found 45 :hover
+         rules and zero :active rules. Hover is a pointer affordance; the
+         primary device has no pointer. A control that changes nothing when
+         pressed is indistinguishable from a broken one. */
+      const btns = await page.$$('.btn, button.navtoggle, .atlas__i');
+      for (const el of btns.slice(0, 4)) {
+        const box = await el.boundingBox();
+        if (!box || box.width < 8 || box.height < 8) continue;
+        if (box.y < 0 || box.y > 5000) continue;
+        const read = () => el.evaluate((n) => {
+          const c = getComputedStyle(n);
+          return c.transform + '|' + c.boxShadow + '|' + c.backgroundColor + '|' + c.opacity;
+        });
+        /* The pointer is moved over the control BEFORE the baseline is read, so
+           :hover is already applied to both samples. Reading the baseline from
+           the un-hovered state would let a hover-only control pass this check —
+           the very defect it exists to find. What is isolated here is :active
+           and nothing else. */
+        await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+        const before = await read();
+        await page.mouse.down();
+        const during = await read();
+        await page.mouse.up();
+        if (before === during) {
+          const sel = await el.evaluate((n) => n.tagName.toLowerCase()
+            + (typeof n.className === 'string' && n.className.trim()
+              ? '.' + n.className.trim().split(/\s+/).slice(0, 2).join('.') : ''));
+          bump('press', { id, s: sel });
+        }
       }
 
       const cls = await page.evaluate(() => window.__cls || 0);
@@ -374,6 +429,7 @@ for (const [k, label] of [['align', 'MISALIGNED against the wrap edge'],
                           ['shadow', 'ELEVATION not layered'],
                           ['icon', 'ICON off the size scale'],
                           ['focus', 'FOCUS ring missing'],
+                          ['press', 'PRESS state absent (pressed in-browser)'],
                           ['cls', 'LAYOUT SHIFT above 0.1']]) {
   const list = findings[k];
   const rolled = k === 'cls' ? list.map((f) => ({ k: f.id, n: 1, ex: f }))
@@ -391,7 +447,22 @@ const sizes = [...typeSizes.entries()].sort((a, b) => b[1] - a[1]);
 console.log(`\n  TYPE SCALE — ${sizes.length} distinct rendered sizes`);
 console.log('      ' + sizes.slice(0, process.env.AUDIT_FULL ? sizes.length : 16)
   .map(([s, n]) => `${s}px(${n})`).join('  '));
-if (sizes.length > 22) { console.log('   ✗ more than 22 distinct sizes — the scale is not a scale'); failed++; }
+/* The budget is ARITHMETIC, not a round number: nine fixed steps that render
+   identically at every width, plus four fluid steps (h2, h1, display, mega)
+   which resolve to one value per width tested. Computing it means the budget
+   tracks the scale instead of having to be re-guessed whenever a width is
+   added — and it still fails the moment a seventy-eighth ad-hoc size appears. */
+const FIXED_STEPS = 9, FLUID_STEPS = 4;
+const budget = FIXED_STEPS + FLUID_STEPS * WIDTHS.length;
+if (sizes.length > budget) {
+  console.log(`   ✗ ${sizes.length} distinct sizes against a budget of ${budget}`
+    + ` (${FIXED_STEPS} fixed + ${FLUID_STEPS} fluid × ${WIDTHS.length} widths)`
+    + ' — the scale is not a scale');
+  failed++;
+} else {
+  console.log(`   ✓ within the budget of ${budget}`
+    + ` (${FIXED_STEPS} fixed + ${FLUID_STEPS} fluid × ${WIDTHS.length} widths)`);
+}
 
 console.log(failed ? `\n${failed} categor${failed === 1 ? 'y' : 'ies'} over budget.\n`
                    : '\nEvery category within budget.\n');

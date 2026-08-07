@@ -63,7 +63,14 @@ const ok = (name, cond, detail = '') => (cond ? pass++ : fails.push(`${name}${de
    viewport in Nigeria and across Africa — the market this College is FOR
    (EB §14 accessibility: "a three-year-old Android phone, on 3G"). 320 is
    the narrowest still in meaningful use. */
-const WIDTHS = [320, 360, 375, 390, 414, 768];
+/* 280 is the Galaxy Fold's COVER screen — the narrowest viewport shipping on a
+   current phone, and the one a folded device shows first. 653 and 884 are the
+   Fold and the Pixel Fold opened: both land between the phone and tablet
+   breakpoints, which is exactly where a layout written for "mobile or desktop"
+   falls apart. 1920 and 2560 are the other end — a wrap that is merely centred
+   at 1180px leaves a 690px margin on each side at 2560, and columns that were
+   comfortable at 1440 become a ribbon of text adrift in a field. */
+const WIDTHS = [280, 320, 360, 375, 390, 414, 653, 768, 884, 1920, 2560];
 const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
                '/verify/', '/signin/', '/portal/'];
 const LANGS = ['', '/ar'];
@@ -289,4 +296,4 @@ if (fails.length) {
   if (fails.length > 30) console.log(`  … and ${fails.length - 30} more`);
   process.exit(1);
 }
-console.log('Every page holds its width at 320, 360, 375, 390, 414 and 768.\n');
+console.log('Every page holds its width from 280 (folded cover screen) to 2560 (ultra-wide).\n');

@@ -6,9 +6,10 @@
   "scripts": {
     "fonts": "node scripts/fetch-fonts.mjs",
     "build": "node scripts/fetch-fonts.mjs && node scripts/build.mjs",
-    "test": "npm run build && node tests/run.mjs && node tests/responsive.mjs",
+    "test": "npm run build && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs",
     "test:static": "npm run build && node tests/run.mjs",
     "test:responsive": "npm run build && node tests/responsive.mjs",
+    "test:audit": "npm run build && node tests/audit.mjs",
     "dev": "npm run build && python3 -m http.server 8000 --directory dist"
   },
   "engines": { "node": ">=20" }
