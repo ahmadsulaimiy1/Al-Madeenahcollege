@@ -1991,3 +1991,162 @@ input,select,textarea,.field__hint,.pill,.tags li,.meter,.seal__c,.seal__s,
 /* The standalone pages — 404, and anything else that is a single centred
    statement — take the section rhythm rather than a number typed by hand. */
 .u-plinth{text-align:center;padding-block:var(--s8)}
+
+/* =========================================================================
+   THE STUDY — الدراسة (AEB §54, §57.5)
+
+   The public website carries the strongest ceremonial expression. The Study
+   is deliberately quieter: ivory and white working surfaces, royal blue for
+   navigation and hierarchy, gold reduced to indicators. A student is here to
+   concentrate for an hour, not to be impressed for ten seconds — applying the
+   homepage's ceremony to a lesson screen would be a failure of understanding
+   rather than a triumph of consistency.
+
+   No cards. No charts. No streaks, badges or leaderboards. Progress is a
+   fraction set as type, because a progress bar invites comparison and this
+   College measures retention, not activity.
+   ========================================================================= */
+.stu{min-height:100vh;background:var(--milk);display:flex;flex-direction:column}
+[data-theme=dark] .stu{background:#14110C}
+
+.stu__rail{display:flex;align-items:center;gap:var(--s5);
+  padding:var(--s5) max(var(--s5),calc(50% - 430px));
+  border-block-end:1px solid var(--rule);background:var(--white)}
+[data-theme=dark] .stu__rail{background:#1A1610}
+.stu__mark{display:flex;align-items:center;gap:var(--s3);color:var(--lazaward);
+  margin-inline-end:auto;min-height:44px}
+.stu__mark svg{width:24px;height:24px;flex-shrink:0}
+.stu__ar{display:block;font-family:var(--f-ar-display);font-size:var(--ts-ui);
+  line-height:1.5;color:var(--lazaward)}
+.stu__en{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
+  letter-spacing:.16em;font-size:var(--ts-micro);color:var(--fg-faint)}
+[dir=rtl] .stu__en{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal}
+.stu__acts{display:flex;gap:var(--s5);align-items:center}
+.stu__acts a{font-family:var(--f-label);font-size:var(--ts-label);color:var(--fg-soft);
+  min-height:44px;display:inline-flex;align-items:center;
+  border-block-end:1px solid transparent;transition:color var(--t-micro) var(--ease),
+  border-color var(--t-micro) var(--ease)}
+.stu__acts a:hover{color:var(--accent);border-block-end-color:var(--dhahab)}
+.stu__acts a:active{color:var(--lazaward)}
+
+.stu__note{margin:0;padding:var(--s3) max(var(--s5),calc(50% - 430px));
+  background:var(--gilt);color:var(--dhahab-ink);font-size:var(--ts-label);
+  line-height:1.6;border-block-end:1px solid var(--khatt)}
+
+.stu__main{flex:1;width:100%;max-width:920px;margin-inline:auto;
+  padding:var(--s8) max(var(--s5),24px) var(--s9)}
+
+/* The greeting. The only large type on the screen, and it is a person's name. */
+.stu__hi{font-family:var(--f-display);font-size:var(--ts-h2);line-height:var(--lh-head);
+  color:var(--fg-soft);margin:0 0 var(--s8);max-width:none;font-variation-settings:"opsz" 60;
+  font-weight:400;letter-spacing:normal}
+.stu__hi b{font-weight:500;color:var(--lazaward-deep)}
+[lang=ar] .stu__hi,[dir=rtl] .stu__hi{font-family:var(--f-ar-display);line-height:var(--lh-ar-head)}
+
+/* A section is a rule and a label, not a card. Six of these read as a
+   document; six cards read as a dashboard. */
+.stu__s{padding-block:var(--s6);border-block-start:1px solid var(--rule)}
+.stu__s:first-of-type{border-block-start:0;padding-block-start:0}
+.stu__k{font-family:var(--f-label);font-variant-caps:all-small-caps;letter-spacing:.2em;
+  font-size:var(--ts-micro);color:var(--dhahab-ink);margin:0 0 var(--s4);font-weight:500}
+[lang=ar] .stu__k,[dir=rtl] .stu__k{font-family:var(--f-ar-ui);font-variant-caps:normal;
+  letter-spacing:normal;font-size:var(--ts-label)}
+
+.stu__prog{font-family:var(--f-label);font-size:var(--ts-label);color:var(--fg-faint);
+  margin:0 0 var(--s1);max-width:none}
+.stu__course{font-family:var(--f-display);font-size:var(--ts-h3);line-height:var(--lh-sub);
+  color:var(--lazaward-deep);margin:0 0 var(--s3);max-width:none;font-variation-settings:"opsz" 32}
+[lang=ar] .stu__course,[dir=rtl] .stu__course{font-family:var(--f-ar-display);line-height:var(--lh-ar-head)}
+.stu__code{font-family:var(--f-label);font-size:var(--ts-micro);letter-spacing:.12em;
+  color:var(--fg-faint);margin-inline-start:var(--s2)}
+[dir=rtl] .stu__code{font-family:var(--f-ar-ui);letter-spacing:normal;font-size:var(--ts-label)}
+.stu__lesson{margin:0 0 var(--s5);color:var(--fg);max-width:56ch}
+.stu__n{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
+  letter-spacing:.16em;font-size:var(--ts-micro);color:var(--accent);margin-bottom:var(--s1)}
+[dir=rtl] .stu__n{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
+.stu__go{margin:0}
+
+.stu__when{font-family:var(--f-display);font-size:var(--ts-h4);line-height:var(--lh-sub);
+  color:var(--lazaward-deep);margin:0 0 var(--s1);max-width:none}
+[lang=ar] .stu__when,[dir=rtl] .stu__when{font-family:var(--f-ar-display)}
+.stu__tz{font-family:var(--f-label);font-size:var(--ts-micro);color:var(--fg-faint);
+  margin-inline-start:var(--s2);letter-spacing:.1em}
+[dir=rtl] .stu__tz{font-family:var(--f-ar-ui);letter-spacing:normal;font-size:var(--ts-label)}
+.stu__meta{font-size:var(--ts-small);color:var(--fg-soft);margin:0;max-width:60ch}
+
+.stu__due{font-family:var(--f-display);font-size:var(--ts-h4);line-height:var(--lh-sub);
+  color:var(--fg);margin:0 0 var(--s3);max-width:none}
+[lang=ar] .stu__due,[dir=rtl] .stu__due{font-family:var(--f-ar-display)}
+/* The criterion is published in advance (AEB §28) and is therefore shown, not
+   hidden behind a link. A gate a student cannot read the standard for is not
+   a published standard. */
+.stu__crit{background:var(--ivory);border-inline-start:2px solid var(--dhahab);
+  padding:var(--s4) var(--s5);margin:0 0 var(--s3);max-width:62ch;
+  font-size:var(--ts-small);line-height:1.65;color:var(--fg)}
+[data-theme=dark] .stu__crit{background:rgba(224,199,132,.07)}
+.stu__critk{display:block;font-family:var(--f-label);font-variant-caps:all-small-caps;
+  letter-spacing:.16em;font-size:var(--ts-micro);color:var(--dhahab-ink);margin-bottom:var(--s2)}
+[dir=rtl] .stu__critk{font-family:var(--f-ar-ui);font-variant-caps:normal;letter-spacing:normal;font-size:var(--ts-label)}
+
+/* Progress is a fraction set as type. Not a bar, not a ring, not a percentage. */
+.stu__frac{display:flex;align-items:baseline;gap:.12em;margin:0 0 var(--s2);
+  font-family:var(--f-display);line-height:1;max-width:none}
+/* A Didone "1" at 400 weight and opsz 96 is a hairline stem — at display size
+   it read as a vertical rule rather than a numeral, so the fraction looked
+   like "| / 2". Lining figures at 500 give it a countable shape. */
+.stu__frac b{font-size:var(--ts-h1);font-weight:500;color:var(--lazaward);
+  font-variation-settings:"opsz" 40;font-variant-numeric:lining-nums tabular-nums}
+.stu__frac i{font-size:var(--ts-h3);font-style:normal;color:var(--dhahab);margin-inline:.08em}
+.stu__frac span{font-size:var(--ts-h3);color:var(--fg-faint)}
+
+.stu__cred{margin:0 0 var(--s3);max-width:none;font-family:var(--f-display);
+  font-size:var(--ts-lead);color:var(--fg);line-height:var(--lh-tight)}
+/* Arabic takes the next step up the scale, per the scale's own rule: Reem Kufi
+   needs the optical size Bodoni does not, and at 19px it reads as running text
+   rather than as the title it is. */
+[lang=ar] .stu__cred,[dir=rtl] .stu__cred{font-family:var(--f-ar-display);
+  font-size:var(--ts-h4);line-height:var(--lh-ar-head)}
+.stu__verify{display:block;font-family:var(--f-label);font-size:var(--ts-micro);
+  letter-spacing:.1em;color:var(--accent);margin-top:var(--s1);
+  border-block-end:1px solid var(--khatt);width:fit-content;min-height:44px;
+  display:inline-flex;align-items:center}
+[dir=rtl] .stu__verify{font-family:var(--f-ar-ui);letter-spacing:normal;font-size:var(--ts-label)}
+.stu__verify:hover{border-block-end-color:var(--dhahab)}
+.stu__nextlvl{font-family:var(--f-display);font-size:var(--ts-h4);color:var(--fg-soft);
+  margin:0;max-width:none;line-height:var(--lh-sub)}
+[lang=ar] .stu__nextlvl,[dir=rtl] .stu__nextlvl{font-family:var(--f-ar-display)}
+
+/* ---------- the Reading Room ---------- */
+.stu__crumb{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
+  font-family:var(--f-label);font-size:var(--ts-label);color:var(--fg-faint);
+  margin-bottom:var(--s6)}
+[dir=rtl] .stu__crumb{font-family:var(--f-ar-ui)}
+.stu__crumb a{color:var(--accent);min-height:44px;display:inline-flex;align-items:center}
+.stu__crumb a:hover{border-block-end:1px solid var(--dhahab)}
+.stu__crumb b{color:var(--fg);font-weight:500}
+.stu__title{font-family:var(--f-display);font-size:var(--ts-h2);line-height:var(--lh-head);
+  color:var(--lazaward-deep);margin:0 0 var(--s6);max-width:22ch;
+  font-variation-settings:"opsz" 60;text-wrap:balance}
+[lang=ar] .stu__title,[dir=rtl] .stu__title{font-family:var(--f-ar-display);line-height:var(--lh-ar-head)}
+/* The empty state is a designed state, not a gap. */
+.stu__empty{border:1px dashed var(--khatt);background:var(--ivory);
+  padding:var(--s6) var(--s6);margin:0 0 var(--s7);max-width:62ch}
+[data-theme=dark] .stu__empty{background:rgba(224,199,132,.05)}
+.stu__emptyk{font-family:var(--f-display);font-size:var(--ts-lead);color:var(--fg);
+  margin:0 0 var(--s3);max-width:none}
+[lang=ar] .stu__emptyk,[dir=rtl] .stu__emptyk{font-family:var(--f-ar-display)}
+.stu__empty p:last-child{margin:0;font-size:var(--ts-small);color:var(--fg-soft);line-height:1.7}
+.stu__back{margin:var(--s8) 0 0}
+.stu__back a{font-family:var(--f-label);font-size:var(--ts-label);color:var(--accent);
+  min-height:44px;display:inline-flex;align-items:center}
+[dir=rtl] .stu__back{font-family:var(--f-ar-ui)}
+.stu__back a:hover{border-block-end:1px solid var(--dhahab)}
+
+@media (max-width:600px){
+  .stu__rail{padding-inline:var(--s4);gap:var(--s4)}
+  .stu__note{padding-inline:var(--s4)}
+  .stu__main{padding:var(--s7) var(--s4) var(--s8)}
+  .stu__hi{margin-bottom:var(--s7)}
+  .stu__acts{gap:var(--s4)}
+  .stu__go .btn{width:100%}
+}

@@ -145,28 +145,6 @@
       "altHref": "/verify/"
     },
     {
-      "slug": "portal",
-      "output": "portal/index.html",
-      "title": "Campus Portal — design preview",
-      "description": "Design preview of the Campus Portal. Illustrative data only.",
-      "contentFile": "portal.html",
-      "lang": "en",
-      "altHref": "/ar/portal/",
-      "layout": "portal",
-      "noindex": true
-    },
-    {
-      "slug": "portal-ar",
-      "output": "ar/portal/index.html",
-      "title": "بوابة الحرم — معاينة تصميمية",
-      "description": "معاينة تصميمية لبوابة الحرم. بيانات توضيحية فقط.",
-      "contentFile": "portal.ar.html",
-      "lang": "ar",
-      "altHref": "/portal/",
-      "layout": "portal",
-      "noindex": true
-    },
-    {
       "slug": "404",
       "output": "404.html",
       "title": "Page not found",
@@ -202,6 +180,50 @@
       "title": "بلا اتصال — كلية المدينة الدولية",
       "description": "أنت بلا اتصال. الصفحاتُ التي فُتِحت من قبل تبقى متاحة.",
       "altHref": "/offline/",
+      "noindex": true
+    },
+    {
+      "slug": "study",
+      "output": "study/index.html",
+      "title": "The Study — design preview",
+      "description": "The Study: the Al-Madeenah learning environment. Design preview, illustrative data.",
+      "contentFile": null,
+      "lang": "en",
+      "altHref": "/ar/study/",
+      "layout": "study",
+      "noindex": true
+    },
+    {
+      "slug": "study-ar",
+      "output": "ar/study/index.html",
+      "title": "الدراسة — معاينة تصميمية",
+      "description": "الدراسة: بيئة التعلّم في كلية المدينة. معاينة تصميمية ببيانات توضيحية.",
+      "contentFile": null,
+      "lang": "ar",
+      "altHref": "/study/",
+      "layout": "study",
+      "noindex": true
+    },
+    {
+      "slug": "room",
+      "output": "study/lesson/index.html",
+      "title": "Reading Room — design preview",
+      "description": "The Reading Room: the focused lesson experience. Design preview.",
+      "contentFile": null,
+      "lang": "en",
+      "altHref": "/ar/study/lesson/",
+      "layout": "room",
+      "noindex": true
+    },
+    {
+      "slug": "room-ar",
+      "output": "ar/study/lesson/index.html",
+      "title": "قاعة المطالعة — معاينة تصميمية",
+      "description": "قاعة المطالعة: تجربة الدرس المركَّزة. معاينة تصميمية.",
+      "contentFile": null,
+      "lang": "ar",
+      "altHref": "/study/lesson/",
+      "layout": "room",
       "noindex": true
     }
   ]

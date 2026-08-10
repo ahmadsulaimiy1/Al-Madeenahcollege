@@ -17,6 +17,9 @@ const OUT = join(ROOT, 'dist');
 
 const read = (p) => readFileSync(join(SRC, p), 'utf8');
 const manifest = JSON.parse(read('pages/manifest.json'));
+/* The Study is GENERATED from the academic engine rather than authored as
+   markup, so the interface cannot drift from the model it presents. */
+const { renderStudyHome, renderReadingRoom } = await import('../src/study-preview.mjs');
 
 /* Tokens are replaced with a function so `$&`-style sequences inside
    content (e.g. a `$` in copy) can never corrupt the output. */
@@ -50,7 +53,9 @@ const BUILT = new Date().toISOString().slice(0, 10);
 function render(page) {
   const ar = page.lang === 'ar';
   const dir = ar ? 'rtl' : 'ltr';
-  const content = read(`pages/${page.contentFile}`);
+  const content = page.layout === 'study' ? renderStudyHome(page.lang || 'en')
+    : page.layout === 'room' ? renderReadingRoom(page.lang || 'en')
+    : read(`pages/${page.contentFile}`);
   const canonical = page.output === 'index.html' ? '/' : '/' + page.output.replace(/index\.html$/, '');
   /* hreflang must label each URL by ITS OWN language, not by the page being
      rendered. Deriving `en` from the canonical is only correct on English
@@ -71,8 +76,8 @@ function render(page) {
   });
 
   let body;
-  if (page.layout === 'portal') {
-    body = content; // portal pages carry their own shell
+  if (page.layout === 'portal' || page.layout === 'study' || page.layout === 'room') {
+    body = content; // these carry their own shell
   } else {
     const lang = page.lang || 'en';
     const topbar = fill(partialFor('topbar', lang), { ALT_HREF: page.altHref });
@@ -87,12 +92,17 @@ function render(page) {
 ${head}
 </head>
 <body>
-<a class="skip" href="#main">${ar ? 'تخطَّ إلى المحتوى' : 'Skip to content'}</a>
+${/* The Study carries its own skip link and its own, more specific preview
+      notice. Emitting the site-wide pair as well produced two banners stacked
+      on top of each other and two skip links in the tab order — found by
+      screenshotting the page, not by reading the template. */
+  page.layout === 'study' || page.layout === 'room' ? '' :
+`<a class="skip" href="#main">${ar ? 'تخطَّ إلى المحتوى' : 'Skip to content'}</a>
 <div class="previewbar"><div class="wrap">${
     ar
       ? '<strong>معاينة تصميمية</strong> — هذه معاينة قيد التطوير، وليست موقعًا رسميًا. المحتوى العربي بانتظار مراجعة متحدّث أصلي.'
       : '<strong>Design preview</strong> — a work in progress, not a live institutional site. Arabic copy awaits native-speaker review (EB §11.8).'
-  }</div></div>
+  }</div></div>`}
 ${body}
 <div class="s-overlay" id="search" hidden>
   <div class="s-panel" role="dialog" aria-modal="true" aria-label="${ar ? 'بحث في الموقع' : 'Search this site'}">

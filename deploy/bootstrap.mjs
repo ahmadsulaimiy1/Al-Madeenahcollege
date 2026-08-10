@@ -30,4 +30,4 @@ run(`curl -fsSL https://codeload.github.com/${REPO}/tar.gz/${SHA} | tar xz --str
    left to look like they ran. The static suite is the one the deploy enforces,
    and its check count in the build log is the receipt. */
 run('node tests/engine.mjs && node tests/journey.mjs && node scripts/fetch-fonts.mjs && node scripts/build.mjs'
-  + ' && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs');
+  + ' && node tests/run.mjs && node tests/study-ui.mjs && node tests/responsive.mjs && node tests/audit.mjs');

@@ -30,7 +30,7 @@ const rel = (f) => f.slice(DIST.length);
 const doc = (f) => readFileSync(f, 'utf8');
 
 /* ---- structure ---- */
-ok('builds 22 pages', html.length === 22, `got ${html.length}`);
+ok('builds 24 pages', html.length === 24, `got ${html.length}`);
 /* FR-2 — the PWA surface must actually exist, not merely be referenced.
    A manifest link with no manifest, or a worker registration with no worker,
    is an install prompt that fails on the reader's phone. */
@@ -58,7 +58,7 @@ for (const [lang, min] of [['en', 8], ['ar', 8]]) {
   ok(`FR-1: every ${lang} entry has a title, a description and body text`,
      idx.every((e) => e.t && e.d && e.b && e.b.length > 80));
   ok(`FR-1: the ${lang} index excludes noindex pages`,
-     !idx.some((e) => /portal|offline/.test(e.u)), idx.map((e) => e.u).join(' '));
+     !idx.some((e) => /study|offline/.test(e.u)), idx.map((e) => e.u).join(' '));
   ok(`FR-1: ${lang} index stays under 40KB (it downloads on a metered plan)`,
      statSync(f).size < 40 * 1024, `${Math.round(statSync(f).size / 1024)}KB`);
 }
@@ -390,7 +390,7 @@ ok('DX §6.5: no page still carries a module marker',
    from generic divs would pass every other check in this file and still look
    like a template, which is precisely the failure this gate exists to catch.
    Sign-in and verify are single-purpose utilities and are exempt by design. */
-const CONTENT = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/', '/portal/'];
+const CONTENT = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/'];
 const canonUsed = (body) => CANON.filter((c) => new RegExp(`class="[^"]*\\b${c}\\b`).test(body));
 for (const p of CONTENT) {
   for (const [label, path] of [['en', p], ['ar', '/ar' + p]]) {
@@ -421,6 +421,26 @@ for (const f of html) {
   ok(`DX §6.5: folio numerals on ${rel(f)} are all recognised`, idx.every((i) => i >= 0), nums.join(' '));
   ok(`DX §6.5: folio numerals on ${rel(f)} run in sequence`,
      idx.every((v, i) => i === 0 ? v === 0 : v === idx[i - 1] + 1), nums.join(' '));
+}
+
+/* G1b · THE STUDY HAS ITS OWN VOCABULARY, AND MUST NOT BORROW THE PUBLIC
+   SITE'S CEREMONY. AEB §57.5: the website carries the strongest ceremonial
+   expression; the Study is deliberately quieter, because a student is there to
+   concentrate for an hour rather than be impressed for ten seconds. Applying
+   the homepage's cover, plates and chapter apparatus to a lesson screen would
+   be a failure of understanding, not a triumph of consistency. So this gate is
+   two-sided: the Study must compose from ITS canon, and must not reach for the
+   other one. */
+const STUDY_CANON = ['stu__s', 'stu__k', 'stu__hi', 'stu__rail', 'stu__main'];
+const CEREMONY = ['cover', 'plate', 'decree', 'chapter__n', 'folio', 'opener', 'pull', 'shamsa'];
+for (const p of ['/study/', '/study/lesson/']) {
+  for (const [label, path] of [['en', p], ['ar', '/ar' + p]]) {
+    const body = doc(join(DIST, path.replace(/^\//, ''), 'index.html'));
+    const used = STUDY_CANON.filter((c) => new RegExp(`class="[^"]*\\b${c}\\b`).test(body));
+    ok(`DX G1b: ${label} ${p} composes from the Study canon`, used.length >= 3, used.join());
+    const borrowed = CEREMONY.filter((c) => new RegExp(`class="[^"]*\\b${c}\\b`).test(body));
+    ok(`DX G1b: ${label} ${p} borrows no public ceremony`, borrowed.length === 0, borrowed.join());
+  }
 }
 
 /* G2 · SPACE — DX §2's binding minimum: no section is padded below 112px
@@ -468,11 +488,11 @@ for (const f of html) {
 }
 
 /* ---- noindex on previews (IA §4) ---- */
-for (const p of ['/portal/index.html', '/ar/portal/index.html', '/404.html']) {
+for (const p of ['/study/index.html', '/ar/study/index.html', '/study/lesson/index.html', '/404.html']) {
   ok(`${p} is noindex`, doc(join(DIST, p)).includes('name="robots" content="noindex"'));
 }
 const sitemap = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
-ok('sitemap excludes portal preview', !sitemap.includes('/portal/'));
+ok('sitemap excludes the Study preview', !sitemap.includes('/study/'));
 ok('sitemap has 16 public urls', (sitemap.match(/<url>/g) || []).length === 16, `${(sitemap.match(/<url>/g) || []).length}`);
 ok('sitemap excludes the offline fallback', !sitemap.includes('/offline/'));
 

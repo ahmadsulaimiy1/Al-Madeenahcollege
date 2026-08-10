@@ -72,7 +72,7 @@ const ok = (name, cond, detail = '') => (cond ? pass++ : fails.push(`${name}${de
    comfortable at 1440 become a ribbon of text adrift in a field. */
 const WIDTHS = [280, 320, 360, 375, 390, 414, 653, 768, 884, 1920, 2560];
 const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
-               '/verify/', '/signin/', '/portal/'];
+               '/verify/', '/signin/', '/study/', '/study/lesson/'];
 const LANGS = ['', '/ar'];
 
 const browser = await chromium.launch({ executablePath: EXEC });

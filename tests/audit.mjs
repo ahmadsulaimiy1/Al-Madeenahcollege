@@ -67,7 +67,7 @@ const ICONS = [15, 16, 17, 19, 22, 24, 32, 34, 38, 40, 46];
    hand-typed `padding-block:96px` — a value on no scale, on the one page every
    check skipped because it is the page nobody plans to visit. */
 const PAGES = ['/', '/about/', '/programmes/', '/admissions/', '/fees/', '/contact/',
-               '/verify/', '/signin/', '/portal/', '/404.html'];
+               '/verify/', '/signin/', '/study/', '/study/lesson/', '/404.html'];
 /* 1920 is in this list because the ultra-wide tier redefines the scale tokens
    above 1800px, and a tier that is never measured is a tier that drifts. */
 const WIDTHS = [390, 768, 1440, 1920];

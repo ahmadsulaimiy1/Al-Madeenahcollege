@@ -31,10 +31,10 @@ const byDate = (k) => (a, b) => (a[k] < b[k] ? -1 : a[k] > b[k] ? 1 : 0);
 /* Local rendering of a stored instant. AEB §27.1: every time shown to a
    student is in that student's own zone, always — so the instant is stored in
    UTC and converted at the edge, never the other way round. */
-export function inZone(instantUtc, timeZone) {
+export function inZone(instantUtc, timeZone, locale = 'en-GB') {
   const d = new Date(instantUtc);
   if (Number.isNaN(d.getTime())) return null;
-  return new Intl.DateTimeFormat('en-GB', {
+  return new Intl.DateTimeFormat(locale, {
     timeZone, weekday: 'short', day: 'numeric', month: 'short',
     hour: '2-digit', minute: '2-digit', hour12: false,
   }).format(d);
@@ -43,7 +43,7 @@ export function inZone(instantUtc, timeZone) {
 /* =========================================================================
    THE STUDY — one student, seven answers
    ========================================================================= */
-export function studyView(db, personId, { asAt, timeZone = 'UTC' } = {}) {
+export function studyView(db, personId, { asAt, timeZone = 'UTC', locale = 'en-GB' } = {}) {
   const today = asAt ?? new Date().toISOString().slice(0, 10);
   const nowUtc = `${today}T00:00:00Z`;
 
@@ -60,10 +60,12 @@ export function studyView(db, personId, { asAt, timeZone = 'UTC' } = {}) {
 
   const enrolments = db.all('enrolment', inst)
     .filter((e) => relIds.has(e.relationship_id))
-    .filter((e) => {
-      const s = db.statusOf(e.id, today);
-      return s !== 'withdrawn' && s !== 'transferred out' && s !== 'lapsed';
-    });
+    /* An enrolment that has ended is not current study, whatever the
+       institution calls the ending. Filtering on status STRINGS would hard-code
+       one institution's vocabulary into a read model the engine went to
+       trouble to keep vocabulary-free — and it let a completed enrolment sit at
+       the top of the student's home screen, which is how this was found. */
+    .filter((e) => e.ended_on === null || e.ended_on > today);
 
   const studying = enrolments.map((e) => {
     const prog = e.programme_id ? db.get('programme', e.programme_id) : null;
@@ -150,7 +152,7 @@ export function studyView(db, personId, { asAt, timeZone = 'UTC' } = {}) {
     greetingName: db.currentNameOf(personId, today)?.full_name ?? null,
     studying,
     nextClass: next ? {
-      at: inZone(next.starts_at_utc, timeZone),
+      at: inZone(next.starts_at_utc, timeZone, locale),
       minutes: next.minutes,
       course: next.course_id ? db.get('course', next.course_id).name : null,
       attended: attended.has(next.id),
