@@ -577,3 +577,132 @@ and whether a group entity is already registered (D-12).
 ---
 
 *Register v0.3 — 2 August 2026. Updated as decisions close.*
+
+---
+
+# Decisions raised by the Master Institutional Mandate — 10 August 2026
+
+Recorded under `AEB` v1.0. Six are **ruled by me** under executive autonomy and are
+reversible by the Founder in one sentence. Three are **Founder-dependent** and are marked.
+
+---
+
+## D-13 🟡 Institutional name and legal registration
+
+**Ruled (executive):** adopt **كلية المدينة العالمية للدراسات العربية والإسلامية** /
+**Al-Madeenah International College for Arabic & Islamic Studies**, superseding the
+previously ratified *Al-Madinah International College of Arabic and Qur'anic Studies*.
+Reasoning at `AEB §1.1`: *Al-Madeenah* carries the long vowel for a reader with no Arabic;
+العالمية means *of the world* where الدولية means *inter-state*; and *Islamic Studies*
+describes what is actually taught, where *Qur'anic Studies* named one school of three.
+
+**Founder-dependent remainder 🔴:** the **registered legal name**, and whether the entity
+is registered at all. Nothing published may imply registration. Blocks: certificates,
+transcripts, terms, privacy, and any regulated-term use.
+
+## D-14 🔴 Certificated school route — NBAIS alignment · **FOUNDER-DEPENDENT**
+
+The Mandate proposes accelerated 1-year routes through Ibtidāʾiyyah, Iʿdādiyyah and
+Thanawiyyah. `AEB §23.1` raises the obstacle: these are **school stages**, and
+school-stage certification in Nigeria is examined by the **National Board for Arabic and
+Islamic Studies (NBAIS)**, which characteristically specifies minimum duration.
+
+**My recommendation (implemented as the default):** split into an **Academic Route** —
+adults, all four paces, Al-Madeenah credentials — and a **Certificated School Route**,
+which follows the external body's rules and is **not built until NBAIS's actual
+requirements are confirmed in writing.**
+
+**Needed from the Founder:** whether the College intends to seek NBAIS recognition at all;
+and authority to approach them. **Blocks:** any school-stage certificate; any marketing of
+Thanawiyyah to school-age candidates.
+
+## D-15 🟢 Name of the learning environment
+
+**Ruled (executive):** **the Study** — الدراسة. The focused lesson interface is **the
+Reading Room** — قاعة المطالعة. *Campus Portal* is retired: `AEB §12` forbids a campus
+metaphor to an institution with no campus, and *portal* names software rather than a place
+of work. *Campus* survives only in engineering documents. `AEB §54`.
+
+## D-16 🟡 The colour contradiction
+
+**Ruled (executive): Royal Blue stands.** The Mandate contains both a basalt/green
+direction (Final Positioning §5) and a **MANDATORY** Royal Blue correction which
+explicitly forbids a green/basalt-led identity, repeated in SHRS Forensics §12. Two
+explicit instructions, one flagged as overriding, against one. `AEB §57.1`.
+
+**Consequence with a number attached:** the site's rendered blue currently measures
+**12.9%** (home) and **1.5%** (programmes) against a mandated **20–30%** band. The earlier
+*"too much blue"* correction over-shot. Correcting upward is now an implementation task,
+and the colour gate will enforce the band **in both directions**.
+
+## D-17 🟡 Financing model
+
+**Ruled (executive), on the Founder's own instruction:** credentials do not finance the
+College. Cross-subsidy per `AEB §6.1`. **First issue of every certificate and transcript is
+free; verification is free to everyone forever.** Only replacement, expedited handling and
+physical production may be charged, at documented cost.
+
+Supersedes the Roadmap's ₦6,000 / ₦8,000 / ₦10,000 tiers and its separate registration,
+ID, certificate and transcript charges. **Founder-dependent 🔴:** the budget ceiling and
+the scholarship budget as a deliberate expense line. **Blocks:** the pricing model.
+
+## D-18 🟢 Levels are hours, not months
+
+**Ruled (executive):** `AEB §19`–`§20.3`. Levels are defined in notional learning hours and
+gated by mastery; duration is an output of pace. **The Founder's "Level 100 ≈ 2 months" is
+confirmed** as the accelerated pathway at ~25 h/week, shown arithmetically at `§20.3`. It
+is not the definition of the level, and it is not what a working parent should be sold.
+Hour calibration derived from published CEFR guided-hours and FSI Category IV research
+(`§20.2`); **to be revised against our own first-cohort data.**
+
+## D-19 🔴 Safeguarding · **FOUNDER-DEPENDENT** — *raised by the audit as a failure*
+
+`AEB §70`. The Bible listed children and teenagers among those served and contained **no
+safeguarding policy at all**. An institution that puts an unvetted adult in a private
+video call with a child has created the conditions safeguarding exists to prevent.
+
+**Implemented immediately as a binding stop: no enrolment under 18 until §70 is
+operative.**
+
+**Needed from the Founder:** appointment of a named **Safeguarding Lead** independent of
+the teaching line; the vetting standard for each jurisdiction we teach into; and the
+recording-retention period. **Blocks:** every child, teenager and family programme.
+
+## D-20 🟡 Arrangements between men and women
+
+**Ruled (executive), stated for Founder confirmation:** `AEB §71`. Women's programmes
+taught by women wherever a qualified teacher is available; no default one-to-one
+opposite-gender private session, with the student choosing among same-gender teacher, third
+party present, or recorded; segregated sections where demand supports; **camera never
+required for any assessment or gate.**
+
+This is a matter on which the Founder may hold a settled position, so it is recorded
+explicitly rather than assumed. It determines whether a large part of the intended student
+body can enrol at all, and must therefore appear on the admissions page.
+
+## D-21 🟡 Continuity of the credential register
+
+**Ruled (executive):** `AEB §77`. Register of record in open text-based files;
+reconstructable from a single archive with an automated restoration test; three copies
+across two custodians; verification is the **last** thing shut down in any wind-down.
+
+**Founder-dependent 🔴 (legal):** naming a **custodian** in the College's founding
+instrument who receives the register if the College ceases. Without it, `AEB §6`'s promise
+that the institution outlasts its founder has no mechanism.
+
+---
+
+## Status summary — 10 August 2026
+
+| Founder-dependent, blocking | |
+|---|---|
+| **D-02** | Original critical blocker — still open |
+| **D-13** | Registered legal name |
+| **D-14** | NBAIS recognition intent |
+| **D-17** | Budget ceiling and scholarship budget |
+| **D-19** | Safeguarding Lead, vetting standard, retention period |
+| **D-21** | Register custodian in the founding instrument |
+| **D-06** | Riwāyah and qualified muqriʾūn — pre-existing, blocks all Qur'an credentials |
+
+**Ruled by me, reversible in one sentence:** D-13 (name), D-15 (the Study), D-16 (Royal
+Blue), D-18 (hours not months), D-20 (gender arrangements), and the default in D-14.
