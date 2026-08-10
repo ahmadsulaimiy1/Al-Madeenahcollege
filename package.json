@@ -6,11 +6,11 @@
   "scripts": {
     "fonts": "node scripts/fetch-fonts.mjs",
     "build": "node scripts/fetch-fonts.mjs && node scripts/build.mjs",
-    "test": "node tests/engine.mjs && npm run build && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs",
+    "test": "node tests/engine.mjs && node tests/journey.mjs && npm run build && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs",
     "test:static": "npm run build && node tests/run.mjs",
     "test:responsive": "npm run build && node tests/responsive.mjs",
     "test:audit": "npm run build && node tests/audit.mjs",
-    "test:engine": "node tests/engine.mjs",
+    "test:engine": "node tests/engine.mjs && node tests/journey.mjs",
     "dev": "npm run build && python3 -m http.server 8000 --directory dist"
   },
   "engines": { "node": ">=20" }

@@ -168,7 +168,64 @@ relationship, records predating their enrolment, assessment dates without grades
 self-guardianship, duplicate ordinals, half-stated volumes, attempt 0, malformed dates.
 A final assertion confirms **no refused row leaked into the store**.
 
-## §8. What is deliberately not built
+## §8. The vertical slice
+
+`schema/journey.mjs` · suite `tests/journey.mjs` — **51 assertions**, one student walked
+through all twelve steps end to end.
+
+### §8.1 Dependency analysis — three steps needed no entity
+
+| Step | New entity | Note |
+|---|---|---|
+| discover | **none** | The public website. A person who has not applied leaves no record, and should not. |
+| apply · admission | `application`, `application_status` | Append-only, because `AEB §52` requires that *every application is answered* and an overwritten decision destroys the evidence that an answer was ever given |
+| enrol | none | `relationship → enrolment` already carried it |
+| study | `lesson` | Four columns. No body, no media, no types — none of which is needed to answer "what am I studying?" |
+| attend live class | `session`, `session_attendance` | A row means attended; absence is the absence of a row. No `attended: false`, because a false row and a missing row will eventually disagree |
+| submit work | `submission` | |
+| assessment | `assessment` | Carries `is_gate` and `machine_marked` |
+| **progression** | **NONE** | Ending one enrolment and beginning the next is the transfer pattern the engine suite already exercises |
+| completion | none | `enrolment_status` + outcome |
+| **transcript** | **NONE** | Derived. A stored transcript is a second copy of the record that can disagree with the record |
+| certificate | `credential`, `credential_type` | |
+| **verification** | **NONE** | A projection over `credential` |
+
+Nine entities for twelve steps, and the three refusals are the substantive part.
+
+### §8.2 The Bible, enforced rather than remembered
+
+Six constitutional rules are now things the engine physically refuses. A rule the schema
+can refuse is a rule that survives the person who wrote it down.
+
+| Rule | Enforcement |
+|---|---|
+| `AEB §30` an automatically marked instrument may never *constitute* a gate | `assessment` with `is_gate && machine_marked` is refused |
+| `AEB §16` a gate is assessed by a qualified human | a graded gate entry with no assessor is refused |
+| `AEB §37` a credential attests only what can be evidenced | a mastery-asserting credential on an enrolment that passed no gate is refused — a Certificate of Completion, which claims no mastery, is permitted |
+| `AEB §38` a credential states what it does **not** certify | `limitations` travels with the credential *type*, so it cannot be omitted at issue |
+| `AEB §40` the register is the credential | `revoked_on`, never deletion — and the engine exposes no delete at all |
+| `AEB §68` service tier is invisible at assessment | the engine contains **no** fee, tier, price or payment field, asserted by scanning its own source |
+
+### §8.3 The elegant surface
+
+`studyView()` returns **five keys** over twenty-nine entities, answering the Founder's
+seven questions: what am I studying · what do I do today · what is my next class · what
+must I submit · how am I progressing · what have I achieved · what comes next.
+
+Progress is a **fraction of gates passed**, computed on read — never a stored percentage,
+which goes stale silently. Times are stored as UTC instants and rendered in the student's
+own zone (`AEB §27.1`); the suite asserts one instant reads as 18:00 in Lagos and 12:00 in
+New York. `verify()` returns exactly the facts `AEB §40` permits and nothing else — a
+verification endpoint that returns the whole record is a data leak with a friendly name.
+
+### §8.4 A defect the suite found
+
+The first transcript summed learning volume **per record entry**. Retakes are free and
+unlimited (`AEB §17`), so a student who used three attempts appeared to have studied three
+times the hours of one who passed first time — **the transcript rewarded failure with
+hours.** Volume is now accrued once per course. Found by running it, not by reading it.
+
+## §9. What is deliberately not built
 
 Per the standing instruction against speculative complexity: no cross-institution person
 identity, no fee or payment entities, no timetable, no attendance rows, no messaging, no
@@ -179,4 +236,27 @@ The engine is deep. The product surface stays three doors and a register (`AEB �
 
 ---
 
-*Academic Engine v1.0 — 10 August 2026.*
+## §10. Standing doctrines
+
+Ratified by the Founder, 10 August 2026. Permanent.
+
+1. **Person is not Student.** A person may acquire, lose or hold multiple institutional
+   relationships without changing identity.
+2. **Enrolment is history.** Never model current state in a way that destroys the
+   historical academic record.
+3. **Institutional isolation is structural.** Never rely on a developer remembering a
+   tenant filter.
+4. **`null` means unresolved** where the domain requires it. Never silently convert an
+   unknown or pending academic decision into a zero, a failure, a default or an invention.
+5. **Expand → migrate → contract** is permanent migration doctrine (`§6`).
+6. **No speculative complexity.** The smallest architecture that correctly represents the
+   demonstrated requirement.
+
+And one added by the Founder as a rule of conduct rather than of schema:
+
+7. **Never claim tests, schemas, commits, repositories, deployments, audits or completed
+   work that cannot be verified in the current repository or environment.**
+
+---
+
+*Academic Engine v1.1 — 10 August 2026. Engine 89 · Journey 51.*

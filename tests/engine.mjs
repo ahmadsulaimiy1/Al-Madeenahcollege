@@ -80,7 +80,8 @@ const enrol = (i, id, r, started_on, o = {}) => db.insert('enrolment', {
 const status = (i, id, e, s, effective_from, reason = null) =>
   db.insert('enrolment_status', { id, institution_id: i, enrolment_id: e, status: s, effective_from, reason });
 const entry = (i, id, e, c, attempt, o = {}) => db.insert('record_entry', {
-  id, institution_id: i, enrolment_id: e, course_id: c, attempt,
+  id, institution_id: i, enrolment_id: e, course_id: c,
+  assessment_id: o.assessment ?? null, attempt,
   grade_id: o.grade ?? null, assessed_on: o.on ?? null,
   assessor_person_id: o.by ?? null,
   volume_value: o.vv ?? null, volume_unit: o.vu ?? null,

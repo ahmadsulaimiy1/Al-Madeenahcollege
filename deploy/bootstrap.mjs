@@ -29,5 +29,5 @@ run(`curl -fsSL https://codeload.github.com/${REPO}/tar.gz/${SHA} | tar xz --str
    They are local release gates, not deploy gates — stated plainly rather than
    left to look like they ran. The static suite is the one the deploy enforces,
    and its check count in the build log is the receipt. */
-run('node tests/engine.mjs && node scripts/fetch-fonts.mjs && node scripts/build.mjs'
+run('node tests/engine.mjs && node tests/journey.mjs && node scripts/fetch-fonts.mjs && node scripts/build.mjs'
   + ' && node tests/run.mjs && node tests/responsive.mjs && node tests/audit.mjs');

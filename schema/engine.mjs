@@ -328,6 +328,10 @@ const ENTITIES = {
       id: isStr, institution_id: isStr,
       enrolment_id: isStr,
       course_id: isStr,
+      /* Optional: a record entry may be a course-level outcome with no single
+         instrument behind it. Where it IS tied to one, the invariants below
+         enforce that the instrument belongs to the same course. */
+      assessment_id: (v) => v === null || isStr(v),
       attempt: isInt,
       /* null = not yet assessed. Never 0, never "", never "PENDING" masquerading
          as a grade in the grade scheme. */
@@ -339,7 +343,178 @@ const ENTITIES = {
     },
     refs: {
       institution_id: 'institution', enrolment_id: 'enrolment',
-      course_id: 'course', grade_id: 'grade', assessor_person_id: 'person',
+      course_id: 'course', assessment_id: 'assessment',
+      grade_id: 'grade', assessor_person_id: 'person',
+    },
+  },
+
+  /* =====================================================================
+     THE STUDENT JOURNEY
+
+     Added for the smallest coherent vertical slice:
+       discover → apply → admission → enrol → study → attend → submit →
+       assess → progress → complete → transcript/certificate → verify
+
+     Three of those steps needed NO entity, and saying so is the point:
+       · progression  — ending one enrolment and beginning the next is the
+                        transfer pattern the suite already exercises
+       · transcript   — derived from the record, never stored; a stored
+                        transcript is a second copy that can disagree
+       · verification — a read model over `credential`, nothing more
+     ===================================================================== */
+
+  credential_type: {
+    fields: {
+      id: isStr, institution_id: isStr, name: isStr,
+      /* AEB §38: a credential that is silent about its limits invites the
+         reader to assume the maximum. The limitation travels WITH the type,
+         so it cannot be forgotten at issue. */
+      limitations: isStr,
+      /* AEB §37: a Certificate of Completion explicitly makes no mastery
+         claim. Recorded structurally so the engine can refuse to attach one
+         to an ungated enrolment and vice versa. */
+      asserts_mastery: (v) => typeof v === 'boolean',
+    },
+    refs: { institution_id: 'institution' },
+  },
+
+  application: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr, person_id: isStr,
+      programme_id: (v) => v === null || isStr(v),
+      submitted_on: isDate,
+    },
+    refs: {
+      institution_id: 'institution', person_id: 'person', programme_id: 'programme',
+    },
+  },
+
+  /* AEB §52: "Every application is answered. No silent rejection." Modelled
+     append-only for the same reason enrolment status is: a decision that
+     overwrites its predecessor destroys the evidence that an answer was ever
+     given, and "we replied" is precisely the claim that must survive. */
+  application_status: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr, application_id: isStr,
+      status: isStr,                       /* institution-defined */
+      effective_from: isDate,
+      reason: (v) => v === null || isStr(v),
+    },
+    refs: { institution_id: 'institution', application_id: 'application' },
+  },
+
+  /* Deliberately four columns. No body, no media, no content types, no
+     scheduling — those are a content system, and none of them is required to
+     answer the only question this entity exists for: "what am I studying?" */
+  lesson: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr, course_id: isStr,
+      ordinal: isInt, title: isStr,
+    },
+    refs: { institution_id: 'institution', course_id: 'course' },
+  },
+
+  /* An assessable thing within a course. Two structural properties, because
+     two constitutional rules depend on them being checkable rather than
+     remembered. */
+  assessment: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr, course_id: isStr,
+      name: isStr,
+      kind: isStr,                         /* institution-defined */
+      /* AEB §16: a mastery gate is assessed by a qualified human, on demand,
+         to a published criterion. */
+      is_gate: (v) => typeof v === 'boolean',
+      /* AEB §30: "An automatically marked instrument may never constitute a
+         mastery gate. It may inform one. It may never be one." */
+      machine_marked: (v) => typeof v === 'boolean',
+      /* Published in advance (AEB §28) — null where the institution does not
+         publish criteria, which is itself visible rather than hidden. */
+      criterion: (v) => v === null || isStr(v),
+    },
+    refs: { institution_id: 'institution', course_id: 'course' },
+  },
+
+  submission: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr,
+      enrolment_id: isStr, assessment_id: isStr,
+      attempt: isInt,
+      submitted_on: isDate,
+      /* What was handed in. A reference the institution resolves — the engine
+         stores no files and has no opinion about where they live. */
+      artefact_ref: (v) => v === null || isStr(v),
+    },
+    refs: {
+      institution_id: 'institution', enrolment_id: 'enrolment',
+      assessment_id: 'assessment',
+    },
+  },
+
+  /* A scheduled live session. Stored as a UTC instant, always — AEB §27.1
+     requires every time shown to a student to be rendered in that student's
+     own timezone, which is only possible if what is stored is an instant and
+     not a local wall-clock reading with the zone left implicit. */
+  session: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr,
+      course_id: (v) => v === null || isStr(v),
+      class_group_id: (v) => v === null || isStr(v),
+      starts_at_utc: (v) => isStr(v) && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(v),
+      minutes: isInt,
+      teacher_person_id: (v) => v === null || isStr(v),
+    },
+    refs: {
+      institution_id: 'institution', course_id: 'course',
+      class_group_id: 'class_group', teacher_person_id: 'person',
+    },
+  },
+
+  /* AEB §74: attendance means "joined a scheduled live session and
+     participated". A row means attended. Absence is the absence of a row —
+     there is no `attended: false`, because a false row and a missing row would
+     eventually disagree. */
+  session_attendance: {
+    optional: true,
+    fields: {
+      id: isStr, institution_id: isStr,
+      session_id: isStr, enrolment_id: isStr,
+    },
+    refs: {
+      institution_id: 'institution', session_id: 'session', enrolment_id: 'enrolment',
+    },
+  },
+
+  /* AEB §40: "The paper expresses the credential. The public verification
+     register IS the credential." This is that register. */
+  credential: {
+    optional: true,
+    fields: {
+      id: isStr,                           /* the public verification ID */
+      institution_id: isStr,
+      enrolment_id: isStr,
+      credential_type_id: isStr,
+      /* The holder's name AS PRINTED, captured at issue. Names are temporal
+         (AEB §11 / person_name); a credential issued in 2026 must keep the
+         name it was issued under even after the holder's current name changes,
+         or the document and the register will disagree about who holds it. */
+      issued_name: isStr,
+      issued_on: isDate,
+      /* Revoked, never deleted. A credential that can be deleted cannot be
+         verified — the absence of a record is indistinguishable from a record
+         that never existed. */
+      revoked_on: isNullableDate,
+      revoked_reason: (v) => v === null || isStr(v),
+    },
+    refs: {
+      institution_id: 'institution', enrolment_id: 'enrolment',
+      credential_type_id: 'credential_type',
     },
   },
 };
@@ -482,6 +657,122 @@ export class Engine {
     /* An attempt is 1-based; attempt 0 is somebody's off-by-one. */
     if (entity === 'record_entry' && row.attempt < 1) {
       bad(`record_entry.attempt must be 1 or greater`);
+    }
+
+    /* ---------------------------------------------------------------
+       Constitutional rules, enforced rather than remembered.
+
+       Each of these is a sentence in the Academic & Editorial Bible that
+       would otherwise depend on every future developer having read it. A
+       rule the schema can refuse is a rule that survives the person who
+       wrote it down.
+       --------------------------------------------------------------- */
+
+    /* AEB §30 — "An automatically marked instrument may never constitute a
+       mastery gate. It may inform one. It may never be one." */
+    if (entity === 'assessment' && row.is_gate && row.machine_marked) {
+      bad(`assessment "${row.name}" is a mastery gate AND machine-marked. ` +
+          `AEB §30: an automatically marked instrument may inform a gate, ` +
+          `never constitute one.`);
+    }
+
+    /* AEB §16 — mastery is "assessed by a qualified human". A gate result
+       with no named assessor is not a gate result. */
+    if (entity === 'record_entry' && row.assessment_id !== null) {
+      const a = this.tables.get('assessment').get(row.assessment_id);
+      if (a.course_id !== row.course_id) {
+        bad(`record_entry.assessment belongs to course "${a.course_id}" ` +
+            `but the entry is filed under "${row.course_id}"`);
+      }
+      if (a.is_gate && row.grade_id !== null && row.assessor_person_id === null) {
+        bad(`record_entry against gate "${a.name}" carries a grade with no ` +
+            `assessor. AEB §16: a gate is assessed by a qualified human.`);
+      }
+    }
+
+    /* A submission belongs to an enrolment, and its assessment must belong to
+       a course the enrolment's programme actually contains — a student cannot
+       submit work for a course they are not studying. Standalone courses
+       (programme_id null) are exempt, because they belong to no programme by
+       design. */
+    if (entity === 'submission') {
+      const enr = this.tables.get('enrolment').get(row.enrolment_id);
+      const asmt = this.tables.get('assessment').get(row.assessment_id);
+      const crs = this.tables.get('course').get(asmt.course_id);
+      if (enr.programme_id !== null && crs.programme_id !== null
+          && crs.programme_id !== enr.programme_id) {
+        bad(`submission: assessment belongs to programme "${crs.programme_id}", ` +
+            `enrolment is in "${enr.programme_id}"`);
+      }
+      if (row.submitted_on < enr.started_on) {
+        bad(`submission predates its enrolment`);
+      }
+    }
+
+    /* Attendance is only meaningful for a session the student's enrolment
+       could actually have attended. */
+    if (entity === 'session_attendance') {
+      const ses = this.tables.get('session').get(row.session_id);
+      const enr = this.tables.get('enrolment').get(row.enrolment_id);
+      if (ses.starts_at_utc.slice(0, 10) < enr.started_on) {
+        bad(`session_attendance: the session preceded the enrolment`);
+      }
+      for (const a of this.tables.get('session_attendance').values()) {
+        if (a.session_id === row.session_id && a.enrolment_id === row.enrolment_id) {
+          bad(`session_attendance already recorded for this enrolment`);
+        }
+      }
+    }
+
+    /* AEB §37 — a credential that asserts mastery may only be issued against
+       an enrolment that has actually passed its gates. The engine cannot know
+       an institution's progression rule, but it CAN refuse the one case that
+       is always wrong: asserting mastery where no gate was ever passed. */
+    if (entity === 'credential') {
+      const type = this.tables.get('credential_type').get(row.credential_type_id);
+      const enr = this.tables.get('enrolment').get(row.enrolment_id);
+      if (row.issued_on < enr.started_on) {
+        bad(`credential issued ${row.issued_on}, before its enrolment began`);
+      }
+      if (type.asserts_mastery) {
+        const gatesPassed = [...this.tables.get('record_entry').values()].some((r) => {
+          if (r.enrolment_id !== row.enrolment_id || r.grade_id === null) return false;
+          if (r.assessment_id === null) return false;
+          const a = this.tables.get('assessment').get(r.assessment_id);
+          const g = this.tables.get('grade').get(r.grade_id);
+          return a.is_gate && g.is_pass;
+        });
+        if (!gatesPassed) {
+          bad(`credential type "${type.name}" asserts mastery, but enrolment ` +
+              `"${row.enrolment_id}" has passed no gate. AEB §37: a credential ` +
+              `attests only what can be evidenced.`);
+        }
+      }
+      if (row.revoked_on !== null && row.revoked_on < row.issued_on) {
+        bad(`credential revoked before it was issued`);
+      }
+      if ((row.revoked_on === null) !== (row.revoked_reason === null)) {
+        bad(`credential revocation needs both a date and a reason, or neither`);
+      }
+    }
+
+    /* AEB §52 — an application is answered. A decision may not predate the
+       application it answers. */
+    if (entity === 'application_status') {
+      const app = this.tables.get('application').get(row.application_id);
+      if (row.effective_from < app.submitted_on) {
+        bad(`application_status predates the application it answers`);
+      }
+    }
+
+    /* A lesson's position within its course is unique — two lesson 3s is an
+       ordering bug that only ever shows up to a student. */
+    if (entity === 'lesson') {
+      for (const l of this.tables.get('lesson').values()) {
+        if (l.course_id === row.course_id && l.ordinal === row.ordinal) {
+          bad(`lesson ordinal ${row.ordinal} already exists in course "${row.course_id}"`);
+        }
+      }
     }
   }
 
