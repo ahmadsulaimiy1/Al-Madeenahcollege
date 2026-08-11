@@ -407,6 +407,54 @@ device has to encode something true about the content, and "these three
 things happen to be listed" is not the same claim as "these three things
 happen in order."
 
+## 8e. The Arabic mirror, built and verified (v1.5)
+
+Every exploration until now was English-only — a real gap against §35's own
+rule that Arabic is authored in parallel, not derived from English, since
+that rule had never actually been tested against a built page. Built
+`homepage-ar.html`: full `dir="rtl"`, Arabic copy written fresh for every
+piece of text on the page (not run through the English version), El
+Messiri/Markazi Text as the primary type pair with Latin as the secondary
+accent — the reverse of the English page's own hierarchy, which is what
+"authored in parallel" has to mean structurally, not just "the words are in
+Arabic."
+
+**Three real RTL bugs found by measuring, not by eye — worth recording
+because they will recur on every future page if not designed against from
+the start:**
+
+1. **The `-9999px` off-screen accessibility hack breaks under RTL**, in a way
+   that doesn't show up as a rendering glitch — it silently adds roughly
+   10,000px to the page's scrollable width. Logical properties
+   (`inset-inline-start` instead of `left`) do not fix this on their own,
+   because the failure isn't about which side the offset resolves to, it's
+   about how RTL documents compute scrollable overflow at all for a
+   massively-offset absolutely-positioned element. Fixed by replacing the
+   pattern entirely with the standard clip-based visually-hidden technique
+   (`width:1px;height:1px;clip:rect(0,0,0,0)`), which never relies on an
+   extreme offset and is now the only permitted way to hide the skip link on
+   this and every future page.
+2. **A decorative pseudo-element animation (`.navgrid`'s light-travel glint)
+   had no `overflow:hidden` on its container**, and had gone unnoticed on
+   the English page only because nothing there happened to expose it.
+   Every section carrying a decorative absolutely-positioned pseudo-element
+   now needs `overflow:hidden` on its containing section as a standing
+   rule, not decided case by case.
+3. **Bilingual accent text can silently become the widest thing on the
+   page.** The Arabic header's Latin sub-line first read "AL-MADEENAH
+   INTERNATIONAL COLLEGE" — grammatically fine, but wider than the English
+   page's equivalent line ("International College" alone, since "Al-Madeenah"
+   is already the headline word), and wide enough to force layout overflow
+   at phone widths. The fix was editorial, not just technical: a secondary
+   line should never repeat what the primary line already says, in either
+   language.
+
+**The standing verification step, added to this system's own process:** any
+new page ships in both languages together, and both get the same
+breakpoint sweep (`scrollWidth` measured at nine widths, 320–1920px) before
+either is considered done — a page that passes only in the language it was
+designed in has not actually been checked.
+
 ## 9. What this document does not decide
 
 Grid breakpoints below 768px, the full icon set, the certificate and transcript

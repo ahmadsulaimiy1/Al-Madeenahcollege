@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Al-Madeenah International College — homepage direction</title>
+<title>كلية المدينة العالمية — التوجّه البصري للصفحة الرئيسية</title>
 <style>
 /*FONTS*/
 
@@ -378,6 +378,41 @@ a{color:inherit}
     animation:none!important;display:none!important}
   .eyebrow .type{animation:none!important;width:auto!important;border-inline-end-color:var(--gold-light)!important}
 }
+
+/* =========================================================================
+   ARABIC / RTL OVERRIDES — the Arabic mirror, not a translated skin.
+   Swaps the two role fonts to their Arabic partners, restores the optical-
+   size parity Arabic needs (§34 of the Bible: never smaller than the Latin
+   counterpart), and strips letter-spacing/uppercase from every label — both
+   break Arabic's letter connections and have no meaning in a script with no
+   case. Logical properties elsewhere in this stylesheet (inset-inline,
+   padding-inline, border-inline-end) already flip correctly under dir=rtl
+   with no changes needed here.
+   ========================================================================= */
+:root{
+  --f-display:'El Messiri','Fraunces',serif;
+  --f-ui:'Markazi Text','Manrope',sans-serif;
+}
+html{font-size:107%}
+/* Deliberate bilingual accents (the Latin sub-line under the Arabic
+   wordmark, the English secondary hero line, the email address) stay in
+   their own Latin type and direction, exactly as the English page keeps a
+   line of real Arabic rather than pretending the institution is
+   monolingual. */
+.latin{font-family:'Manrope','Segoe UI',sans-serif;direction:ltr;unicode-bidi:isolate}
+.brandblock__en{opacity:.75;font-size:.8125rem;letter-spacing:.04em}
+.hero__en{font-family:var(--f-display-it);font-style:italic;direction:ltr;unicode-bidi:isolate;
+  font-size:clamp(1.05rem,1.7vw,1.3rem);color:var(--gold-light);margin-top:var(--sp-4);
+  max-width:36ch;line-height:1.55}
+.eyebrow,.navgrid__row span:last-child,.subnav a,.identity__tag,.progrid__tags li,
+.foot h4,.drawer__actions a,.btn,.glance__label{letter-spacing:normal;text-transform:none}
+.glance__grid span:last-child{letter-spacing:normal}
+/* the sign-in glyph (an arrow entering a doorway) reads backward once every
+   surrounding row has flipped to RTL flow */
+.icon--flip{transform:scaleX(-1)}
+.eyebrow .type{border-inline-end-color:var(--gold-light);width:0;max-width:100%;
+  animation:type-in-ar 1.5s steps(49,end) .5s 1 both,type-caret .7s steps(1) 2.05s 4 both}
+@keyframes type-in-ar{from{width:0}to{width:49ch}}
 </style>
 </head>
 <body>
@@ -414,17 +449,17 @@ a{color:inherit}
   <div class="util">
     <div class="wrap">
       <div class="util__left">
-        <a href="mailto:admissions@almadeenah.college"><svg class="icon"><use href="#ic-mail"/></svg>admissions@almadeenah.college</a>
-        <a href="#"><svg class="icon"><use href="#ic-phone"/></svg>Contact numbers by region</a>
+        <a href="mailto:admissions@almadeenah.college" class="latin"><svg class="icon"><use href="#ic-mail"/></svg>admissions@almadeenah.college</a>
+        <a href="#"><svg class="icon"><use href="#ic-phone"/></svg>أرقام التواصل حسب المنطقة</a>
       </div>
       <div class="util__right">
-        <a href="#" data-read-step><svg class="icon"><use href="#ic-type"/></svg><span>Reading size</span></a>
+        <a href="#" data-read-step><svg class="icon"><use href="#ic-type"/></svg><span>حجم القراءة</span></a>
         <span aria-hidden="true">·</span>
         <div class="util__lang">
-          <a href="#" aria-current="true">EN</a><a href="#" lang="ar">العربية</a>
+          <a href="#" aria-current="true">العربية</a><a href="#" lang="en" class="latin">EN</a>
         </div>
         <span aria-hidden="true">·</span>
-        <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
+        <a href="#"><svg class="icon icon--flip"><use href="#ic-signin"/></svg><span>تسجيل الدخول</span></a>
       </div>
     </div>
   </div>
@@ -436,69 +471,69 @@ a{color:inherit}
           <path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/>
           <circle cx="24" cy="9" r="2.2" fill="currentColor"/>
         </svg></span>
-        <span class="word">Al-Madeenah<small>International College</small></span>
+        <span class="word">المدينة<small class="latin">INTERNATIONAL COLLEGE</small></span>
       </a>
-      <p class="identity__tag"><i></i>Founding phase · Fully distance-learning<i></i></p>
+      <p class="identity__tag"><i></i>مرحلة التأسيس · تعليم عن بُعد بالكامل<i></i></p>
       <div class="identity__actions">
-        <button class="iconbtn" aria-label="Search the College"><svg class="icon"><use href="#ic-search"/></svg></button>
-        <a class="btn btn--gilt btn--sm" href="#">Begin placement</a>
-        <button class="navtoggle iconbtn" aria-label="Open menu" data-drawer-open><svg class="icon"><use href="#ic-menu"/></svg></button>
+        <button class="iconbtn" aria-label="البحث في موقع الكلية"><svg class="icon"><use href="#ic-search"/></svg></button>
+        <a class="btn btn--gilt btn--sm" href="#">ابدأ التقييم</a>
+        <button class="navtoggle iconbtn" aria-label="افتح القائمة" data-drawer-open><svg class="icon"><use href="#ic-menu"/></svg></button>
       </div>
     </div>
   </div>
 
-  <nav class="navgrid" aria-label="Primary">
+  <nav class="navgrid" aria-label="التصفح الرئيسي">
     <div class="wrap"><div class="navgrid__row">
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Institution</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Academics</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Credentials</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>المؤسسة</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>البرامج الأكاديمية</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>القبول</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon icon--flip"><use href="#ic-signin"/></svg></span><span>الدراسة</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>الشهادات</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>الأخبار</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>التواصل</span></a>
     </div></div>
   </nav>
 
   <div class="subnav">
     <div class="wrap">
-      <a href="#" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
-      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
-      <a href="#"><svg class="icon"><use href="#ic-check"/></svg>Verify a credential</a>
-      <a href="#"><svg class="icon"><use href="#ic-book"/></svg>The Academic Bible</a>
-      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact admissions</a>
+      <a href="#" class="is-primary"><svg class="icon icon--flip"><use href="#ic-signin"/></svg>الدخول إلى الدراسة</a>
+      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>تقييم المستوى</a>
+      <a href="#"><svg class="icon"><use href="#ic-check"/></svg>تحقّق من شهادة</a>
+      <a href="#"><svg class="icon"><use href="#ic-book"/></svg>الميثاق الأكاديمي</a>
+      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>تواصل مع القبول</a>
     </div>
   </div>
 
   <div class="notices">
     <div class="wrap">
-      <div class="notices__l"><svg class="icon"><use href="#ic-bell"/></svg>Notices — no active announcements yet</div>
-      <a href="#">View all →</a>
+      <div class="notices__l"><svg class="icon"><use href="#ic-bell"/></svg>الإعلانات — لا إعلانات فعّالة حاليًا</div>
+      <a href="#">عرض الكل ←</a>
     </div>
   </div>
 </header>
 
 <div class="drawer" id="drawer">
   <div class="drawer__top">
-    <a class="brand" href="#"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah</span></a>
-    <button class="drawer__close" aria-label="Close menu" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
+    <a class="brand" href="#"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">المدينة</span></a>
+    <button class="drawer__close" aria-label="أغلق القائمة" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
   </div>
   <div class="drawer__actions">
-    <a href="#" class="is-primary">Sign in to the Study<span>→</span></a>
-    <a href="#">Placement assessment<span>→</span></a>
-    <a href="#">Verify a credential<span>→</span></a>
+    <a href="#" class="is-primary">الدخول إلى الدراسة<span>←</span></a>
+    <a href="#">تقييم المستوى<span>←</span></a>
+    <a href="#">تحقّق من شهادة<span>←</span></a>
   </div>
-  <nav class="drawer__grid" aria-label="Primary">
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-inst"/></svg></span>The Institution</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-book"/></svg></span>Academics</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>Admissions</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-signin"/></svg></span>The Study</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span>Credentials</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-bell"/></svg></span>News</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>Contact</a>
+  <nav class="drawer__grid" aria-label="التصفح الرئيسي">
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-inst"/></svg></span>المؤسسة</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-book"/></svg></span>البرامج الأكاديمية</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>القبول</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon icon--flip"><use href="#ic-signin"/></svg></span>الدراسة</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span>الشهادات</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-bell"/></svg></span>الأخبار</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>التواصل</a>
   </nav>
   <div class="drawer__util">
-    <span>Reading size · EN / العربية</span>
-    <span>Founding phase</span>
+    <span>حجم القراءة · العربية / EN</span>
+    <span>مرحلة التأسيس</span>
   </div>
 </div>
 
@@ -510,22 +545,22 @@ a{color:inherit}
     <line x1="60" y1="560" x2="540" y2="560" stroke="#D9BC7B" stroke-width="1.2"/>
   </svg>
   <div class="wrap">
-    <span class="eyebrow rv"><span class="type">Arabic · Qur'an · Islamic Sciences</span></span>
+    <span class="eyebrow rv"><span class="type">اللغة العربية · القرآن الكريم · العلوم الإسلامية</span></span>
     <div class="rule rv rv-draw"></div>
-    <h1 class="rv">A serious education in Arabic and the Islamic sciences — wherever you are.</h1>
-    <p class="ar rv" lang="ar">تعليمٌ جادٌّ في اللغة العربية والعلوم الإسلامية، أينما كنت.</p>
-    <p class="lead rv">Al-Madeenah is built for a student studying from a phone, a break room, or a
-      borrowed connection — not a campus with a login screen bolted on. Progress is decided by
-      demonstrated mastery in front of a qualified teacher, never by the calendar.</p>
+    <h1 class="rv">تعليمٌ جادٌّ في اللغة العربية والعلوم الإسلامية، أينما كنت.</h1>
+    <p class="hero__en rv">A serious education in Arabic and the Islamic sciences — wherever you are.</p>
+    <p class="lead rv">صُمّمت كلية المدينة العالمية لطالبٍ يدرس من هاتفه، أو في استراحة عمله، أو
+      باتصالٍ مستعار — لا لحرمٍ جامعي يُضاف إليه شاشة دخول. يُحدَّد التقدّم بإتقانٍ مُثبَتٍ أمام
+      معلّمٍ مؤهَّل، لا بمرور التقويم.</p>
     <div class="ctas rv">
-      <a class="btn btn--primary" href="#">Take the placement assessment — free</a>
-      <a class="btn btn--gilt" href="#">Read the academic model</a>
+      <a class="btn btn--primary" href="#">ابدأ تقييم المستوى — مجانًا</a>
+      <a class="btn btn--gilt" href="#">اطّلع على النموذج الأكاديمي</a>
     </div>
     <div class="status rv" id="status">
       <span class="dot" aria-hidden="true"></span>
-      <p><strong>This is a founding-phase institution.</strong> No cohort
-        has yet started, and nothing is claimed that cannot presently be evidenced.
-        <a href="#">Read the honesty statement →</a></p>
+      <p><strong>هذه مؤسسة في مرحلة التأسيس.</strong> لم يبدأ أي فوج دراسي بعد،
+        ولا يُذكر هنا ما لا يمكن إثباته حاليًا.
+        <a href="#">اقرأ بيان الشفافية ←</a></p>
     </div>
   </div>
 </section>
@@ -533,41 +568,39 @@ a{color:inherit}
 <section class="section section--ivory">
   <div class="wrap">
     <div class="section-head rv">
-      <span class="eyebrow">The academic ladder</span>
-      <h2>Three faculties. One standard.</h2>
-      <p class="lead section-head__lead">Every faculty is assessed against a published mastery
-        standard, at a pace the student chooses — never the reverse.</p>
+      <span class="eyebrow">السلّم الأكاديمي</span>
+      <h2>ثلاث كليات. معيارٌ واحد.</h2>
+      <p class="lead section-head__lead">تُقيَّم كل كلية وفق معيار إتقانٍ منشور، وبالوتيرة التي
+        يختارها الطالب — لا العكس.</p>
     </div>
 
     <div class="progrid">
       <article class="progrid__card rv">
         <span class="progrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span>
-        <h3>Faculty of Arabic Language <span class="ar" lang="ar">كلية اللغة العربية</span></h3>
-        <p>Arabic taught as the instrument that opens the tradition — assessed across reading,
-          listening, speaking, writing and classical-text comprehension, not conversational
-          fluency alone.</p>
-        <ul class="progrid__tags"><li>Reading</li><li>Listening</li><li>Speaking</li><li>Writing</li><li>Classical text</li></ul>
+        <h3>كلية اللغة العربية <span class="latin">Faculty of Arabic Language</span></h3>
+        <p>تُدرَّس العربية بوصفها الأداة التي تفتح التراث — وتُقيَّم عبر القراءة والاستماع
+          والحديث والكتابة وفهم النصوص الفصيحة، لا الطلاقة الحوارية وحدها.</p>
+        <ul class="progrid__tags"><li>قراءة</li><li>استماع</li><li>حديث</li><li>كتابة</li><li>نصوص فصيحة</li></ul>
       </article>
       <article class="progrid__card rv">
         <span class="progrid__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span>
-        <h3>Faculty of Qur'an <span class="ar" lang="ar">كلية القرآن</span></h3>
-        <p>Nazrah, tajwīd, makhārij and recitation, memorisation measured by <em>retention</em> —
-          verified by unannounced re-testing, not pages reached and left behind.</p>
-        <ul class="progrid__tags"><li>Tajwīd</li><li>Ḥifẓ</li><li>Murājaʿah</li><li>Recitation assessment</li></ul>
+        <h3>كلية القرآن <span class="latin">Faculty of Qur'an</span></h3>
+        <p>النظر والتجويد والمخارج والتلاوة، ويُقاس الحفظ بـ<em>الثبات</em> — عبر اختبارٍ
+          مفاجئ دوري، لا بعدد الصفحات المقروءة ثم المنسيّة.</p>
+        <ul class="progrid__tags"><li>تجويد</li><li>حفظ</li><li>مراجعة</li><li>تقييم التلاوة</li></ul>
       </article>
       <article class="progrid__card rv">
         <span class="progrid__badge"><svg class="icon"><use href="#ic-scale"/></svg></span>
-        <h3>Faculty of Islamic Sciences <span class="ar" lang="ar">كلية العلوم الشرعية</span></h3>
-        <p>ʿAqīdah, fiqh taught from named texts for one stated madhhab, ḥadīth, sīrah and uṣūl —
-          with recognised differences among the schools taught respectfully, never litigated.</p>
-        <ul class="progrid__tags"><li>ʿAqīdah</li><li>Fiqh</li><li>Ḥadīth</li><li>Sīrah</li></ul>
+        <h3>كلية العلوم الشرعية <span class="latin">Faculty of Islamic Sciences</span></h3>
+        <p>العقيدة، والفقه من نصوصٍ معتمدة على مذهبٍ واحدٍ مُعلَن، والحديث، والسيرة، وأصول
+          الفقه — مع تناول اختلاف المذاهب المعتبرة باحترامٍ لا بترجيح.</p>
+        <ul class="progrid__tags"><li>عقيدة</li><li>فقه</li><li>حديث</li><li>سيرة</li></ul>
       </article>
     </div>
     <p class="progrid__foot rv"><svg class="icon" aria-hidden="true"><use href="#ic-brief"/></svg>
-      <span>A separate, deliberately lower-weight <strong>Professional &amp;
-      Specialist Programmes</strong> stream — teacher development, professional and corporate
-      Arabic, seasonal intensives — sits outside this core ladder, so it is never mistaken for
-      three years of core study.</span></p>
+      <span>يقوم إلى جانب هذا السلّم الأكاديمي مسارٌ منفصل، أخفّ وزنًا بقصد: <strong>البرامج
+      المهنية والتخصصية</strong> — تأهيل المعلّمين، والعربية المهنية والتجارية، والبرامج
+      المكثّفة الموسمية — حتى لا يُخلَط بينه وبين ثلاث سنواتٍ من الدراسة الأساسية.</span></p>
   </div>
 </section>
 </main>
@@ -575,24 +608,24 @@ a{color:inherit}
 <footer class="foot">
   <div class="glance">
     <div class="wrap">
-      <p class="glance__label">The institution, at a glance</p>
-      <nav class="glance__grid" aria-label="All destinations">
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Governance</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Faculty of Arabic</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span><span>Faculty of Qur'an</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Islamic Sciences</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-brief"/></svg></span><span>Professional Programmes</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>Placement Assessment</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-coin"/></svg></span><span>Fees &amp; Scholarships</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>Sign in to the Study</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Award Ladder</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-check"/></svg></span><span>Verify a Credential</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-shield"/></svg></span><span>Safeguarding</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-lock"/></svg></span><span>Privacy &amp; Data</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News &amp; Notices</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Editorial Bible</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
+      <p class="glance__label">الكلية في لمحة</p>
+      <nav class="glance__grid" aria-label="جميع الوجهات">
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>الحوكمة</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>كلية اللغة العربية</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span><span>كلية القرآن</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>العلوم الشرعية</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-brief"/></svg></span><span>البرامج المهنية</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>تقييم المستوى</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>القبول</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-coin"/></svg></span><span>الرسوم والمنح</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon icon--flip"><use href="#ic-signin"/></svg></span><span>الدخول إلى الدراسة</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>سلّم الشهادات</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-check"/></svg></span><span>تحقّق من شهادة</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-shield"/></svg></span><span>الحماية والسلامة</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-lock"/></svg></span><span>الخصوصية والبيانات</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>الأخبار والإعلانات</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>الميثاق الأكاديمي</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>التواصل</span></a>
       </nav>
     </div>
   </div>
@@ -601,36 +634,36 @@ a{color:inherit}
     <div class="wrap grid">
       <div class="brandblock rv">
         <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span>
-        <span class="word">Al-Madeenah</span>
-        <span class="ar" lang="ar">كلية المدينة العالمية للدراسات العربية والإسلامية</span>
-        <p>A distance-learning college for Arabic language, Qur'an and the Islamic sciences —
-          fixed standards, flexible pace.</p>
+        <span class="word">المدينة</span>
+        <span class="latin brandblock__en">Al-Madeenah International College</span>
+        <p>كليةٌ للتعليم عن بُعد في اللغة العربية والقرآن الكريم والعلوم الإسلامية —
+          معيارٌ ثابت، ووتيرة مرنة.</p>
       </div>
-      <details class="rv" open><summary>Institution</summary><ul>
-        <li><a href="#">About</a></li><li><a href="#">Governance</a></li>
-        <li><a href="#">The Academic &amp; Editorial Bible</a></li><li><a href="#">Honesty &amp; status register</a></li>
-        <li><a href="#">Safeguarding</a></li><li><a href="#">Teach with us</a></li></ul></details>
-      <details class="rv" open><summary>Academics</summary><ul>
-        <li><a href="#">Faculty of Arabic</a></li><li><a href="#">Faculty of Qur'an</a></li>
-        <li><a href="#">Faculty of Islamic Sciences</a></li><li><a href="#">Professional &amp; Specialist Programmes</a></li>
-        <li><a href="#">The Itqān method</a></li></ul></details>
-      <details class="rv" open><summary>Admissions &amp; Study</summary><ul>
-        <li><a href="#">The journey</a></li><li><a href="#">Placement assessment</a></li>
-        <li><a href="#">How to apply</a></li><li><a href="#">Fees &amp; scholarships</a></li>
-        <li><a href="#">Sign in to the Study</a></li></ul></details>
-      <details class="rv" open><summary>Credentials &amp; Policies</summary><ul>
-        <li><a href="#">The award ladder</a></li><li><a href="#">Verify a credential</a></li>
-        <li><a href="#">Privacy notice</a></li><li><a href="#">Terms</a></li></ul></details>
-      <details class="rv" open><summary>Contact</summary><ul>
-        <li><a href="#">Admissions enquiries</a></li><li><a href="#">General contact</a></li>
-        <li><a href="#">Teach with us</a></li><li><a href="#">Press enquiries</a></li></ul></details>
+      <details class="rv" open><summary>المؤسسة</summary><ul>
+        <li><a href="#">عن الكلية</a></li><li><a href="#">الحوكمة</a></li>
+        <li><a href="#">الميثاق الأكاديمي والتحريري</a></li><li><a href="#">سجل الشفافية والوضع المؤسسي</a></li>
+        <li><a href="#">الحماية والسلامة</a></li><li><a href="#">انضمّ كمعلّم</a></li></ul></details>
+      <details class="rv" open><summary>البرامج الأكاديمية</summary><ul>
+        <li><a href="#">كلية اللغة العربية</a></li><li><a href="#">كلية القرآن</a></li>
+        <li><a href="#">كلية العلوم الشرعية</a></li><li><a href="#">البرامج المهنية والتخصصية</a></li>
+        <li><a href="#">منهج الإتقان</a></li></ul></details>
+      <details class="rv" open><summary>القبول والدراسة</summary><ul>
+        <li><a href="#">رحلة الطالب</a></li><li><a href="#">تقييم المستوى</a></li>
+        <li><a href="#">آلية التقديم</a></li><li><a href="#">الرسوم والمنح</a></li>
+        <li><a href="#">الدخول إلى الدراسة</a></li></ul></details>
+      <details class="rv" open><summary>الشهادات والسياسات</summary><ul>
+        <li><a href="#">سلّم الشهادات</a></li><li><a href="#">تحقّق من شهادة</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li><li><a href="#">الشروط</a></li></ul></details>
+      <details class="rv" open><summary>التواصل</summary><ul>
+        <li><a href="#">استفسارات القبول</a></li><li><a href="#">تواصل عام</a></li>
+        <li><a href="#">انضمّ كمعلّم</a></li><li><a href="#">استفسارات إعلامية</a></li></ul></details>
     </div>
   </div>
 
   <div class="wrap">
     <div class="footbar">
-      <span><span class="dot"></span>Design exploration for a founding-phase institution — not a live site.</span>
-      <span>© Al-Madeenah International College for Arabic &amp; Islamic Studies</span>
+      <span><span class="dot"></span>استكشاف تصميمي لمؤسسة في مرحلة التأسيس — وليس موقعًا فعليًا.</span>
+      <span>© كلية المدينة العالمية للدراسات العربية والإسلامية</span>
     </div>
   </div>
 </footer>
