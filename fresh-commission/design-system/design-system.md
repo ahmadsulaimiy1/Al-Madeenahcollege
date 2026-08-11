@@ -354,6 +354,43 @@ loops, which keeps it inside the motion doctrine §7 already commits to.
 All of the above is skipped entirely — not slowed, not simplified, removed —
 under `prefers-reduced-motion`, per the standing rule in §7.
 
+## 8d. The grid is the system, not a header effect (v1.4)
+
+A third round of the same correction, generalised: the elegance the Founder
+pointed at in the SHRS reference isn't a header trick, it's a compositional
+habit — the page reads as a series of considered grids from the moment it
+loads, not header-grid-then-plain-sections. The programme section (§13 of the
+Bible: three faculties, one standard) was still built as a numbered editorial
+list at that point — a deliberate earlier choice, reasoned in v1.0 as "not
+another SaaS card grid." That reasoning is superseded here: it read as
+correct in isolation and inconsistent in context, once the header and footer
+had already established raised gold-rimmed cards as this system's actual
+visual grammar. A list format sitting between two grid-built layers didn't
+read as restraint, it read as an unfinished patch.
+
+**What changed:** the three-faculty section is now `.progrid` — three raised
+cards in the same family as the navigation grid and the footer's glance
+grid: a circular gold-ring badge, a gradient fill, a hover lift with the same
+one-shot shine sweep. Each badge carries a genuinely distinct icon (open
+book / scroll / scales) rather than three near-identical book glyphs, which
+was a real legibility miss in the first pass — caught by looking at the
+rendered cards side by side, not by reading the markup. The Professional &
+Specialist Programmes note stays deliberately *not* a fourth equal card — a
+slim banner beneath the grid — because giving it the same visual weight as
+the three core faculties would misstate what §13 establishes: it is a
+lower-weight stream, not a peer.
+
+**The standing rule going forward:** any new homepage section that presents
+three or more parallel, comparable things (faculties, pace options, awards)
+defaults to this card grid, not a list — the list format is retired for that
+use case, not merely deprioritised. A numbered or lettered format is still
+correct where the content is genuinely sequential (the four-stage Itqān
+Cycle, an ordered journey) — the test from artifact-design's own guidance
+applies here as much as it did against the SHRS reference: a structural
+device has to encode something true about the content, and "these three
+things happen to be listed" is not the same claim as "these three things
+happen in order."
+
 ## 9. What this document does not decide
 
 Grid breakpoints below 768px, the full icon set, the certificate and transcript
