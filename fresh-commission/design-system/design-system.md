@@ -128,16 +128,32 @@ luxury is bought with room to breathe, not with density:
 
 ## 4. Imagery and iconography
 
-**No stock photography, ever — the Bible's honesty doctrine (§5) makes this a
-content rule, not merely a taste preference.** Until real, consented photography of
-real teachers and real students exists, no photograph ships. In its place: a single,
-original, restrained geometric motif — an abstracted arch-and-column line drawing,
-built from true geometric construction rather than a downloaded "Islamic pattern"
-asset — used sparingly as a low-opacity plate behind a hero or a section opener,
-never as decoration covering a meaningful area. This is deliberately not a girih
-tessellation or an eight-point star field, both the most reached-for and least
-distinctive motifs in this category; a single quiet arch says "library and
-scholarship" without saying "template."
+**Photography — amended 11 August 2026 (Bible §32a).** The original rule here was
+absolute: no stock photography until real, consented photography existed. The
+Founder has since ruled that illustrative stock photography of unrelated people is
+permitted, on two conditions that carry the actual weight of what "honest" means
+in this system: **sourced only from services with a genuine, checkable commercial
+licence** (Wikimedia Commons' verified CC/public-domain works; Unsplash and Pexels
+under their free licences — never Pinterest, which hosts other people's copyrighted
+images with no redistribution right attached, a legal problem entirely separate
+from the honesty question), and **never captioned or presented as a specific,
+named Al-Madeenah student, teacher, or facility**. A photograph illustrating "a
+student reviewing vocabulary" is a scene; a photograph attributed to a named
+person or shown as this institution's building is a fact this institution has not
+earned the right to claim, and stays forbidden exactly as before.
+
+**Where photography sits in the system.** Used with real editorial discipline —
+full-bleed or generously cropped, never a thumbnail grid, never more than one
+photograph competing for attention in a single viewport. Warm, natural light over
+flat studio light; genuine texture (paper, wood, worn leather bindings, ink) over
+polished product-shot gloss, so a photograph reads as considered rather than
+purchased in bulk. The original geometric motif — an abstracted arch-and-column
+line drawing, built from true geometric construction rather than a downloaded
+"Islamic pattern" asset — remains the system's default where no photograph is the
+right choice: used sparingly as a low-opacity plate behind a hero or a section
+opener, never as decoration covering a meaningful area, and deliberately not a
+girih tessellation or an eight-point star field, both the most reached-for and
+least distinctive motifs in this category.
 
 **Iconography.** A small, custom, consistent set of 1.5px-stroke line icons —
 no icon-font library, no emoji, no filled glyph-badge clichés. Used only where they

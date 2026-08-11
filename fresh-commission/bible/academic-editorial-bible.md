@@ -533,11 +533,38 @@ template — those are the visual clichés of the category this institution is
 deliberately not joining. Luxury, here, comes from **restraint enforced as a design
 rule**: generous whitespace that is never accidental, a small number of typefaces used
 with real command of weight and optical size rather than many typefaces used timidly,
-photography that is either real or absent (never generic stock, which reads as fake the
-moment it is noticed), motion that appears rarely and always means something, and
-prose that never has to shout because it never has to compensate for something the
-institution has not yet earned. An institution can feel expensive while charging very
-little; it cannot feel expensive while claiming things it cannot back.
+photography used with discipline (§32a), motion that appears rarely and always means
+something, and prose that never has to shout because it never has to compensate for
+something the institution has not yet earned. An institution can feel expensive while
+charging very little; it cannot feel expensive while claiming things it cannot back.
+
+## §32a. Photography — amended 11 August 2026, ruled by the Founder
+
+The first issue of this document held a stricter line: "photography that is either
+real or absent," meaning no stock imagery of people at all until real, consented
+photography of actual students and teachers existed. **The Founder has since ruled
+that illustrative stock photography of unrelated people may be used**, sourced only
+from services offering a genuine, verifiable commercial licence (Wikimedia Commons'
+CC/public-domain holdings; Unsplash and Pexels under their free licences) — never
+downloaded from a site such as Pinterest that merely re-hosts other people's images
+with no redistribution right attached, which would expose the institution to
+copyright infringement regardless of what this doctrine says about honesty.
+
+**The line that survives this amendment, because it is a narrower and more serious
+claim than "a photo of a person exists on the page":** illustrative photography is
+never captioned, labelled, or otherwise presented as depicting a specific, real,
+named Al-Madeenah student, teacher, or member of staff. A photo used to illustrate
+"a student reviewing vocabulary" stays exactly that — a scene, not a person the
+institution is claiming to have. The moment an image is given a name, a role, or a
+testimonial and attributed to this institution, it must be a real, consented
+photograph of a real member of this institution, per §9's and §5's undisturbed
+rules on fabricated facts. Photography of a building, campus, or facility is held to
+the same test: this institution has no physical campus, and no image may be
+composed or captioned in a way that implies one exists.
+
+Recorded here rather than silently absorbed into §32, because it is a genuine
+reversal of a previously ratified position, not a styling refinement — the kind of
+change this document's own §6 says must be traceable, not smoothed over.
 
 ## §33. The palette
 
@@ -794,6 +821,15 @@ forward, is what a real review produces.
 Only matters that genuinely require information or authority this process does not
 have. Everything else in this document has already been decided and is not reopened by
 raising these.
+
+**Amendments ruled since first issue.** 11 August 2026 — the Founder amended §32
+(now §32a): illustrative stock photography of unrelated people is permitted, sourced
+only from genuinely licensed services (Wikimedia Commons, Unsplash, Pexels — never
+Pinterest, which carries no redistribution right over what it hosts), and never
+captioned or presented as a specific real Al-Madeenah student, teacher, or facility.
+FD-5 below is unaffected and remains open — it governs a different question, the
+institution's policy on mixed-gender depiction, not whether stock photography of
+people may be used at all.
 
 | # | Decision needed | Why it cannot be settled here |
 |---|---|---|
