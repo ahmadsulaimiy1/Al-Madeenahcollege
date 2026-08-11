@@ -278,6 +278,39 @@ certificate cannot be built believably before real credentials exist to put on o
 
 ---
 
+## 8a. Elegance, corrected (v1.2)
+
+The first built pass of the header and footer (v1.1, above) got the *density* right
+and the *warmth* wrong: flat cream cells, hairline 1px dividers, and rectangular
+badges read as an ordered directory, not an institution with real prestige. The
+Founder's correction, pointed at the same SHRS reference used for density in v1.1:
+the softness and lift are as much the point as the structure.
+
+**What changed, concretely.** Every destination in the navigation grid and the
+footer's "at a glance" grid became its own **raised, gold-rimmed card** — generous
+corner radius, a soft warm gradient fill (`--ivory` → `--cream` in light contexts,
+`--blue-900` → `--blue-950` in dark), and a real shadow that deepens and lifts the
+card 3–4px on hover, rather than a flat colour swap. Every icon moved from sitting
+bare in a cell to sitting inside its own **circular medallion** — a 44–50px ring in
+gold, on a radial-gradient ground — because a badge reads as a seal and a bare icon
+reads as a bullet point. The wordmark gained the same treatment: the arch mark now
+sits inside its own gold-rimmed roundel everywhere it appears (header, drawer,
+footer), which is what turns a logo into something closer to an institutional
+crest. Every button became a true pill (`border-radius: 999px`), and the flat
+notices/subnav bar became a row of floating pill actions with their own shadow.
+
+**What did not change, and why.** Gold is still never a large filled area — a
+44–50px circular ring around an icon is a mark, in the same sense a wax seal or a
+coin is a mark, not "gold as a fill" in the sense §2's original rule was written to
+forbid (a gold button face, a gold background band). The primary action anywhere
+on the page is still Royal Blue, not gold, so the institution's own colour
+hierarchy — blue leads, gold marks — survives the richer treatment rather than
+being overridden by it. Nothing here reaches for SHRS's literal palette (no
+bronze, no black-and-gold dark mode), its crest, or its exact card shapes
+(theirs are closer to true circles on a flat card; this system's cards are
+rounded rectangles holding a circular badge) — the correction was about **warmth,
+lift and a sense of weight**, not about matching their surface.
+
 ## 9. What this document does not decide
 
 Grid breakpoints below 768px, the full icon set, the certificate and transcript

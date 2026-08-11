@@ -145,6 +145,10 @@
   --sp-4:24px; --sp-5:32px; --sp-6:48px; --sp-7:72px; --sp-8:104px; --sp-9:152px; --sp-10:208px;
   --measure:68ch; --maxw:1240px;
   --dur:560ms; --ease:cubic-bezier(.16,.8,.24,1);
+  --sh-soft:0 1px 2px rgba(16,26,60,.04), 0 3px 10px rgba(16,26,60,.05);
+  --sh:0 10px 28px -10px rgba(16,26,60,.22), 0 2px 8px rgba(16,26,60,.06);
+  --sh-deep:0 22px 50px -18px rgba(4,10,32,.55);
+  --r-card:18px; --r-pill:999px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -183,8 +187,13 @@ a{color:inherit}
 /* Layer 2 — identity row */
 .identity{background:var(--ivory);border-bottom:1px solid var(--hairline)}
 .identity .wrap{display:flex;align-items:center;justify-content:space-between;height:88px;gap:24px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--blue-800);flex-shrink:0}
-.brand svg{width:36px;height:36px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--blue-800);flex-shrink:0}
+.brand__seal{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 25%,var(--ivory),var(--cream) 70%);border:1.5px solid var(--gold);
+  box-shadow:0 0 0 1px rgba(184,147,61,.16),var(--sh-soft)}
+.header.scrolled .brand__seal{background:radial-gradient(circle at 35% 25%,var(--blue-800),var(--blue-900) 70%);
+  border-color:var(--gold-light)}
+.brand svg{width:24px;height:24px;flex-shrink:0}
 .brand .word{font-family:var(--f-display);font-size:1.25rem;font-weight:500;letter-spacing:.01em;line-height:1.15}
 .brand .word small{display:block;font-family:var(--f-ui);font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-ink);font-weight:700;margin-top:3px}
@@ -198,25 +207,42 @@ a{color:inherit}
 .iconbtn .icon{width:19px;height:19px}
 .navtoggle{display:none}
 
-/* Layer 3 — the navigation grid: the structural centrepiece, not a link row */
-.navgrid{background:var(--cream);border-bottom:1px solid var(--hairline)}
-.navgrid__row{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--hairline)}
-.navgrid__row a{background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:9px;padding:20px 8px;text-decoration:none;color:var(--ink-soft);text-align:center;transition:background .2s,color .2s}
-.navgrid__row a:hover,.navgrid__row a:focus-visible{background:var(--ivory);color:var(--blue-800)}
+/* Layer 3 — the navigation grid: the structural centrepiece, not a link row.
+   Each destination is its own raised, gold-rimmed card — the institutional
+   equivalent of a seal on a document, not a flat directory listing. */
+.navgrid{background:linear-gradient(180deg,var(--cream) 0%,var(--parchment) 220%);
+  padding-block:26px;position:relative}
+.navgrid::before{content:'';position:absolute;inset-inline:0;top:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,147,61,.4) 20%,rgba(184,147,61,.4) 80%,transparent)}
+.navgrid__row{display:flex;gap:16px;flex-wrap:wrap}
+.navgrid__row a{flex:1 1 140px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:13px;padding:24px 10px;text-decoration:none;color:var(--ink-soft);text-align:center;
+  background:linear-gradient(165deg,var(--ivory) 0%,var(--cream) 100%);
+  border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft);
+  transition:transform .32s var(--ease),box-shadow .32s var(--ease),border-color .32s var(--ease),color .2s}
+.navgrid__row a:hover,.navgrid__row a:focus-visible{transform:translateY(-4px);box-shadow:var(--sh);
+  border-color:var(--gold);color:var(--blue-800)}
+.navgrid__badge{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 22%,#fffdf7,var(--cream) 78%);border:1.5px solid var(--gold);
+  box-shadow:0 0 0 1px rgba(184,147,61,.14),0 3px 10px -4px rgba(140,106,34,.35);
+  transition:border-color .32s var(--ease),transform .32s var(--ease)}
+.navgrid__row a:hover .navgrid__badge{border-color:var(--gold-ink);transform:scale(1.06)}
 .navgrid__row .icon{width:21px;height:21px;color:var(--gold-ink)}
-.navgrid__row span{font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+.navgrid__row span:last-child{font-size:.6875rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
 
-/* Layer 4 — secondary action strip */
-.subnav{background:var(--parchment)}
-.subnav .wrap{display:flex;align-items:stretch;gap:1px;overflow-x:auto;scrollbar-width:none}
+/* Layer 4 — secondary action strip: floating pills, not a flat bar */
+.subnav{background:transparent;padding-block:18px}
+.subnav .wrap{display:flex;align-items:stretch;gap:12px;overflow-x:auto;scrollbar-width:none}
 .subnav .wrap::-webkit-scrollbar{display:none}
-.subnav a{display:flex;align-items:center;gap:8px;padding:12px 20px;text-decoration:none;font-size:.75rem;
-  letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);white-space:nowrap;transition:all .2s}
+.subnav a{display:flex;align-items:center;gap:9px;padding:12px 22px;text-decoration:none;font-size:.75rem;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);white-space:nowrap;
+  background:var(--ivory);border:1px solid rgba(184,147,61,.22);border-radius:var(--r-pill);box-shadow:var(--sh-soft);
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .28s,color .2s,background .28s}
 .subnav a .icon{width:14px;height:14px}
-.subnav a:hover{color:var(--blue-800)}
-.subnav a.is-primary{background:var(--gold);color:var(--blue-950)}
-.subnav a.is-primary:hover{background:var(--gold-ink);color:var(--on-blue)}
+.subnav a:hover{transform:translateY(-2px);box-shadow:var(--sh);border-color:var(--gold);color:var(--blue-800)}
+.subnav a.is-primary{background:linear-gradient(180deg,var(--blue-700),var(--blue-800));color:var(--on-blue);
+  border-color:var(--blue-800)}
+.subnav a.is-primary:hover{box-shadow:0 14px 28px -10px rgba(11,27,66,.5);border-color:var(--gold)}
 
 /* Layer 5 — notices */
 .notices{background:var(--ivory)}
@@ -233,14 +259,19 @@ a{color:inherit}
 .drawer__top{display:flex;justify-content:space-between;align-items:center;padding:20px 20px;border-bottom:1px solid var(--hairline)}
 .drawer__close{background:none;border:0;cursor:pointer;color:var(--blue-800);padding:8px}
 .drawer__close .icon{width:22px;height:22px}
-.drawer__grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hairline);margin:1px 0}
-.drawer__grid a{background:var(--ivory);display:flex;align-items:center;gap:12px;padding:20px;text-decoration:none;
-  color:var(--ink);font-size:.875rem;font-weight:700}
-.drawer__grid .icon{width:20px;height:20px;color:var(--gold-ink);flex-shrink:0}
-.drawer__actions{display:flex;flex-direction:column;padding:18px 20px;gap:2px;background:var(--parchment)}
-.drawer__actions a{display:flex;justify-content:space-between;padding:14px 4px;text-decoration:none;color:var(--ink-soft);
-  font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(25,26,34,.08)}
-.drawer__actions a.is-primary{color:var(--blue-800)}
+.drawer__grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px 4px}
+.drawer__grid a{background:linear-gradient(165deg,var(--ivory),var(--cream));display:flex;align-items:center;gap:12px;
+  padding:16px;text-decoration:none;color:var(--ink);font-size:.8438rem;font-weight:700;border-radius:14px;
+  border:1px solid rgba(184,147,61,.2);box-shadow:var(--sh-soft)}
+.drawer__badge{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 22%,#fffdf7,var(--cream) 78%);border:1.5px solid var(--gold)}
+.drawer__grid .icon{width:16px;height:16px;color:var(--gold-ink);flex-shrink:0}
+.drawer__actions{display:flex;flex-direction:column;padding:18px 20px;gap:10px;background:var(--parchment)}
+.drawer__actions a{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;text-decoration:none;
+  color:var(--ink-soft);font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;
+  background:var(--ivory);border:1px solid rgba(184,147,61,.2);border-radius:var(--r-pill);box-shadow:var(--sh-soft)}
+.drawer__actions a.is-primary{color:var(--on-blue);background:linear-gradient(180deg,var(--blue-700),var(--blue-800));
+  border-color:var(--blue-800)}
 .drawer__util{display:flex;justify-content:space-between;padding:18px 20px;font-size:.8125rem;color:var(--ink-faint)}
 
 /* once the reader has scrolled past the full institutional header, the
@@ -250,9 +281,6 @@ a{color:inherit}
 .header.scrolled .identity .wrap{height:64px}
 .header.scrolled .navgrid__row a{padding-block:12px}
 
-@media (max-width:1080px){
-  .navgrid__row{grid-template-columns:repeat(4,1fr)}
-}
 @media (max-width:920px){
   .util__left{display:none}
   .navgrid,.subnav{display:none}
@@ -273,11 +301,14 @@ a{color:inherit}
 
 /* ---- buttons ---- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;font-family:var(--f-ui);
-  font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:15px 30px;
-  border-radius:2px;text-decoration:none;cursor:pointer;transition:transform .22s var(--ease),box-shadow .22s,color .22s,background .3s}
-.btn--primary{background:var(--blue-800);color:var(--on-blue);border:1px solid var(--blue-800)}
-.btn--primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(11,27,66,.45)}
-.btn--gilt{position:relative;background:transparent;color:var(--gold-ink);border:1px solid var(--gold);overflow:hidden;z-index:0}
+  font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:15px 32px;
+  border-radius:var(--r-pill);text-decoration:none;cursor:pointer;
+  transition:transform .22s var(--ease),box-shadow .3s var(--ease),color .22s,background .3s}
+.btn--primary{background:linear-gradient(180deg,var(--blue-700),var(--blue-800));color:var(--on-blue);
+  border:1px solid var(--blue-800);box-shadow:var(--sh-soft)}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(11,27,66,.5)}
+.btn--gilt{position:relative;background:transparent;color:var(--gold-ink);border:1px solid var(--gold);overflow:hidden;z-index:0;
+  box-shadow:var(--sh-soft)}
 .btn--gilt::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);
   transform-origin:left;transition:transform .32s var(--ease);z-index:-1}
 .btn--gilt:hover::before{transform:scaleX(1)}
@@ -339,20 +370,31 @@ a{color:inherit}
 .foot{background:var(--blue-950);color:var(--on-blue-soft);padding-block:0 var(--sp-6);
   border-top:2px solid var(--gold);position:relative}
 
-.glance{padding-block:var(--sp-7)}
+.glance{padding-block:var(--sp-7);position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 90% 70% at 50% -10%,rgba(217,188,123,.10),transparent 60%),
+    linear-gradient(180deg,var(--blue-900) 0%,var(--blue-950) 60%)}
 .glance__label{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--gold-light);margin:0 0 var(--sp-5);font-weight:700;text-align:center}
-.glance__grid{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:rgba(199,208,234,.14);
-  border:1px solid rgba(199,208,234,.14)}
-.glance__grid a{background:var(--blue-950);display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:9px;padding:20px 6px;text-decoration:none;color:var(--on-blue-soft);text-align:center;transition:background .2s,color .2s}
-.glance__grid a:hover{background:var(--blue-900);color:var(--gold-light)}
-.glance__grid .icon{width:19px;height:19px;color:var(--gold)}
-.glance__grid span{font-size:.6875rem;letter-spacing:.03em;line-height:1.3}
+  color:var(--gold-light);margin:0 0 var(--sp-5);font-weight:700;text-align:center;position:relative;z-index:1}
+.glance__grid{display:flex;flex-wrap:wrap;gap:14px;position:relative;z-index:1}
+.glance__grid a{flex:1 1 128px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:12px;padding:22px 8px;text-decoration:none;color:var(--on-blue-soft);text-align:center;
+  background:linear-gradient(165deg,var(--blue-900) 0%,var(--blue-950) 100%);
+  border:1px solid rgba(217,188,123,.2);border-radius:var(--r-card);
+  box-shadow:0 12px 26px -14px rgba(0,0,0,.6);
+  transition:transform .32s var(--ease),box-shadow .32s var(--ease),border-color .32s var(--ease),color .2s}
+.glance__grid a:hover{transform:translateY(-4px);border-color:var(--gold);color:var(--gold-light);
+  box-shadow:0 18px 34px -14px rgba(0,0,0,.65),0 0 0 1px rgba(184,147,61,.3)}
+.glance__badge{width:44px;height:44px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 22%,var(--blue-700),var(--blue-950) 78%);border:1.5px solid var(--gold);
+  transition:border-color .32s var(--ease),transform .32s var(--ease)}
+.glance__grid a:hover .glance__badge{border-color:var(--gold-light);transform:scale(1.06)}
+.glance__grid .icon{width:18px;height:18px;color:var(--gold-light)}
+.glance__grid span:last-child{font-size:.6875rem;letter-spacing:.03em;line-height:1.3}
 
 .footcols{border-top:1px solid rgba(199,208,234,.18);padding-block:var(--sp-7)}
 .footcols .grid{display:grid;grid-template-columns:1.3fr repeat(5,1fr);gap:var(--sp-6)}
-.brandblock{display:flex;flex-direction:column;gap:16px}
+.brandblock{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.brandblock .brand__seal{color:var(--blue-800);margin-bottom:2px}
 .brandblock .word{font-family:var(--f-display);font-size:1.35rem;color:var(--on-blue)}
 .brandblock .ar{font-family:var(--f-ar-display);direction:rtl;color:var(--gold-light);font-size:1.05rem}
 .brandblock p{color:var(--on-blue-soft);font-size:.8125rem;max-width:30ch;line-height:1.6}
@@ -447,10 +489,10 @@ a{color:inherit}
   <div class="identity">
     <div class="wrap">
       <a class="brand" href="#">
-        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
           <path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/>
           <circle cx="24" cy="9" r="2.2" fill="currentColor"/>
-        </svg>
+        </svg></span>
         <span class="word">Al-Madeenah<small>International College</small></span>
       </a>
       <p class="identity__tag"><i></i>Founding phase · Fully distance-learning<i></i></p>
@@ -464,13 +506,13 @@ a{color:inherit}
 
   <nav class="navgrid" aria-label="Primary">
     <div class="wrap"><div class="navgrid__row">
-      <a href="#"><svg class="icon"><use href="#ic-inst"/></svg><span>The Institution</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-book"/></svg><span>Academics</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-doc"/></svg><span>Admissions</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>The Study</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg><span>Credentials</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-bell"/></svg><span>News</span></a>
-      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg><span>Contact</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Institution</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Academics</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Credentials</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News</span></a>
+      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
     </div></div>
   </nav>
 
@@ -494,7 +536,7 @@ a{color:inherit}
 
 <div class="drawer" id="drawer">
   <div class="drawer__top">
-    <a class="brand" href="#"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg><span class="word">Al-Madeenah</span></a>
+    <a class="brand" href="#"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah</span></a>
     <button class="drawer__close" aria-label="Close menu" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
   </div>
   <div class="drawer__actions">
@@ -503,13 +545,13 @@ a{color:inherit}
     <a href="#">Verify a credential<span>→</span></a>
   </div>
   <nav class="drawer__grid" aria-label="Primary">
-    <a href="#"><svg class="icon"><use href="#ic-inst"/></svg>The Institution</a>
-    <a href="#"><svg class="icon"><use href="#ic-book"/></svg>Academics</a>
-    <a href="#"><svg class="icon"><use href="#ic-doc"/></svg>Admissions</a>
-    <a href="#"><svg class="icon"><use href="#ic-signin"/></svg>The Study</a>
-    <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg>Credentials</a>
-    <a href="#"><svg class="icon"><use href="#ic-bell"/></svg>News</a>
-    <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-inst"/></svg></span>The Institution</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-book"/></svg></span>Academics</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>Admissions</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-signin"/></svg></span>The Study</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span>Credentials</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-bell"/></svg></span>News</a>
+    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>Contact</a>
   </nav>
   <div class="drawer__util">
     <span>Reading size · EN / العربية</span>
@@ -597,22 +639,22 @@ a{color:inherit}
     <div class="wrap">
       <p class="glance__label">The institution, at a glance</p>
       <nav class="glance__grid" aria-label="All destinations">
-        <a href="#"><svg class="icon"><use href="#ic-scale"/></svg><span>Governance</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-book"/></svg><span>Faculty of Arabic</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-quran"/></svg><span>Faculty of Qur'an</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-scroll"/></svg><span>Islamic Sciences</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-brief"/></svg><span>Professional Programmes</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-target"/></svg><span>Placement Assessment</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-doc"/></svg><span>Admissions</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-coin"/></svg><span>Fees &amp; Scholarships</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in to the Study</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg><span>Award Ladder</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-check"/></svg><span>Verify a Credential</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-shield"/></svg><span>Safeguarding</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-lock"/></svg><span>Privacy &amp; Data</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-bell"/></svg><span>News &amp; Notices</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-inst"/></svg><span>The Editorial Bible</span></a>
-        <a href="#"><svg class="icon"><use href="#ic-mail"/></svg><span>Contact</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Governance</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Faculty of Arabic</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-quran"/></svg></span><span>Faculty of Qur'an</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span><span>Islamic Sciences</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-brief"/></svg></span><span>Professional Programmes</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>Placement Assessment</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-coin"/></svg></span><span>Fees &amp; Scholarships</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>Sign in to the Study</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Award Ladder</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-check"/></svg></span><span>Verify a Credential</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-shield"/></svg></span><span>Safeguarding</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-lock"/></svg></span><span>Privacy &amp; Data</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News &amp; Notices</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Editorial Bible</span></a>
+        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
       </nav>
     </div>
   </div>
@@ -620,6 +662,7 @@ a{color:inherit}
   <div class="footcols">
     <div class="wrap grid">
       <div class="brandblock rv">
+        <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span>
         <span class="word">Al-Madeenah</span>
         <span class="ar" lang="ar">كلية المدينة العالمية للدراسات العربية والإسلامية</span>
         <p>A distance-learning college for Arabic language, Qur'an and the Islamic sciences —
