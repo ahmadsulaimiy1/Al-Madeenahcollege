@@ -16,7 +16,7 @@
 import { execSync } from 'node:child_process';
 
 const REPO = 'ahmadsulaimiy1/Al-Madeenahcollege';
-const SHA = '106f58974e31dd221c18ed9464c5035368570687';
+const SHA = '4410b847b55f88abb77ffaada72fa689997ac63d';
 const run = (cmd) => execSync(cmd, { stdio: 'inherit', shell: '/bin/bash' });
 
 console.log(`fetching ${REPO}@${SHA}`);
