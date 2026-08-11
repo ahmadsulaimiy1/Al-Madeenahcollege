@@ -71,8 +71,8 @@ function render(page) {
     OG_LOCALE: ar ? 'ar_AR' : 'en_GB',
     OG_TITLE: page.title,
     OG_SITE: ar
-      ? 'كلية المدينة الدولية للغة العربية وعلوم القرآن'
-      : "Al-Madinah International College of Arabic and Qur'anic Studies",
+      ? 'كلية المدينة العالمية للدراسات العربية والإسلامية'
+      : "Al-Madeenah International College for Arabic &amp; Islamic Studies",
   });
 
   let body;
@@ -156,12 +156,20 @@ writeFileSync(
    is exactly what a reader can see. One index per language, because a search
    that returns Arabic results to an English reader is a broken search, not a
    bilingual one. */
+const ent = (t) => t
+  .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ');
 const strip = (h) => h
   .replace(/<script[\s\S]*?<\/script>/g, ' ')
   .replace(/<style[\s\S]*?<\/style>/g, ' ')
   .replace(/<svg[\s\S]*?<\/svg>/g, ' ')
   .replace(/<(header|footer|nav)[\s\S]*?<\/\1>/g, ' ')
   .replace(/<[^>]+>/g, ' ')
+  /* Decode the entities that carry a character before discarding the rest:
+     stripping &amp; to a space indexed the College's own name as
+     "Arabic  Islamic Studies". */
+  .replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ')
+  .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
   .replace(/&[a-z]+;|&#\d+;/g, ' ')
   .replace(/\s+/g, ' ')
   .trim();
@@ -176,8 +184,12 @@ for (const lang of ['en', 'ar']) {
       const main = (html.match(/<main id="main">([\s\S]*?)<\/main>/) || [, ''])[1];
       return {
         u: url,
-        t: (html.match(/<title>([^<]*)<\/title>/) || [, ''])[1].replace(/ — .*$/, ''),
-        d: (html.match(/name="description" content="([^"]*)"/) || [, ''])[1],
+        /* Titles and descriptions are read out of the RENDERED page, so they
+           arrive HTML-escaped. The index is consumed as text, so it must be
+           decoded — otherwise the search box offers the reader "Arabic &amp;
+           Islamic Studies". */
+        t: ent((html.match(/<title>([^<]*)<\/title>/) || [, ''])[1].replace(/ — .*$/, '')),
+        d: ent((html.match(/name="description" content="([^"]*)"/) || [, ''])[1]),
         /* Capped: an index a phone must download before it can search is not a
            feature. 1,800 characters covers every heading and lead on a page. */
         b: strip(main).slice(0, 1800),
@@ -190,8 +202,8 @@ for (const lang of ['en', 'ar']) {
    old cache. Written from src/ with the token filled, not copied. */
 writeFileSync(join(OUT, 'sw.js'), fill(read('sw.js'), { BUILT }), 'utf8');
 writeFileSync(join(OUT, 'manifest.webmanifest'), JSON.stringify({
-  name: "Al-Madinah International College of Arabic and Qur'anic Studies",
-  short_name: 'Al-Madinah',
+  name: "Al-Madeenah International College for Arabic &amp; Islamic Studies",
+  short_name: 'Al-Madeenah',
   start_url: '/',
   scope: '/',
   display: 'standalone',

@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* =========================================================================
-   Al-Madinah International College of Arabic and Qur'anic Studies
+   Al-Madeenah International College for Arabic & Islamic Studies
    Design system v2 — THE LIGHT REGISTER
 
    Rebuilt after a design critique. Three corrections:
@@ -1481,6 +1481,36 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opa
 .cover{position:relative;overflow:clip;padding-block:var(--s9) var(--s10);
   background:linear-gradient(172deg,var(--milk) 0%,var(--ivory) 42%,var(--cream) 100%)}
 .cover .wrap{position:relative;z-index:2}
+
+/* ---- The cover as a title page (AEB §57, §57.5) ----
+   Measured before written: the first screen of the flagship page carried
+   ~2% royal blue. Nearly all of the site's blue sat in the footer, which
+   means the institution's ANCHOR COLOUR was absent from the one screen that
+   establishes what the institution is. An anchor that appears only after
+   scrolling is not an anchor.
+
+   The correction is bounded on purpose. The cover is the ceremonial moment —
+   a prestigious institution's title page — so it takes the deep ground. Every
+   reading surface below it stays ivory and cream, and the Study stays quieter
+   still. This is the Founder's own instruction that the public site "can carry
+   the strongest ceremonial expression" while the learning environment does
+   not, applied where it belongs and nowhere else. */
+.cover--royal{background:
+  radial-gradient(120% 90% at 18% 0%,var(--lazaward-mid) 0%,transparent 58%),
+  linear-gradient(168deg,var(--lazaward) 0%,var(--lazaward-deep) 62%,#0A1436 100%);
+  color:#D7DEEF}
+.cover--royal .decree{border-color:var(--dhahab-light);opacity:.7}
+.cover--royal .overline{color:var(--dhahab-light)}
+.cover--royal .cover__ar{color:var(--dhahab-light)}
+.cover--royal h1,.cover--royal .display{color:var(--white)}
+.cover--royal .display .gilt{color:var(--dhahab-light)}
+.cover--royal .cover__lead{color:#C4CEE6}
+.cover--royal .btn--ghost{color:#D7DEEF;border-color:rgba(224,199,132,.42)}
+.cover--royal .btn--ghost:hover{color:var(--dhahab-light);border-color:var(--dhahab-light)}
+/* The illumination reads as light cut into stone rather than ink on paper. */
+.cover--royal .plate{opacity:.16;color:var(--dhahab-light);mix-blend-mode:screen}
+[data-theme=dark] .cover--royal{background:
+  linear-gradient(168deg,#101C46 0%,#0A1436 70%,#070E26 100%)}
 .cover__inner{max-width:min(100%,860px)}
 /* direction:rtl is required for correct shaping and word order; text-align
    must then be set back explicitly, or the Arabic title flies to the right

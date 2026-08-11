@@ -282,12 +282,49 @@ for (const [label, scheme, explicit] of MODES) {
        only "too much blue" but "no cream, no parchment, no ivory". */
     ok(`the warm register is present · ${id}`, pc('warm') + pc('white') >= 45,
        `warm ${pc('warm').toFixed(1)}% + white ${pc('white').toFixed(1)}%`);
+    (globalThis.__colour ||= []).push({ path, label, blue: pc('blue'), warm: pc('warm') + pc('white') });
+    /* THE FLOOR, on the pages that carry the institution's ceremonial
+       expression. The ceiling above stops the page becoming blue; this stops
+       the anchor colour disappearing, which is the failure that actually
+       happened: the flagship page's first screen measured ~2% royal blue while
+       every check passed, because a ceiling alone cannot see a colour vanish.
+       AEB §57.3 sets the band at 20–30%; 18–32% is that band with tolerance
+       for pixel classification at the edges.
+       Interior reading pages are deliberately NOT held to this — they are
+       ivory reading grounds where blue is punctuation (AEB §57.5). */
+    if (path === '/' ) {
+      ok(`the anchor colour holds its band · ${id}`,
+         pc('blue') >= 18 && pc('blue') <= 32,
+         `blue ${pc('blue').toFixed(1)}% — AEB §57.3 band is 20–30%`);
+    }
     await page.close();
   }
 }
 
 await browser.close();
 server.close();
+
+/* The measurement is printed whether or not it fails. A gate that only speaks
+   when breached leaves nobody able to see a value drifting toward the edge —
+   which is exactly how the anchor colour reached 2% of the first screen
+   without any check going red. */
+{
+  const rows = globalThis.__colour || [];
+  const byPath = new Map();
+  for (const r of rows) {
+    const e = byPath.get(r.path) || { blue: [], warm: [] };
+    e.blue.push(r.blue); e.warm.push(r.warm); byPath.set(r.path, e);
+  }
+  const avg = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+  if (byPath.size) {
+    console.log('\n  COLOUR PROPORTION (mean across arrival modes)');
+    console.log('  ' + 'page'.padEnd(22) + 'blue%   warm+white%');
+    for (const [k, v] of byPath) {
+      console.log('  ' + k.padEnd(22) + avg(v.blue).toFixed(1).padStart(5)
+        + '   ' + avg(v.warm).toFixed(1).padStart(10));
+    }
+  }
+}
 
 console.log(`\nRESPONSIVE GATE — ${pass} passed, ${fails.length} failed`);
 if (fails.length) {

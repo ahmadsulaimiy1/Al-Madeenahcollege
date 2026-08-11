@@ -1,6 +1,6 @@
 # The Design Excellence Bible
 
-**Version 2.0 · 7 August 2026 · Cited as `DX §n`**
+**Version 2.1 · 10 August 2026 · Cited as `DX §n`**
 Al-Madinah International College of Arabic and Qur'anic Studies
 
 The flagship standard for prestige, elegance and sophistication. Subordinate to
@@ -1051,4 +1051,35 @@ class. Keeping those two separate is what lets the fix cost nothing visually.
 
 ---
 
-*Design Excellence Bible v2.0 — 7 August 2026.*
+### §34 A ceiling cannot see a colour vanish
+
+The colour gate had a ceiling — blue ≤ 35% — and no floor. It was written after the
+opposite failure, when a dark-mode block painted 99.2% of the page navy. It worked: blue
+came down. It then kept working while blue fell to **1.5% on programmes and ~2% on the
+flagship page's first screen**, because a ceiling is blind in one direction.
+
+`AEB §57.3` sets the band at **20–30%**. Measured, the site was at a fraction of the floor,
+and the institution's **anchor colour was absent from the one screen that establishes what
+the institution is.** An anchor that appears only after scrolling is not an anchor.
+
+**The correction is bounded on purpose.** The cover — the ceremonial moment, the title page
+— takes the deep royal ground. Every reading surface below it stays ivory and cream, and
+the Study stays quieter still (`§57.5`). Measured after: **23.7% (EN) and 24.6% (AR)**,
+inside the band, with warm+white still above 50%.
+
+The gate now enforces **both** directions on the pages that carry ceremonial expression,
+and prints the measurement on every run whether or not it fails. A gate that speaks only
+when breached leaves nobody able to watch a value drift toward the edge — which is exactly
+how this happened.
+
+**Interior reading pages are deliberately not held to the band.** They are ivory grounds
+where blue is punctuation. That is a decision, and it is recorded rather than assumed: if
+the anchor should be present on every page, the mandated place for it is **navigation**
+(`AEB §57.2` names navigation as a Royal Blue surface), which would put it on all
+twenty-four pages without touching a single reading ground. That change is not made here —
+it is the clearest single colour decision left, and it belongs to the Founder's reaction to
+the live preview rather than to my judgement of a number.
+
+---
+
+*Design Excellence Bible v2.1 — 10 August 2026.*
