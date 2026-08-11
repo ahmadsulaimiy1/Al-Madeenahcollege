@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Al-Madeenah International College — homepage direction</title>
+<style>
+/*FONTS*/
+
+:root{
+  --blue-950:#0B1B42; --blue-900:#122352; --blue-800:#16306E; --blue-700:#1E3F8F; --blue-600:#2C52AC;
+  --gold:#B8933D; --gold-light:#D9BC7B; --gold-ink:#8C6A22;
+  --ivory:#FAF6EC; --cream:#F3ECDA; --parchment:#ECE2C7; --hairline:#DDD0AC;
+  --ink:#191A22; --ink-soft:#4A4C5C; --ink-faint:#7A7C8C;
+  --on-blue:#F4EFE0; --on-blue-soft:#C7D0EA;
+  --f-display:'Fraunces','Georgia',serif; --f-display-it:'Fraunces Italic','Fraunces',serif;
+  --f-ui:'Manrope','Segoe UI',sans-serif;
+  --f-ar-display:'El Messiri',serif; --f-ar-ui:'Markazi Text',serif;
+  --sp-4:24px; --sp-5:32px; --sp-6:48px; --sp-7:72px; --sp-8:104px; --sp-9:152px; --sp-10:208px;
+  --measure:68ch; --maxw:1240px;
+  --dur:560ms; --ease:cubic-bezier(.16,.8,.24,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--f-ui);font-size:1.0625rem;line-height:1.6;
+  font-variant-numeric:oldstyle-nums;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,4vw,48px)}
+h1,h2,h3{font-family:var(--f-display);color:var(--blue-800);margin:0;font-weight:500}
+a{color:inherit}
+.eyebrow{font-family:var(--f-ui);font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);
+  font-weight:700;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--gold)}
+.lead{font-size:clamp(1.1rem,1.5vw,1.3rem);color:var(--ink-soft);max-width:62ch;line-height:1.65}
+
+/* ---- skip / a11y ---- */
+.skip{position:absolute;left:-9999px;top:0;background:var(--blue-800);color:var(--on-blue);padding:12px 20px;z-index:200}
+.skip:focus{left:16px;top:16px}
+.icon{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* =========================================================================
+   HEADER — five layers: utility strip, identity row, navigation grid,
+   secondary action strip, notices. Density with order, not a single row.
+   ========================================================================= */
+.header{position:sticky;top:0;z-index:100}
+
+/* Layer 1 — utility strip */
+.util{background:var(--blue-950);color:var(--on-blue-soft);font-size:.75rem}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;height:36px;gap:24px}
+.util__left,.util__right{display:flex;align-items:center;gap:20px;min-width:0}
+.util a{text-decoration:none;color:inherit;opacity:.85;transition:opacity .2s,color .2s;display:inline-flex;align-items:center;gap:7px}
+.util a:hover{opacity:1;color:var(--gold-light)}
+.util .icon{width:13px;height:13px;opacity:.75}
+.util__right span{opacity:.35}
+.util__lang{display:flex;gap:8px;align-items:center}
+.util__lang a[aria-current]{color:var(--gold-light);opacity:1;font-weight:700}
+
+/* Layer 2 — identity row */
+.identity{background:var(--ivory);border-bottom:1px solid var(--hairline)}
+.identity .wrap{display:flex;align-items:center;justify-content:space-between;height:88px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--blue-800);flex-shrink:0}
+.brand svg{width:36px;height:36px;flex-shrink:0}
+.brand .word{font-family:var(--f-display);font-size:1.25rem;font-weight:500;letter-spacing:.01em;line-height:1.15}
+.brand .word small{display:block;font-family:var(--f-ui);font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-ink);font-weight:700;margin-top:3px}
+.identity__tag{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+  display:flex;align-items:center;gap:14px;text-align:center}
+.identity__tag i{display:inline-block;width:26px;height:1px;background:var(--hairline)}
+.identity__actions{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.iconbtn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;
+  background:none;border:0;cursor:pointer;color:var(--blue-800);transition:background .2s}
+.iconbtn:hover{background:var(--cream)}
+.iconbtn .icon{width:19px;height:19px}
+.navtoggle{display:none}
+
+/* Layer 3 — the navigation grid: the structural centrepiece, not a link row */
+.navgrid{background:var(--cream);border-bottom:1px solid var(--hairline)}
+.navgrid__row{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--hairline)}
+.navgrid__row a{background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:20px 8px;text-decoration:none;color:var(--ink-soft);text-align:center;transition:background .2s,color .2s}
+.navgrid__row a:hover,.navgrid__row a:focus-visible{background:var(--ivory);color:var(--blue-800)}
+.navgrid__row .icon{width:21px;height:21px;color:var(--gold-ink)}
+.navgrid__row span{font-size:.6875rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+
+/* Layer 4 — secondary action strip */
+.subnav{background:var(--parchment)}
+.subnav .wrap{display:flex;align-items:stretch;gap:1px;overflow-x:auto;scrollbar-width:none}
+.subnav .wrap::-webkit-scrollbar{display:none}
+.subnav a{display:flex;align-items:center;gap:8px;padding:12px 20px;text-decoration:none;font-size:.75rem;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);white-space:nowrap;transition:all .2s}
+.subnav a .icon{width:14px;height:14px}
+.subnav a:hover{color:var(--blue-800)}
+.subnav a.is-primary{background:var(--gold);color:var(--blue-950)}
+.subnav a.is-primary:hover{background:var(--gold-ink);color:var(--on-blue)}
+
+/* Layer 5 — notices */
+.notices{background:var(--ivory)}
+.notices .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;font-size:.8125rem;gap:16px}
+.notices__l{display:flex;align-items:center;gap:10px;color:var(--ink-soft);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.notices__l .icon{width:14px;height:14px;color:var(--gold-ink);flex-shrink:0}
+.notices a{color:var(--blue-700);text-decoration:none;font-weight:700;flex-shrink:0}
+.notices a:hover{text-decoration:underline}
+
+/* ---- mobile drawer: the navigation grid + subnav actions relocate here,
+   they do not disappear ---- */
+.drawer{position:fixed;inset:0;background:var(--ivory);z-index:300;display:none;overflow-y:auto}
+.drawer[data-open="true"]{display:block}
+.drawer__top{display:flex;justify-content:space-between;align-items:center;padding:20px 20px;border-bottom:1px solid var(--hairline)}
+.drawer__close{background:none;border:0;cursor:pointer;color:var(--blue-800);padding:8px}
+.drawer__close .icon{width:22px;height:22px}
+.drawer__grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hairline);margin:1px 0}
+.drawer__grid a{background:var(--ivory);display:flex;align-items:center;gap:12px;padding:20px;text-decoration:none;
+  color:var(--ink);font-size:.875rem;font-weight:700}
+.drawer__grid .icon{width:20px;height:20px;color:var(--gold-ink);flex-shrink:0}
+.drawer__actions{display:flex;flex-direction:column;padding:18px 20px;gap:2px;background:var(--parchment)}
+.drawer__actions a{display:flex;justify-content:space-between;padding:14px 4px;text-decoration:none;color:var(--ink-soft);
+  font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;font-weight:700;border-bottom:1px solid rgba(25,26,34,.08)}
+.drawer__actions a.is-primary{color:var(--blue-800)}
+.drawer__util{display:flex;justify-content:space-between;padding:18px 20px;font-size:.8125rem;color:var(--ink-faint)}
+
+/* once the reader has scrolled past the full institutional header, the
+   utility strip and notices strip step aside — the identity row, the
+   navigation grid and the primary action stay, so orientation is never lost */
+.header.scrolled .util,.header.scrolled .notices{display:none}
+.header.scrolled .identity .wrap{height:64px}
+.header.scrolled .navgrid__row a{padding-block:12px}
+
+@media (max-width:1080px){
+  .navgrid__row{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:920px){
+  .util__left{display:none}
+  .navgrid,.subnav{display:none}
+  .navtoggle{display:inline-flex}
+  .identity .wrap{height:76px}
+  /* search and the placement CTA move into the drawer's action list on
+     mobile — three controls plus the brand and tag never fit one row,
+     and the hamburger already leads to both. */
+  .identity__actions .iconbtn:not(.navtoggle),.identity__actions .btn{display:none}
+}
+@media (max-width:700px){
+  .identity__tag{display:none}
+}
+@media (max-width:560px){
+  .util .wrap{height:32px}
+  .util a span:not(.icon){display:none}
+}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;font-family:var(--f-ui);
+  font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:15px 30px;
+  border-radius:2px;text-decoration:none;cursor:pointer;transition:transform .22s var(--ease),box-shadow .22s,color .22s,background .3s}
+.btn--primary{background:var(--blue-800);color:var(--on-blue);border:1px solid var(--blue-800)}
+.btn--primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(11,27,66,.45)}
+.btn--gilt{position:relative;background:transparent;color:var(--gold-ink);border:1px solid var(--gold);overflow:hidden;z-index:0}
+.btn--gilt::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);
+  transform-origin:left;transition:transform .32s var(--ease);z-index:-1}
+.btn--gilt:hover::before{transform:scaleX(1)}
+.btn--gilt:hover{color:var(--blue-950)}
+.hero .btn--gilt{color:var(--gold-light);border-color:var(--gold-light)}
+.hero .btn--gilt:hover{color:var(--blue-950)}
+
+/* ---- hero ---- */
+.hero{position:relative;background:linear-gradient(175deg,var(--blue-900) 0%,var(--blue-800) 55%,var(--blue-950) 100%);
+  color:var(--on-blue);overflow:hidden;padding-block:var(--sp-10) var(--sp-9)}
+.hero .plate{position:absolute;inset-inline-end:-6%;top:8%;width:56%;max-width:640px;opacity:.16;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero .rule{width:64px;height:1px;background:var(--gold);margin:var(--sp-5) 0}
+.hero h1{font-size:var(--fs-hero,clamp(2.75rem,5.4vw,4.75rem));line-height:1.1;color:var(--on-blue);max-width:16ch}
+.hero .ar{font-family:var(--f-ar-display);direction:rtl;font-size:clamp(1.3rem,2.1vw,1.75rem);color:var(--gold-light);
+  margin-top:var(--sp-4);max-width:24ch;line-height:1.5}
+.hero .lead{color:var(--on-blue-soft);margin-top:var(--sp-5)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:18px;margin-top:var(--sp-6)}
+.hero .status{margin-top:var(--sp-8);padding-top:var(--sp-5);border-top:1px solid rgba(199,208,234,.22);
+  display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.hero .status .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;position:relative;top:-2px}
+.hero .status p{margin:0;font-size:.9rem;color:var(--on-blue-soft);max-width:56ch}
+.hero .status a{color:var(--gold-light);text-decoration:underline;text-underline-offset:3px}
+
+/* ---- reveal ---- */
+.rv{opacity:0;transform:translateY(14px);transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-draw{width:0;transition:width .9s var(--ease)}
+.rv-draw.in{width:64px}
+
+/* ---- section ---- */
+.section{padding-block:var(--sp-9)}
+.section--cream{background:var(--cream)}
+.section--ivory{background:var(--ivory)}
+.section-head{max-width:760px;margin-bottom:var(--sp-7)}
+.section-head h2{font-size:var(--fs-h1,clamp(2rem,3.4vw,3rem));margin-top:14px;line-height:1.15}
+
+/* ---- programme index ---- */
+.index{border-top:1px solid var(--hairline)}
+.index__row{display:grid;grid-template-columns:88px 1fr;gap:var(--sp-6);padding-block:var(--sp-7);
+  border-bottom:1px solid var(--hairline);align-items:start}
+.index__n{font-family:var(--f-display);font-weight:400;font-size:3.4rem;line-height:1;color:var(--parchment);
+  -webkit-text-stroke:1.4px var(--gold);color:transparent}
+.index__body h3{font-size:1.5rem;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.index__body .ar{font-family:var(--f-ar-display);color:var(--blue-700);font-size:1.15rem;direction:rtl}
+.index__body p{color:var(--ink-soft);max-width:64ch;margin:14px 0 18px}
+.index__tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.index__tags li{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--blue-700);
+  border:1px solid var(--hairline);background:var(--ivory);padding:6px 12px;border-radius:2px}
+.index__foot{padding-block:var(--sp-6);color:var(--ink-faint);font-size:.9375rem;max-width:70ch}
+.index__foot strong{color:var(--blue-800)}
+
+/* =========================================================================
+   FOOTER — the final architectural floor: an "at a glance" grid of every
+   real destination in the institution, then five column groups, then the
+   brand and a status line. Substantial, not tiny — but every item here
+   traces to an actual page, never padded to look comprehensive.
+   ========================================================================= */
+.foot{background:var(--blue-950);color:var(--on-blue-soft);padding-block:0 var(--sp-6);
+  border-top:2px solid var(--gold);position:relative}
+
+.glance{padding-block:var(--sp-7)}
+.glance__label{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-light);margin:0 0 var(--sp-5);font-weight:700;text-align:center}
+.glance__grid{display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:rgba(199,208,234,.14);
+  border:1px solid rgba(199,208,234,.14)}
+.glance__grid a{background:var(--blue-950);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:9px;padding:20px 6px;text-decoration:none;color:var(--on-blue-soft);text-align:center;transition:background .2s,color .2s}
+.glance__grid a:hover{background:var(--blue-900);color:var(--gold-light)}
+.glance__grid .icon{width:19px;height:19px;color:var(--gold)}
+.glance__grid span{font-size:.6875rem;letter-spacing:.03em;line-height:1.3}
+
+.footcols{border-top:1px solid rgba(199,208,234,.18);padding-block:var(--sp-7)}
+.footcols .grid{display:grid;grid-template-columns:1.3fr repeat(5,1fr);gap:var(--sp-6)}
+.brandblock{display:flex;flex-direction:column;gap:16px}
+.brandblock .word{font-family:var(--f-display);font-size:1.35rem;color:var(--on-blue)}
+.brandblock .ar{font-family:var(--f-ar-display);direction:rtl;color:var(--gold-light);font-size:1.05rem}
+.brandblock p{color:var(--on-blue-soft);font-size:.8125rem;max-width:30ch;line-height:1.6}
+.foot h4{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-light);
+  margin:0 0 16px;font-weight:700}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.foot a{color:var(--on-blue-soft);text-decoration:none;font-size:.8438rem;transition:color .2s}
+.foot a:hover{color:var(--gold-light)}
+
+.footbar{border-top:1px solid rgba(199,208,234,.18);padding-top:var(--sp-5);display:flex;justify-content:space-between;
+  gap:24px;flex-wrap:wrap;font-size:.8125rem;color:var(--on-blue-soft)}
+.footbar .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-inline-end:8px}
+
+/* mobile: columns become accordions, the glance grid narrows but stays visible */
+.footcols details{border-bottom:1px solid rgba(199,208,234,.14)}
+.footcols summary{display:none}
+@media (max-width:920px){
+  .glance__grid{grid-template-columns:repeat(4,1fr)}
+  .footcols .grid{grid-template-columns:1fr}
+  .footcols summary{display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer;
+    list-style:none;font-family:var(--f-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--gold-light);font-weight:700}
+  .footcols summary::-webkit-details-marker{display:none}
+  .footcols summary::after{content:'+';font-size:1.1rem;color:var(--gold)}
+  .footcols details[open] summary::after{content:'–'}
+  .footcols details ul{padding-bottom:16px}
+  .brandblock{padding-bottom:20px;border-bottom:1px solid rgba(199,208,234,.14);margin-bottom:6px}
+}
+@media (max-width:560px){ .glance__grid{grid-template-columns:repeat(3,1fr)} }
+
+@media (max-width:760px){
+  .index__row{grid-template-columns:1fr}
+  .index__n{font-size:2.2rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .rv,.rv-draw,.btn,.navgrid__row a,.header{transition:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .rv-draw{width:64px!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="ic-mail" viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="M4 7l8 6.5L20 7"/></symbol>
+<symbol id="ic-phone" viewBox="0 0 24 24"><path d="M6 4.5c1 3 2.4 5.7 4.4 7.7 2 2 4.7 3.4 7.7 4.4l1.4-2.4c.3-.5.9-.7 1.5-.5l3 1c.6.2 1 .8.9 1.4-.3 2.6-2.6 4.4-5.2 4-5-.8-9.6-3.3-12.9-6.6C3.5 11.2 1 6.6 1.8 1.6 2.2-1 4-3.3 6.6-3.6L7.6-.6c.2.6 0 1.2-.5 1.5l-2.4 1.4c1 3 .3-.2 1.3 1.9" fill="none" transform="translate(1,4)"/><path d="M5.5 3.5c.7 2.6 2 5 3.8 6.9 1.9 1.9 4.3 3.1 6.9 3.8l1.1-1.9c.2-.4.7-.6 1.2-.4l2.7 1c.5.2.8.7.7 1.2-.3 2.1-2.1 3.5-4.2 3.2-4.4-.7-8.4-2.9-11.3-5.9C3.5 8.5 1.3 4.5.6.1.3-2 1.7-4 3.8-4.2l2.7-.3c.5-.1 1 .2 1.2.7l1 2.7c.2.5 0 1-.4 1.2L6.4 1.4"/></symbol>
+<symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.6 4.2 5.6 4.2 9s-1.4 6.4-4.2 9c-2.8-2.6-4.2-5.6-4.2-9S9.2 5.6 12 3z"/></symbol>
+<symbol id="ic-type" viewBox="0 0 24 24"><path d="M6 19l5-14h1l5 14M8 14h7"/></symbol>
+<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M19.5 19.5l-4.3-4.3"/></symbol>
+<symbol id="ic-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+<symbol id="ic-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
+<symbol id="ic-signin" viewBox="0 0 24 24"><path d="M11 4H5v16h6M15 8l4 4-4 4M9 12h10"/></symbol>
+<symbol id="ic-inst" viewBox="0 0 24 24"><path d="M4 21h16M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-6h6v6"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24"><path d="M12 5.5C10 4 7 3.5 4 4v14c3-.5 6 0 8 1.5M12 5.5C14 4 17 3.5 20 4v14c-3-.5-6 0-8 1.5M12 5.5v15"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7M9 8h3"/></symbol>
+<symbol id="ic-ribbon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L6 21l6-3 6 3-2.5-7.5"/></symbol>
+<symbol id="ic-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 1112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 19a2 2 0 004 0"/></symbol>
+<symbol id="ic-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M5 7l3.5-1.5L12 7M19 7l-3.5-1.5L12 7M5 7l-3 6a3.2 3.2 0 006 0L5 7zM19 7l-3 6a3.2 3.2 0 006 0l-3-6z"/></symbol>
+<symbol id="ic-quran" viewBox="0 0 24 24"><path d="M4 5.5c2.5-1 5.5-1.3 8-.3 2.5-1 5.5-.7 8 .3v13c-2.5-1-5.5-1.3-8-.3-2.5-1-5.5-.7-8 .3z"/><path d="M12 5.2v13"/></symbol>
+<symbol id="ic-scroll" viewBox="0 0 24 24"><path d="M6 4h13v13a3 3 0 01-3 3H6a3 3 0 003-3V4z"/><path d="M6 4a3 3 0 00-3 3v0a3 3 0 003 3M9 9h7M9 12.5h5"/></symbol>
+<symbol id="ic-brief" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/></symbol>
+<symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></symbol>
+<symbol id="ic-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.7c0-1.2 1.1-2.2 2.5-2.2s2.5.8 2.5 1.8-1 1.5-2.5 1.9-2.5.9-2.5 1.9 1.1 1.8 2.5 1.8 2.5-1 2.5-2.2"/></symbol>
+<symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></symbol>
+<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+</defs>
+</svg>
+
+<header class="header">
+  <div class="util">
+    <div class="wrap">
+      <div class="util__left">
+        <a href="mailto:admissions@almadeenah.college"><svg class="icon"><use href="#ic-mail"/></svg>admissions@almadeenah.college</a>
+        <a href="#"><svg class="icon"><use href="#ic-phone"/></svg>Contact numbers by region</a>
+      </div>
+      <div class="util__right">
+        <a href="#" data-read-step><svg class="icon"><use href="#ic-type"/></svg><span>Reading size</span></a>
+        <span aria-hidden="true">·</span>
+        <div class="util__lang">
+          <a href="#" aria-current="true">EN</a><a href="#" lang="ar">العربية</a>
+        </div>
+        <span aria-hidden="true">·</span>
+        <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="identity">
+    <div class="wrap">
+      <a class="brand" href="#">
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/>
+          <circle cx="24" cy="9" r="2.2" fill="currentColor"/>
+        </svg>
+        <span class="word">Al-Madeenah<small>International College</small></span>
+      </a>
+      <p class="identity__tag"><i></i>Founding phase · Fully distance-learning<i></i></p>
+      <div class="identity__actions">
+        <button class="iconbtn" aria-label="Search the College"><svg class="icon"><use href="#ic-search"/></svg></button>
+        <a class="btn btn--gilt" href="#" style="padding-block:11px">Begin placement</a>
+        <button class="navtoggle iconbtn" aria-label="Open menu" data-drawer-open><svg class="icon"><use href="#ic-menu"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navgrid" aria-label="Primary">
+    <div class="wrap"><div class="navgrid__row">
+      <a href="#"><svg class="icon"><use href="#ic-inst"/></svg><span>The Institution</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-book"/></svg><span>Academics</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-doc"/></svg><span>Admissions</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>The Study</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg><span>Credentials</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-bell"/></svg><span>News</span></a>
+      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg><span>Contact</span></a>
+    </div></div>
+  </nav>
+
+  <div class="subnav">
+    <div class="wrap">
+      <a href="#" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
+      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
+      <a href="#"><svg class="icon"><use href="#ic-check"/></svg>Verify a credential</a>
+      <a href="#"><svg class="icon"><use href="#ic-book"/></svg>The Academic Bible</a>
+      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact admissions</a>
+    </div>
+  </div>
+
+  <div class="notices">
+    <div class="wrap">
+      <div class="notices__l"><svg class="icon"><use href="#ic-bell"/></svg>Notices — no active announcements yet</div>
+      <a href="#">View all →</a>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <div class="drawer__top">
+    <a class="brand" href="#"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg><span class="word">Al-Madeenah</span></a>
+    <button class="drawer__close" aria-label="Close menu" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
+  </div>
+  <div class="drawer__actions">
+    <a href="#" class="is-primary">Sign in to the Study<span>→</span></a>
+    <a href="#">Placement assessment<span>→</span></a>
+    <a href="#">Verify a credential<span>→</span></a>
+  </div>
+  <nav class="drawer__grid" aria-label="Primary">
+    <a href="#"><svg class="icon"><use href="#ic-inst"/></svg>The Institution</a>
+    <a href="#"><svg class="icon"><use href="#ic-book"/></svg>Academics</a>
+    <a href="#"><svg class="icon"><use href="#ic-doc"/></svg>Admissions</a>
+    <a href="#"><svg class="icon"><use href="#ic-signin"/></svg>The Study</a>
+    <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg>Credentials</a>
+    <a href="#"><svg class="icon"><use href="#ic-bell"/></svg>News</a>
+    <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact</a>
+  </nav>
+  <div class="drawer__util">
+    <span>Reading size · EN / العربية</span>
+    <span>Founding phase</span>
+  </div>
+</div>
+
+<main id="main">
+<section class="hero">
+  <svg class="plate" viewBox="0 0 600 600" fill="none" aria-hidden="true">
+    <path d="M60 560 L60 300 Q60 140 300 90 Q540 140 540 300 L540 560" stroke="#D9BC7B" stroke-width="1.2"/>
+    <path d="M120 560 L120 320 Q120 190 300 150 Q480 190 480 320 L480 560" stroke="#D9BC7B" stroke-width="1"/>
+    <line x1="60" y1="560" x2="540" y2="560" stroke="#D9BC7B" stroke-width="1.2"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow rv">Arabic · Qur'an · Islamic Sciences</span>
+    <div class="rule rv rv-draw"></div>
+    <h1 class="rv">A serious education in Arabic and the Islamic sciences — wherever you are.</h1>
+    <p class="ar rv" lang="ar">تعليمٌ جادٌّ في اللغة العربية والعلوم الإسلامية، أينما كنت.</p>
+    <p class="lead rv">Al-Madeenah is built for a student studying from a phone, a break room, or a
+      borrowed connection — not a campus with a login screen bolted on. Progress is decided by
+      demonstrated mastery in front of a qualified teacher, never by the calendar.</p>
+    <div class="ctas rv">
+      <a class="btn btn--primary" href="#">Take the placement assessment — free</a>
+      <a class="btn btn--gilt" href="#">Read the academic model</a>
+    </div>
+    <div class="status rv" id="status">
+      <span class="dot" aria-hidden="true"></span>
+      <p><strong style="color:var(--on-blue)">This is a founding-phase institution.</strong> No cohort
+        has yet started, and nothing is claimed that cannot presently be evidenced.
+        <a href="#">Read the honesty statement →</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--ivory">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="eyebrow">The academic ladder</span>
+      <h2>Three faculties. One standard.</h2>
+      <p class="lead" style="margin-top:16px">Every faculty is assessed against a published mastery
+        standard, at a pace the student chooses — never the reverse.</p>
+    </div>
+
+    <div class="index">
+      <article class="index__row rv">
+        <span class="index__n" aria-hidden="true">01</span>
+        <div class="index__body">
+          <h3>Faculty of Arabic Language <span class="ar" lang="ar">كلية اللغة العربية</span></h3>
+          <p>Arabic taught as the instrument that opens the tradition — assessed across reading,
+            listening, speaking, writing and classical-text comprehension, not conversational
+            fluency alone.</p>
+          <ul class="index__tags"><li>Reading</li><li>Listening</li><li>Speaking</li><li>Writing</li><li>Classical text</li></ul>
+        </div>
+      </article>
+      <article class="index__row rv">
+        <span class="index__n" aria-hidden="true">02</span>
+        <div class="index__body">
+          <h3>Faculty of Qur'an <span class="ar" lang="ar">كلية القرآن</span></h3>
+          <p>Nazrah, tajwīd, makhārij and recitation, memorisation measured by <em>retention</em> —
+            verified by unannounced re-testing, not pages reached and left behind.</p>
+          <ul class="index__tags"><li>Tajwīd</li><li>Ḥifẓ</li><li>Murājaʿah</li><li>Recitation assessment</li></ul>
+        </div>
+      </article>
+      <article class="index__row rv">
+        <span class="index__n" aria-hidden="true">03</span>
+        <div class="index__body">
+          <h3>Faculty of Islamic Sciences <span class="ar" lang="ar">كلية العلوم الشرعية</span></h3>
+          <p>ʿAqīdah, fiqh taught from named texts for one stated madhhab, ḥadīth, sīrah and uṣūl —
+            with recognised differences among the schools taught respectfully, never litigated.</p>
+          <ul class="index__tags"><li>ʿAqīdah</li><li>Fiqh</li><li>Ḥadīth</li><li>Sīrah</li></ul>
+        </div>
+      </article>
+    </div>
+    <p class="index__foot rv">A separate, deliberately lower-weight <strong>Professional &amp;
+      Specialist Programmes</strong> stream — teacher development, professional and corporate
+      Arabic, seasonal intensives — sits outside this core ladder, so it is never mistaken for
+      three years of core study.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="glance">
+    <div class="wrap">
+      <p class="glance__label">The institution, at a glance</p>
+      <nav class="glance__grid" aria-label="All destinations">
+        <a href="#"><svg class="icon"><use href="#ic-scale"/></svg><span>Governance</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-book"/></svg><span>Faculty of Arabic</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-quran"/></svg><span>Faculty of Qur'an</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-scroll"/></svg><span>Islamic Sciences</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-brief"/></svg><span>Professional Programmes</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-target"/></svg><span>Placement Assessment</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-doc"/></svg><span>Admissions</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-coin"/></svg><span>Fees &amp; Scholarships</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in to the Study</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-ribbon"/></svg><span>Award Ladder</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-check"/></svg><span>Verify a Credential</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-shield"/></svg><span>Safeguarding</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-lock"/></svg><span>Privacy &amp; Data</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-bell"/></svg><span>News &amp; Notices</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-inst"/></svg><span>The Editorial Bible</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-mail"/></svg><span>Contact</span></a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="footcols">
+    <div class="wrap grid">
+      <div class="brandblock rv">
+        <span class="word">Al-Madeenah</span>
+        <span class="ar" lang="ar">كلية المدينة العالمية للدراسات العربية والإسلامية</span>
+        <p>A distance-learning college for Arabic language, Qur'an and the Islamic sciences —
+          fixed standards, flexible pace.</p>
+      </div>
+      <details class="rv" open><summary>Institution</summary><ul>
+        <li><a href="#">About</a></li><li><a href="#">Governance</a></li>
+        <li><a href="#">The Academic &amp; Editorial Bible</a></li><li><a href="#">Honesty &amp; status register</a></li>
+        <li><a href="#">Safeguarding</a></li><li><a href="#">Teach with us</a></li></ul></details>
+      <details class="rv" open><summary>Academics</summary><ul>
+        <li><a href="#">Faculty of Arabic</a></li><li><a href="#">Faculty of Qur'an</a></li>
+        <li><a href="#">Faculty of Islamic Sciences</a></li><li><a href="#">Professional &amp; Specialist Programmes</a></li>
+        <li><a href="#">The Itqān method</a></li></ul></details>
+      <details class="rv" open><summary>Admissions &amp; Study</summary><ul>
+        <li><a href="#">The journey</a></li><li><a href="#">Placement assessment</a></li>
+        <li><a href="#">How to apply</a></li><li><a href="#">Fees &amp; scholarships</a></li>
+        <li><a href="#">Sign in to the Study</a></li></ul></details>
+      <details class="rv" open><summary>Credentials &amp; Policies</summary><ul>
+        <li><a href="#">The award ladder</a></li><li><a href="#">Verify a credential</a></li>
+        <li><a href="#">Privacy notice</a></li><li><a href="#">Terms</a></li></ul></details>
+      <details class="rv" open><summary>Contact</summary><ul>
+        <li><a href="#">Admissions enquiries</a></li><li><a href="#">General contact</a></li>
+        <li><a href="#">Teach with us</a></li><li><a href="#">Press enquiries</a></li></ul></details>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="footbar">
+      <span><span class="dot"></span>Design exploration for a founding-phase institution — not a live site.</span>
+      <span>© Al-Madeenah International College for Arabic &amp; Islamic Studies</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var header = document.querySelector('.header');
+  var onScroll = function(){ header.classList.toggle('scrolled', window.scrollY > 90); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  var drawer = document.getElementById('drawer');
+  var openBtns = document.querySelectorAll('[data-drawer-open]');
+  var closeBtns = document.querySelectorAll('[data-drawer-close]');
+  var setDrawer = function(open){
+    drawer.setAttribute('data-open', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  openBtns.forEach(function(b){ b.addEventListener('click', function(){ setDrawer(true); }); });
+  closeBtns.forEach(function(b){ b.addEventListener('click', function(){ setDrawer(false); }); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') setDrawer(false);
+  });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
