@@ -311,6 +311,49 @@ bronze, no black-and-gold dark mode), its crest, or its exact card shapes
 rounded rectangles holding a circular badge) — the correction was about **warmth,
 lift and a sense of weight**, not about matching their surface.
 
+## 8b. The header is chrome, not a menu (v1.3)
+
+A second Founder correction, sharper than it first sounds: the rich header was
+collapsing into the hamburger drawer at 920px, which is well inside ordinary
+laptop and tablet window widths — so most real visits were seeing "click to
+reveal" when the reference is "always there." The fix was the actual bug, not a
+matter of taste: the navigation grid and the action strip are now **persistent
+chrome** from full desktop width down to 640px, reflowing (wrapping to a second
+row, or letting the action strip scroll horizontally) rather than disappearing.
+The drawer now exists for genuine phone widths only — below 640px, where seven
+cards plus five pills would be most of the visible page rather than a header.
+Re-verified at fifteen widths from 320px to 1920px, including the 700–1180px
+band that was silently broken before.
+
+## 8c. A signature motion language (v1.3)
+
+Requested explicitly: more of the *effect* — traveling light, a typewriter-style
+reveal, the kind of motion a reference site uses to feel alive rather than
+static. Added as a small, named, **finite** family — every new animation here
+runs once (on load or on hover) and ends in a stable resting state; nothing new
+loops, which keeps it inside the motion doctrine §7 already commits to.
+
+- **The travelling light.** A bright glint crosses the hero's gold rule once,
+  timed just after the rule finishes drawing in, and a second, wider version
+  crosses the header's top hairline on load. This is the single most
+  "SHRS-coded" gesture in the system, deliberately: a line that catches the
+  light reads as gilt in a way a static line cannot.
+- **The type-on reveal.** The hero eyebrow ("Arabic · Qur'an · Islamic
+  Sciences") types on in a CSS `steps()` reveal with a blinking caret that
+  settles solid after four blinks — a registrar's line being entered, not a
+  terminal effect. Reserved for short, label-like text; a typed-out headline
+  would read as a gimmick rather than a flourish.
+- **Card shine.** Every card in the navigation grid, the footer's glance grid,
+  and the primary button gets a single diagonal gleam that crosses it once per
+  hover — the same gesture that makes a badge look like metal catching light,
+  applied consistently across every raised surface in the system.
+- **Hero parallax.** The arch motif behind the hero drifts at 8% of scroll
+  speed, capped, so the hero has a sense of depth without becoming a sticky
+  background effect.
+
+All of the above is skipped entirely — not slowed, not simplified, removed —
+under `prefers-reduced-motion`, per the standing rule in §7.
+
 ## 9. What this document does not decide
 
 Grid breakpoints below 768px, the full icon set, the certificate and transcript

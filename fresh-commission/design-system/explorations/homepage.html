@@ -159,7 +159,16 @@ h1,h2,h3{font-family:var(--f-display);color:var(--blue-800);margin:0;font-weight
 a{color:inherit}
 .eyebrow{font-family:var(--f-ui);font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);
   font-weight:700;display:inline-flex;align-items:center;gap:10px}
-.eyebrow::before{content:'';width:22px;height:1px;background:var(--gold)}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--gold);flex-shrink:0}
+.hero .eyebrow{color:var(--gold-light)}
+/* The type-on reveal: a registrar's line being entered, not a terminal
+   effect — used once, on the shortest, most label-like text on the page.
+   Finite: the caret blinks four times, then holds solid. */
+.eyebrow .type{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;
+  border-inline-end:2px solid var(--gold-light);width:0;max-width:100%;
+  animation:type-in 1.3s steps(35,end) .5s 1 both,type-caret .7s steps(1) 1.85s 4 both}
+@keyframes type-in{from{width:0}to{width:37ch}}
+@keyframes type-caret{0%,100%{border-color:var(--gold-light)}50%{border-color:transparent}}
 .lead{font-size:clamp(1.1rem,1.5vw,1.3rem);color:var(--ink-soft);max-width:62ch;line-height:1.65}
 
 /* ---- skip / a11y ---- */
@@ -214,14 +223,27 @@ a{color:inherit}
   padding-block:26px;position:relative}
 .navgrid::before{content:'';position:absolute;inset-inline:0;top:0;height:1px;
   background:linear-gradient(90deg,transparent,rgba(184,147,61,.4) 20%,rgba(184,147,61,.4) 80%,transparent)}
+.navgrid::after{content:'';position:absolute;top:-1px;left:-8%;width:12%;height:2px;
+  background:linear-gradient(90deg,transparent,#fff,transparent);opacity:0;pointer-events:none;
+  animation:light-travel-wide 2.2s var(--ease) 1.6s 1 forwards}
+@keyframes light-travel-wide{0%{left:-8%;opacity:0}10%{opacity:.9}90%{opacity:.9}100%{left:104%;opacity:0}}
 .navgrid__row{display:flex;gap:16px;flex-wrap:wrap}
-.navgrid__row a{flex:1 1 140px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:13px;padding:24px 10px;text-decoration:none;color:var(--ink-soft);text-align:center;
+.navgrid__row a{position:relative;flex:1 1 140px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:13px;padding:24px 10px;text-decoration:none;color:var(--ink-soft);text-align:center;overflow:hidden;
   background:linear-gradient(165deg,var(--ivory) 0%,var(--cream) 100%);
   border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft);
   transition:transform .32s var(--ease),box-shadow .32s var(--ease),border-color .32s var(--ease),color .2s}
 .navgrid__row a:hover,.navgrid__row a:focus-visible{transform:translateY(-4px);box-shadow:var(--sh);
   border-color:var(--gold);color:var(--blue-800)}
+/* card shine — a single diagonal gleam crossing the card, once per hover,
+   never a resting or looping effect */
+.navgrid__row a::after,.glance__grid a::after{content:'';position:absolute;top:0;left:-60%;width:34%;height:100%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);
+  pointer-events:none;opacity:0}
+.navgrid__row a:hover::after{animation:card-shine .85s var(--ease) forwards}
+.glance__grid a::after{background:linear-gradient(115deg,transparent,rgba(217,188,123,.4),transparent)}
+.glance__grid a:hover::after{animation:card-shine .85s var(--ease) forwards}
+@keyframes card-shine{0%{left:-60%;opacity:1}90%{opacity:1}100%{left:130%;opacity:0}}
 .navgrid__badge{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(circle at 35% 22%,#fffdf7,var(--cream) 78%);border:1.5px solid var(--gold);
   box-shadow:0 0 0 1px rgba(184,147,61,.14),0 3px 10px -4px rgba(140,106,34,.35);
@@ -281,18 +303,28 @@ a{color:inherit}
 .header.scrolled .identity .wrap{height:64px}
 .header.scrolled .navgrid__row a{padding-block:12px}
 
-@media (max-width:920px){
+/* The navigation grid and the action strip are PERSISTENT chrome — they are
+   the institutional header, not a menu someone has to summon. They stay on
+   screen, reflowing as the viewport narrows, all the way down to true phone
+   widths. Only there does a seven-card row plus a five-pill strip stop being
+   a header and start being most of the visible page, which is the actual
+   threshold for handing them to the drawer — not an arbitrary desktop/tablet
+   split. */
+@media (max-width:1180px){
   .util__left{display:none}
+}
+@media (max-width:820px){
+  .identity .wrap{height:80px}
+  .identity__tag{display:none}
+}
+@media (max-width:640px){
   .navgrid,.subnav{display:none}
   .navtoggle{display:inline-flex}
   .identity .wrap{height:76px}
   /* search and the placement CTA move into the drawer's action list on
-     mobile — three controls plus the brand and tag never fit one row,
+     true phone widths — three controls plus the brand never fit one row,
      and the hamburger already leads to both. */
   .identity__actions .iconbtn:not(.navtoggle),.identity__actions .btn{display:none}
-}
-@media (max-width:700px){
-  .identity__tag{display:none}
 }
 @media (max-width:560px){
   .util .wrap{height:32px}
@@ -304,9 +336,13 @@ a{color:inherit}
   font-size:.8125rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:15px 32px;
   border-radius:var(--r-pill);text-decoration:none;cursor:pointer;
   transition:transform .22s var(--ease),box-shadow .3s var(--ease),color .22s,background .3s}
-.btn--primary{background:linear-gradient(180deg,var(--blue-700),var(--blue-800));color:var(--on-blue);
-  border:1px solid var(--blue-800);box-shadow:var(--sh-soft)}
+.btn--primary{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--blue-700),var(--blue-800));
+  color:var(--on-blue);border:1px solid var(--blue-800);box-shadow:var(--sh-soft)}
 .btn--primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(11,27,66,.5)}
+.btn--primary::after{content:'';position:absolute;top:0;left:-60%;width:34%;height:100%;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);
+  pointer-events:none;opacity:0}
+.btn--primary:hover::after{animation:card-shine .8s var(--ease) forwards}
 .btn--gilt{position:relative;background:transparent;color:var(--gold-ink);border:1px solid var(--gold);overflow:hidden;z-index:0;
   box-shadow:var(--sh-soft)}
 .btn--gilt::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);
@@ -321,11 +357,21 @@ a{color:inherit}
   color:var(--on-blue);overflow:hidden;padding-block:var(--sp-10) var(--sp-9)}
 .hero .plate{position:absolute;inset-inline-end:-6%;top:8%;width:56%;max-width:640px;opacity:.16;pointer-events:none}
 .hero .wrap{position:relative;z-index:1}
-.hero .rule{width:64px;height:1px;background:var(--gold);margin:var(--sp-5) 0}
+.hero .rule{width:64px;height:1px;background:var(--gold);margin:var(--sp-5) 0;position:relative;overflow:hidden}
+/* The signature "travelling light" — a single bright glint that crosses the
+   rule once, timed just after it finishes drawing in. Finite (one pass,
+   `forwards`), never a loop. */
+.hero .rule::after{content:'';position:absolute;inset-block:0;width:46px;
+  background:linear-gradient(90deg,transparent,var(--gold-light) 45%,#fff 50%,var(--gold-light) 55%,transparent);
+  transform:translateX(-140px);opacity:0;
+  animation:light-travel 1.5s var(--ease) 1.05s 1 forwards}
+@keyframes light-travel{0%{transform:translateX(-140px);opacity:0}
+  12%{opacity:1} 88%{opacity:1} 100%{transform:translateX(140px);opacity:0}}
 .hero h1{font-size:var(--fs-hero,clamp(2.75rem,5.4vw,4.75rem));line-height:1.1;color:var(--on-blue);max-width:16ch}
 .hero .ar{font-family:var(--f-ar-display);direction:rtl;font-size:clamp(1.3rem,2.1vw,1.75rem);color:var(--gold-light);
   margin-top:var(--sp-4);max-width:24ch;line-height:1.5}
 .hero .lead{color:var(--on-blue-soft);margin-top:var(--sp-5)}
+.hero strong{color:var(--on-blue)}
 .hero .ctas{display:flex;flex-wrap:wrap;gap:18px;margin-top:var(--sp-6)}
 .hero .status{margin-top:var(--sp-8);padding-top:var(--sp-5);border-top:1px solid rgba(199,208,234,.22);
   display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
@@ -376,8 +422,8 @@ a{color:inherit}
 .glance__label{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--gold-light);margin:0 0 var(--sp-5);font-weight:700;text-align:center;position:relative;z-index:1}
 .glance__grid{display:flex;flex-wrap:wrap;gap:14px;position:relative;z-index:1}
-.glance__grid a{flex:1 1 128px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:12px;padding:22px 8px;text-decoration:none;color:var(--on-blue-soft);text-align:center;
+.glance__grid a{position:relative;overflow:hidden;flex:1 1 128px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:12px;padding:22px 8px;text-decoration:none;color:var(--on-blue-soft);text-align:center;
   background:linear-gradient(165deg,var(--blue-900) 0%,var(--blue-950) 100%);
   border:1px solid rgba(217,188,123,.2);border-radius:var(--r-card);
   box-shadow:0 12px 26px -14px rgba(0,0,0,.6);
@@ -434,6 +480,9 @@ a{color:inherit}
   .rv,.rv-draw,.btn,.navgrid__row a,.header{transition:none!important}
   .rv{opacity:1!important;transform:none!important}
   .rv-draw{width:64px!important}
+  .hero .rule::after,.navgrid__row a::after,.glance__grid a::after,.btn--primary::after,.navgrid::after{
+    animation:none!important;display:none!important}
+  .eyebrow .type{animation:none!important;width:auto!important;border-inline-end-color:var(--gold-light)!important}
 }
 </style>
 </head>
@@ -567,7 +616,7 @@ a{color:inherit}
     <line x1="60" y1="560" x2="540" y2="560" stroke="#D9BC7B" stroke-width="1.2"/>
   </svg>
   <div class="wrap">
-    <span class="eyebrow rv">Arabic · Qur'an · Islamic Sciences</span>
+    <span class="eyebrow rv"><span class="type">Arabic · Qur'an · Islamic Sciences</span></span>
     <div class="rule rv rv-draw"></div>
     <h1 class="rv">A serious education in Arabic and the Islamic sciences — wherever you are.</h1>
     <p class="ar rv" lang="ar">تعليمٌ جادٌّ في اللغة العربية والعلوم الإسلامية، أينما كنت.</p>
@@ -580,7 +629,7 @@ a{color:inherit}
     </div>
     <div class="status rv" id="status">
       <span class="dot" aria-hidden="true"></span>
-      <p><strong style="color:var(--on-blue)">This is a founding-phase institution.</strong> No cohort
+      <p><strong>This is a founding-phase institution.</strong> No cohort
         has yet started, and nothing is claimed that cannot presently be evidenced.
         <a href="#">Read the honesty statement →</a></p>
     </div>
@@ -725,6 +774,23 @@ a{color:inherit}
       entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
     }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
     items.forEach(function(el){ io.observe(el); });
+  }
+
+  /* A very small parallax on the hero's arch motif — the plate drifts at a
+     fraction of scroll speed, capped, so the hero feels like it has depth
+     without ever becoming a "sticky background" effect. Skipped entirely
+     under reduced motion, not merely slowed. */
+  var plate = document.querySelector('.hero .plate');
+  if (plate && !reduce) {
+    var ticking = false;
+    var onPlateScroll = function () {
+      var y = Math.min(window.scrollY, 600);
+      plate.style.transform = 'translateY(' + (y * 0.08) + 'px)';
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(onPlateScroll); ticking = true; }
+    }, { passive: true });
   }
 })();
 </script>
