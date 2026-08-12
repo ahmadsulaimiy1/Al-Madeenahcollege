@@ -1,0 +1,199 @@
+"use client";
+
+const CSS = `
+:root{
+  --blue-950:#0B1B42; --blue-900:#122352; --blue-800:#16306E; --blue-700:#1E3F8F; --blue-600:#2C52AC;
+  --gold:#B8933D; --gold-light:#D9BC7B; --gold-ink:#8C6A22;
+  --ivory:#FAF6EC; --cream:#F3ECDA; --parchment:#ECE2C7; --hairline:#DDD0AC;
+  --ink:#191A22; --ink-soft:#4A4C5C; --ink-faint:#7A7C8C;
+  --on-blue:#F4EFE0; --on-blue-soft:#C7D0EA;
+  --f-display:'Fraunces','Georgia',serif;
+  --f-ui:'Manrope','Segoe UI',sans-serif;
+  --f-ar-display:'El Messiri',serif; --f-ar-ui:'Markazi Text',serif;
+  --dur:420ms; --ease:cubic-bezier(.16,.8,.24,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--f-ui);font-size:1rem;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit}
+.skip{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;background:var(--blue-800);color:var(--on-blue)}
+.skip:focus{position:fixed;width:auto;height:auto;margin:0;overflow:visible;clip:auto;
+  white-space:normal;padding:12px 20px;z-index:200;inset-inline-start:16px;top:16px}
+
+.stu{min-height:100vh;display:grid;grid-template-rows:auto 1fr;min-width:0}
+
+.stu__top{background:var(--ivory);border-bottom:1px solid var(--hairline);height:60px}
+.stu__top .row{max-width:1320px;margin-inline:auto;height:100%;display:flex;align-items:center;
+  justify-content:space-between;padding-inline:24px}
+.stu__back{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink-soft);font-size:.875rem;font-weight:600}
+.stu__back svg{width:16px;height:16px}
+.stu__crumb{font-size:.8125rem;color:var(--ink-faint)}
+.stu__crumb strong{color:var(--blue-800);font-weight:700}
+.stu__meter{display:flex;align-items:center;gap:12px;font-size:.8125rem;color:var(--ink-soft)}
+.stu__meter .bar{width:120px;height:4px;background:var(--hairline);border-radius:99px;overflow:hidden}
+.stu__meter .bar i{display:block;height:100%;width:38%;background:var(--blue-700)}
+
+.stu__body{max-width:1320px;margin-inline:auto;width:100%;display:grid;min-width:0;
+  grid-template-columns:280px minmax(0,1fr) 280px;gap:0;padding-inline:24px}
+.stu__top,.stu__top .row{min-width:0}
+
+.rail{padding-block:36px 40px;border-inline-end:1px solid var(--hairline)}
+.rail h2{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);
+  margin:0 0 4px;font-weight:700}
+.rail .lesson{font-family:var(--f-display);font-size:1.15rem;color:var(--blue-800);margin:0 0 28px;line-height:1.35}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.rail li{display:flex;gap:14px;padding:12px 4px;position:relative}
+.rail li::before{content:'';position:absolute;left:11px;top:34px;bottom:-14px;width:1px;background:var(--hairline)}
+.rail li:last-child::before{display:none}
+.stage{width:24px;height:24px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:.6875rem;font-weight:700;border:1.5px solid var(--hairline);color:var(--ink-faint);background:var(--cream);z-index:1}
+.rail li.done .stage{background:var(--blue-800);border-color:var(--blue-800);color:var(--on-blue)}
+.rail li.active .stage{border-color:var(--blue-700);color:var(--blue-700);background:var(--ivory);box-shadow:0 0 0 3px rgba(30,63,143,.14)}
+.rail .txt strong{display:block;font-size:.875rem;color:var(--ink)}
+.rail li.active .txt strong{color:var(--blue-800)}
+.rail .txt span{font-size:.75rem;color:var(--ink-faint)}
+.rail .ar{font-family:var(--f-ar-ui);direction:rtl;font-size:.9rem;color:var(--ink-faint)}
+
+.pane{padding-block:44px 60px;padding-inline:56px;max-width:720px;min-width:0}
+.plate,.notes,.actions,.rail ol,.rail li,.rail .txt{min-width:0}
+.pane__eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);font-weight:700}
+.pane h1{font-family:var(--f-display);font-weight:500;font-size:1.9rem;color:var(--ink);margin:10px 0 28px;line-height:1.3}
+.plate{background:var(--ivory);border:1px solid var(--hairline);border-radius:3px;padding:36px 40px;margin-bottom:28px}
+.plate .arabic{font-family:var(--f-ar-display);direction:rtl;font-size:2rem;line-height:2.1;color:var(--ink);margin:0 0 18px}
+.plate .translit{color:var(--ink-faint);font-size:.9375rem;margin:0 0 10px;font-style:italic}
+.plate .translation{color:var(--ink-soft);font-size:1rem;margin:0}
+.player{display:flex;align-items:center;gap:16px;margin-top:22px;padding-top:22px;border-top:1px solid var(--hairline)}
+.player button{width:40px;height:40px;border-radius:50%;background:var(--blue-800);border:0;color:var(--on-blue);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.player .wave{flex:1;min-width:0;height:28px;display:flex;align-items:center;gap:3px;overflow:hidden}
+.player .wave i{display:block;width:3px;flex-shrink:0;background:var(--hairline);border-radius:2px}
+.player .time{font-size:.8125rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;flex-shrink:0}
+
+.notes{background:var(--parchment);border-radius:3px;padding:24px 26px;margin-bottom:28px}
+.notes h3{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);
+  margin:0 0 10px;font-weight:700}
+.notes p{margin:0;color:var(--ink-soft);font-size:.9375rem;line-height:1.65}
+
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-ui);font-size:.8125rem;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:700;padding:14px 26px;border-radius:2px;text-decoration:none;cursor:pointer;
+  transition:transform .2s var(--ease),background .2s}
+.btn--primary{background:var(--blue-800);color:var(--on-blue);border:1px solid var(--blue-800)}
+.btn--primary:hover{transform:translateY(-2px)}
+.btn--ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--hairline)}
+.btn--ghost:hover{border-color:var(--blue-700);color:var(--blue-700)}
+
+.side{padding-block:44px 40px;border-inline-start:1px solid var(--hairline)}
+.side h2{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);
+  margin:0 0 20px;font-weight:700}
+.side dl{margin:0;display:flex;flex-direction:column;gap:16px}
+.side dt{font-family:var(--f-ar-display);direction:rtl;font-size:1.15rem;color:var(--ink)}
+.side dd{margin:2px 0 0;font-size:.8125rem;color:var(--ink-faint)}
+
+@media (max-width:1080px){
+  .stu__body{grid-template-columns:1fr}
+  .rail,.side,.pane{min-width:0}
+  .rail,.side{border:0;border-bottom:1px solid var(--hairline);padding-inline:24px}
+  .pane{padding-inline:24px}
+}
+@media (max-width:760px){
+  .stu__top .row{padding-inline:16px;gap:10px}
+  .stu__crumb{display:none}
+  .stu__meter{gap:6px;font-size:.75rem}
+  .stu__meter .bar{width:56px}
+  .stu__back span{display:none}
+}
+@media (max-width:560px){
+  .pane,.rail,.side{padding-inline:16px}
+  .plate{padding:24px 20px}
+  .plate .arabic{font-size:1.5rem;line-height:1.9}
+}
+@media (prefers-reduced-motion:reduce){ .btn{transition:none} }
+`;
+
+const BODY = `
+<a class="skip" href="#main">Skip to content</a>
+<div class="stu">
+  <div class="stu__top"><div class="row">
+    <a class="stu__back" href="/"><svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The Study</span></a>
+    <div class="stu__crumb">Faculty of Arabic Language · Level 100 · <strong>Naḥw — Lesson 6</strong></div>
+    <div class="stu__meter">Level 100 <div class="bar"><i></i></div> 38%</div>
+  </div></div>
+
+  <div class="stu__body" id="main">
+    <nav class="rail" aria-label="Lesson stages">
+      <h2>Today's lesson</h2>
+      <p class="lesson">The Iḍāfah construction<br><span class="ar" lang="ar">تركيب الإضافة</span></p>
+      <ol>
+        <li class="done"><span class="stage">✓</span><div class="txt"><strong>Samāʿ</strong><span>Input — hear it first</span></div></li>
+        <li class="active"><span class="stage">2</span><div class="txt"><strong>Muḥākāh</strong><span>Imitation — try it, corrected</span></div></li>
+        <li><span class="stage">3</span><div class="txt"><strong>Istiʿmāl</strong><span>Use — a sentence of your own</span></div></li>
+        <li><span class="stage">4</span><div class="txt"><strong>Itqān</strong><span>Checked again, later</span></div></li>
+      </ol>
+    </nav>
+
+    <section class="pane">
+      <span class="pane__eyebrow">Stage 2 · Muḥākāh — imitation</span>
+      <h1>Listen, then repeat the construction aloud.</h1>
+
+      <div class="plate">
+        <p class="arabic" lang="ar">كِتَابُ الطَّالِبِ جَدِيدٌ</p>
+        <p class="translit">kitābu ṭ-ṭālibi jadīdun</p>
+        <p class="translation">The student's book is new. — <em>kitāb</em> (book) and <em>al-ṭālib</em>
+          (the student) form an iḍāfah: the first word drops its article and takes no tanwīn.</p>
+        <div class="player">
+          <button aria-label="Play recitation"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5v14l12-7z"/></svg></button>
+          <div class="wave" aria-hidden="true"></div>
+          <span class="time">0:04 / 0:11</span>
+        </div>
+      </div>
+
+      <div class="notes">
+        <h3>Teacher's note</h3>
+        <p>You had this right in Lesson 4 with two nouns — now try it with a noun and an adjective
+          attached to the second word. Say it twice before recording your attempt.</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn--primary" href="#">Record my attempt</a>
+        <a class="btn btn--ghost" href="#">Hear it again</a>
+      </div>
+    </section>
+
+    <aside class="side">
+      <h2>New this lesson</h2>
+      <dl>
+        <div><dt lang="ar">إِضَافَة</dt><dd>iḍāfah — a possessive/genitive construction</dd></div>
+        <div><dt lang="ar">مُضَاف</dt><dd>muḍāf — the first term (no article, no tanwīn)</dd></div>
+        <div><dt lang="ar">مُضَاف إِلَيْه</dt><dd>muḍāf ilayhi — the second term (genitive case)</dd></div>
+      </dl>
+    </aside>
+  </div>
+</div>
+`;
+
+const SCRIPT = `
+(function(){
+  var bars = 46, wave = document.querySelector('.player .wave');
+  if (wave) {
+    var seed = 7, html = '';
+    for (var i=0;i<bars;i++){
+      seed = (seed*9301+49297)%233280;
+      var h = 4 + Math.floor((seed/233280)*22);
+      html += '<i style="height:'+h+'px"></i>';
+    }
+    wave.innerHTML = html;
+  }
+})();
+`;
+
+export default function StudyClient() {
+  return (
+    <>
+      <style dangerouslySetInnerHTML={{ __html: CSS }} />
+      <div dangerouslySetInnerHTML={{ __html: BODY }} />
+      <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />
+    </>
+  );
+}
