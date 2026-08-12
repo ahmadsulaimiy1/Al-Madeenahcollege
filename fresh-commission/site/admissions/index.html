@@ -8,374 +8,73 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/core.css">
-<style>.navgrid__row a[aria-current]{border-color:var(--gold);background:linear-gradient(165deg,#fffdf7,var(--ivory));box-shadow:var(--sh)}.steps{border-top:1px solid var(--hairline);counter-reset:step}.steps li{list-style:none;display:grid;grid-template-columns:64px 1fr;gap:28px;padding-block:34px;border-bottom:1px solid var(--hairline);position:relative;counter-increment:step}.steps__n{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 22%,#fffdf7,var(--cream) 78%);border:1.5px solid var(--gold);font-family:var(--f-display);font-size:1.15rem;color:var(--blue-800);box-shadow:0 0 0 1px rgba(184,147,61,.14)}.steps__n::before{content:counter(step)}.steps h3{font-size:1.15rem;margin-bottom:8px}.steps p{color:var(--ink-soft);margin:0;max-width:60ch}@media (max-width:640px){.steps li{grid-template-columns:44px 1fr;gap:18px}.steps__n{width:40px;height:40px;font-size:.9375rem}}.placement{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--sp-7);align-items:center}.placement__card{position:relative;overflow:hidden;padding:36px;background:linear-gradient(165deg,var(--ivory),var(--cream));border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft)}.placement__card h3{font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:12px}.placement__list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:12px}.placement__list li{display:flex;gap:10px;color:var(--ink-soft);font-size:.9375rem}.placement__list .icon{width:16px;height:16px;color:var(--gold-ink);flex-shrink:0;margin-top:3px}@media (max-width:900px){.placement{grid-template-columns:1fr}}.callout{border:1px solid var(--hairline);border-inline-start:3px solid var(--gold);border-radius:14px;padding:28px 30px;background:var(--parchment)}.callout__k{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-ink);font-weight:700}.callout p{margin:12px 0 0;color:var(--ink-soft)}.callout p:first-of-type{margin-top:14px}.callout__date{font-size:.8125rem;color:var(--ink-faint);margin-top:16px!important}.pacegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.pacegrid__card{padding:28px 24px;background:linear-gradient(165deg,var(--ivory),var(--cream));border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft)}.pacegrid__card h3{font-size:1.05rem;margin-bottom:6px}.pacegrid__hrs{font-family:var(--f-display);font-size:1.5rem;color:var(--gold-ink);margin:0 0 10px}.pacegrid__hrs span{font-family:var(--f-ui);font-size:.75rem;color:var(--ink-faint);font-weight:400}.pacegrid__card p{color:var(--ink-soft);font-size:.875rem;margin:0}@media (max-width:1000px){.pacegrid{grid-template-columns:1fr 1fr}}@media (max-width:560px){.pacegrid{grid-template-columns:1fr}}.whorow{display:flex;flex-wrap:wrap;gap:12px}.whorow li{list-style:none;font-size:.9375rem;font-weight:600;color:var(--blue-800);border:1px solid var(--hairline);background:var(--ivory);padding:12px 22px;border-radius:var(--r-pill)}.whorow__foot{margin-top:28px}.placement__intro{margin-bottom:18px}.placement__cta{width:100%}</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<svg width="0" height="0" class="sprite-defs" aria-hidden="true">
-<defs>
-<symbol id="ic-mail" viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="M4 7l8 6.5L20 7"/></symbol>
-<symbol id="ic-phone" viewBox="0 0 24 24"><path d="M6 4.5c1 3 2.4 5.7 4.4 7.7 2 2 4.7 3.4 7.7 4.4l1.4-2.4c.3-.5.9-.7 1.5-.5l3 1c.6.2 1 .8.9 1.4-.3 2.6-2.6 4.4-5.2 4-5-.8-9.6-3.3-12.9-6.6C3.5 11.2 1 6.6 1.8 1.6 2.2-1 4-3.3 6.6-3.6L7.6-.6c.2.6 0 1.2-.5 1.5l-2.4 1.4c1 3 .3-.2 1.3 1.9" fill="none" transform="translate(1,4)"/><path d="M5.5 3.5c.7 2.6 2 5 3.8 6.9 1.9 1.9 4.3 3.1 6.9 3.8l1.1-1.9c.2-.4.7-.6 1.2-.4l2.7 1c.5.2.8.7.7 1.2-.3 2.1-2.1 3.5-4.2 3.2-4.4-.7-8.4-2.9-11.3-5.9C3.5 8.5 1.3 4.5.6.1.3-2 1.7-4 3.8-4.2l2.7-.3c.5-.1 1 .2 1.2.7l1 2.7c.2.5 0 1-.4 1.2L6.4 1.4"/></symbol>
-<symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 2.6 4.2 5.6 4.2 9s-1.4 6.4-4.2 9c-2.8-2.6-4.2-5.6-4.2-9S9.2 5.6 12 3z"/></symbol>
-<symbol id="ic-type" viewBox="0 0 24 24"><path d="M6 19l5-14h1l5 14M8 14h7"/></symbol>
-<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M19.5 19.5l-4.3-4.3"/></symbol>
-<symbol id="ic-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
-<symbol id="ic-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></symbol>
-<symbol id="ic-signin" viewBox="0 0 24 24"><path d="M11 4H5v16h6M15 8l4 4-4 4M9 12h10"/></symbol>
-<symbol id="ic-inst" viewBox="0 0 24 24"><path d="M4 21h16M5 21V10M19 21V10M3 10l9-6 9 6M9 21v-6h6v6"/></symbol>
-<symbol id="ic-book" viewBox="0 0 24 24"><path d="M12 5.5C10 4 7 3.5 4 4v14c3-.5 6 0 8 1.5M12 5.5C14 4 17 3.5 20 4v14c-3-.5-6 0-8 1.5M12 5.5v15"/></symbol>
-<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7M9 8h3"/></symbol>
-<symbol id="ic-ribbon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L6 21l6-3 6 3-2.5-7.5"/></symbol>
-<symbol id="ic-bell" viewBox="0 0 24 24"><path d="M6 10a6 6 0 1112 0c0 4 1.5 5.5 1.5 5.5h-15S6 14 6 10z"/><path d="M10 19a2 2 0 004 0"/></symbol>
-<symbol id="ic-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 21h10M5 7l3.5-1.5L12 7M19 7l-3.5-1.5L12 7M5 7l-3 6a3.2 3.2 0 006 0L5 7zM19 7l-3 6a3.2 3.2 0 006 0l-3-6z"/></symbol>
-<symbol id="ic-quran" viewBox="0 0 24 24"><path d="M4 5.5c2.5-1 5.5-1.3 8-.3 2.5-1 5.5-.7 8 .3v13c-2.5-1-5.5-1.3-8-.3-2.5-1-5.5-.7-8 .3z"/><path d="M12 5.2v13"/></symbol>
-<symbol id="ic-scroll" viewBox="0 0 24 24"><path d="M6 4h13v13a3 3 0 01-3 3H6a3 3 0 003-3V4z"/><path d="M6 4a3 3 0 00-3 3v0a3 3 0 003 3M9 9h7M9 12.5h5"/></symbol>
-<symbol id="ic-brief" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/></symbol>
-<symbol id="ic-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".6" fill="currentColor"/></symbol>
-<symbol id="ic-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.7c0-1.2 1.1-2.2 2.5-2.2s2.5.8 2.5 1.8-1 1.5-2.5 1.9-2.5.9-2.5 1.9 1.1 1.8 2.5 1.8 2.5-1 2.5-2.2"/></symbol>
-<symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></symbol>
-<symbol id="ic-check" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></symbol>
-<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
-</defs>
-</svg>
 <header class="header">
-  <div class="util">
-    <div class="wrap">
-      <div class="util__left">
-        <a href="mailto:admissions@almadeenah.college"><svg class="icon"><use href="#ic-mail"/></svg>admissions@almadeenah.college</a>
-        <a href="#"><svg class="icon"><use href="#ic-phone"/></svg>Contact numbers by region</a>
-      </div>
-      <div class="util__right">
-        <a href="#" data-read-step><svg class="icon"><use href="#ic-type"/></svg><span>Reading size</span></a>
-        <span aria-hidden="true">·</span>
-        <div class="util__lang">
-          <a href="/" aria-current="true">EN</a><a href="/ar/" lang="ar">العربية</a>
-        </div>
-        <span aria-hidden="true">·</span>
-        <a href="/study/"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
-      </div>
-    </div>
-  </div>
-  <div class="identity">
-    <div class="wrap">
-      <a class="brand" href="/">
-        <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/>
-          <circle cx="24" cy="9" r="2.2" fill="currentColor"/>
-        </svg></span>
-        <span class="word">Al-Madeenah<small>International College</small></span>
-      </a>
-      <p class="identity__tag"><i></i>Founding phase · Fully distance-learning<i></i></p>
-      <div class="identity__actions">
-        <button class="iconbtn" aria-label="Search the College"><svg class="icon"><use href="#ic-search"/></svg></button>
-        <a class="btn btn--gilt btn--sm" href="/admissions/">Begin placement</a>
-        <button class="navtoggle iconbtn" aria-label="Open menu" data-drawer-open><svg class="icon"><use href="#ic-menu"/></svg></button>
-      </div>
-    </div>
-  </div>
-  <nav class="navgrid" aria-label="Primary">
-    <div class="wrap"><div class="navgrid__row">
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Institution</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Academics</span></a>
-      <a href="/admissions/" aria-current="page"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
-      <a href="/study/"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Credentials</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
-    </div></div>
-  </nav>
-  <div class="subnav">
-    <div class="wrap">
-      <a href="/study/" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
-      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
-      <a href="#"><svg class="icon"><use href="#ic-check"/></svg>Verify a credential</a>
-      <a href="#"><svg class="icon"><use href="#ic-book"/></svg>The Academic Bible</a>
-      <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact admissions</a>
-    </div>
-  </div>
-  <div class="notices">
-    <div class="wrap">
-      <div class="notices__l"><svg class="icon"><use href="#ic-bell"/></svg>Notices — no active announcements yet</div>
-      <a href="#">View all →</a>
-    </div>
-  </div>
+  <div class="util"><div class="wrap"><div class="util__left"><a href="mailto:admissions@almadeenah.college">admissions@almadeenah.college</a></div><div class="util__right"><div class="util__lang"><a href="/" aria-current="true">EN</a><a href="/ar/" lang="ar">العربية</a></div></div></div></div>
+  <div class="identity"><div class="wrap">
+    <a class="brand" href="/"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah<small>International College</small></span></a>
+    <div class="identity__actions"><a class="btn btn--gilt btn--sm" href="/admissions/">Begin placement</a></div>
+  </div></div>
+  <nav class="navgrid" aria-label="Primary"><div class="wrap"><div class="navgrid__row">
+    <a href="/leadership/"><span>Leadership</span></a>
+    <a href="/admissions/" aria-current="page"><span>Admissions</span></a>
+    <a href="/study/"><span>The Study</span></a>
+  </div></div></nav>
 </header>
-<div class="drawer" id="drawer">
-  <div class="drawer__top">
-    <a class="brand" href="/"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah</span></a>
-    <button class="drawer__close" aria-label="Close menu" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
-  </div>
-  <div class="drawer__actions">
-    <a href="/study/" class="is-primary">Sign in to the Study<span>→</span></a>
-    <a href="#">Placement assessment<span>→</span></a>
-    <a href="#">Verify a credential<span>→</span></a>
-  </div>
-  <nav class="drawer__grid" aria-label="Primary">
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-inst"/></svg></span>The Institution</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-book"/></svg></span>Academics</a>
-    <a href="/admissions/"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>Admissions</a>
-    <a href="/study/"><span class="drawer__badge"><svg class="icon"><use href="#ic-signin"/></svg></span>The Study</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span>Credentials</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-bell"/></svg></span>News</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>Contact</a>
-  </nav>
-  <div class="drawer__util">
-    <span>Reading size · EN / العربية</span>
-    <span>Founding phase</span>
-  </div>
-</div>
 <main id="main">
-<section class="hero">
-  <svg class="plate" viewBox="0 0 600 600" fill="none" aria-hidden="true">
-    <path d="M60 560 L60 300 Q60 140 300 90 Q540 140 540 300 L540 560" stroke="#D9BC7B" stroke-width="1.2"/>
-    <path d="M120 560 L120 320 Q120 190 300 150 Q480 190 480 320 L480 560" stroke="#D9BC7B" stroke-width="1"/>
-    <line x1="60" y1="560" x2="540" y2="560" stroke="#D9BC7B" stroke-width="1.2"/>
-  </svg>
-  <div class="wrap">
-    <span class="eyebrow rv"><span class="type">Admissions</span></span>
-    <div class="rule rv rv-draw"></div>
-    <h1 class="rv">Read everything, before you tell us anything.</h1>
-    <p class="lead rv">Every programme, every pace, every fee band and the placement assessment
-      are open to read without an account. You will not meet a signup wall until the moment you
-      actually choose to apply — and that moment comes last, not first.</p>
-    <div class="ctas rv">
-      <a class="btn btn--primary" href="/admissions/">Take the placement assessment — free</a>
-      <a class="btn btn--gilt" href="#">See fees by region</a>
-    </div>
+<section class="hero"><div class="wrap">
+  <span class="eyebrow rv"><span class="type">Admissions</span></span>
+  <div class="rule rv rv-draw"></div>
+  <h1 class="rv">Read everything, before you tell us anything.</h1>
+  <p class="lead rv">Every programme, every pace, every fee band and the placement assessment are
+    open to read without an account. You will not meet a signup wall until the moment you actually
+    choose to apply — and that moment comes last, not first.</p>
+  <div class="ctas rv"><a class="btn btn--primary" href="#assessment">Take the placement assessment — free</a></div>
+</div></section>
+<section class="section section--ivory"><div class="wrap">
+  <div class="section-head rv"><span class="eyebrow">The journey</span><h2>Five stages, in order.</h2><p class="lead section-head__lead">Nothing before stage three asks for a payment or an account.</p></div>
+  <ol class="steps">
+    <li class="rv"><span class="steps__n" aria-hidden="true"></span><div><h3>Explore</h3><p>Read the three faculties, the four paces, and the fee bands — all before you have given us anything.</p></div></li>
+    <li class="rv"><span class="steps__n" aria-hidden="true"></span><div><h3>Place yourself</h3><p>A free, untimed self-assessment suggests where to start. Calibration, not a test to pass.</p></div></li>
+    <li class="rv"><span class="steps__n" aria-hidden="true"></span><div><h3>Apply</h3><p>One application, in one place, including a request for financial aid if you need it.</p></div></li>
+    <li class="rv"><span class="steps__n" aria-hidden="true"></span><div><h3>Decision</h3><p>Every application receives an answer. A "not yet" is stated plainly, with the reason.</p></div></li>
+    <li class="rv"><span class="steps__n" aria-hidden="true"></span><div><h3>Orientation</h3><p>A short, unhurried orientation to the Study before your first live class.</p></div></li>
+  </ol>
+</div></section>
+<section class="section section--cream" id="assessment"><div class="wrap">
+  <div class="section-head rv"><span class="eyebrow">Stage two</span><h2>The placement assessment.</h2></div>
+  <div class="placement">
+    <div class="rv"><p class="lead">It exists to answer the one question that quietly stops most people from ever applying anywhere: <em>"where would I even start, and will I be embarrassed?"</em></p>
+      <p>Six statements about what you can currently do in Arabic, answered honestly, at your own pace.</p></div>
+    <div class="placement__card rv"><h3>What to expect</h3>
+      <ul class="placement__list"><li>Free, no account required to begin</li><li>Untimed and resumable</li><li>Unlimited retakes</li><li>A suggested level, never a score</li></ul>
+      <a class="btn btn--primary placement__cta" href="#">Begin the assessment</a></div>
   </div>
-</section>
-<section class="section section--ivory">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">The journey</span>
-      <h2>Five stages, in order — and what each one is for.</h2>
-      <p class="lead section-head__lead">Nothing before stage three asks for a payment or an
-        account. A stage is skipped only if it genuinely doesn't apply to you, never to save you
-        a click.</p>
-    </div>
-    <ol class="steps">
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Explore</h3><p>Read the three faculties, the four paces, and the fee bands.
-          Everything on this page is here before you have given us anything.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Place yourself</h3><p>A free, untimed self-assessment suggests where to start.
-          It exists to answer "where would I even start?" — calibration, not a test to pass.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Apply</h3><p>One application, in one place, including a request for financial
-          aid if you need it. There is never a second process for aid.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Decision</h3><p>Every application receives an answer. There is no silent
-          rejection — a "not yet" is stated plainly, with the reason.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Orientation</h3><p>A short, unhurried orientation to the Study before your
-          first live class — so the first real lesson is the first unfamiliar thing you meet.</p></div></li>
-    </ol>
+</div></section>
+<section class="section section--ivory"><div class="wrap">
+  <div class="section-head rv"><span class="eyebrow">Stage three</span><h2>Applying, honestly.</h2></div>
+  <div class="callout rv"><span class="callout__k">Institutional status</span>
+    <p><strong>Applications for learners 16 and over are open.</strong> The College is in its founding phase — no cohort has yet begun, and this is the first intake.</p>
+    <p>Applying asks for: your name, date of birth, country of residence, preferred pace, and — optionally — whether you are requesting financial aid.</p>
+    <p class="callout__date">Status last reviewed: 12 August 2026</p></div>
+</div></section>
+<section class="section section--cream"><div class="wrap">
+  <div class="section-head rv"><span class="eyebrow">Pace</span><h2>Four paces. One standard underneath all of them.</h2></div>
+  <div class="pacegrid">
+    <div class="pacegrid__card rv"><h3>Flexible</h3><p class="pacegrid__hrs">— <span>irregular</span></p><p>For unstable schedules, caregiving, or shift work.</p></div>
+    <div class="pacegrid__card rv"><h3>Regular</h3><p class="pacegrid__hrs">4–6<span> h / week</span></p><p>The default pace.</p></div>
+    <div class="pacegrid__card rv"><h3>Intensive</h3><p class="pacegrid__hrs">10–14<span> h / week</span></p><p>For a committed learner.</p></div>
+    <div class="pacegrid__card rv"><h3>Accelerated</h3><p class="pacegrid__hrs">20–25<span> h / week</span></p><p>Near full-time study.</p></div>
   </div>
-</section>
-<section class="section section--cream">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Stage two</span>
-      <h2>The placement assessment.</h2>
-    </div>
-    <div class="placement">
-      <div class="rv">
-        <p class="lead placement__intro">It exists to answer the one question that
-          quietly stops most people from ever applying anywhere: <em>"where would I even start,
-          and will I be embarrassed?"</em> An instrument that answers that with a mark has
-          failed at its only job — so this one doesn't carry one.</p>
-        <p>Six statements about what you can currently do in Arabic, answered honestly, at your
-          own pace. The result is a suggested starting level, not a grade, and you can retake it
-          as many times as you like as your own sense of where you stand changes.</p>
-      </div>
-      <div class="placement__card rv">
-        <h3><svg class="icon" aria-hidden="true"><use href="#ic-target"/></svg>What to expect</h3>
-        <ul class="placement__list">
-          <li><svg class="icon"><use href="#ic-check"/></svg>Free, with no account required to begin</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>Untimed and resumable — close the tab, come back later</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>Unlimited retakes, whenever you want one</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>A suggested level, never a score or a grade</li>
-        </ul>
-        <a class="btn btn--primary placement__cta" href="/admissions/">Begin the assessment</a>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="section section--ivory">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Stage three</span>
-      <h2>Applying, honestly.</h2>
-    </div>
-    <div class="callout rv">
-      <span class="callout__k">Institutional status</span>
-      <p><strong>Applications are not open yet.</strong> The College is in its founding phase —
-        no cohort has begun, and no first-intake date is confirmed. This page will carry a real
-        application, an itemised fee schedule and a stated decision time the moment that
-        changes, in the same place this notice stands today.</p>
-      <p>When it opens, applying will ask for: your name, your country of residence, your
-        placement result, your preferred pace, and — entirely optionally — whether you are
-        requesting financial aid. Documents are deferred until after admission wherever
-        possible, so uploading them on limited mobile data is never what stands between you and
-        applying.</p>
-      <p class="callout__date">Status last reviewed: 11 August 2026</p>
-    </div>
-  </div>
-</section>
-<section class="section section--cream">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Pace</span>
-      <h2>Four paces. One standard underneath all of them.</h2>
-      <p class="lead section-head__lead">The certificate does not record which pace you
-        studied at — only the level you reached and the date you reached it.</p>
-    </div>
-    <div class="pacegrid">
-      <div class="pacegrid__card rv">
-        <h3>Flexible</h3>
-        <p class="pacegrid__hrs">— <span>irregular</span></p>
-        <p>For unstable schedules, caregiving, or shift work — study resumes whenever your week
-          allows it.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Regular</h3>
-        <p class="pacegrid__hrs">4–6<span> h / week</span></p>
-        <p>The default pace: real, steady progress alongside a full working life.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Intensive</h3>
-        <p class="pacegrid__hrs">10–14<span> h / week</span></p>
-        <p>For a committed learner with genuine spare time to give it each week.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Accelerated</h3>
-        <p class="pacegrid__hrs">20–25<span> h / week</span></p>
-        <p>Near full-time study, for a student able to treat this as their main commitment.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="section section--ivory">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Who this is for</span>
-      <h2>Admission is not narrowed to one kind of student.</h2>
-    </div>
-    <ul class="whorow rv">
-      <li>Adults</li><li>Professionals</li><li>Teachers &amp; trainee teachers</li>
-      <li>Converts to Islam</li><li>Families studying in parallel</li><li>Teenagers (16+, with guardian consent)</li>
-    </ul>
-    <p class="progrid__foot rv whorow__foot"><svg class="icon" aria-hidden="true"><use href="#ic-shield"/></svg>
-      <span>Enrolment under 16 is not yet open. A safeguarding structure — a named
-      Safeguarding Lead, a vetting standard, and a recording policy — must be operative and
-      published first, without exception, before that changes.</span></p>
-  </div>
-</section>
+</div></section>
+<section class="section section--ivory"><div class="wrap">
+  <div class="section-head rv"><span class="eyebrow">Who this is for</span><h2>Admission is not narrowed to one kind of student.</h2></div>
+  <ul class="whorow rv"><li>Adults</li><li>Professionals</li><li>Teachers &amp; trainee teachers</li><li>Converts to Islam</li><li>Families studying in parallel</li><li>Teenagers (16+, with guardian consent)</li></ul>
+  <p class="whorow__foot rv">Enrolment under 16 is not yet open. A safeguarding structure — a named Safeguarding Lead, a vetting standard, and a recording policy — must be operative and published first.</p>
+</div></section>
 </main>
-<footer class="foot">
-  <div class="glance">
-    <div class="wrap">
-      <p class="glance__label">The institution, at a glance</p>
-      <nav class="glance__grid" aria-label="All destinations">
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Governance</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Faculty of Arabic</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span><span>Faculty of Qur'an</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Islamic Sciences</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-brief"/></svg></span><span>Professional Programmes</span></a>
-        <a href="/admissions/"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>Placement Assessment</span></a>
-        <a href="/admissions/"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-coin"/></svg></span><span>Fees &amp; Scholarships</span></a>
-        <a href="/study/"><span class="glance__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>Sign in to the Study</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Award Ladder</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-check"/></svg></span><span>Verify a Credential</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-shield"/></svg></span><span>Safeguarding</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-lock"/></svg></span><span>Privacy &amp; Data</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News &amp; Notices</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Editorial Bible</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
-      </nav>
-    </div>
-  </div>
-  <div class="footcols">
-    <div class="wrap grid">
-      <div class="brandblock rv">
-        <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span>
-        <span class="word">Al-Madeenah</span>
-        <span class="ar" lang="ar">كلية المدينة العالمية للدراسات العربية والإسلامية</span>
-        <p>A distance-learning college for Arabic language, Qur'an and the Islamic sciences —
-          fixed standards, flexible pace.</p>
-      </div>
-      <details class="rv" open><summary>Institution</summary><ul>
-        <li><a href="#">About</a></li><li><a href="#">Governance</a></li>
-        <li><a href="#">The Academic &amp; Editorial Bible</a></li><li><a href="#">Honesty &amp; status register</a></li>
-        <li><a href="#">Safeguarding</a></li><li><a href="#">Teach with us</a></li></ul></details>
-      <details class="rv" open><summary>Academics</summary><ul>
-        <li><a href="#">Faculty of Arabic</a></li><li><a href="#">Faculty of Qur'an</a></li>
-        <li><a href="#">Faculty of Islamic Sciences</a></li><li><a href="#">Professional &amp; Specialist Programmes</a></li>
-        <li><a href="#">The Itqān method</a></li></ul></details>
-      <details class="rv" open><summary>Admissions &amp; Study</summary><ul>
-        <li><a href="#">The journey</a></li><li><a href="#">Placement assessment</a></li>
-        <li><a href="/admissions/">How to apply</a></li><li><a href="#">Fees &amp; scholarships</a></li>
-        <li><a href="/study/">Sign in to the Study</a></li></ul></details>
-      <details class="rv" open><summary>Credentials &amp; Policies</summary><ul>
-        <li><a href="#">The award ladder</a></li><li><a href="#">Verify a credential</a></li>
-        <li><a href="#">Privacy notice</a></li><li><a href="#">Terms</a></li></ul></details>
-      <details class="rv" open><summary>Contact</summary><ul>
-        <li><a href="#">Admissions enquiries</a></li><li><a href="#">General contact</a></li>
-        <li><a href="#">Teach with us</a></li><li><a href="#">Press enquiries</a></li></ul></details>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="footbar">
-      <span><span class="dot"></span>Design exploration for a founding-phase institution — not a live site.</span>
-      <span>© Al-Madeenah International College for Arabic &amp; Islamic Studies</span>
-    </div>
-  </div>
-</footer>
-<script>
-(function(){
-  var header = document.querySelector('.header');
-  var onScroll = function(){ header.classList.toggle('scrolled', window.scrollY > 90); };
-  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
-  var drawer = document.getElementById('drawer');
-  var openBtns = document.querySelectorAll('[data-drawer-open]');
-  var closeBtns = document.querySelectorAll('[data-drawer-close]');
-  var setDrawer = function(open){
-    drawer.setAttribute('data-open', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  };
-  openBtns.forEach(function(b){ b.addEventListener('click', function(){ setDrawer(true); }); });
-  closeBtns.forEach(function(b){ b.addEventListener('click', function(){ setDrawer(false); }); });
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape' && drawer.getAttribute('data-open') === 'true') setDrawer(false);
-  });
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = document.querySelectorAll('.rv');
-  if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){ if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
-    items.forEach(function(el){ io.observe(el); });
-  }
-  /* A very small parallax on the hero's arch motif — the plate drifts at a
-     fraction of scroll speed, capped, so the hero feels like it has depth
-     without ever becoming a "sticky background" effect. Skipped entirely
-     under reduced motion, not merely slowed. */
-  var plate = document.querySelector('.hero .plate');
-  if (plate && !reduce) {
-    var ticking = false;
-    var onPlateScroll = function () {
-      var y = Math.min(window.scrollY, 600);
-      plate.style.transform = 'translateY(' + (y * 0.08) + 'px)';
-      ticking = false;
-    };
-    window.addEventListener('scroll', function () {
-      if (!ticking) { requestAnimationFrame(onPlateScroll); ticking = true; }
-    }, { passive: true });
-  }
-})();
-</script>
+<footer class="foot"><div class="wrap"><div class="footbar"><span><span class="dot"></span>Al-Madeenah International College — founding-phase institution, fully distance-learning.</span><span>© Al-Madeenah International College for Arabic &amp; Islamic Studies</span></div></div></footer>
 </body>
 </html>
