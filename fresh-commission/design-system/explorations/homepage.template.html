@@ -421,7 +421,7 @@ a{color:inherit}
         <a href="#" data-read-step><svg class="icon"><use href="#ic-type"/></svg><span>Reading size</span></a>
         <span aria-hidden="true">·</span>
         <div class="util__lang">
-          <a href="#" aria-current="true">EN</a><a href="#" lang="ar">العربية</a>
+          <a href="/" aria-current="true">EN</a><a href="/ar/" lang="ar">العربية</a>
         </div>
         <span aria-hidden="true">·</span>
         <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
@@ -431,7 +431,7 @@ a{color:inherit}
 
   <div class="identity">
     <div class="wrap">
-      <a class="brand" href="#">
+      <a class="brand" href="/">
         <span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
           <path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/>
           <circle cx="24" cy="9" r="2.2" fill="currentColor"/>
@@ -451,8 +451,8 @@ a{color:inherit}
     <div class="wrap"><div class="navgrid__row">
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Institution</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Academics</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
-      <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
+      <a href="/admissions/"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
+      <a href="/study/"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Credentials</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-mail"/></svg></span><span>Contact</span></a>
@@ -461,8 +461,8 @@ a{color:inherit}
 
   <div class="subnav">
     <div class="wrap">
-      <a href="#" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
-      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
+      <a href="/study/" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
+      <a href="/admissions/"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
       <a href="#"><svg class="icon"><use href="#ic-check"/></svg>Verify a credential</a>
       <a href="#"><svg class="icon"><use href="#ic-book"/></svg>The Academic Bible</a>
       <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact admissions</a>
@@ -479,25 +479,25 @@ a{color:inherit}
 
 <div class="drawer" id="drawer">
   <div class="drawer__top">
-    <a class="brand" href="#"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah</span></a>
+    <a class="brand" href="/"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah</span></a>
     <button class="drawer__close" aria-label="Close menu" data-drawer-close><svg class="icon"><use href="#ic-close"/></svg></button>
   </div>
   <div class="drawer__actions">
-    <a href="#" class="is-primary">Sign in to the Study<span>→</span></a>
-    <a href="#">Placement assessment<span>→</span></a>
+    <a href="/study/" class="is-primary">Sign in to the Study<span>→</span></a>
+    <a href="/admissions/">Placement assessment<span>→</span></a>
     <a href="#">Verify a credential<span>→</span></a>
   </div>
   <nav class="drawer__grid" aria-label="Primary">
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-inst"/></svg></span>The Institution</a>
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-book"/></svg></span>Academics</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>Admissions</a>
-    <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-signin"/></svg></span>The Study</a>
+    <a href="/admissions/"><span class="drawer__badge"><svg class="icon"><use href="#ic-doc"/></svg></span>Admissions</a>
+    <a href="/study/"><span class="drawer__badge"><svg class="icon"><use href="#ic-signin"/></svg></span>The Study</a>
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span>Credentials</a>
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-bell"/></svg></span>News</a>
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>Contact</a>
   </nav>
   <div class="drawer__util">
-    <span>Reading size · EN / العربية</span>
+    <span>Reading size · <a href="/">EN</a> / <a href="/ar/">العربية</a></span>
     <span>Founding phase</span>
   </div>
 </div>
@@ -518,7 +518,7 @@ a{color:inherit}
       borrowed connection — not a campus with a login screen bolted on. Progress is decided by
       demonstrated mastery in front of a qualified teacher, never by the calendar.</p>
     <div class="ctas rv">
-      <a class="btn btn--primary" href="#">Take the placement assessment — free</a>
+      <a class="btn btn--primary" href="/admissions/">Take the placement assessment — free</a>
       <a class="btn btn--gilt" href="#">Read the academic model</a>
     </div>
     <div class="status rv" id="status">
@@ -582,10 +582,10 @@ a{color:inherit}
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span><span>Faculty of Qur'an</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-scale"/></svg></span><span>Islamic Sciences</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-brief"/></svg></span><span>Professional Programmes</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>Placement Assessment</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
+        <a href="/admissions/"><span class="glance__badge"><svg class="icon"><use href="#ic-target"/></svg></span><span>Placement Assessment</span></a>
+        <a href="/admissions/"><span class="glance__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-coin"/></svg></span><span>Fees &amp; Scholarships</span></a>
-        <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>Sign in to the Study</span></a>
+        <a href="/study/"><span class="glance__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>Sign in to the Study</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Award Ladder</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-check"/></svg></span><span>Verify a Credential</span></a>
         <a href="#"><span class="glance__badge"><svg class="icon"><use href="#ic-shield"/></svg></span><span>Safeguarding</span></a>
@@ -616,8 +616,8 @@ a{color:inherit}
         <li><a href="#">The Itqān method</a></li></ul></details>
       <details class="rv" open><summary>Admissions &amp; Study</summary><ul>
         <li><a href="#">The journey</a></li><li><a href="#">Placement assessment</a></li>
-        <li><a href="#">How to apply</a></li><li><a href="#">Fees &amp; scholarships</a></li>
-        <li><a href="#">Sign in to the Study</a></li></ul></details>
+        <li><a href="/admissions/">How to apply</a></li><li><a href="#">Fees &amp; scholarships</a></li>
+        <li><a href="/study/">Sign in to the Study</a></li></ul></details>
       <details class="rv" open><summary>Credentials &amp; Policies</summary><ul>
         <li><a href="#">The award ladder</a></li><li><a href="#">Verify a credential</a></li>
         <li><a href="#">Privacy notice</a></li><li><a href="#">Terms</a></li></ul></details>

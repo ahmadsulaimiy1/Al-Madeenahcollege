@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admissions — Al-Madeenah International College</title>
+<title>Al-Madeenah International College — homepage direction</title>
+<link rel="stylesheet" href="/fonts.css">
 <style>
-/*FONTS*/
-
 :root{
   --blue-950:#0B1B42; --blue-900:#122352; --blue-800:#16306E; --blue-700:#1E3F8F; --blue-600:#2C52AC;
   --gold:#B8933D; --gold-light:#D9BC7B; --gold-ink:#8C6A22;
@@ -113,8 +112,6 @@ a{color:inherit}
   transition:transform .32s var(--ease),box-shadow .32s var(--ease),border-color .32s var(--ease),color .2s}
 .navgrid__row a:hover,.navgrid__row a:focus-visible{transform:translateY(-4px);box-shadow:var(--sh);
   border-color:var(--gold);color:var(--blue-800)}
-.navgrid__row a[aria-current]{border-color:var(--gold);background:linear-gradient(165deg,#fffdf7,var(--ivory));
-  box-shadow:var(--sh)}
 /* card shine — a single diagonal gleam crossing the card, once per hover,
    never a resting or looping effect */
 .navgrid__row a::after,.glance__grid a::after{content:'';position:absolute;top:0;left:-60%;width:34%;height:100%;
@@ -303,63 +300,6 @@ a{color:inherit}
 @media (max-width:1000px){ .progrid{grid-template-columns:1fr 1fr} }
 @media (max-width:640px){ .progrid{grid-template-columns:1fr} }
 
-/* ---- steps — a genuinely sequential list, so it earns a numbered
-   treatment the way the programme grid (parallel, not sequential) did
-   not. Same gold-ring badge language as the rest of the system, holding
-   a number instead of an icon. ---- */
-.steps{border-top:1px solid var(--hairline);counter-reset:step}
-.steps li{list-style:none;display:grid;grid-template-columns:64px 1fr;gap:28px;
-  padding-block:34px;border-bottom:1px solid var(--hairline);position:relative;counter-increment:step}
-.steps__n{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
-  justify-content:center;background:radial-gradient(circle at 35% 22%,#fffdf7,var(--cream) 78%);
-  border:1.5px solid var(--gold);font-family:var(--f-display);font-size:1.15rem;color:var(--blue-800);
-  box-shadow:0 0 0 1px rgba(184,147,61,.14)}
-.steps__n::before{content:counter(step)}
-.steps h3{font-size:1.15rem;margin-bottom:8px}
-.steps p{color:var(--ink-soft);margin:0;max-width:60ch}
-@media (max-width:640px){ .steps li{grid-template-columns:44px 1fr;gap:18px}
-  .steps__n{width:40px;height:40px;font-size:.9375rem} }
-
-/* ---- placement panel ---- */
-.placement{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--sp-7);align-items:center}
-.placement__card{position:relative;overflow:hidden;padding:36px;background:linear-gradient(165deg,var(--ivory),var(--cream));
-  border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft)}
-.placement__card h3{font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.placement__list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:12px}
-.placement__list li{display:flex;gap:10px;color:var(--ink-soft);font-size:.9375rem}
-.placement__list .icon{width:16px;height:16px;color:var(--gold-ink);flex-shrink:0;margin-top:3px}
-@media (max-width:900px){ .placement{grid-template-columns:1fr} }
-
-/* ---- honest status callout ---- */
-.callout{border:1px solid var(--hairline);border-inline-start:3px solid var(--gold);border-radius:14px;
-  padding:28px 30px;background:var(--parchment)}
-.callout__k{font-family:var(--f-ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--gold-ink);font-weight:700}
-.callout p{margin:12px 0 0;color:var(--ink-soft)}
-.callout p:first-of-type{margin-top:14px}
-.callout__date{font-size:.8125rem;color:var(--ink-faint);margin-top:16px!important}
-
-/* ---- pace grid (reuses the progrid card language: four comparable,
-   parallel options, so it takes the same treatment) ---- */
-.pacegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.pacegrid__card{padding:28px 24px;background:linear-gradient(165deg,var(--ivory),var(--cream));
-  border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh-soft)}
-.pacegrid__card h3{font-size:1.05rem;margin-bottom:6px}
-.pacegrid__hrs{font-family:var(--f-display);font-size:1.5rem;color:var(--gold-ink);margin:0 0 10px}
-.pacegrid__hrs span{font-family:var(--f-ui);font-size:.75rem;color:var(--ink-faint);font-weight:400}
-.pacegrid__card p{color:var(--ink-soft);font-size:.875rem;margin:0}
-@media (max-width:1000px){ .pacegrid{grid-template-columns:1fr 1fr} }
-@media (max-width:560px){ .pacegrid{grid-template-columns:1fr} }
-
-/* ---- who this serves — a plain tag row, not a card grid: these are
-   labels, not comparable options with their own attributes ---- */
-.whorow{display:flex;flex-wrap:wrap;gap:12px}
-.whorow li{list-style:none;font-size:.9375rem;font-weight:600;color:var(--blue-800);
-  border:1px solid var(--hairline);background:var(--ivory);padding:12px 22px;border-radius:var(--r-pill)}
-.whorow__foot{margin-top:28px}
-.placement__intro{margin-bottom:18px}
-.placement__cta{width:100%}
-
 /* =========================================================================
    FOOTER — the final architectural floor: an "at a glance" grid of every
    real destination in the institution, then five column groups, then the
@@ -483,7 +423,7 @@ a{color:inherit}
           <a href="/" aria-current="true">EN</a><a href="/ar/" lang="ar">العربية</a>
         </div>
         <span aria-hidden="true">·</span>
-        <a href="/study/"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
+        <a href="#"><svg class="icon"><use href="#ic-signin"/></svg><span>Sign in</span></a>
       </div>
     </div>
   </div>
@@ -500,7 +440,7 @@ a{color:inherit}
       <p class="identity__tag"><i></i>Founding phase · Fully distance-learning<i></i></p>
       <div class="identity__actions">
         <button class="iconbtn" aria-label="Search the College"><svg class="icon"><use href="#ic-search"/></svg></button>
-        <a class="btn btn--gilt btn--sm" href="/admissions/">Begin placement</a>
+        <a class="btn btn--gilt btn--sm" href="#">Begin placement</a>
         <button class="navtoggle iconbtn" aria-label="Open menu" data-drawer-open><svg class="icon"><use href="#ic-menu"/></svg></button>
       </div>
     </div>
@@ -510,7 +450,7 @@ a{color:inherit}
     <div class="wrap"><div class="navgrid__row">
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-inst"/></svg></span><span>The Institution</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span><span>Academics</span></a>
-      <a href="/admissions/" aria-current="page"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
+      <a href="/admissions/"><span class="navgrid__badge"><svg class="icon"><use href="#ic-doc"/></svg></span><span>Admissions</span></a>
       <a href="/study/"><span class="navgrid__badge"><svg class="icon"><use href="#ic-signin"/></svg></span><span>The Study</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-ribbon"/></svg></span><span>Credentials</span></a>
       <a href="#"><span class="navgrid__badge"><svg class="icon"><use href="#ic-bell"/></svg></span><span>News</span></a>
@@ -521,7 +461,7 @@ a{color:inherit}
   <div class="subnav">
     <div class="wrap">
       <a href="/study/" class="is-primary"><svg class="icon"><use href="#ic-signin"/></svg>Sign in to the Study</a>
-      <a href="#"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
+      <a href="/admissions/"><svg class="icon"><use href="#ic-target"/></svg>Placement assessment</a>
       <a href="#"><svg class="icon"><use href="#ic-check"/></svg>Verify a credential</a>
       <a href="#"><svg class="icon"><use href="#ic-book"/></svg>The Academic Bible</a>
       <a href="#"><svg class="icon"><use href="#ic-mail"/></svg>Contact admissions</a>
@@ -543,7 +483,7 @@ a{color:inherit}
   </div>
   <div class="drawer__actions">
     <a href="/study/" class="is-primary">Sign in to the Study<span>→</span></a>
-    <a href="#">Placement assessment<span>→</span></a>
+    <a href="/admissions/">Placement assessment<span>→</span></a>
     <a href="#">Verify a credential<span>→</span></a>
   </div>
   <nav class="drawer__grid" aria-label="Primary">
@@ -556,7 +496,7 @@ a{color:inherit}
     <a href="#"><span class="drawer__badge"><svg class="icon"><use href="#ic-mail"/></svg></span>Contact</a>
   </nav>
   <div class="drawer__util">
-    <span>Reading size · EN / العربية</span>
+    <span>Reading size · <a href="/">EN</a> / <a href="/ar/">العربية</a></span>
     <span>Founding phase</span>
   </div>
 </div>
@@ -569,15 +509,22 @@ a{color:inherit}
     <line x1="60" y1="560" x2="540" y2="560" stroke="#D9BC7B" stroke-width="1.2"/>
   </svg>
   <div class="wrap">
-    <span class="eyebrow rv"><span class="type">Admissions</span></span>
+    <span class="eyebrow rv"><span class="type">Arabic · Qur'an · Islamic Sciences</span></span>
     <div class="rule rv rv-draw"></div>
-    <h1 class="rv">Read everything, before you tell us anything.</h1>
-    <p class="lead rv">Every programme, every pace, every fee band and the placement assessment
-      are open to read without an account. You will not meet a signup wall until the moment you
-      actually choose to apply — and that moment comes last, not first.</p>
+    <h1 class="rv">A serious education in Arabic and the Islamic sciences — wherever you are.</h1>
+    <p class="ar rv" lang="ar">تعليمٌ جادٌّ في اللغة العربية والعلوم الإسلامية، أينما كنت.</p>
+    <p class="lead rv">Al-Madeenah is built for a student studying from a phone, a break room, or a
+      borrowed connection — not a campus with a login screen bolted on. Progress is decided by
+      demonstrated mastery in front of a qualified teacher, never by the calendar.</p>
     <div class="ctas rv">
       <a class="btn btn--primary" href="/admissions/">Take the placement assessment — free</a>
-      <a class="btn btn--gilt" href="#">See fees by region</a>
+      <a class="btn btn--gilt" href="#">Read the academic model</a>
+    </div>
+    <div class="status rv" id="status">
+      <span class="dot" aria-hidden="true"></span>
+      <p><strong>This is a founding-phase institution.</strong> No cohort
+        has yet started, and nothing is claimed that cannot presently be evidenced.
+        <a href="#">Read the honesty statement →</a></p>
     </div>
   </div>
 </section>
@@ -585,132 +532,41 @@ a{color:inherit}
 <section class="section section--ivory">
   <div class="wrap">
     <div class="section-head rv">
-      <span class="eyebrow">The journey</span>
-      <h2>Five stages, in order — and what each one is for.</h2>
-      <p class="lead section-head__lead">Nothing before stage three asks for a payment or an
-        account. A stage is skipped only if it genuinely doesn't apply to you, never to save you
-        a click.</p>
+      <span class="eyebrow">The academic ladder</span>
+      <h2>Three faculties. One standard.</h2>
+      <p class="lead section-head__lead">Every faculty is assessed against a published mastery
+        standard, at a pace the student chooses — never the reverse.</p>
     </div>
-    <ol class="steps">
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Explore</h3><p>Read the three faculties, the four paces, and the fee bands.
-          Everything on this page is here before you have given us anything.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Place yourself</h3><p>A free, untimed self-assessment suggests where to start.
-          It exists to answer "where would I even start?" — calibration, not a test to pass.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Apply</h3><p>One application, in one place, including a request for financial
-          aid if you need it. There is never a second process for aid.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Decision</h3><p>Every application receives an answer. There is no silent
-          rejection — a "not yet" is stated plainly, with the reason.</p></div></li>
-      <li class="rv"><span class="steps__n" aria-hidden="true"></span>
-        <div><h3>Orientation</h3><p>A short, unhurried orientation to the Study before your
-          first live class — so the first real lesson is the first unfamiliar thing you meet.</p></div></li>
-    </ol>
-  </div>
-</section>
 
-<section class="section section--cream">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Stage two</span>
-      <h2>The placement assessment.</h2>
+    <div class="progrid">
+      <article class="progrid__card rv">
+        <span class="progrid__badge"><svg class="icon"><use href="#ic-book"/></svg></span>
+        <h3>Faculty of Arabic Language <span class="ar" lang="ar">كلية اللغة العربية</span></h3>
+        <p>Arabic taught as the instrument that opens the tradition — assessed across reading,
+          listening, speaking, writing and classical-text comprehension, not conversational
+          fluency alone.</p>
+        <ul class="progrid__tags"><li>Reading</li><li>Listening</li><li>Speaking</li><li>Writing</li><li>Classical text</li></ul>
+      </article>
+      <article class="progrid__card rv">
+        <span class="progrid__badge"><svg class="icon"><use href="#ic-scroll"/></svg></span>
+        <h3>Faculty of Qur'an <span class="ar" lang="ar">كلية القرآن</span></h3>
+        <p>Nazrah, tajwīd, makhārij and recitation, memorisation measured by <em>retention</em> —
+          verified by unannounced re-testing, not pages reached and left behind.</p>
+        <ul class="progrid__tags"><li>Tajwīd</li><li>Ḥifẓ</li><li>Murājaʿah</li><li>Recitation assessment</li></ul>
+      </article>
+      <article class="progrid__card rv">
+        <span class="progrid__badge"><svg class="icon"><use href="#ic-scale"/></svg></span>
+        <h3>Faculty of Islamic Sciences <span class="ar" lang="ar">كلية العلوم الشرعية</span></h3>
+        <p>ʿAqīdah, fiqh taught from named texts for one stated madhhab, ḥadīth, sīrah and uṣūl —
+          with recognised differences among the schools taught respectfully, never litigated.</p>
+        <ul class="progrid__tags"><li>ʿAqīdah</li><li>Fiqh</li><li>Ḥadīth</li><li>Sīrah</li></ul>
+      </article>
     </div>
-    <div class="placement">
-      <div class="rv">
-        <p class="lead placement__intro">It exists to answer the one question that
-          quietly stops most people from ever applying anywhere: <em>"where would I even start,
-          and will I be embarrassed?"</em> An instrument that answers that with a mark has
-          failed at its only job — so this one doesn't carry one.</p>
-        <p>Six statements about what you can currently do in Arabic, answered honestly, at your
-          own pace. The result is a suggested starting level, not a grade, and you can retake it
-          as many times as you like as your own sense of where you stand changes.</p>
-      </div>
-      <div class="placement__card rv">
-        <h3><svg class="icon" aria-hidden="true"><use href="#ic-target"/></svg>What to expect</h3>
-        <ul class="placement__list">
-          <li><svg class="icon"><use href="#ic-check"/></svg>Free, with no account required to begin</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>Untimed and resumable — close the tab, come back later</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>Unlimited retakes, whenever you want one</li>
-          <li><svg class="icon"><use href="#ic-check"/></svg>A suggested level, never a score or a grade</li>
-        </ul>
-        <a class="btn btn--primary placement__cta" href="/admissions/">Begin the assessment</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--ivory">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Stage three</span>
-      <h2>Applying, honestly.</h2>
-    </div>
-    <div class="callout rv">
-      <span class="callout__k">Institutional status</span>
-      <p><strong>Applications are not open yet.</strong> The College is in its founding phase —
-        no cohort has begun, and no first-intake date is confirmed. This page will carry a real
-        application, an itemised fee schedule and a stated decision time the moment that
-        changes, in the same place this notice stands today.</p>
-      <p>When it opens, applying will ask for: your name, your country of residence, your
-        placement result, your preferred pace, and — entirely optionally — whether you are
-        requesting financial aid. Documents are deferred until after admission wherever
-        possible, so uploading them on limited mobile data is never what stands between you and
-        applying.</p>
-      <p class="callout__date">Status last reviewed: 11 August 2026</p>
-    </div>
-  </div>
-</section>
-
-<section class="section section--cream">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Pace</span>
-      <h2>Four paces. One standard underneath all of them.</h2>
-      <p class="lead section-head__lead">The certificate does not record which pace you
-        studied at — only the level you reached and the date you reached it.</p>
-    </div>
-    <div class="pacegrid">
-      <div class="pacegrid__card rv">
-        <h3>Flexible</h3>
-        <p class="pacegrid__hrs">— <span>irregular</span></p>
-        <p>For unstable schedules, caregiving, or shift work — study resumes whenever your week
-          allows it.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Regular</h3>
-        <p class="pacegrid__hrs">4–6<span> h / week</span></p>
-        <p>The default pace: real, steady progress alongside a full working life.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Intensive</h3>
-        <p class="pacegrid__hrs">10–14<span> h / week</span></p>
-        <p>For a committed learner with genuine spare time to give it each week.</p>
-      </div>
-      <div class="pacegrid__card rv">
-        <h3>Accelerated</h3>
-        <p class="pacegrid__hrs">20–25<span> h / week</span></p>
-        <p>Near full-time study, for a student able to treat this as their main commitment.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--ivory">
-  <div class="wrap">
-    <div class="section-head rv">
-      <span class="eyebrow">Who this is for</span>
-      <h2>Admission is not narrowed to one kind of student.</h2>
-    </div>
-    <ul class="whorow rv">
-      <li>Adults</li><li>Professionals</li><li>Teachers &amp; trainee teachers</li>
-      <li>Converts to Islam</li><li>Families studying in parallel</li><li>Teenagers (16+, with guardian consent)</li>
-    </ul>
-    <p class="progrid__foot rv whorow__foot"><svg class="icon" aria-hidden="true"><use href="#ic-shield"/></svg>
-      <span>Enrolment under 16 is not yet open. A safeguarding structure — a named
-      Safeguarding Lead, a vetting standard, and a recording policy — must be operative and
-      published first, without exception, before that changes.</span></p>
+    <p class="progrid__foot rv"><svg class="icon" aria-hidden="true"><use href="#ic-brief"/></svg>
+      <span>A separate, deliberately lower-weight <strong>Professional &amp;
+      Specialist Programmes</strong> stream — teacher development, professional and corporate
+      Arabic, seasonal intensives — sits outside this core ladder, so it is never mistaken for
+      three years of core study.</span></p>
   </div>
 </section>
 </main>
