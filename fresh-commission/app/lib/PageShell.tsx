@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { SPRITE_DEFS } from "./sprite";
-import { BASE_CSS } from "./base-css";
-import { CHROME_SCRIPT } from "./chrome-script";
-import { headerHtml, footerHtml, type Locale, type NavKey } from "./chrome";
+import { SPRITE_DEFS, BASE_CSS, CHROME_SCRIPT, headerHtml, footerHtml, type Locale, type NavKey } from "./shared";
 
 export function PageShell({
   locale,

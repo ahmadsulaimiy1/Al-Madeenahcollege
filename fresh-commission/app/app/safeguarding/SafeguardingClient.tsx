@@ -1,7 +1,7 @@
 "use client";
 
 import { PageShell } from "@/lib/PageShell";
-import { LEGAL_CSS } from "@/lib/legal-css";
+import { LEGAL_CSS } from "@/lib/shared";
 
 const MAIN_HTML = `
 <section class="section section--ivory">

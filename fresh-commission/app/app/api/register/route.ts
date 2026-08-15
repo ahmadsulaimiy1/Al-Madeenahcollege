@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { getPool, ensureSchema } from "@/lib/db";
-import { sendMail } from "@/lib/agentmail";
+import { getPool, ensureSchema, sendMail } from "@/lib/shared";
 
 export const runtime = "nodejs";
 
