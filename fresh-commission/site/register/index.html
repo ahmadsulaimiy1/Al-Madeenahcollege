@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register — Al-Madeenah International College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/core.css">
+<style>
+.regwrap{max-width:720px;margin-inline:auto}
+.regcard{padding:38px 36px;background:linear-gradient(165deg,var(--ivory),var(--cream));border:1px solid rgba(184,147,61,.22);border-radius:var(--r-card);box-shadow:var(--sh)}
+@media (max-width:560px){.regcard{padding:26px 20px}}
+.regfield{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.regfield label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--blue-800)}
+.regfield .hint{font-size:.8125rem;color:var(--ink-faint)}
+.reginput,.regselect{font-family:inherit;font-size:1rem;padding:13px 15px;border-radius:10px;border:1.5px solid var(--hairline);background:var(--ivory);color:var(--ink);width:100%}
+.reginput:focus,.regselect:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,147,61,.18)}
+.regrow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:560px){.regrow{grid-template-columns:1fr}}
+.regcheck{display:flex;align-items:flex-start;gap:11px;font-size:.9375rem;color:var(--ink-soft)}
+.regcheck input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue-700)}
+.regcheck a{color:var(--blue-700);font-weight:700;text-decoration:underline}
+.regnote{display:none;margin-bottom:20px}
+.regnote.show{display:block}
+.regsubmit{width:100%;justify-content:center;border:0}
+.regsubmit:disabled{opacity:.55;cursor:not-allowed}
+.regok{display:none;text-align:center;padding:10px 4px}
+.regok.show{display:block}
+.regok h2{font-size:1.55rem;margin-bottom:12px}
+.regok p{color:var(--ink-soft);max-width:52ch;margin:0 auto 12px;line-height:1.65}
+#reg-form.hide{display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <div class="util"><div class="wrap"><div class="util__left"><a href="mailto:admissions@almadeenah.college">admissions@almadeenah.college</a></div><div class="util__right"><div class="util__lang"><a href="/" aria-current="true">EN</a><a href="/ar/" lang="ar">العربية</a></div></div></div></div>
+  <div class="identity"><div class="wrap">
+    <a class="brand" href="/"><span class="brand__seal"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 4 L24 44 M10 44 Q10 20 24 12 Q38 20 38 44" stroke="currentColor" stroke-width="1.6"/><circle cx="24" cy="9" r="2.2" fill="currentColor"/></svg></span><span class="word">Al-Madeenah<small>International College</small></span></a>
+    <div class="identity__actions"><a class="btn btn--gilt btn--sm" href="/admissions/">Admissions</a></div>
+  </div></div>
+  <nav class="navgrid" aria-label="Primary"><div class="wrap"><div class="navgrid__row">
+    <a href="/leadership/"><span>Leadership</span></a>
+    <a href="/admissions/"><span>Admissions</span></a>
+    <a href="/register/" aria-current="page"><span>Register</span></a>
+    <a href="/study/"><span>The Study</span></a>
+  </div></div></nav>
+</header>
+<main id="main">
+<section class="section section--ivory" style="padding-block:72px 104px"><div class="wrap regwrap">
+  <div class="section-head" style="margin-bottom:40px">
+    <span class="eyebrow">Register</span>
+    <h2>Begin your application.</h2>
+    <p class="lead section-head__lead">Registration is open now for students aged 16 and over. Every
+      field below is exactly what admissions uses to review your application — nothing is collected
+      "just in case."</p>
+  </div>
+  <div class="regcard">
+    <div id="reg-error" class="callout regnote" role="alert"><span class="callout__k">Could not register</span><p id="reg-error-text"></p></div>
+    <div id="reg-agegate" class="callout regnote" role="status"><span class="callout__k">Registration for this age is not open yet</span>
+      <p>Al-Madeenah accepts students from age 10, but registration for anyone under 16 is not open
+        yet: the safeguarding structure required before any minor may enrol — a named Safeguarding
+        Lead, a vetting standard, and a published recording policy — is not yet in place, and we
+        will not skip it. This will be updated the moment it changes.</p></div>
+    <form id="reg-form" novalidate>
+      <div class="regfield"><label for="fullName">Full name</label><input class="reginput" id="fullName" name="fullName" autocomplete="name" required minlength="2"></div>
+      <div class="regrow">
+        <div class="regfield"><label for="email">Email address</label><input class="reginput" type="email" id="email" name="email" autocomplete="email" required></div>
+        <div class="regfield"><label for="password">Password</label><input class="reginput" type="password" id="password" name="password" autocomplete="new-password" required minlength="8"><span class="hint">At least 8 characters. Stored as a bcrypt hash — never in plain text.</span></div>
+      </div>
+      <div class="regrow">
+        <div class="regfield"><label for="dateOfBirth">Date of birth</label><input class="reginput" type="date" id="dateOfBirth" name="dateOfBirth" required></div>
+        <div class="regfield"><label for="country">Country of residence</label><select class="regselect" id="country" required></select></div>
+      </div>
+      <div class="regfield"><label for="preferredPace">Preferred pace</label>
+        <select class="regselect" id="preferredPace"><option>Flexible</option><option selected>Regular</option><option>Intensive</option><option>Accelerated</option></select>
+      </div>
+      <div class="regfield">
+        <label class="regcheck" style="text-transform:none;letter-spacing:normal;font-weight:400">
+          <input type="checkbox" id="agreeTerms">
+          <span>I have read and agree to the <a href="/terms/" target="_blank">Terms of Service</a> and the <a href="/privacy/" target="_blank">Privacy Policy</a>.</span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn--primary regsubmit" id="reg-submit">Submit registration</button>
+    </form>
+    <div id="reg-ok" class="regok">
+      <h2>Your registration is recorded.</h2>
+      <p id="reg-ok-email">A confirmation has been sent to your email.</p>
+      <p>The College remains in its founding phase: no cohort has yet begun studying, and this is
+        not an offer of a place. It is a genuine, individually-reviewed application.</p>
+      <a class="btn btn--gilt" href="/" style="margin-top:16px">Return home</a>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer class="foot"><div class="wrap"><div class="footbar"><span><span class="dot"></span>Al-Madeenah International College — founding-phase institution, fully distance-learning.</span><span>© Al-Madeenah International College for Arabic &amp; Islamic Studies</span></div></div></footer>
+<script>
+(function(){
+  var COUNTRIES=["Nigeria","Ghana","Senegal","Côte d'Ivoire","Mali","Niger","The Gambia","United Kingdom","Ireland","Germany","France","Netherlands","Sweden","Saudi Arabia","United Arab Emirates","Qatar","Kuwait","Oman","United States","Canada","Egypt","Morocco","Sudan","Kenya","South Africa","Pakistan","India","Bangladesh","Indonesia","Malaysia","Turkey","Jordan","Australia","Other"];
+  var sel=document.getElementById('country');
+  COUNTRIES.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+
+  var dob=document.getElementById('dateOfBirth');
+  var agegate=document.getElementById('reg-agegate');
+  var submitBtn=document.getElementById('reg-submit');
+  var errBox=document.getElementById('reg-error');
+  var errText=document.getElementById('reg-error-text');
+
+  function age(s){
+    var d=new Date(s+'T00:00:00Z'); if(isNaN(d.getTime()))return null;
+    var n=new Date(), a=n.getUTCFullYear()-d.getUTCFullYear();
+    var m=n.getUTCMonth()-d.getUTCMonth();
+    if(m<0||(m===0&&n.getUTCDate()<d.getUTCDate()))a--;
+    return a;
+  }
+  function checkAge(){
+    if(!dob.value){agegate.classList.remove('show');submitBtn.disabled=false;return true;}
+    var a=age(dob.value); var under=a!==null&&a<16;
+    agegate.classList.toggle('show',under); submitBtn.disabled=under;
+    return !under;
+  }
+  dob.addEventListener('change',checkAge);
+
+  function showError(m){errText.textContent=m;errBox.classList.add('show');errBox.scrollIntoView({behavior:'smooth',block:'center'});}
+
+  document.getElementById('reg-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    errBox.classList.remove('show');
+    if(!checkAge()){agegate.scrollIntoView({behavior:'smooth',block:'center'});return;}
+    var data={
+      fullName:document.getElementById('fullName').value.trim(),
+      email:document.getElementById('email').value.trim(),
+      password:document.getElementById('password').value,
+      dateOfBirth:dob.value,
+      country:sel.value,
+      preferredPace:document.getElementById('preferredPace').value,
+      agreeTerms:document.getElementById('agreeTerms').checked
+    };
+    if(data.fullName.length<2){showError('Please enter your full name.');return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)){showError('Please enter a valid email address.');return;}
+    if(data.password.length<8){showError('Password must be at least 8 characters.');return;}
+    if(!data.dateOfBirth){showError('Please enter your date of birth.');return;}
+    if(!data.country){showError('Please select your country of residence.');return;}
+    if(!data.agreeTerms){showError('You must agree to the Terms and Privacy Policy to register.');return;}
+    submitBtn.disabled=true; submitBtn.textContent='Submitting…';
+    fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().then(function(j){return{status:r.status,json:j};});})
+      .then(function(r){
+        if(r.status===201&&r.json.ok){
+          if(r.json.emailSent===false){document.getElementById('reg-ok-email').textContent='Your registration is saved. The confirmation email could not be sent just now — admissions has still been notified, and you will hear from us at the address you registered with.';}
+          document.getElementById('reg-form').classList.add('hide');
+          document.getElementById('reg-ok').classList.add('show');
+          window.scrollTo({top:0,behavior:'smooth'});
+        } else if(r.status===403&&r.json.code==='UNDER_16_NOT_OPEN'){
+          agegate.classList.add('show');agegate.scrollIntoView({behavior:'smooth',block:'center'});
+          submitBtn.disabled=false;submitBtn.textContent='Submit registration';
+        } else {
+          showError(r.json.error||('Registration failed (status '+r.status+').'));
+          submitBtn.disabled=false;submitBtn.textContent='Submit registration';
+        }
+      })
+      .catch(function(){showError('A network error occurred. Please check your connection and try again.');submitBtn.disabled=false;submitBtn.textContent='Submit registration';});
+  });
+})();
+</script>
+</body>
+</html>
