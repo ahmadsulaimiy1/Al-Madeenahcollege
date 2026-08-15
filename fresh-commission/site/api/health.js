@@ -17,6 +17,7 @@ module.exports = async (req, res) => {
   }
 
   let database = "missing";
+  let registrants = null;
   if (cs) {
     try {
       if (!pool) {
@@ -28,6 +29,16 @@ module.exports = async (req, res) => {
       }
       await pool.query("SELECT 1");
       database = "connected";
+      try {
+        // Row count only — no names, emails, or other personal data ever
+        // appear on this diagnostic endpoint.
+        const r = await pool.query("SELECT COUNT(*)::int AS n FROM registrants");
+        registrants = r.rows[0].n;
+      } catch (err) {
+        // Table may not exist yet if nobody has registered since this
+        // database was connected — that's a normal, expected state.
+        registrants = 0;
+      }
     } catch (err) {
       console.error("Health DB check failed:", err);
       database = "error";
@@ -37,6 +48,7 @@ module.exports = async (req, res) => {
   res.status(200).json({
     database: database,
     databaseVia: via,
+    registrants: registrants,
     email: process.env.AGENTMAIL_API_KEY ? "configured" : "missing",
   });
 };
