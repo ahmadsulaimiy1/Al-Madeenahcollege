@@ -57,6 +57,20 @@ function ensureSchema(cs) {
   return schemaReady;
 }
 
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Best-effort direct send — a no-op fallback while AGENTMAIL_API_KEY is
+// unset. Real delivery for now happens out-of-band via
+// api/admin/pending-emails.js + api/admin/mark-emailed.js, read by a
+// scheduled process with its own AgentMail access. This stays here so
+// direct sending resumes automatically the moment the key is configured.
 async function sendMail(opts) {
   const apiKey = process.env.AGENTMAIL_API_KEY;
   if (!apiKey) throw new Error("AGENTMAIL_API_KEY is not set — email not sent");
@@ -175,7 +189,7 @@ module.exports = async (req, res) => {
         "The College remains in its founding phase: no cohort has yet begun studying, and this email is not an offer of a place.\n\n" +
         "— Admissions, Al-Madeenah International College",
       html:
-        "<p>Assalamu alaikum " + fullName + ",</p>" +
+        "<p>Assalamu alaikum " + escapeHtml(fullName) + ",</p>" +
         "<p>Thank you for registering with Al-Madeenah International College. Your registration has been received and recorded, and enters review with admissions — every application receives a real, individual answer.</p>" +
         "<p>The College remains in its founding phase: no cohort has yet begun studying, and this email is not an offer of a place.</p>" +
         "<p>— Admissions, Al-Madeenah International College</p>",
@@ -188,9 +202,9 @@ module.exports = async (req, res) => {
         "\nDate of birth: " + dateOfBirth + " (age " + age + ")\nCountry: " + country +
         "\nPreferred pace: " + preferredPace + "\nRegistrant ID: " + registrantId,
       html:
-        "<p>A new registration was recorded.</p><p>Name: " + fullName + "<br>Email: " + email +
-        "<br>Date of birth: " + dateOfBirth + " (age " + age + ")<br>Country: " + country +
-        "<br>Preferred pace: " + preferredPace + "<br>Registrant ID: " + registrantId + "</p>",
+        "<p>A new registration was recorded.</p><p>Name: " + escapeHtml(fullName) + "<br>Email: " + escapeHtml(email) +
+        "<br>Date of birth: " + dateOfBirth + " (age " + age + ")<br>Country: " + escapeHtml(country) +
+        "<br>Preferred pace: " + escapeHtml(preferredPace) + "<br>Registrant ID: " + registrantId + "</p>",
     });
     emailSent = true;
   } catch (err) {
