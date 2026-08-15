@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { getPool } from "@/lib/db";
+import { getPool, ensureSchema } from "@/lib/db";
 import { sendMail } from "@/lib/agentmail";
 
 export const runtime = "nodejs";
@@ -81,6 +81,16 @@ export async function POST(req: NextRequest) {
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
+
+  try {
+    await ensureSchema();
+  } catch (err) {
+    console.error("Registration schema init error:", err);
+    return NextResponse.json(
+      { error: "Registration could not be saved due to a server error. Please try again shortly." },
+      { status: 500 }
+    );
+  }
 
   const pool = getPool();
   let registrantId: string;
