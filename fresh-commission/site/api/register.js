@@ -95,9 +95,57 @@ function computeAge(dob, at) {
   return age;
 }
 
+// Best-effort abuse controls. The rate limit resets on cold start since it's
+// per-instance in-memory state (no external store configured) — it raises
+// the bar against scripted abuse without adding infrastructure, not a hard
+// guarantee. Honeypot + minimum-time-on-form catch simple bots without
+// inconveniencing real applicants.
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 8;
+const rateLimitMap = new Map();
+
+function clientIp(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  if (typeof fwd === "string" && fwd.length > 0) return fwd.split(",")[0].trim();
+  return req.socket && req.socket.remoteAddress ? req.socket.remoteAddress : "unknown";
+}
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { windowStart: now, count: 1 });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RATE_LIMIT_MAX;
+}
+
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
+    return;
+  }
+
+  const ip = clientIp(req);
+  if (rateLimited(ip)) {
+    res.status(429).json({ error: "Too many attempts. Please try again later." });
+    return;
+  }
+
+  const rawBody = req.body || {};
+  // Honeypot: a field real users never see or fill. Any value here means a
+  // bot filled every field it found. Reject quietly, same shape as a normal
+  // validation error, so scripts get no signal about why.
+  if (typeof rawBody.website === "string" && rawBody.website.trim() !== "") {
+    res.status(400).json({ error: "Registration could not be processed." });
+    return;
+  }
+  // Minimum time-on-form: real applicants take at least a couple of seconds
+  // to fill six fields; scripted submissions typically fire immediately.
+  const loadedAt = Number(rawBody.formLoadedAt);
+  if (Number.isFinite(loadedAt) && Date.now() - loadedAt < 1500) {
+    res.status(400).json({ error: "Registration could not be processed." });
     return;
   }
 
@@ -110,7 +158,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const body = req.body || {};
+  const body = rawBody;
   const fullName = typeof body.fullName === "string" ? body.fullName.trim() : "";
   const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
   const password = typeof body.password === "string" ? body.password : "";

@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register — Al-Madeenah International College</title>
+<meta name="description" content="Register for Al-Madeenah International College. Open now for applicants aged 16 and over — a genuine, individually-reviewed application, not an offer of a place.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=El+Messiri:wght@400;500;600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -77,6 +79,11 @@
       <div class="regfield"><label for="preferredPace">Preferred pace</label>
         <select class="regselect" id="preferredPace"><option>Flexible</option><option selected>Regular</option><option>Intensive</option><option>Accelerated</option></select>
       </div>
+      <div class="regfield" style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+        <label for="website">Website</label>
+        <input class="reginput" type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <input type="hidden" id="formLoadedAt">
       <div class="regfield">
         <label class="regcheck" style="text-transform:none;letter-spacing:normal;font-weight:400">
           <input type="checkbox" id="agreeTerms">
@@ -101,6 +108,7 @@
   var COUNTRIES=["Nigeria","Ghana","Senegal","Côte d'Ivoire","Mali","Niger","The Gambia","United Kingdom","Ireland","Germany","France","Netherlands","Sweden","Saudi Arabia","United Arab Emirates","Qatar","Kuwait","Oman","United States","Canada","Egypt","Morocco","Sudan","Kenya","South Africa","Pakistan","India","Bangladesh","Indonesia","Malaysia","Turkey","Jordan","Australia","Other"];
   var sel=document.getElementById('country');
   COUNTRIES.forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+  document.getElementById('formLoadedAt').value=Date.now();
 
   var dob=document.getElementById('dateOfBirth');
   var agegate=document.getElementById('reg-agegate');
@@ -136,7 +144,9 @@
       dateOfBirth:dob.value,
       country:sel.value,
       preferredPace:document.getElementById('preferredPace').value,
-      agreeTerms:document.getElementById('agreeTerms').checked
+      agreeTerms:document.getElementById('agreeTerms').checked,
+      website:document.getElementById('website').value,
+      formLoadedAt:Number(document.getElementById('formLoadedAt').value)
     };
     if(data.fullName.length<2){showError('Please enter your full name.');return;}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)){showError('Please enter a valid email address.');return;}
